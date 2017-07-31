@@ -1,0 +1,183 @@
+.bl_nav_color{
+  background: #d13030 !important;
+}
+
+.bl_font_color{
+  color: #d13030 !important;
+}
+
+.bl_font_color:hover{
+  color: #d13030 !important;
+}
+
+.bl_hover_line_color:hover{
+  color: #d13030 !important;
+}
+
+.bl_line_color{
+  color: #d13030 !important;
+  border-color: #d13030 !important;
+}
+
+.bl_hover_line_color.active{
+  color: #d13030 !important;
+  border-color: #d13030 !important;
+}
+
+.router-link-exact-active.router-link-active span{
+  background: #266ec1 !important;
+  color: #fff;
+}
+
+.router-link-exact-active.router-link-active.bl_active_color span{
+  background: #d13030 !important;
+  color: #fff;
+}
+
+.bl_active_color .mm-over{
+  background: #d13030 !important;
+  color: #fff;
+}
+
+.bl_sel_color .ivu-select-item-selected , .bl_sel_color .ivu-select-item-selected:hover{
+  background: #d13030 !important;
+}
+
+.ivu-select-item-selected, .ivu-select-item-selected:hover{
+  background:  #266ec1 !important;
+}
+
+.ivu-page-item-active{
+  background:  #266ec1 !important;
+}
+
+.bl_page_color .ivu-page-item-active{
+  background: #d13030 !important;
+}
+
+.ivu-tabs-nav .ivu-tabs-tab-active{
+  color:  #266ec1 !important;
+}
+
+.bl_tab_color .ivu-tabs-nav .ivu-tabs-tab-active{
+  color: #d13030 !important;
+}
+
+.ivu-tabs-ink-bar{
+  background-color:  #266ec1 !important;
+}
+
+.bl_tab_color .ivu-tabs-ink-bar{
+  background-color: #d13030 !important;
+}
+
+
+.my_btn_wrapper {
+  float:left;
+  width:auto;
+  line-height: 45px;
+  display: inline-block;
+  margin-right:2em;
+  text-align:center;
+}
+.my_btn_wrapper:hover{
+  cursor:pointer;
+}
+.button_one {
+  stroke-width: 6px;
+  fill: transparent;
+  stroke: #266ec1;
+  stroke-dasharray: 85 400;
+  stroke-dashoffset: -228;
+  transition: 1s all ease;
+}
+.my_btn_wrapper:hover .button_one {
+  stroke-dasharray: 50 0;
+  stroke-width: 3px;
+  stroke-dashoffset: 0;
+  stroke: #266ec1;
+}
+
+.button_one_text {
+  font-size: 16px;
+  margin-top:-63px;
+  text-align: center;
+}
+
+.bl_my_button_color.my_btn_wrapper #button_one{
+  stroke: #d13030 !important;
+}
+
+.bl_my_button_color.my_btn_wrapper:hover #button_one {
+  stroke: #d13030 !important;
+}
+
+//.my-button{
+//  background:#266ec1;
+//  border-color:#266ec1;
+//  border-radius: 0;
+//}
+//
+a , a:active , a:focus , a:hover {
+  color: #333;
+  text-decoration:none;
+}
+//
+//a:hover {
+//  color: #44844a;
+//}
+//
+//.link_a {
+//  color: #44844a;
+//}
+//
+//.link_a:hover{
+//  color: #47cb89;
+//}
+//
+//body , .ivu-select-selection , .ivu-input , .ivu-page-item , .ivu-page-prev , .ivu-page-next{
+//  background: #f0edf2 !important;
+//}
+//
+//.ivu-tabs-nav .ivu-tabs-tab-active{
+//  color: #44844a;
+//}
+//.ivu-tabs-ink-bar{
+//  background: #44844a;
+//}
+//
+//.ivu-tabs-nav .ivu-tabs-tab:hover{
+//  color: #44844a;
+//}
+//
+//.ivu-page-item-active{
+//  background-color: #44844a;
+//}
+
+
+
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  border: 0 solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 5px;
+  background-clip: content-box;
+  box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

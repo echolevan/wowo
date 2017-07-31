@@ -1,0 +1,116 @@
+<template>
+    <div>
+        <div id="nav" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2) || (!userInfo &&choice_cmap === '2') }">
+            <div class="title">
+                <div class="logo">
+                    <router-link to="/" v-if="!userInfo">窝窝来了</router-link>
+                    <router-link to="/home" v-else>窝窝来了</router-link>
+                </div>
+                <div class="login">
+                    <div v-if="!userInfo">
+                        <span>
+                            <a href="/login">登录</a>
+                        </span>
+                        <span>|</span>
+                        <span>
+                        <a href="/register">注册</a>
+                    </span>
+                    </div>
+                    <div v-else>
+                         <span>
+                            <a href="javascript:void(0);">欢迎回来</a>&nbsp;&nbsp;&nbsp;
+                            <router-link to="/userInfo">{{userInfo.name}}</router-link>
+                        </span>
+                        <span>|</span>
+                        <span><a href="javascript:void(0);" @click="logout">退出登录</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav menu">
+            <div class="underline">
+
+                <ul class="modern-menu theme2">
+                    <li>
+                        <router-link to="/home" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span class="no_active">首页</span></router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name:'waTmw.index' , params:{'type':'wa'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span class="no_active">WA</span></router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name:'waTmw.index' , params:{'type':'twm'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span class="no_active">TMW</span></router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name:'waTmw.index' , params:{'type':'plug'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span class="no_active">魔兽插件</span></router-link>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span>窝窝</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span>黑市</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {myNav} from '../../../common/nav.js'
+    import { mapState } from 'vuex'
+    export default {
+        data() {
+            return {
+            }
+        },
+        computed: mapState([
+            'userInfo' , 'choice_cmap'
+        ]),
+        mounted() {
+            $(".modern-menu").modernMenu();
+        },
+        methods: {
+            logout() {
+                axios.get('user/logout').then(res=>{
+                    if (res.data.sta === '1') {
+                        this.$store.commit('change_userInfo','')
+                    }
+                })
+            }
+        }
+    }
+</script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+    @import "../../../common/nav.css"
+    #nav
+        width 100%
+        height 35px
+        line-height 35px
+        background-color #266ec1
+        .title
+            margin 0 auto
+            width 1240px
+            .logo
+                float left
+                a
+                    color #fff
+            .login
+                float right
+                span
+                    color #fff
+                    padding 0 5px
+                a
+                    color #fff
+
+    .nav.menu
+        padding 15px 0
+        margin 0 auto
+        width 1240px
+        .underline
+            float right
+</style>
