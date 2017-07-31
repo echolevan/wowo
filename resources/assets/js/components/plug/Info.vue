@@ -75,7 +75,7 @@
                         <div class="tool">
                             <div class="num">
                                 <span @click="collect_this(plug.id)" v-if="plug.collect_plug.length === 0">收藏： {{plug.collect_num}}</span>
-                                <span @click="collect_this(plug.id)" v-else>已收藏： {{plug.collect_num}}</span>
+                                <span v-else>已收藏： {{plug.collect_num}}</span>
                                 <span @click="like_this(plug.id)"  v-if="plug.like_plug.length === 0">点赞： {{plug.like_num}}</span>
                                 <span v-else>已点赞： {{plug.like_num}}</span>
                             </div>
