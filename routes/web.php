@@ -82,7 +82,12 @@ Route::get('plugInfo/{id}' , 'PlugController@plugInfo')->name('plug.plugInfo'); 
 Route::get('download/plug/{id}' , 'PlugController@download')->name('plug.download'); // 下载插件
 //collect_this
 Route::group(['middleware' => ['user.login']], function () {
-    Route::get("collect_this/{id}",'PlugController@collect_this');
-    Route::get("like_this/{id}",'PlugController@like_this');
+    Route::get("collect_this/{id}",'PlugController@collect_this'); //收藏插件
+    Route::get("like_this/{id}",'PlugController@like_this'); //点赞插件
+    Route::post("upload_plug_info_img",'UploadController@upload_plug_info_img'); //上传插件详情图片
+    Route::post("upload_plug_screen_img",'UploadController@upload_plug_screen_img'); //上传插件截图插件
+    Route::post("upload_plug_info_plug",'UploadController@upload_plug_info_plug'); //上传插件包
+    Route::get("plug_all_info",'PlugController@plug_all_info'); //上传界面 获取 所有的type
+    Route::put("upload_plug",'PlugController@upload_plug'); //上传插件
 });
 

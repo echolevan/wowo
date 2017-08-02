@@ -182,6 +182,7 @@
             },
             download(id){
                 axios.get(`download/plug/${id}`).then(res=>{
+                    console.log(res)
                     if(res.data.sta === 0){
                         this.$Message.error(res.data.msg)
                     }else{
@@ -191,7 +192,7 @@
                             this.download_model = true
                         }else if (res.data.type === 2){
                             // 跳转 下载
-                            window.location.href= this.data.info.content;
+                            window.location.href= res.data.info.content;
                         }else{
                             // 收费插件 跳转到支付页面
                         }

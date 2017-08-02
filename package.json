@@ -26,6 +26,7 @@
     "vue-preview": "^1.0.5",
     "vue-router": "^2.7.0",
     "vue2-animate": "^1.0.4",
+    "vue2-editor": "^2.0.26",
     "vuex": "^2.3.1"
   }
 }

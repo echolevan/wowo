@@ -14,6 +14,9 @@
                                 <li  v-for="child in tag.tags " :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(child.id , child.pid)" >{{child.name}}</li>
                             </div>
                         </div>
+                        <li @click="upload_plug">
+                            <a href="javascript:void(0)" >上传插件</a>
+                        </li>
                     </ul>
                 </div>
             </iCol>
@@ -143,6 +146,14 @@
                     this.plugs_count = res.data.count
                     this.this_page = 1
                 })
+            },
+
+            upload_plug(){
+                if(this.$store.state.userInfo){
+                    this.$router.push("/upload")
+                }else{
+                    this.$Message.error('请先登录')
+                }
             }
         },
         components:{

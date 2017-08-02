@@ -13,4 +13,9 @@ class Tag extends Model
     {
         return $this->hasMany(self::class , 'pid' , 'id');
     }
+
+    public function children()
+    {
+        return $this->hasMany(self::class , 'pid' , 'id');
+    }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Plug;
+use App\Tag;
+use App\Thumb;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -181,6 +183,7 @@ class PlugController extends Controller
         $plug = Plug::select('type' , 'is_free' , 'title' , 'content')->find($id);
         // 是否是免费的
         if($plug->is_free == 0){
+            Plug::find($id)->increment('download_num');
             // 是否是免费的
             if($plug->type == 1 || $plug->type == 2){
                 // wa twm  model
@@ -222,8 +225,72 @@ class PlugController extends Controller
 //                 return ['sta'=>0 , 'msg'=>'支付失败'];
 //             }
 
-             return ['sta'=>0 , 'type'=>3];
+             return ['sta'=>1 , 'type'=>3];
 
         }
+    }
+
+    /**
+     * @return array
+     * 得到分类连动
+     */
+    public function plug_all_info()
+    {
+        $tag = [[1,1,'WA'] , [1,2,'TMW'] , [2,3,'插件']];
+
+        $res = [];
+        foreach($tag as $k => $v){
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['label'] = $v[2];
+            $res[$k]['children'] = Tag::with(['children'=>function($query){
+                $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type',$v[0])->where('pid',0)->where([['status' , 1] , ['is_check' , 1]])->get();
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * 上传插件
+     */
+    public function upload_plug(Request $request)
+    {
+        $req = collect($request->data);
+        $plug = $req->except('uploadList' , 'type' , 'content' , 'plug_url');
+        $type = $req->only('type');
+        $uploadList = $req->only('uploadList');
+
+        // 开始写入值
+        $Plug = new Plug;
+        foreach ($plug as $k => $v){
+            $Plug->$k = $v;
+        }
+        $Plug->user_id = Auth::id();
+        $Plug->wwb = is_null($req['wwb']) ? 0 : $req['wwb'];
+        $Plug->type = $type['type'][0];
+        $Plug->type_one = $type['type'][1];
+        $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
+        $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
+
+         DB::beginTransaction();
+         try{
+             $Plug->save();
+             foreach ($uploadList['uploadList'] as $v){
+                 Thumb::create([
+                     'thumb' => $v['url'],
+                     'plug_id' => $Plug->id,
+                     'width' => $v['width'],
+                     'height' => $v['height'],
+                 ]);
+             }
+             DB::commit();
+         }catch(\Exception $e){
+             DB::rollBack();
+             return ['sta'=>0 , 'msg'=>'添加失败'];
+         }
+
+        return ['sta'=>1 , 'msg'=>'上传成功'];
     }
 }

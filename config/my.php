@@ -18,6 +18,14 @@ return [
         'wa' => 1,
         'twm' => 1,
         'plug' => 2
+    ],
+
+    'img_type' => [
+        'image/jpeg' , 'image/png' , 'image/gif'
+    ],
+
+    'upload_plug_type' => [
+        'zip' , 'rar' , '7z'
     ]
 
 ];

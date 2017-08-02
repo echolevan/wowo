@@ -153,6 +153,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -236,6 +239,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.plugs_count = res.data.count;
                 _this2.this_page = 1;
             });
+        },
+        upload_plug: function upload_plug() {
+            if (this.$store.state.userInfo) {
+                this.$router.push("/upload");
+            } else {
+                this.$Message.error('请先登录');
+            }
         }
     },
     components: {
@@ -324,7 +334,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v(_vm._s(child.name))])
     })) : _vm._e()]) : _vm._e()
-  })], 2)])]), _vm._v(" "), _c('iCol', {
+  }), _vm._v(" "), _c('li', {
+    on: {
+      "click": _vm.upload_plug
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "javascript:void(0)"
+    }
+  }, [_vm._v("上传插件")])])], 2)])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "14"
     }
