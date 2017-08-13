@@ -3,26 +3,26 @@
         <div id="nav" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2) || (!userInfo &&choice_cmap === '2') }">
             <div class="title">
                 <div class="logo">
-                    <router-link to="/" v-if="!userInfo">窝窝来了</router-link>
-                    <router-link to="/home" v-else>窝窝来了</router-link>
+                    <router-link to="/" class="my_a_style" v-if="!userInfo">窝窝来了</router-link>
+                    <router-link to="/home" class="my_a_style" v-else>窝窝来了</router-link>
                 </div>
                 <div class="login">
                     <div v-if="!userInfo">
                         <span>
-                            <a href="/login">登录</a>
+                            <a href="javascript:void(0)" class="my_a_style" @click="login">登录</a>
                         </span>
                         <span>|</span>
                         <span>
-                        <a href="/register">注册</a>
+                        <a href="javascript:void(0)" class="my_a_style" @click="register">注册</a>
                     </span>
                     </div>
                     <div v-else>
                          <span>
                             <a href="javascript:void(0);">欢迎回来</a>&nbsp;&nbsp;&nbsp;
-                            <router-link to="/userInfo">{{userInfo.name}}</router-link>
+                            <router-link to="/userInfo" class="my_a_style">{{userInfo.name}}</router-link>
                         </span>
                         <span>|</span>
-                        <span><a href="javascript:void(0);" @click="logout">退出登录</a></span>
+                        <span><a href="javascript:void(0);" class="my_a_style" @click="logout">退出登录</a></span>
                     </div>
                 </div>
             </div>
@@ -47,10 +47,10 @@
                             <span class="no_active">魔兽插件</span></router-link>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><span>窝窝</span></a>
+                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>窝窝</span></a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><span>黑市</span></a>
+                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>黑市</span></a>
                     </li>
                 </ul>
             </div>
@@ -80,6 +80,14 @@
                         this.$store.commit('change_userInfo','')
                     }
                 })
+            },
+            login(){
+                localStorage.setItem('redirect',this.$route.path)
+                window.location.href="/login"
+            },
+            register(){
+                localStorage.setItem('redirect',this.$route.path)
+                window.location.href="/register"
             }
         }
     }
@@ -103,9 +111,10 @@
                 float right
                 span
                     color #fff
-                    padding 0 5px
+                    padding 0 7px
                 a
                     color #fff
+                    padding 0 7px
 
     .nav.menu
         padding 15px 0

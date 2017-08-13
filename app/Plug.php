@@ -10,7 +10,6 @@ class Plug extends Model
     protected $guarded = [];
     protected $appends = ['type_name'];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      * // 截图
@@ -19,7 +18,6 @@ class Plug extends Model
     {
         return $this->hasMany(Thumb::class);
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * 一级标签
@@ -54,7 +52,7 @@ class Plug extends Model
      * 点赞
      */
     function like_plug(){
-        return $this->belongsToMany(User::class , 'like_plugs')->withTimestamps();
+        return $this->belongsToMany(User::class , 'like_plugs','plug_id','user_id')->withTimestamps();
     }
 
 
@@ -63,7 +61,17 @@ class Plug extends Model
      * 收藏
      */
     function collect_plug(){
-        return $this->belongsToMany(User::class , 'collect_plugs')->withTimestamps();
+        return $this->belongsToMany(User::class , 'collect_plugs','plug_id','user_id')->withTimestamps();
+    }
+
+    public function is_pay()
+    {
+        return $this->belongsTo(Order::class,'plug_id','plug_only_id');
+    }
+
+    public function historys()
+    {
+        return $this->hasMany(self::class,'plug_id','plug_id');
     }
 
     public function getTypeNameAttribute()

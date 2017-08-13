@@ -8,4 +8,9 @@ class Order extends Model
 {
     //
     protected $guarded = [];
+
+    public function plug()
+    {
+        return $this->belongsTo(Plug::class);
+    }
 }

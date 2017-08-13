@@ -2,9 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Lv;
+use App\Order;
+use App\Plug;
+use App\Recharge;
 use App\User;
+use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -13,8 +22,11 @@ class UserController extends Controller
     {
 
 
-        if (Auth::check())
-            return ['sta' =>'1' , 'info' => Auth::user()];
+        if (Auth::check()){
+            $arr = explode('@',Auth::user()->email);
+            $domain = $arr[1];
+            return ['sta' =>'1' , 'info' => Auth::user() , 'email'=>'http://mail.'.$domain];
+        }
         return ['sta' => 0];
     }
 
@@ -40,4 +52,247 @@ class UserController extends Controller
             return redirect(abort(404));
         }
     }
+
+    /**
+     * @param Request $request
+     * 用户充值
+     * config my ==== recharge_type
+     */
+    public function recharge(Request $request)
+    {
+
+        if($request->recharge_amount <= 0){
+            // pay other amount
+            $recharge_amount = $request->recharge_amount_other;
+        }else{
+            $recharge_amount = $request->recharge_amount;
+        }
+
+        $lv = $this->get_user_lv();
+        // 生成充值订单
+        $rec = Recharge::create([
+            'user_id' => Auth::id(),
+            'recharge_type' => $request->recharge_type,
+            'recharge_amount' => sprintf("%.2f",$recharge_amount),
+            'recharge_wwb' => $recharge_amount*10,
+            'giving_wwb' => floor($recharge_amount*10*$lv['info']->giving / 100),
+            'status' => 0,
+        ]);
+
+        Log::info(json_encode($rec));
+
+        if(!$rec){
+            Log::error(json_encode($rec));
+            return ['sta'=>0 , 'msg'=>'创建充值订单失败'];
+        }
+
+        if($request->recharge_type == 1){
+            // 支付宝
+            // todo
+        }else if($request->recharge_type == 2){
+            // 微信
+            // todo
+        }
+
+        // 如果支付成功
+         DB::beginTransaction();
+         try{
+              Recharge::where('id',$rec->id)->update([
+                 'status'=>9
+             ]);
+             User::where('id',Auth::id())->update([
+                 'wwb' => Auth::user()->wwb + $recharge_amount*10 + floor( $recharge_amount*10*$lv['info']->giving / 100)
+             ]);
+             DB::commit();
+         }catch(\Exception $e){
+             DB::rollBack();
+             Log::error(json_encode([$rec, Auth::id()]));
+             return ['sta'=>0 , 'msg'=>'充值失败，但付款成功，请联系客服'];
+         }
+
+        $user_info = User::where('id',Auth::id())->first();
+        return ['sta'=>1 , 'msg'=>'充值成功','info'=>$user_info];
+    }
+
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function upload_avatar(Request $request)
+    {
+
+        $info = explode("/",$request->file('file')->getClientMimeType());
+
+        if( !in_array( $request->file('file')->getClientMimeType() , config('my.img_type') ) ){
+            return ['sta'=> 0 ,'msg'=>'请上传PNG、GIF、JPG格式的图片'];
+        }
+        if($request->file('file')->getSize() > 1024*1024*3){
+            return ['sta'=> 0 ,'msg'=>'请上传小于3M的图片'];
+        }
+
+        $path = "image";
+        $url = upload_avatar_img($request->file('file') , $path , [300,300] , end($info));
+
+        if($url){
+            User::where('id',Auth::id())->update([
+                'avatar' => $url
+            ]);
+
+            $info = User::find(Auth::id());
+        }
+        return ['sta'=> 1 ,'info'=>$info];
+    }
+
+
+    public function update(Request $request)
+    {
+        if($request->camp != Auth::user()->camp){
+
+            $sta = $this->check_is_camp();
+            if(!$sta['sta']){
+                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营'];
+            }
+
+            $arr = [
+                'name' => $request->name,
+                'camp' => $request->camp,
+                'info' => is_null($request->info) ? '' : $request->info,
+                'update_camp_at' => time()
+            ];
+        }else{
+            $arr = [
+                'name' => $request->name,
+                'info' => is_null($request->info) ? '' : $request->info,
+            ];
+        }
+
+        User::where('id',Auth::id())->update($arr);
+
+        $info = User::find(Auth::id());
+
+        return ['sta'=> 1 ,'info'=>$info];
+    }
+
+    public function check_is_camp()
+    {
+        if( !Auth::user()->update_camp_at || time() - Auth::user()->update_camp_at > 30*60*60*24 )
+            return ['sta'=> 1];
+        return ['sta'=> 0];
+    }
+
+
+    /**
+     * @param $page
+     * @param $size
+     * 我购买的插件
+     */
+    public function orders_pay($page, $size)
+    {
+        $count = Order::where('user_id',Auth::id())->count();
+        $res = Order::where('user_id',Auth::id())->with(['plug'=>function($query){
+            $query->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id');
+        }])->skip(($page-1)*$size)->take($size)->get();
+
+        return ['count'=>$count , 'res'=>$res];
+    }
+
+    /**
+     * @param $page
+     * @param $size
+     * 我收藏的插件
+     */
+    public function orders_collect($page, $size)
+    {
+        $count = Plug::leftJoin('collect_plugs','plugs.plug_id','collect_plugs.plug_id')->where('is_new',1)->where('collect_plugs.user_id',Auth::id())->count();
+        $res = Plug::leftJoin('collect_plugs','plugs.plug_id','collect_plugs.plug_id')->where('is_new',1)->where('collect_plugs.user_id',Auth::id())->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->skip(($page-1)*$size)->take($size)->get();
+        return ['res'=>$res,'count'=>$count];
+    }
+
+    /**
+     * @param $page
+     * @param $size
+     * 我上传的插件
+     */
+    public function orders_upload($page, $size)
+    {
+        $count = Plug::where('user_id',Auth::id())->where('is_new',1)->count();
+        $res = Plug::where('user_id',Auth::id())->with(['historys'=>function($query){
+            $query->where('is_new',0)->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->latest();
+        }])->where('is_new',1)->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->orderBy('created_at','desc')->skip(($page-1)*$size)->take($size)->get();
+        return ['count'=>$count , 'res'=>$res];
+    }
+
+
+    /**
+     * @param $page
+     * @param $size
+     * 充值记录
+     */
+    public function get_orders_history($page, $size)
+    {
+        $count = Recharge::where('user_id',Auth::id())->where('status',9)->count();
+        $res = Recharge::where('user_id',Auth::id())->where('status',9)->skip(($page-1)*$size)->take($size)->orderBy('created_at','desc')->get();
+        return ['count'=>$count , 'res'=>$res];
+    }
+    
+    public function send_mail()
+    {
+        // put in session
+        if (Cache::has(Auth::id()."_send_mail")) {
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
+        }
+        Cache::forget(Auth::id()."_send_mail");
+        Cache::add(Auth::id()."_send_mail", time(), 1);
+        User::where('id',Auth::id())->update([
+            'token' => str_random(60)
+        ]);
+        $user = User::find(Auth::id());
+        $user->notify(new \App\Notifications\UserCreated($user));
+        return ['sta'=>1 , 'msg'=>'邮件发送成功'];
+    }
+
+    /**
+     * @param Request $request
+     * password
+     */
+    public function check_password(Request $request)
+    {
+        $user = User::find(Auth::id());
+        if(Hash::check($request->password, $user->password)) {
+            return ['sta'=> 1 ,'msg'=>'ok'];
+        }
+        return ['sta'=> 0 ,'msg'=>'原始密码错误' ];
+    }
+
+    /**
+     * @param Request $request
+     * password
+     */
+    public function update_password(Request $request)
+    {
+        $user = User::find(Auth::id());
+        $user = $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+        if($user){
+            return ['sta'=> 1 ,'msg'=>'密码重置成功'];
+        }
+        return ['sta'=> 0 ,'msg'=>'密码重置失败' ];
+    }
+
+    public function get_user_lv()
+    {
+        $recharge = Recharge::where('user_id',Auth::id())->where('status',9)->sum('recharge_amount');
+        $type = Lv::get();
+        $lv = [];
+        foreach ($type as $k => $v){
+            if( $recharge >= json_decode($v->money , true)[0]){
+                $lv = $type[$k];
+            }
+        }
+        return ['sta'=>1 , 'info'=>$lv];
+    }
+
+
 }

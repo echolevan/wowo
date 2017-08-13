@@ -25,7 +25,7 @@ class UploadController extends Controller
         }
 
 //        $ext = $request->file('image')->getClientOriginalExtension();
-        $path = "upload_plug_info_img/".date('Y-m-d');
+        $path = "image/";
         $url = upload_img($request->file('image') , $path);
         return ['sta'=> 1 ,'url'=>$url];
     }
@@ -46,7 +46,7 @@ class UploadController extends Controller
             return ['sta'=> 0 ,'msg'=>'请上传小于1M的图片'];
         }
 //        $ext = $request->file('file')->getClientOriginalExtension();
-        $path = "upload_plug_screen_img/".date('Y-m-d');
+        $path = "image/";
         $url = upload_img($request->file('file') , $path);
         return ['sta'=> 1 ,'url'=>$url , 'width'=>$size[0] , 'height' => $size[1]];
     }
@@ -57,8 +57,8 @@ class UploadController extends Controller
             return ['sta'=> 0 ,'msg'=>'请上传zip、rar、7z格式的图片'];
         }
 
-        $path = "upload_plug_info_plug/".date('Y-m-d');
-        $url = upload_img($request->file('file') , $path);
+        $path = "addons/";
+        $url = upload_plug($request->file('file') , $path);
         return ['sta'=> 1 ,'url'=>$url];
     }
 }

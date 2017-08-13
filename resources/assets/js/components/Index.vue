@@ -2,8 +2,8 @@
     <div>
         <v-nav v-if="$route.name !== 'index'"></v-nav>
         <div class="main content">
-            <transition mode="out-in" enter-active-class="animated fadeInLeft"
-                        leave-active-class="animated fadeOutRight">
+            <!--mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated zoomOutDown"-->
+            <transition>
                 <router-view></router-view>
             </transition>
         </div>
@@ -18,6 +18,11 @@
             return {}
         },
         mounted () {
+            let redirect = localStorage.getItem('redirect');
+            if(redirect && redirect !== "/"){
+                localStorage.setItem('redirect' , "/")
+                this.$router.push(redirect)
+            }
             this._init()
             this.choice_camp()
         },
@@ -38,7 +43,7 @@
                         if(res.data.info.is_active === 0){
                             this.$Notice.open({
                                 title: '您的帐号还未激活',
-                                desc: '已经发送了一封邮件到您的邮箱，请去验证。',
+                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
                                 duration: 0
                             });
                         }

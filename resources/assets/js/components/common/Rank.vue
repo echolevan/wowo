@@ -3,13 +3,13 @@
         <div class="download_rank">
             <div class="title">
                 <strong>下载排行榜</strong>
-                <span>More</span>
+                <!--<span>More</span>-->
             </div>
             <ul>
                 <li v-for="(v , k) in rank_download">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
-                        <span style="color: #333 !important;background-color: #fff !important;"  class="tit">{{v.title}}</span>
+                        <span style="color: #333 !important;background-color: #fff !important;"  class="tit my_a_style">{{v.title}}</span>
                     </router-link>
                     <span class="dig">{{v.simple_info}}</span>
                     <span class="size">{{v.download_num}}</span>
@@ -20,16 +20,16 @@
         <div class="start_rank">
             <div class="title">
                 <strong>评分排行榜</strong>
-                <span>More</span>
+                <!--<span>More</span>-->
             </div>
             <ul>
                 <li v-for="(v , k) in rank_score">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
-                        <span style="color: #333 !important;background-color: #fff !important;"  class="tit">{{v.title}}</span>
+                        <span style="color: #333 !important;background-color: #fff !important;"  class="tit my_a_style">{{v.title}}</span>
                     </router-link>
                     <span class="dig">{{v.simple_info}}</span>
-                    <span class="score">{{v.score}}</span>
+                    <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.score}}</span>
                 </li>
             </ul>
         </div>
@@ -130,7 +130,7 @@
                 right: 10px;
             .score
                 font-size: 20px;
-                color: #358335;
+                color: #266ec1;
                 position: absolute;
                 right: 10px;
                 top: 0;

@@ -35,7 +35,7 @@
                         </div>
                         <div class="content_main">
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
-                                <strong>{{plug.title}}</strong>
+                                <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
                             <!--<router-link :to="{name:'plug.info' , params:{id: plug.id}}">-->
                                 <!--<Button type="success" class="my-button">下载</Button>-->
@@ -102,6 +102,8 @@
         watch: {
             '$route' (to, from) {
                 this._init()
+                this.tag_active = 0
+                this.tag_active_pid = 0
             }
         },
         mounted () {
@@ -170,6 +172,7 @@
             font-size 18px
             padding 15px 0
         img
+            background-color: #333;
             width 25px
             height 25px
         ul
@@ -197,12 +200,7 @@
             border-bottom 1px solid #ddd
             a
                 color #555
-                transition-property: all;
-                transition-duration: .5s;
-                transition-timing-function: ease;
-                transition-delay: .0s;
                 &:hover
-                    margin-left 15px
                     color #266ec1
             .img_view
                 width 60px

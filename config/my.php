@@ -26,6 +26,13 @@ return [
 
     'upload_plug_type' => [
         'zip' , 'rar' , '7z'
-    ]
+    ],
+
+    'recharge_type' => [
+        '1' => '支付宝',
+        '2' => '微信'
+    ],
+
+    'down_url' => 'https://down.iwowcn.com/'
 
 ];

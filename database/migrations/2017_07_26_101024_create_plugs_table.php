@@ -16,7 +16,7 @@ class CreatePlugsTable extends Migration
         Schema::create('plugs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->index()->comment('用户ID');
-            $table->integer('plug_id')->unique()->index()->comment('插件唯一ID');
+            $table->integer('plug_id')->index()->comment('插件唯一ID');
             $table->string('title',120)->comment('插件标题');
             $table->string('simple_info',100)->comment('插件简介');
             $table->text('info')->comment('插件详情');

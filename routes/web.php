@@ -12,43 +12,6 @@
 */
 
 Route::get('/', function () {
-//    $thumb = [
-//        'http://pic.58pic.com/58pic/12/57/43/21f58PICRkp.jpg',
-//        'http://img4.imgtn.bdimg.com/it/u=541094027,2507810915&fm=26&gp=0.jpg',
-//        'http://img4.imgtn.bdimg.com/it/u=1995986088,2555682542&fm=27&gp=0.jpg',
-//        'http://wow.tgbus.com/UploadFiles_2396/201402/20140212110258533.jpg'
-//    ];
-//
-//
-//    for ($i = 1 ; $i <=153 ; $i++){
-//        \App\Thumb::create([
-//            'plug_id' => $i,
-//            'thumb' => collect($thumb)->random(),
-//        ]);
-//    }
-
-//    $res = \App\Plug::first();
-//
-//    for ($i = 0 ; $i< 10; $i ++){
-//        \App\Plug::create([
-//            'user_id' => 1,
-//            'plug_id' => str_random(50),
-//            'title' => str_random(20),
-//            'simple_info' => str_random(rand(50,100)),
-//            'info' => $res->info,
-//            'type' => rand(1,2),
-//            'type_one' => 11,
-//            'type_two' => 15,
-//            'content' => str_random(50),
-//            'is_new' => 1,
-//            'version' => '1.0.1',
-//            'game_version' => '7.2',
-//            'download_num' => rand(55,9000),
-//            'like_num' => rand(55,9000),
-//            'collect_num' => rand(55,9000)
-//        ]);
-//    }
-
     return view('welcome');
 })->name('index');
 
@@ -63,7 +26,7 @@ Route::get('/sign', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('user/check_email/{token}' , 'UserController@check_email')->name('user.check_email');
@@ -88,6 +51,29 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("upload_plug_screen_img",'UploadController@upload_plug_screen_img'); //上传插件截图插件
     Route::post("upload_plug_info_plug",'UploadController@upload_plug_info_plug'); //上传插件包
     Route::get("plug_all_info",'PlugController@plug_all_info'); //上传界面 获取 所有的type
-    Route::put("upload_plug",'PlugController@upload_plug'); //上传插件
+    Route::put("upload_plug/{plug_id}",'PlugController@upload_plug'); //上传插件
+    Route::post("user/recharge",'UserController@recharge'); //用户充值
+    Route::post("to_pay_plug",'PlugController@to_pay'); //用户购买插件
+    Route::post("user/upload_avatar",'UserController@upload_avatar'); //用户上传头像
+    Route::post("user/update",'UserController@update'); //用户更新资料
+    Route::get("user/check_is_camp",'UserController@check_is_camp'); //检查是否能修改阵营
+    Route::post("user/orders/pay/{page}/{size}",'UserController@orders_pay'); //我购买的插件
+    Route::post("user/orders/collect/{page}/{size}",'UserController@orders_collect'); //我搜藏的插件
+    Route::post("user/orders/upload/{page}/{size}",'UserController@orders_upload'); //我上传的插件
+    Route::post("user/get_orders_history/{page}/{size}",'UserController@get_orders_history'); //充值记录
+    Route::get("user/send_mail",'UserController@send_mail'); //发送激活邮件
+    Route::post("user/check_password",'UserController@check_password'); // 修改密码时检查密码
+    Route::post("user/update_password",'UserController@update_password'); // 更改密码
+    Route::get("user/lv",'UserController@get_user_lv'); // 更改密码
+    Route::get('update_plugInfo/{id}' , 'PlugController@update_plugInfo')->name('plug.update_plugInfo'); // 编辑插件详情
+    Route::put("update_plug/{id}",'PlugController@update_plug'); //编辑插件
+    Route::get("check_plug_id/{id}",'PlugController@check_plug_id'); //升级插件 检查ID 是否正确
 });
 
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get("/",'AdminController@index');
+    Route::get("plug_all_info",'PlugController@plug_all_info'); //上传界面 获取 所有的type
+    Route::put("tag/create",'TagController@create');
+    Route::post("upload_tag_img",'UploadController@upload_plug_screen_img'); //上传插件详情图片
+});

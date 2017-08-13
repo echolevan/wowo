@@ -58,6 +58,7 @@ RouterConfig.afterEach(() => {
  */
 
 Vue.component('v-index', require('./components/Index.vue'));
+Vue.component('v-admin', require('./components/admin/Index.vue'));
 
 const app = new Vue({
     el: '#app',
