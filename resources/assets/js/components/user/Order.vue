@@ -2,14 +2,15 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 50%">插件名称</div>
+                <div style="width: 40%">插件名称</div>
                 <div style="width: 10%">花费</div>
                 <div style="width: 10%">插件版本</div>
                 <div style="width: 10%">游戏版本</div>
-                <div style="width: 20%">操作</div>
+                <div style="width: 30%">操作</div>
+
             </div>
-            <div class="td_div" v-for="v in orders">
-                <div class="td_child title" style="width: 50%">
+            <div class="td_div" v-for="(v,k) in orders">
+                <div class="td_child title" style="width: 40%">
                     <Poptip :content="v.plug.title" trigger="hover"  placement="bottom">
                         {{v.plug.title}}
                     </Poptip>
@@ -18,11 +19,13 @@
                 <div class="td_child" style="width: 10%" v-else>{{v.plug.wwb}} 金币</div>
                 <div class="td_child" style="width: 10%">{{v.plug.version}}</div>
                 <div class="td_child" style="width: 10%">{{v.plug.game_version}}</div>
-                <div class="td_child tool" style="width: 20%">
+                <div class="td_child tool" style="width: 30%;position: relative">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.plug.id}}">
                         查看详情
                     </router-link>
-                    <a href="javascript:void(0)" class="my_a_style">评分</a>
+                        <span>评分：</span>
+                    <Rate allow-half v-model="score[k]" style="position: absolute;top: 2px" @on-change="rate_score(v.plug.plug_id, k)" v-if="v.score.length === 0"></Rate>
+                    <span v-else>{{v.score[0].score}}</span>
                 </div>
             </div>
         </table>
@@ -41,7 +44,8 @@
                 page: 1,
                 size: 10,
                 count: 0,
-                orders: []
+                orders: [],
+                score: []
             }
         },
         computed: mapState([
@@ -51,7 +55,6 @@
             this.get_orders();
         },
         methods:{
-
             // 更改分页
             change_page (p) {
                 this.page = p
@@ -62,6 +65,16 @@
                     console.log(res)
                     this.count = res.data.count
                     this.orders = res.data.res
+                })
+            },
+            rate_score(id , k){
+                axios.post(`rate_score/${id}`,{score:this.score[k]}).then(res=>{
+                    if(res.data.sta === 0){
+                        this.$Message.error(res.data.msg)
+                    }else{
+                        this.$Message.success(res.data.msg)
+                        this.orders[k].score.push({score:this.score[k] * 2})
+                    }
                 })
             }
         }

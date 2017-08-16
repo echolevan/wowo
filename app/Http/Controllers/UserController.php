@@ -192,6 +192,8 @@ class UserController extends Controller
         $count = Order::where('user_id',Auth::id())->count();
         $res = Order::where('user_id',Auth::id())->with(['plug'=>function($query){
             $query->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id');
+        }])->with(['score'=>function($query){
+            $query->where('scores.user_id',Auth::id());
         }])->skip(($page-1)*$size)->take($size)->get();
 
         return ['count'=>$count , 'res'=>$res];

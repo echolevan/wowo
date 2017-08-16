@@ -36,21 +36,24 @@
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'wa'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">WA</span></router-link>
+                            <span class="no_active">WeakAuras</span></router-link>
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'twm'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">TMW</span></router-link>
+                            <span class="no_active">TellMeWhen</span></router-link>
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'plug'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span class="no_active">魔兽插件</span></router-link>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>窝窝</span></a>
+                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
                     </li>
                     <li>
                         <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>黑市</span></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>
                     </li>
                 </ul>
             </div>
@@ -120,6 +123,4 @@
         padding 15px 0
         margin 0 auto
         width 1240px
-        .underline
-            float right
 </style>

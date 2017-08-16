@@ -209,8 +209,8 @@
                         将会得到
                         <span class="wwb_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span v-if="lv.giving">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
-                            <span v-else>{{pay_amount_other * 10}} <span v-if="lv.giving && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other*10 / 100)}}</span></span>
+                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
+                            <span v-else>{{pay_amount_other * 10}} <span v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other*10 / 100)}}</span></span>
                         </span>
                         金币
                     </p>

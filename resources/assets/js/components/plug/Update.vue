@@ -22,6 +22,7 @@
                 >
                     <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                 </Upload>
+                <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">删除上传的文件重新上传</span>
             </Form-item>
 
             <Form-item label="插件简介" prop="simple_info">
@@ -33,7 +34,7 @@
             </Form-item>
 
             <Form-item label="版本号" prop="version">
-                <Input v-model="formItem.version" placeholder="请输入"></Input>
+                <Input v-model="formItem.version" placeholder="请输入" disabled ></Input>
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
@@ -171,41 +172,45 @@
                 },
                 imgName: '',
                 visible: false,
+                del_plug_sta: 1,
                 loading: false,
                 csrfToken : window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
-                        { required: true, message: '插件标题不能为空', trigger: 'blur' }
+                        {required: true, message: '插件标题不能为空', trigger: 'blur'},
+                        {max: 120, message: '插件标题最长120', trigger: 'change'}
                     ],
                     type: [
-                        { validator: validateType, required: true, trigger: 'change' }
+                        {validator: validateType, required: true, trigger: 'change'}
                     ],
                     content: [
-                        { validator: validateContent,  trigger: 'blur' }
+                        {validator: validateContent, trigger: 'blur'}
                     ],
                     plug_url: [
-                        { validator: validateContentUrl,  trigger: 'change' }
+                        {validator: validateContentUrl, trigger: 'change'}
                     ],
                     info: [
-                        { required: true, message: '插件详情不能为空'}
+                        {required: true, message: '插件详情不能为空'}
                     ],
                     simple_info: [
-                        { required: true, message: '插件详情简介不能为空', trigger: 'blur' }
+                        {required: true, message: '插件详情简介不能为空', trigger: 'blur'},
+                        {max: 100, message: '插件详情简介最长100', trigger: 'change'},
                     ],
                     updated_info: [
-                        { required: true, message: '插件更新详情不能为空', trigger: 'blur' }
+                        {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
+                        {max: 150, message: '插件更新详情最长150', trigger: 'change'}
                     ],
                     uploadList: [
-                        { validator: validateUploadList,  required: true, trigger: 'change' },
+                        {validator: validateUploadList, required: true, trigger: 'change'},
                     ],
                     version: [
-                        { required: true, message: '插件版本号不能为空', trigger: 'blur' }
+                        {required: true, message: '插件版本号不能为空', trigger: 'blur'}
                     ],
                     game_version: [
-                        { required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }
+                        {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
                     ],
                     wwb: [
-                        { validator: validateWWB, trigger: 'change' }
+                        {validator: validateWWB, trigger: 'change'}
                     ]
                 }
             }
@@ -247,6 +252,7 @@
             },
             _init(){
                 axios.get(`update_plugInfo/${this.$route.params.id}`).then(res=>{
+                    console.log(res)
                     if(res.data.sta === 0){
                         this.$router.go(-1)
                     }
@@ -260,7 +266,7 @@
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
                     this.formItem.wwb = res.data.plug.wwb
-                    this.formItem.plug_url = res.data.plug.plug_url
+                    this.formItem.plug_url = res.data.plug.content
                     this.formItem.uploadList = res.data.plug.thumbs
                 }).catch(error=>{
                     history.go(-1)
@@ -268,6 +274,10 @@
               axios.get('plug_all_info').then(res=>{
                   this.plug_tags = res.data
               })
+            },
+            del_plug(){
+                this.formItem.plug_url = ''
+                this.del_plug_sta = 0
             },
             handleImageAdded: function(file, Editor, cursorLocation) {
                 let formData = new FormData();

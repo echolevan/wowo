@@ -37,9 +37,11 @@ Route::get('user/logout' , 'UserController@logout')->name('user.logout');
 Route::get('tag/{type}' , 'TagController@index')->name('tag.index');
 Route::get('plug/{type}' , 'PlugController@index')->name('plug.index');
 Route::post('plug/{type}' , 'PlugController@index')->name('plug.search');
+Route::get('plug_index' , 'PlugController@plug_index')->name('plug.plug_index');
 
 Route::get('plugRank/{type?}' , 'PlugController@plugRank')->name('plug.plugRank'); // 插件排行榜
 Route::get('plugInfo/{id}' , 'PlugController@plugInfo')->name('plug.plugInfo'); // 插件详情
+Route::get("plug_all_info_no_login",'PlugController@plug_all_info_no_login'); //上传界面 获取 所有的type
 
 
 Route::get('download/plug/{id}' , 'PlugController@download')->name('plug.download'); // 下载插件
@@ -68,6 +70,8 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::get('update_plugInfo/{id}' , 'PlugController@update_plugInfo')->name('plug.update_plugInfo'); // 编辑插件详情
     Route::put("update_plug/{id}",'PlugController@update_plug'); //编辑插件
     Route::get("check_plug_id/{id}",'PlugController@check_plug_id'); //升级插件 检查ID 是否正确
+    Route::post("check_version/{plug_id?}",'PlugController@check_version'); //检查版本号是否正确
+    Route::post("rate_score/{plug_id?}",'PlugController@rate_score'); //插件评分
 });
 
 

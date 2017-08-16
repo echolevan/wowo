@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Download;
 use App\Order;
 use App\Plug;
 use App\Recharge;
+use App\Score;
 use App\Tag;
 use App\Thumb;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use function Sodium\increment;
 
 class PlugController extends Controller
 {
@@ -208,6 +212,7 @@ class PlugController extends Controller
         if ($plug->is_free == 0) {
             Plug::where('plug_id',$plug->plug_id)->increment('download_num');
             // 是否是免费的
+            $this->download_num($plug->plug_id);
             if ($plug->type == 1 || $plug->type == 2) {
                 // wa twm  model
                 return ['sta' => 1, 'type' => 1, 'info' => $plug];
@@ -221,6 +226,7 @@ class PlugController extends Controller
             if (Order::where([['plug_only_id', $plug->plug_id], ['user_id', Auth::id()]])->count() > 0) {
                 // 曾经购买过
                 Plug::where('plug_id',$plug->plug_id)->increment('download_num');
+                $this->download_num($plug->plug_id);
                 if ($plug->type == 1 || $plug->type == 2) {
                     // wa twm  model
                     return ['sta' => 1, 'type' => 1, 'info' => $plug];
@@ -231,6 +237,22 @@ class PlugController extends Controller
             }
             return ['sta' => 1, 'type' => 3, 'info' => $plug];
         }
+    }
+
+    public function download_num($plug_id)
+    {
+        $download = Download::where('plug_id',$plug_id)->where('mouth',date('Y-m',time()))->first();
+        if(!$download){
+            Download::create([
+               'plug_id' => $plug_id,
+               'mouth' => date('Y-m',time()),
+               'num' => 1,
+            ]);
+        }else{
+            $download->increment('num');
+        }
+
+        return true;
     }
 
     public function to_pay (Request $request)
@@ -300,6 +322,21 @@ class PlugController extends Controller
         return $res;
     }
 
+    public function plug_all_info_no_login()
+    {
+        $tag = [[1, 1, 'WA'], [1, 2, 'TMW']];
+
+        $res = [];
+        foreach ($tag as $k => $v) {
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['label'] = $v[2];
+            $res[$k]['children'] = Tag::with(['children' => function ($query) {
+                $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])->get();
+        }
+
+        return $res;
+    }
     /**
      * @param Request $request
      * @return array
@@ -318,16 +355,15 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
-        $Plug->plug_id = $plug_id === 0 ? get_only_one_plug_id() : $plug_id;
+        $Plug->plug_id = ($plug_id === 0 || $plug_id === 'undefined') ? get_only_one_plug_id() : $plug_id;
         $Plug->wwb = is_null($req['wwb']) ? 0 : $req['wwb'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
-
         DB::beginTransaction();
         try {
-            if ($plug_id !== 0) {
+            if ($plug_id !== 0 && $plug_id !== 'undefined') {
                 // 升级插件 历史插件 is_new  = 0
                 Plug::where('plug_id', $plug_id)->update(['is_new' => 0]);
                 $num = Plug::where('plug_id', $plug_id)->select('download_num','like_num','collect_num','score')->first();
@@ -408,5 +444,123 @@ class PlugController extends Controller
         if ($plug && $plug->user_id === Auth::id())
             return ['sta' => 1];
         return ['sta' => 0];
+    }
+
+    public function check_version(Request $request , $plug_id = 0)
+    {
+        if(count(explode(".",$request->version)) === 2 && strlen($request->version) === 3 && explode(".",$request->version)[1] >= '0'){
+
+            if($plug_id !== 0 && $plug_id !== 'undefined'){
+                // update
+                $plug = Plug::where('plug_id',$plug_id)->where('is_new',1)->first();
+                if($request->version <= $plug->version ){
+                    return ['sta'=>0 , 'msg'=>'版本号要大于上一个版本'];
+                }else{
+                    return ['sta'=>1];
+                }
+
+            }else{
+                return ['sta'=>1];
+            }
+
+        }else{
+            return ['sta'=>0 , 'msg'=>'版本号格式为1.0 1.1 2.0这类的'];
+        }
+    }
+
+
+    public function rate_score(Request $request , $plug_id)
+    {
+        $is_rate = Score::where('user_id',Auth::id())->where('plug_id',$plug_id)->count();
+
+        if ($is_rate > 0) {
+            return ['sta' => 0, 'msg' => '你已经评分过了'];
+        }
+
+        $sum_count = Score::where('plug_id',$plug_id)->select(DB::raw('sum(score) as score , count(*) as count'))->first();
+
+        DB::beginTransaction();
+        try {
+            Score::create([
+                'user_id' => Auth::id(),
+                'plug_id' => $plug_id,
+                'score' => $request->score * 2,
+            ]);
+
+            Plug::where('plug_id',$plug_id)->update([
+                'score' => floor(($sum_count->score + $request->score *2 ) / ($sum_count->count + 1))
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ['sta' => 0, 'msg' => '评分失败'];
+        }
+
+        return ['sta' => 1, 'msg' => '评分成功' ];
+    }
+
+    public function plug_index()
+    {
+        if(Cache::has('plug_index_wa')){
+            $wa = Cache::get('plug_index_wa');
+        }else{
+            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            Cache::put('plug_index_wa',$wa,60);
+        }
+
+        if(Cache::has('plug_index_twm')){
+            $twm = Cache::get('plug_index_twm');
+        }else{
+            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            Cache::put('plug_index_twm',$twm,60);
+        }
+
+        if(Cache::has('plug_index_plug')){
+            $plug = Cache::get('plug_index_plug');
+        }else{
+            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            Cache::put('plug_index_plug',$plug,60);
+        }
+
+        if(Cache::has('plug_index_recent_plugs')){
+            $recent_plugs = Cache::get('plug_index_recent_plugs');
+        }else{
+            $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            Cache::put('plug_index_recent_plugs',$recent_plugs,60);
+        }
+
+        if(Cache::has('plug_index_download_plugs')){
+            $download_plugs = Cache::get('plug_index_download_plugs');
+        }else{
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
+            Cache::put('plug_index_download_plugs',$download_plugs,60);
+        }
+
+        if(Cache::has('plug_index_download_plugs_this_mouth')){
+            $download_plugs_this_mouth = Cache::get('plug_index_download_plugs_this_mouth');
+        }else{
+            $download_plugs_this_mouth = Plug::where('is_new',1)
+                ->where([['status', 1], ['is_check', 1]])
+                ->skip(0)->take(20)->select('plugs.id','plugs.title','plugs.created_at' , 'downloads.num')->
+            leftJoin('downloads', 'plugs.plug_id' ,'=' ,'downloads.plug_id')
+                ->orderBy('downloads.num','desc')
+                ->get();
+            Cache::put('plug_index_download_plugs_this_mouth',$download_plugs_this_mouth,60);
+        }
+
+        if(Cache::has('plug_index_census')){
+            $census = Cache::get('plug_index_census');
+        }else{
+            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1]])->count();
+            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',1)->count();
+            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',2)->count();
+            $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
+            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at')->toDateTimeString();
+            $census['user_count'] = User::count();
+            $census['lm_count'] = User::where('camp',1)->count();
+            $census['bl_count'] = User::where('camp',2)->count();
+            Cache::put('plug_index_census',$census,60);
+        }
+        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census];
     }
 }

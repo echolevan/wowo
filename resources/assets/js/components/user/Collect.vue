@@ -53,7 +53,7 @@
         methods:{
             // 更改分页
             change_page (p) {
-                this.this_page = p
+                this.page = p
                 this.get_orders();
             },
             get_orders(){

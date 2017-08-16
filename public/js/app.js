@@ -1979,6 +1979,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4468,7 +4471,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 exports.i(__webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./resources/assets/common/nav.css"), "");
 
 // module
-exports.push([module.i, "\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1240px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  padding: 15px 0;\n  margin: 0 auto;\n  width: 1240px;\n}\n.nav.menu .underline[data-v-2dd6f13a] {\n  float: right;\n}\n", ""]);
+exports.push([module.i, "\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1240px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  padding: 15px 0;\n  margin: 0 auto;\n  width: 1240px;\n}\n", ""]);
 
 // exports
 
@@ -4498,7 +4501,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, ".modern-menu { height: 40px; font-family: \"Arial Narrow\", sans-serif; font-size: 15px; font-weight: 700; position: relative; clear: both }\r\n.modern-menu.mm-vertical { width: 184px; height: auto }\r\n.modern-menu, .modern-menu ul { list-style: none; margin: 0; padding: 0 }\r\n.modern-menu li { position: relative }\r\n.modern-menu a { height: 100%; text-decoration: none; display: block; position: relative; overflow: hidden; z-index: 101; border: 0 }\r\n.modern-menu a span { line-height: 40px; padding: 0 20px; display: block }\r\n.modern-menu.mm-vertical a span { line-height: 36px }\r\n.mm-container.mm-drop span { padding-right: 15px }\r\n.mm-horizontal span { float: left }\r\n.mm-hdrop, .mm-hdrop-over, .mm-vdrop, .mm-vdrop-over { background-repeat: no-repeat; background-position: center right; padding-right: 20px }\r\n.modern-menu .mm-right { display: block; float: right }\r\n.modern-menu>li { float: left }\r\n.modern-menu.mm-vertical>li { float: none }\r\n.mm-group li { float: left }\r\n.modern-menu .mm-group span { line-height: 40px }\r\n.modern-menu ul span { line-height: 36px }\r\n.modern-menu li>ul { width: 155px; font-size: 14px; position: absolute; left: -5000px; opacity: 0; z-index: 100 }\r\n.mm-vertical li>ul { top: 0 }\r\n.modern-menu ul ul { float: right; top: 0 }\r\n.modern-menu .mm-icon span { width: 14px; height: 40px; background-repeat: no-repeat; background-position: center; padding: 0 18px }\r\n.mm-vertical .mm-icon span { width: 10px }\r\n.theme2 { background-color: #fafafa }\r\n/*.theme2 a span { color: #707070; background-color: #f0edf2 }*/\r\n.theme2 .mm-over { color: #fff; background-color: #266ec1 }", ""]);
+exports.push([module.i, ".modern-menu { height: 40px; font-family: \"Arial Narrow\", sans-serif; font-size: 15px; font-weight: 700; position: relative; clear: both }\r\n.modern-menu.mm-vertical { width: 184px; height: auto }\r\n.modern-menu, .modern-menu ul { list-style: none; margin: 0; padding: 0 }\r\n.modern-menu li { position: relative ; margin-right: 30px }\r\n.modern-menu a { height: 100%; text-decoration: none; display: block; position: relative; overflow: hidden; z-index: 101; border: 0 }\r\n.modern-menu a span { line-height: 40px; padding: 0 20px; display: block }\r\n.modern-menu.mm-vertical a span { line-height: 36px }\r\n.mm-container.mm-drop span { padding-right: 15px }\r\n.mm-horizontal span { float: left }\r\n.mm-hdrop, .mm-hdrop-over, .mm-vdrop, .mm-vdrop-over { background-repeat: no-repeat; background-position: center right; padding-right: 20px }\r\n.modern-menu .mm-right { display: block; float: right }\r\n.modern-menu>li { float: left }\r\n.modern-menu.mm-vertical>li { float: none }\r\n.mm-group li { float: left }\r\n.modern-menu .mm-group span { line-height: 40px }\r\n.modern-menu ul span { line-height: 36px }\r\n.modern-menu li>ul { width: 155px; font-size: 14px; position: absolute; left: -5000px; opacity: 0; z-index: 100 }\r\n.mm-vertical li>ul { top: 0 }\r\n.modern-menu ul ul { float: right; top: 0 }\r\n.modern-menu .mm-icon span { width: 14px; height: 40px; background-repeat: no-repeat; background-position: center; padding: 0 18px }\r\n.mm-vertical .mm-icon span { width: 10px }\r\n/*.theme2 { background-color: #fafafa }*/\r\n/*.theme2 a span { color: #707070; background-color: #f0edf2 }*/\r\n.theme2 .mm-over { color: #fff; background-color: #266ec1 }", ""]);
 
 // exports
 
@@ -63919,7 +63922,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "no_active"
-  }, [_vm._v("WA")])])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+  }, [_vm._v("WeakAuras")])])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     class: {
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -63933,7 +63936,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "no_active"
-  }, [_vm._v("TMW")])])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+  }, [_vm._v("TellMeWhen")])])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     class: {
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -63954,14 +63957,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "javascript:void(0)"
     }
-  }, [_c('span', [_vm._v("窝窝")])])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_c('span', [_vm._v("易游")])])]), _vm._v(" "), _c('li', [_c('a', {
     class: {
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     attrs: {
       "href": "javascript:void(0)"
     }
-  }, [_c('span', [_vm._v("黑市")])])])])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("黑市")])])]), _vm._v(" "), _c('li', [_c('a', {
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "href": "javascript:void(0)"
+    }
+  }, [_c('span', [_vm._v("潘达利亚")])])])])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -78479,10 +78489,10 @@ module.exports = Component.exports
 
 "use strict";
 var Index = function Index(resolve) {
-    return __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var Home = function Home(resolve) {
-    return __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/home/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/home/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var WaTmw = function WaTmw(resolve) {
     return __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/WaTmw.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
@@ -78491,31 +78501,31 @@ var Info = function Info(resolve) {
     return __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var updatePlug = function updatePlug(resolve) {
-    return __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/update.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/update.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userIndex = function userIndex(resolve) {
-    return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userInfo = function userInfo(resolve) {
-    return __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userSetting = function userSetting(resolve) {
     return __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Setting.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userOrders = function userOrders(resolve) {
-    return __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Order.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Order.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userCollect = function userCollect(resolve) {
-    return __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Collect.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Collect.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userUpload = function userUpload(resolve) {
-    return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userPay = function userPay(resolve) {
-    return __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Pay.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Pay.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var uploadPlug = function uploadPlug(resolve) {
-    return __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 
 var AdminTagCreate = function AdminTagCreate(resolve) {

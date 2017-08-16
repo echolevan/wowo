@@ -28,7 +28,8 @@
                     <router-link class="my_a_style" :to="{name:'upload.plug' , params:{id: v.plug_id}}">
                         升级版本
                     </router-link>
-                    <a href="javascript:void(0)" class="my_a_style" @click="show_his(v.id)">查看历史版本</a>
+                    <a href="javascript:void(0)" class="my_a_style" @click="show_his(v.id)" v-if="v.historys.length > 0">查看历史版本</a>
+                    <a href="javascript:void(0)" class="my_a_style" v-else>暂无历史版本</a>
                 </div>
                 <transition-group
                         mode="out-in" enter-active-class="animated fadeIn"
@@ -58,10 +59,7 @@
         <p class="normal_font"
            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
            v-else>暂无记录</p>
-
-        <Page v-show="count > 0" :total="count" size="small" @on-change="change_page" show-total :key="count"
-              style="float: right;margin-top: 30px"
-              :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
+        <Page  v-show="count > 0" :total="count" size="small"  @on-change="change_page" show-total  :key="count" style="float: right;margin-top: 30px" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
     </div>
 </template>
 
@@ -87,11 +85,12 @@
         methods: {
             // 更改分页
             change_page(p) {
-                this.this_page = p
+                this.page = p
                 this.get_orders();
             },
             get_orders() {
                 axios.post(`user/orders/upload/${this.page}/${this.size}`).then(res => {
+                    console.log(res)
                     this.count = res.data.count
                     this.orders = res.data.res
                 })

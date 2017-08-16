@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="padding: 15px 0 100px 0">
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
             <Form-item label="插件标题" prop="title">
                 <Input v-model="formItem.title" placeholder="请输入"></Input>
@@ -36,11 +36,11 @@
             </Form-item>
 
             <Form-item label="版本号" prop="version">
-                <Input v-model="formItem.version" placeholder="请输入"></Input>
+                <Input v-model="formItem.version" placeholder="请输入，例如1.0 1.1 2.0的格式"></Input>
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
-                <Input v-model="formItem.game_version" placeholder="请输入"></Input>
+                <Input v-model="formItem.game_version" placeholder="请输入游戏版本号"></Input>
             </Form-item>
 
             <Form-item label="是否收费" v-show="formItem.type[0] < 3">
@@ -69,6 +69,7 @@
                 <Upload
                         ref="upload"
                         :show-upload-list="false"
+                        :before-upload="handleBeforeUpload"
                         :on-success="handleSuccess"
                         multiple
                         type="drag"
@@ -156,6 +157,17 @@
                     }
                 }, 10);
             };
+            const validateVersion = (rule, value, callback) => {
+                if(value !== ''){
+                    axios.post(`check_version/${this.$route.params.id}`,{version:value}).then(res=>{
+                        if(res.data.sta === 0){
+                            callback(new Error(res.data.msg));
+                        }else{
+                            callback();
+                        }
+                    })
+                }
+            };
             return {
                 plug_tags: [],
                 formItem: {
@@ -178,7 +190,8 @@
                 csrfToken: window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
-                        {required: true, message: '插件标题不能为空', trigger: 'blur'}
+                        {required: true, message: '插件标题不能为空', trigger: 'blur'},
+                        {max: 120, message: '插件标题最长120', trigger: 'change'}
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
@@ -193,16 +206,19 @@
                         {required: true, message: '插件详情不能为空'}
                     ],
                     simple_info: [
-                        {required: true, message: '插件详情简介不能为空', trigger: 'blur'}
+                        {required: true, message: '插件详情简介不能为空', trigger: 'blur'},
+                        {max: 100, message: '插件详情简介最长100', trigger: 'change'},
                     ],
                     updated_info: [
-                        {required: true, message: '插件更新详情不能为空', trigger: 'blur'}
+                        {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
+                        {max: 150, message: '插件更新详情最长150', trigger: 'change'}
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
                     ],
                     version: [
-                        {required: true, message: '插件版本号不能为空', trigger: 'blur'}
+                        {required: true, message: '插件版本号不能为空', trigger: 'blur'},
+                        {validator: validateVersion, required: true, trigger: 'blur'},
                     ],
                     game_version: [
                         {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
@@ -293,15 +309,22 @@
             handleRemove(k) {
                 this.formItem.uploadList.splice(k, 1);
             },
+            handleBeforeUpload(){
+                this.$Message.info('正在上传')
+                this.$Loading.start()
+            },
             handleSuccess(res, file) {
                 if (res.sta === 0) {
                     this.$Message.error(res.msg)
+                    this.$Loading.error()
                 } else {
                     this.formItem.uploadList.push({
                         url: res.url,
                         width: res.width,
                         height: res.height,
                     });
+                    this.$Loading.finish()
+                    this.$Message.success('正在完成')
                 }
             },
             handlePlugSuccess(res, file) {

@@ -113,6 +113,10 @@
                 position: relative;
                 left 30px
                 top: 10px;
+                width: 250px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             .dig
                 color: #999999;
                 display: block;

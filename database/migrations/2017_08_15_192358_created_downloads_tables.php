@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCollectPlugsTables extends Migration
+class CreatedDownloadsTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCollectPlugsTables extends Migration
      */
     public function up()
     {
-        Schema::create('collect_plugs', function (Blueprint $table) {
+        Schema::create('downloads', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index()->comment('用户ID');
-            $table->string('plug_id')->index()->comment('插件ID');
+            $table->string('plug_id',60)->comment('插件唯一ID');
+            $table->string('mouth',30)->comment('月份');
+            $table->integer('num')->default(1)->comment('下载次数');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCollectPlugsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collect_plugs');
+        Schema::dropIfExists('downloads');
     }
 }

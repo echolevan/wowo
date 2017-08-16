@@ -16,7 +16,7 @@ class CreateLikePlugsTables extends Migration
         Schema::create('like_plugs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index()->comment('用户ID');
-            $table->integer('plug_id')->unsigned()->index()->comment('插件ID');
+            $table->string('plug_id')->index()->comment('插件ID');
             $table->timestamps();
         });
     }
