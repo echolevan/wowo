@@ -1,5 +1,5 @@
 /*= common css to all effects =*/
-.user_card .card.single-member{width: 20%; float: left;  background-color: #fff; text-align: center; position: relative;}
+.user_card .card.single-member{width: 20%; float: left;   text-align: center; position: relative;}
 .user_card .card.member-image img{max-width: 100%; vertical-align: middle;}
 .user_card .card.fb-touch{background-position: 0 0;}
 .user_card .card.tweet-touch{background-position: -35px 0;}

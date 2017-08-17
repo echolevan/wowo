@@ -192,8 +192,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
                 info: [{ required: true, message: '插件详情不能为空' }],
-                simple_info: [{ required: true, message: '插件详情简介不能为空', trigger: 'blur' }, { max: 100, message: '插件详情简介最长100', trigger: 'change' }],
-                updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }],
+                simple_info: [{ required: true, message: '插件详情简介不能为空', trigger: 'blur' }, { max: 100, message: '插件详情简介最长100', trigger: 'change' }, { max: 100, message: '插件详情简介最长100', trigger: 'blur' }],
+                updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 version: [{ required: true, message: '插件版本号不能为空', trigger: 'blur' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
@@ -243,7 +243,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             axios.get('update_plugInfo/' + this.$route.params.id).then(function (res) {
-                console.log(res);
                 if (res.data.sta === 0) {
                     _this3.$router.go(-1);
                 }
@@ -298,7 +297,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.visible = true;
         },
         handleRemove: function handleRemove(k) {
-            $(".img_viewer_" + k).remove();
             this.formItem.uploadList.splice(k, 1);
         },
         handleSuccess: function handleSuccess(res, file) {

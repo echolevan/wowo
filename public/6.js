@@ -205,8 +205,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
                 info: [{ required: true, message: '插件详情不能为空' }],
-                simple_info: [{ required: true, message: '插件详情简介不能为空', trigger: 'blur' }, { max: 100, message: '插件详情简介最长100', trigger: 'change' }],
-                updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }],
+                simple_info: [{ required: true, message: '插件详情简介不能为空', trigger: 'blur' }, { max: 100, message: '插件详情简介最长100', trigger: 'change' }, { max: 100, message: '插件详情简介最长100', trigger: 'blur' }],
+                updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 version: [{ required: true, message: '插件版本号不能为空', trigger: 'blur' }, { validator: validateVersion, required: true, trigger: 'blur' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
@@ -252,6 +252,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
+            console.log(this.formItem);
         },
         _init: function _init() {
             var _this3 = this;
@@ -268,6 +269,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('plug_all_info').then(function (res) {
                 _this3.plug_tags = res.data;
             });
+            var quick_content = localStorage.getItem('quick_share_content');
+
+            var quick_type = localStorage.getItem('quick_share_type');
+            if (quick_content && quick_type) {
+                var dataStrArr = quick_type.split(",");
+                var dataIntArr = [];
+                dataStrArr.forEach(function (data, index, arr) {
+                    dataIntArr.push(+data);
+                });
+                this.formItem.content = quick_content;
+                this.formItem.type = dataIntArr;
+                localStorage.removeItem('quick_share_content');
+                localStorage.removeItem('quick_share_type');
+            }
         },
 
         handleImageAdded: function handleImageAdded(file, Editor, cursorLocation) {

@@ -29,7 +29,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		14: 0
+/******/ 		16: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -1896,16 +1896,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
-    },
-    mounted: function mounted() {},
-
-    watch: {},
-    methods: {}
+        return {
+            active: 0
+        };
+    }
 });
 
 /***/ }),
@@ -4456,7 +4519,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.main.content[data-v-202c03be] {\n  width: 1240px;\n  margin: 20px auto;\n}\n", ""]);
+exports.push([module.i, "\n.admin_content .router-link-exact-active.router-link-active li[data-v-202c03be] {\n  background: #2d8cf0 !important;\n  color: #fff;\n}\n.admin_content .my_menu[data-v-202c03be] {\n  width: 200px !important;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  top: 0;\n  z-index: 3;\n  overflow-y: auto;\n}\n.admin_content .main.content[data-v-202c03be] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  overflow-y: auto;\n}\n.admin_content .main.content .head_title[data-v-202c03be] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 40px;\n  line-height: 40px;\n  padding: 0 30px;\n  background-color: #495060;\n  z-index: 10;\n}\n.admin_content .main.content .head_title .user_name[data-v-202c03be] {\n  color: #fff;\n}\n.admin_content .main.content .r_main[data-v-202c03be] {\n  padding: 55px 15px 15px 215px;\n  background-color: #fff;\n  height: 100%;\n  overflow: auto;\n}\n", ""]);
 
 // exports
 
@@ -63813,15 +63876,118 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "admin_content"
+  }, [_c('Menu', {
+    staticClass: "my_menu",
+    attrs: {
+      "theme": "dark",
+      "accordion": ""
+    }
+  }, [_c('router-link', {
+    attrs: {
+      "to": "/admin"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "0-1"
+    }
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-paper"
+    }
+  }), _vm._v("\n                主页\n            ")], 1)], 1), _vm._v(" "), _c('Submenu', {
+    attrs: {
+      "name": "1"
+    }
+  }, [_c('template', {
+    slot: "title"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-paper"
+    }
+  }), _vm._v("\n                用户管理\n            ")], 1), _vm._v(" "), _c('Menu-item', {
+    attrs: {
+      "name": "1-1"
+    }
+  }, [_vm._v("用户管理")])], 2), _vm._v(" "), _c('Submenu', {
+    attrs: {
+      "name": "2"
+    }
+  }, [_c('template', {
+    slot: "title"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-people"
+    }
+  }), _vm._v("\n                插件管理\n            ")], 1), _vm._v(" "), _c('Menu-item', {
+    attrs: {
+      "name": "2-1"
+    }
+  }, [_vm._v("WA")]), _vm._v(" "), _c('Menu-item', {
+    attrs: {
+      "name": "2-2"
+    }
+  }, [_vm._v("TWM")]), _vm._v(" "), _c('Menu-item', {
+    attrs: {
+      "name": "2-3"
+    }
+  }, [_vm._v("魔兽插件")]), _vm._v(" "), _c('Menu-item', {
+    attrs: {
+      "name": "2-4"
+    }
+  }, [_vm._v("黑市")])], 2), _vm._v(" "), _c('Submenu', {
+    attrs: {
+      "name": "3"
+    }
+  }, [_c('template', {
+    slot: "title"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-people"
+    }
+  }), _vm._v("\n                分类管理\n            ")], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/tag/list"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "3-1"
+    }
+  }, [_vm._v("分类列表")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/tag/create"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "3-2"
+    }
+  }, [_vm._v("添加分类")])], 1)], 2)], 1), _vm._v(" "), _c('div', {
     staticClass: "main content"
-  }, [_c('transition', {
+  }, [_c('div', {
+    staticClass: "head_title"
+  }, [_c('div', {
+    staticClass: "pull-right"
+  }, [_c('Dropdown', [_c('a', {
+    staticClass: "user_name",
+    attrs: {
+      "href": "javascript:void(0)"
+    }
+  }, [_vm._v("\n                        hover 触发\n                        "), _c('Icon', {
+    attrs: {
+      "type": "arrow-down-b"
+    }
+  })], 1), _vm._v(" "), _c('Dropdown-menu', {
+    slot: "list"
+  }, [_c('Dropdown-item', [_vm._v("修改信息")]), _vm._v(" "), _c('Dropdown-item', [_vm._v("退出登陆")])], 1)], 1)], 1)]), _vm._v(" "), _c('transition', {
     attrs: {
       "mode": "out-in",
       "enter-active-class": "animated fadeInLeft",
       "leave-active-class": "animated fadeOutRight"
     }
-  }, [_c('router-view')], 1)], 1)])
+  }, [_c('router-view', {
+    staticClass: "r_main"
+  })], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -78528,14 +78694,20 @@ var uploadPlug = function uploadPlug(resolve) {
     return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 
+var AdminTagList = function AdminTagList(resolve) {
+    return __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+};
 var AdminTagCreate = function AdminTagCreate(resolve) {
-    return __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/Create.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(14).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/Create.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+};
+var AdminIndex = function AdminIndex(resolve) {
+    return __webpack_require__.e/* require */(15).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: Index }, { path: '/home', name: 'home.index', component: Home }, { path: '/waTmw/:type', name: 'waTmw.index', component: WaTmw }, { path: '/info/:id', name: 'plug.info', component: Info }, { path: '/upload/:id?', name: 'upload.plug', component: uploadPlug }, { path: '/update/:id', name: 'update.plug', component: updatePlug }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: userIndex, children: [{ path: '/userInfo/info', name: 'user.info', component: userInfo }, { path: '/userInfo/setting', name: 'user.setting', component: userSetting }, { path: '/userInfo/orders', name: 'user.orders', component: userOrders }, { path: '/userInfo/collect', name: 'user.collect', component: userCollect }, { path: '/userInfo/upload', name: 'user.upload', component: userUpload }, { path: '/userInfo/pay', name: 'user.pay', component: userPay }] },
 
 //admin
-{ path: '/admin/tag/create', name: 'admin.tag.create', component: AdminTagCreate }]);
+{ path: '/admin', name: 'admin.index', component: AdminIndex }, { path: '/admin/tag/list', name: 'admin.tag.list', component: AdminTagList }, { path: '/admin/tag/create', name: 'admin.tag.create', component: AdminTagCreate }]);
 
 /***/ }),
 

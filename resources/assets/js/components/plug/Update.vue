@@ -195,10 +195,12 @@
                     simple_info: [
                         {required: true, message: '插件详情简介不能为空', trigger: 'blur'},
                         {max: 100, message: '插件详情简介最长100', trigger: 'change'},
+                        {max: 100, message: '插件详情简介最长100', trigger: 'blur'},
                     ],
                     updated_info: [
                         {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
-                        {max: 150, message: '插件更新详情最长150', trigger: 'change'}
+                        {max: 150, message: '插件更新详情最长150', trigger: 'change'},
+                        {max: 150, message: '插件更新详情最长150', trigger: 'blur'},
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
@@ -252,7 +254,6 @@
             },
             _init(){
                 axios.get(`update_plugInfo/${this.$route.params.id}`).then(res=>{
-                    console.log(res)
                     if(res.data.sta === 0){
                         this.$router.go(-1)
                     }
@@ -307,7 +308,6 @@
                 this.visible = true;
             },
             handleRemove (k) {
-                $(".img_viewer_"+k).remove()
                 this.formItem.uploadList.splice(k, 1)
             },
             handleSuccess (res, file) {

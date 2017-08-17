@@ -456,6 +456,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-click": _vm.to_search
     },
+    nativeOn: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.to_search($event)
+      }
+    },
     model: {
       value: (_vm.keyword),
       callback: function($$v) {
@@ -503,7 +509,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"
@@ -534,7 +540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"

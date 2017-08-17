@@ -249,26 +249,27 @@ a , a:active , a:focus , a:hover {
 //  color: #47cb89;
 //}
 //
-//body , .ivu-select-selection , .ivu-input , .ivu-page-item , .ivu-page-prev , .ivu-page-next{
-//  background: #f0edf2 !important;
-//}
-//
+body , .ivu-select-selection , .ivu-input , .ivu-page-item , .ivu-page-prev , .ivu-page-next{
+  background: #f5f5f5;
+}
+
+.r_main .ivu-select-selection ,.r_main .ivu-input ,.r_main .ivu-page-item ,.r_main .ivu-page-prev ,.r_main .ivu-page-next{
+  background: #fff;
+}
+
+.w_input .ivu-input{
+  background-color:#fff
+}
 //.ivu-tabs-nav .ivu-tabs-tab-active{
-//  color: #44844a;
+//  color: #f5f5f5;
 //}
 //.ivu-tabs-ink-bar{
-//  background: #44844a;
-//}
-//
-//.ivu-tabs-nav .ivu-tabs-tab:hover{
-//  color: #44844a;
-//}
-//
-//.ivu-page-item-active{
-//  background-color: #44844a;
+//  background: #f5f5f5;
 //}
 
-
+.ivu-tabs-nav .ivu-tabs-tab:hover{
+  color: #555;
+}
 
 
 ::-webkit-scrollbar {

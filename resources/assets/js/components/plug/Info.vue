@@ -74,7 +74,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr style="background: #fff" v-for="v in plug.historys">
+                                    <tr v-for="v in plug.historys">
                                         <td>
                                             <router-link :to="{name:'plug.info' , params:{id: v.id}}">
                                                 <a href="" class="link_a">{{ v.version }}</a>

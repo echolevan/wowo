@@ -1,11 +1,10 @@
-webpackJsonp([14],{
+webpackJsonp([28],{
 
 /***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tag/Create.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -127,7 +126,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("新增标签")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', {
+    attrs: {
+      "href": "/"
+    }
+  }, [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("新增标签")])], 1), _vm._v(" "), _c('Form', {
     staticClass: "div_center",
     staticStyle: {
       "width": "500px"

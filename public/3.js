@@ -310,13 +310,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        $(document).on("click", ".down", function () {
-            $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
-        });
         this._init();
     },
 
     methods: {
+        quick_share: function quick_share() {
+            if (this.content === '' || this.type.length === 0) {
+                this.$Message.error('请先填写字符串并选择分类');
+            } else {
+                localStorage.setItem('quick_share_content', this.content);
+                localStorage.setItem('quick_share_type', this.type);
+                this.$router.push('/upload');
+            }
+        },
         on_sel: function on_sel(v) {
             this.type = v;
         },
@@ -372,7 +378,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.div_block[data-v-00364a66] {\n  margin-left: 15px;\n  margin-bottom: 15px;\n}\n.div_block.zf_div[data-v-00364a66] {\n  text-align: center;\n}\n.div_block.zf_div img[data-v-00364a66] {\n  margin: 0 auto;\n}\n.div_block .title[data-v-00364a66] {\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  font-size: 14px;\n}\n.div_block .title.tool_zz[data-v-00364a66] {\n  background: #266ec1;\n  color: #fff;\n}\n.div_block .child[data-v-00364a66] {\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  border-top: none;\n}\n.div_block .child ul li[data-v-00364a66] {\n  padding: 5px 0;\n}\n.div_block .tool_title .title_hover[data-v-00364a66] {\n  border-bottom: 1px solid #266ec1;\n  padding-bottom: 8px;\n}\n", ""]);
+exports.push([module.i, "\n.div_block[data-v-00364a66] {\n  margin-left: 15px;\n  margin-bottom: 15px;\n  background-color: #fff;\n}\n.div_block.zf_div[data-v-00364a66] {\n  text-align: center;\n}\n.div_block.zf_div img[data-v-00364a66] {\n  margin: 0 auto;\n}\n.div_block .title[data-v-00364a66] {\n  background-color: #f5f5f5;\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  font-size: 14px;\n}\n.div_block .title.tool_zz[data-v-00364a66] {\n  background: #266ec1;\n  color: #fff;\n}\n.div_block .child[data-v-00364a66] {\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  border-top: none;\n}\n.div_block .child ul li[data-v-00364a66] {\n  padding: 5px 0;\n}\n.div_block .tool_title .title_hover[data-v-00364a66] {\n  border-bottom: 1px solid #266ec1;\n  padding-bottom: 8px;\n}\n", ""]);
 
 // exports
 
@@ -413,6 +419,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "16"
     }
   }, [_c('Input', {
+    staticClass: "w_input",
     attrs: {
       "type": "textarea",
       "rows": 8,
@@ -434,6 +441,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "7"
     }
   }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
+    staticClass: "w_input",
     attrs: {
       "data": _vm.plug_tags,
       "placeholder": "请输入插件分类"
@@ -455,8 +463,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.quick_share
     }
-  }, [_vm._v("提交")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("快速分享")])], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -533,7 +544,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('strong', [_vm._v("用户统计")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
   }, [_c('ul', [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.user_count))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))]), _vm._v(" "), _c('li', [_vm._v("部落用户：" + _vm._s(_vm.census.bl_count))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "div_block zf_div"
+    staticClass: "div_block zf_div",
+    staticStyle: {
+      "background-color": "#f5f5f5"
+    }
   }, [_c('img', {
     attrs: {
       "src": "/images/pay/paypal.png",
@@ -798,7 +812,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"
@@ -829,7 +843,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"

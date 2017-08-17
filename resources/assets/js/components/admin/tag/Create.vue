@@ -1,6 +1,11 @@
 <template>
     <div>
-        <Form :model="formItem" :label-width="80">
+        <Breadcrumb style="margin-bottom: 15px;font-size: 12px">
+            <Breadcrumb-item>主页</Breadcrumb-item>
+            <Breadcrumb-item>分类管理</Breadcrumb-item>
+            <Breadcrumb-item>新增标签</Breadcrumb-item>
+        </Breadcrumb>
+        <Form :model="formItem" :label-width="80" class="div_center" style="width: 500px">
             <Form-item label="名称">
                 <Input v-model="formItem.name" placeholder="请输入"></Input>
             </Form-item>
@@ -124,5 +129,8 @@
         cursor: pointer;
         margin: 0 2px;
     }
+
+    .div_center
+        margin 50px auto
 
 </style>

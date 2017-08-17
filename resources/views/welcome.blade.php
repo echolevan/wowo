@@ -23,6 +23,11 @@
     </script>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <style>
+        body{
+            background-color:#f5f5f5;
+        }
+    </style>
 </head>
 <body>
 <div id="app">

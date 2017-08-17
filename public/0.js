@@ -1488,11 +1488,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_nav_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
   }, [_c('th', [_vm._v("版本链接")]), _vm._v(" "), _c('th', [_vm._v("版本号")]), _vm._v(" "), _c('th', [_vm._v("对应游戏版本")]), _vm._v(" "), _c('th', [_vm._v("更新日期")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.plug.historys), function(v) {
-    return _c('tr', {
-      staticStyle: {
-        "background": "#fff"
-      }
-    }, [_c('td', [_c('router-link', {
+    return _c('tr', [_c('td', [_c('router-link', {
       attrs: {
         "to": {
           name: 'plug.info',
@@ -1852,7 +1848,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"
@@ -1883,7 +1879,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#fff !important"
+        "background-color": "#f5f5f5 !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"

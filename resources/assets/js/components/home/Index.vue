@@ -9,15 +9,15 @@
                     </div>
                     <div class="tool_user_child child">
                         <iCol span="16">
-                            <Input v-model="content" type="textarea" :rows="8" placeholder="请输入"></Input>
+                            <Input v-model="content" type="textarea" :rows="8" placeholder="请输入" class="w_input"></Input>
                         </iCol>
                         <iCol span="1">
                             &nbsp;
                         </iCol>
                         <iCol span="7">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
-                                      @on-change="on_sel" placeholder="请输入插件分类"></Cascader>
-                            <a href="javascript:void(0)" class="pull-right my_a_style" style="padding: 15px">提交</a>
+                                      @on-change="on_sel" placeholder="请输入插件分类" class="w_input"></Cascader>
+                            <a href="javascript:void(0)" @click="quick_share" class="pull-right my_a_style" style="padding: 15px">快速分享</a>
                         </iCol>
                         <div style="clear: both"></div>
                     </div>
@@ -78,7 +78,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="div_block zf_div">
+                <div class="div_block zf_div" style="background-color: #f5f5f5">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
             </iCol>
@@ -221,12 +221,18 @@
             }
         },
         mounted () {
-            $(document).on("click" , ".down" , function () {
-                $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
-            })
             this._init()
         },
         methods: {
+            quick_share (){
+                if(this.content === '' || this.type.length === 0){
+                    this.$Message.error('请先填写字符串并选择分类')
+                }else{
+                    localStorage.setItem('quick_share_content', this.content)
+                    localStorage.setItem('quick_share_type', this.type)
+                    this.$router.push('/upload')
+                }
+            },
             on_sel(v) {
                 this.type = v
             },
@@ -273,11 +279,13 @@
     .div_block
         margin-left  15px
         margin-bottom 15px
+        background-color #fff
         &.zf_div
             text-align center
             img
                 margin 0 auto
         .title
+            background-color #f5f5f5
             padding 5px 10px
             width 100%
             border 1px solid #ddd

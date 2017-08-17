@@ -13,7 +13,9 @@ const userPay = resolve => require(['./components/user/Pay.vue'], resolve)
 const uploadPlug = resolve => require(['./components/plug/Upload.vue'], resolve)
 
 
+const AdminTagList = resolve => require(['./components/admin/tag/List.vue'], resolve)
 const AdminTagCreate = resolve => require(['./components/admin/tag/Create.vue'], resolve)
+const AdminIndex = resolve => require(['./components/admin/index/Index.vue'], resolve)
 
 export default [
     { path: '/',name:'index' , component:Index},
@@ -32,6 +34,8 @@ export default [
     ]},
 
     //admin
+    { path: '/admin',name:'admin.index' , component:AdminIndex},
+    { path: '/admin/tag/list',name:'admin.tag.list' , component:AdminTagList},
     { path: '/admin/tag/create',name:'admin.tag.create' , component:AdminTagCreate},
 
 ]

@@ -16,12 +16,9 @@ Route::get('/', function () {
 })->name('index');
 
 
-Route::get('/sign', function () {
-    return view('sign');
-});
-
-
-
+//Route::get('/sign', function () {
+//    return view('sign');
+//});
 
 
 Auth::routes();
@@ -74,6 +71,9 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("rate_score/{plug_id?}",'PlugController@rate_score'); //插件评分
 });
 
+
+Route::get("/admin/login",'AdminController@loign');
+Route::post("/admin/login",'AdminController@do_loign');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get("/",'AdminController@index');

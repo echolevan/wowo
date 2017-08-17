@@ -57,7 +57,7 @@
             <iCol span="6">
                 <div class="tool_right">
                     <div class="search">
-                        <Input v-model="keyword" placeholder="搜索标题"  icon="search" @on-click="to_search"></Input>
+                        <Input v-model="keyword" @keyup.enter.native="to_search"  placeholder="搜索标题"  icon="search" @on-click="to_search"></Input>
                     </div>
                     <v-rank></v-rank>
                 </div>
