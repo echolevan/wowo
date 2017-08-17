@@ -15,6 +15,14 @@ import iView from 'iview';
 import VuePreview from 'vue-preview'
 import Vuex from 'vuex'
 
+import {tagType, statusType, isForUser, yesOrNo, camp, isLogin} from './components/common/config'
+global.configTagType = tagType;
+global.configStatusType = statusType;
+global.configIsForUser = isForUser;
+global.configYesOrNo = yesOrNo;
+global.configCamp = camp;
+global.configIsLogin = isLogin;
+
 Vue.use(Vuex)
 Vue.use(VueRouter);
 Vue.use(VuePreview);
@@ -49,6 +57,7 @@ RouterConfig.beforeEach((to,from,next) => {
 RouterConfig.afterEach(() => {
     iView.LoadingBar.finish();
 });
+
 
 
 /**

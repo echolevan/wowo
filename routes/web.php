@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+//Route::get('/abc', function () {
+//    \Illuminate\Support\Facades\DB::update('ALTER TABLE USERS AUTO_INCREMENT = 100001');
+//});
 
 //Route::get('/sign', function () {
 //    return view('sign');
@@ -77,7 +80,15 @@ Route::post("/admin/login",'AdminController@do_loign');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get("/",'AdminController@index');
-    Route::get("plug_all_info",'PlugController@plug_all_info'); //上传界面 获取 所有的type
-    Route::put("tag/create",'TagController@create');
-    Route::post("upload_tag_img",'UploadController@upload_plug_screen_img'); //上传插件详情图片
+    Route::post("tag/list/{page}/{size}",'TagController@tag_list')->name('admin.tag.list'); // 获取tag列表
+    Route::get("tag/change_status/{id}/{v}",'TagController@change_status')->name('admin.tag.change.status'); // 更改tag的status
+    Route::get("tag/change_is_for_user/{id}/{v}",'TagController@change_is_for_user')->name('admin.tag.change.is_for_user'); // 更改tag的is_for_user
+    Route::put("tag/update/{id}",'TagController@update')->name('admin.tag.update'); // 编辑插件信息
+    Route::get("plug_all_info",'PlugController@plug_all_info_for_admin')->name('admin.tag.plug_all_info_for_admin'); //上传界面 获取 所有的type
+    Route::put("tag/create",'TagController@create')->name('admin.tag.create');
+    Route::post("upload_tag_img",'UploadController@upload_plug_screen_img')->name('admin.tag.upload_plug_screen_img'); //上传插件详情图片
+
+    Route::post("user/list/{page}/{size}",'UserController@user_list')->name('admin.user.list'); // 获取用户列表
+    Route::get("user/change_status/{id}/{v}",'UserController@change_status')->name('admin.user.change.status'); // 禁止或者允许用户登录
+    Route::get("user/change_is_admin/{id}/{v}",'UserController@change_is_admin')->name('admin.user.change.change_is_admin'); // 更改user是否为管理员
 });

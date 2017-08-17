@@ -5,14 +5,14 @@
             <Breadcrumb-item>分类管理</Breadcrumb-item>
             <Breadcrumb-item>新增标签</Breadcrumb-item>
         </Breadcrumb>
-        <Form :model="formItem" :label-width="80" class="div_center" style="width: 500px">
-            <Form-item label="名称">
+        <Form :model="formItem" :label-width="100" class="div_center from_main" style="width: 500px" ref="formItem" :rules="ruleValidate">
+            <Form-item label="名称" prop="name">
                 <Input v-model="formItem.name" placeholder="请输入"></Input>
             </Form-item>
-            <Form-item label="类型">
+            <Form-item label="类型" prop="type">
                 <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type" change-on-select  @on-change="on_sel"></Cascader>
             </Form-item>
-            <Form-item label="分享图片" prop="share_img">
+            <Form-item label="分享图片" prop="thumb" v-show="formItem.type.length === 1">
                 <!--// see img-->
                 <div class="small-upload-list" v-show="formItem.thumb !== ''">
                     <img :src="formItem.thumb">
@@ -36,10 +36,18 @@
                 </Upload>
             </Form-item>
 
-            <Form-item>
-                <Button type="primary" @click="add_to">提交</Button>
-                <Button type="ghost" style="margin-left: 8px">取消</Button>
+
+            <Form-item label="用户能否使用">
+                <i-Switch v-model="formItem.is_for_user" size="large">
+                    <span slot="open">是</span>
+                    <span slot="close">否</span>
+                </i-Switch>
             </Form-item>
+
+            <Button type="primary" :loading="loading" @click="add_to('formItem')" class="pull-right">
+                <span v-if="!loading">提交</span>
+                <span v-else>Loading...</span>
+            </Button>
         </Form>
 
         <Modal title="查看图片" v-model="visible">
@@ -51,15 +59,51 @@
 <script>
     export default {
         data() {
+            const validateUploadList = (rule, value, callback) => {
+                setTimeout(() => {
+                    if (this.formItem.type.length === 1) {
+                        if(this.formItem.thumb === ''){
+                            callback(new Error('请上传插件截图'));
+                        }else{
+                            callback();
+                        }
+                    } else {
+                        callback();
+                    }
+                }, 10);
+            };
+            const validateType = (rule, value, callback) => {
+                if (value.length === 0) {
+                    callback(new Error('插件分类不能为空'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 formItem: {
+                    name: '',
                     type: [],
                     thumb: '',
+                    is_for_user: true,
                 },
                 imgName: '',
                 visible: false,
+                loading: false,
                 csrfToken : window.Laravel.csrfToken,
-                plug_tags: []
+                plug_tags: [],
+                ruleValidate: {
+                    name: [
+                        {required: true, message: '标题不能为空', trigger: 'blur'},
+                        {max: 30, message: '标题最长30', trigger: 'change'}
+                    ],
+                    type: [
+                        {validator: validateType, required: true, trigger: 'change'}
+                    ],
+                    thumb: [
+                        {validator: validateUploadList, required: true, trigger: 'change'},
+                    ]
+                }
+
             }
         },
         mounted() {
@@ -83,9 +127,21 @@
                 this.formItem.type = v
                 console.log(this.formItem.type)
             },
-            add_to() {
-                axios.put('admin/tag/create',{data:this.formItem}).then(res=>{
-                    console.log(res)
+            add_to(name) {
+                this.loading = true;
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        axios.put('admin/tag/create',{data:this.formItem}).then(res=>{
+                            this.$Message.success('添加成功!');
+                            this.formItem.name = ''
+                            this.formItem.type = []
+                            this.formItem.thumb = ''
+                            this.formItem.is_for_user = true
+                        })
+                    } else {
+                        this.$Message.error('表单验证失败!');
+                    }
+                    this.loading = false;
                 })
             }
         }

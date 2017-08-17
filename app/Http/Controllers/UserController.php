@@ -295,6 +295,40 @@ class UserController extends Controller
         }
         return ['sta'=>1 , 'info'=>$lv];
     }
+    
+    
+    
+    public function user_list(Request $request,$page,$size)
+    {
+        $count = User::count();
+        $users = User::with(['plugs'=>function($query){
+            $query->select('plugs.user_id');
+        }])->skip(($page-1)*$size)->take($size)->get();
+
+        return ['sta'=>1, 'count'=>$count, 'users'=>$users];
+    }
+
+    public function change_status($id, $v)
+    {
+        $tag = User::where('id',$id)->update([
+            'status' =>$v
+        ]);
+        if($tag)
+            return ['sta'=>1, 'msg'=>'更新成功'];
+        return ['sta'=>0, 'msg'=>'更新失败'];
+    }
+
+
+    public function change_is_admin($id, $v)
+    {
+        $tag = User::where('id',$id)->update([
+            'is_admin' =>$v
+        ]);
+        if($tag)
+            return ['sta'=>1, 'msg'=>'更新成功'];
+        return ['sta'=>0, 'msg'=>'更新失败'];
+    }
+
 
 
 }

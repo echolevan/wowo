@@ -35,4 +35,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Plug::class , 'collect_plugs')->withTimestamps();
     }
 
+    public function plugs()
+    {
+        return $this->hasMany(Plug::class);
+    }
+
 }

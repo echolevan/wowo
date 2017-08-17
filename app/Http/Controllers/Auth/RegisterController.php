@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -81,6 +82,8 @@ class RegisterController extends Controller
             'camp' => $data['camp'],
             'email' => $data['email'],
             'token' => $token,
+            'login_at' => Carbon::now(),
+            'avatar' => 'https://down.iwowcn.com/image/2017-08-13/1FdBRnISU7mMJb3ihGgao5354.png',
             'password' => bcrypt($data['password']),
         ]);
 

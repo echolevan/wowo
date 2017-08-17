@@ -1,8 +1,11 @@
 <template>
     <div class="admin_content">
-        <Menu theme="dark"  class="my_menu" accordion>
-            <router-link to="/admin">
-                <Menu-item name="0-1">
+        <Menu theme="dark"  class="my_menu" :active-name="$route.name" accordion>
+            <div class="admin_login">
+                熊猫人
+            </div>
+            <router-link to="/admin" class="ivu-menu-submenu" >
+                <Menu-item name="admin.index" style="padding-left: 24px">
                     <Icon type="ios-paper"></Icon>
                     主页
                 </Menu-item>
@@ -12,7 +15,9 @@
                     <Icon type="ios-paper"></Icon>
                     用户管理
                 </template>
-                <Menu-item name="1-1">用户管理</Menu-item>
+                <router-link to="/admin/user/list">
+                    <Menu-item name="admin.user.list">用户管理</Menu-item>
+                </router-link>
             </Submenu>
             <Submenu name="2">
                 <template slot="title">
@@ -30,10 +35,10 @@
                     分类管理
                 </template>
                 <router-link to="/admin/tag/list">
-                    <Menu-item name="3-1">分类列表</Menu-item>
+                    <Menu-item name="admin.tag.list">分类列表</Menu-item>
                 </router-link>
                 <router-link to="/admin/tag/create">
-                    <Menu-item name="3-2">添加分类</Menu-item>
+                    <Menu-item name="admin.tag.create">添加分类</Menu-item>
                 </router-link>
             </Submenu>
             <!--<Submenu name="3">-->
@@ -57,7 +62,7 @@
                 <div class="pull-right">
                     <Dropdown>
                         <a class="user_name" href="javascript:void(0)">
-                            hover 触发
+                            {{userInfo.name}}
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <Dropdown-menu slot="list">
@@ -76,21 +81,42 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     export default {
         data() {
             return {
                 active: 0
             }
+        },
+        computed: mapState([
+            'userInfo'
+        ]),
+        mounted() {
+            this._init()
+        },
+        methods: {
+            _init() {
+                axios.get('user/info').then(res => {
+                    if (res.data.sta === '1') {
+                        this.$store.commit('change_userInfo',res.data.info)
+                        if(res.data.info.is_active === 0){
+                            this.$Notice.open({
+                                title: '您的帐号还未激活',
+                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                duration: 0
+                            });
+                        }
+                    }else{
+                        this.userInfo = '';
+                    }
+                })
+            },
         }
     }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
     .admin_content
-        .router-link-exact-active.router-link-active
-            li
-                background: #2d8cf0 !important;
-                color #fff
         .my_menu
             width 200px !important
             height 100%
@@ -99,6 +125,11 @@
             top 0
             z-index 3
             overflow-y: auto
+            .admin_login
+                height 40px
+                line-height 40px
+                color #fff
+                text-align center
         .main.content
             position absolute
             width 100%

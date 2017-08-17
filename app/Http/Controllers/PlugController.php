@@ -308,7 +308,7 @@ class PlugController extends Controller
      */
     public function plug_all_info ()
     {
-        $tag = [[1, 1, 'WA'], [1, 2, 'TMW'], [2, 3, '插件']];
+        $tag = [[1, 1, 'WA/TMW'], [2, 2, '插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -322,9 +322,25 @@ class PlugController extends Controller
         return $res;
     }
 
+    public function plug_all_info_for_admin()
+    {
+        $tag = [[1, 1, 'WA/TMW'], [2, 2, '插件']];
+
+        $res = [];
+        foreach ($tag as $k => $v) {
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['label'] = $v[2];
+            $res[$k]['children'] = Tag::with(['children' => function ($query) {
+                $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])->get();
+        }
+
+        return $res;
+    }
+
     public function plug_all_info_no_login()
     {
-        $tag = [[1, 1, 'WA'], [1, 2, 'TMW']];
+        $tag = [[1, 1, 'WA/TMW']];
 
         $res = [];
         foreach ($tag as $k => $v) {

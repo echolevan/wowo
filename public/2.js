@@ -509,7 +509,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#f5f5f5 !important"
+        "background-color": "#fff !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"
@@ -540,7 +540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "tit my_a_style",
       staticStyle: {
         "color": "#333 !important",
-        "background-color": "#f5f5f5 !important"
+        "background-color": "#fff !important"
       }
     }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
       staticClass: "dig"
