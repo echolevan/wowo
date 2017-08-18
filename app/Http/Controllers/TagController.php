@@ -52,7 +52,7 @@ class TagController extends Controller
             'name' => $request->data['name'],
             'thumb' => is_null($request->data['thumb']) ? '' : $request->data['thumb'],
             'pid' => $pid,
-            'type' => $request->data['type'][0] == 1 ? 1 : 2
+            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : 2
         ]);
 
         $tag = Tag::with('parent')->find($id);

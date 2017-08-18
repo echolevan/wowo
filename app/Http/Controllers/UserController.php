@@ -300,8 +300,24 @@ class UserController extends Controller
     
     public function user_list(Request $request,$page,$size)
     {
-        $count = User::count();
-        $users = User::with(['plugs'=>function($query){
+        $where = User::when($request->search['name'] != null, function ($query) use ($request) {
+            return $query->where('name', 'like' , '%'.$request->search['name'].'%');
+        })
+            ->when($request->search['camp'] != null, function ($query) use ($request) {
+                return $query->where('camp', $request->search['camp']);
+            })
+            ->when($request->search['status'] != null, function ($query) use ($request) {
+                return $query->where('status', $request->search['status']);
+            })
+            ->when($request->search['is_admin'] != null, function ($query) use ($request) {
+                return $query->where('is_admin', $request->search['is_admin']);
+            })
+            ->when($request->search['is_active'] != null, function ($query) use ($request) {
+                return $query->where('is_active', $request->search['is_active']);
+            });
+
+        $count = $where->count();
+        $users = $where->with(['plugs'=>function($query){
             $query->select('plugs.user_id');
         }])->skip(($page-1)*$size)->take($size)->get();
 
@@ -329,6 +345,42 @@ class UserController extends Controller
         return ['sta'=>0, 'msg'=>'更新失败'];
     }
 
+    public function user_name(Request $request)
+    {
+        $username = User::where('id','!=',$request->id)->where('name',$request->name)->count();
+        if($username > 0)
+            return ['sta'=>0,'msg'=>'用户名重复了'];
+        return ['sta'=>1];
+    }
 
+    public function user_email(Request $request)
+    {
+        $username = User::where('id','!=',$request->id)->where('email',$request->email)->count();
+        if($username > 0)
+            return ['sta'=>0,'msg'=>'邮箱重复了'];
+        return ['sta'=>1];
+    }
+
+    public function user_tel(Request $request)
+    {
+        $username = User::where('id','!=',$request->id)->where('tel',$request->tel)->count();
+        if($username > 0)
+            return ['sta'=>0,'msg'=>'手机号重复了'];
+        return ['sta'=>1];
+    }
+
+    public function admin_update(Request $request, $id)
+    {
+        $user = User::where('id',$id)->update([
+            'name' => $request->data['name'],
+            'email' =>  $request->data['email'],
+            'tel' =>  $request->data['tel'] == '' ? 0 : $request->data['tel'],
+            'camp' =>  $request->data['camp'],
+            'avatar' =>  $request->data['avatar'],
+        ]);
+        if($user)
+            return ['sta'=>1 , 'msg'=>'信息更新成功'];
+        return ['sta'=>0 , 'msg'=>'信息更新失败'];
+    }
 
 }

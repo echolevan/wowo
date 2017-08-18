@@ -24,10 +24,10 @@
                     <Icon type="ios-people"></Icon>
                     插件管理
                 </template>
-                <Menu-item name="2-1">WA</Menu-item>
-                <Menu-item name="2-2">TWM</Menu-item>
-                <Menu-item name="2-3">魔兽插件</Menu-item>
-                <Menu-item name="2-4">黑市</Menu-item>
+                <router-link to="/admin/plug/list">
+                    <Menu-item name="admin.plug.list">插件列表</Menu-item>
+                </router-link>
+                <Menu-item name="2-2">嘿市</Menu-item>
             </Submenu>
             <Submenu name="3">
                 <template slot="title">

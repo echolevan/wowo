@@ -15,13 +15,15 @@ import iView from 'iview';
 import VuePreview from 'vue-preview'
 import Vuex from 'vuex'
 
-import {tagType, statusType, isForUser, yesOrNo, camp, isLogin} from './components/common/config'
+import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType} from './components/common/config'
 global.configTagType = tagType;
 global.configStatusType = statusType;
 global.configIsForUser = isForUser;
 global.configYesOrNo = yesOrNo;
 global.configCamp = camp;
 global.configIsLogin = isLogin;
+global.configPlugType = plugType;
+global.configCheckType = checkType;
 
 Vue.use(Vuex)
 Vue.use(VueRouter);

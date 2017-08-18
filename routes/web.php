@@ -72,6 +72,11 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::get("check_plug_id/{id}",'PlugController@check_plug_id'); //升级插件 检查ID 是否正确
     Route::post("check_version/{plug_id?}",'PlugController@check_version'); //检查版本号是否正确
     Route::post("rate_score/{plug_id?}",'PlugController@rate_score'); //插件评分
+
+
+    Route::post("check/user_name",'UserController@user_name'); //检查用户名是否重复
+    Route::post("check/user_email",'UserController@user_email'); //检查email是否重复
+    Route::post("check/user_tel",'UserController@user_tel'); //检查tel是否重复
 });
 
 
@@ -91,4 +96,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post("user/list/{page}/{size}",'UserController@user_list')->name('admin.user.list'); // 获取用户列表
     Route::get("user/change_status/{id}/{v}",'UserController@change_status')->name('admin.user.change.status'); // 禁止或者允许用户登录
     Route::get("user/change_is_admin/{id}/{v}",'UserController@change_is_admin')->name('admin.user.change.change_is_admin'); // 更改user是否为管理员
+    Route::put("user/update/{id}",'UserController@admin_update')->name('admin.user.update'); // 更新用户信息
+
+    Route::post("plug/list/{page}/{size}",'PlugController@plug_list')->name('admin.plug.list'); // 获取插件列表
+    Route::get("plug/change_rank/{id}/{rank}",'PlugController@change_rank')->name('admin.plug.change_rank'); // 更换插件排序
+    Route::get("plug/change_status/{id}/{v}",'PlugController@change_status')->name('admin.plug.change.status'); // 更改plug的status
+    Route::get("plug/change_is_check/{id}/{v}",'PlugController@change_is_check')->name('admin.plug.change.is_check'); // 更改plug的is_check
+
 });

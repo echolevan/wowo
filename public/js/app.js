@@ -63964,23 +63964,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "ios-people"
     }
-  }), _vm._v("\n                插件管理\n            ")], 1), _vm._v(" "), _c('Menu-item', {
+  }), _vm._v("\n                插件管理\n            ")], 1), _vm._v(" "), _c('router-link', {
     attrs: {
-      "name": "2-1"
+      "to": "/admin/plug/list"
     }
-  }, [_vm._v("WA")]), _vm._v(" "), _c('Menu-item', {
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.plug.list"
+    }
+  }, [_vm._v("插件列表")])], 1), _vm._v(" "), _c('Menu-item', {
     attrs: {
       "name": "2-2"
     }
-  }, [_vm._v("TWM")]), _vm._v(" "), _c('Menu-item', {
-    attrs: {
-      "name": "2-3"
-    }
-  }, [_vm._v("魔兽插件")]), _vm._v(" "), _c('Menu-item', {
-    attrs: {
-      "name": "2-4"
-    }
-  }, [_vm._v("黑市")])], 2), _vm._v(" "), _c('Submenu', {
+  }, [_vm._v("嘿市")])], 2), _vm._v(" "), _c('Submenu', {
     attrs: {
       "name": "3"
     }
@@ -78451,12 +78447,14 @@ window.Vue = __webpack_require__("./node_modules/_vue@2.4.2@vue/dist/vue.common.
 
 
 
-global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["e" /* tagType */];
-global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["d" /* statusType */];
-global.configIsForUser = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["b" /* isForUser */];
-global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["f" /* yesOrNo */];
+global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["g" /* tagType */];
+global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["f" /* statusType */];
+global.configIsForUser = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["c" /* isForUser */];
+global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["h" /* yesOrNo */];
 global.configCamp = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["a" /* camp */];
-global.configIsLogin = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["c" /* isLogin */];
+global.configIsLogin = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["d" /* isLogin */];
+global.configPlugType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["e" /* plugType */];
+global.configCheckType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["b" /* checkType */];
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
@@ -78663,12 +78661,14 @@ module.exports = Component.exports
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return tagType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return statusType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isForUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return yesOrNo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return tagType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return statusType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isForUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return yesOrNo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return camp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isLogin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return isLogin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return plugType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return checkType; });
 var tagType = {
     1: 'wa/twm',
     2: '魔兽插件'
@@ -78695,6 +78695,17 @@ var camp = {
 var isLogin = {
     0: '禁止',
     1: '允许'
+};
+
+var plugType = {
+    1: 'WA',
+    2: 'TWM',
+    3: '魔兽插件'
+};
+
+var checkType = {
+    0: '未审核',
+    1: '已审核'
 };
 
 /***/ }),
@@ -78749,62 +78760,68 @@ module.exports = Component.exports
 
 "use strict";
 var Index = function Index(resolve) {
-    return __webpack_require__.e/* require */(14).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(15).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var Home = function Home(resolve) {
-    return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/home/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/home/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var WaTmw = function WaTmw(resolve) {
-    return __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/WaTmw.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/WaTmw.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var Info = function Info(resolve) {
     return __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var updatePlug = function updatePlug(resolve) {
-    return __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/update.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/update.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userIndex = function userIndex(resolve) {
-    return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userInfo = function userInfo(resolve) {
-    return __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Info.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userSetting = function userSetting(resolve) {
-    return __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Setting.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Setting.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userOrders = function userOrders(resolve) {
-    return __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Order.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(12).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Order.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userCollect = function userCollect(resolve) {
-    return __webpack_require__.e/* require */(13).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Collect.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(14).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Collect.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userUpload = function userUpload(resolve) {
-    return __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var userPay = function userPay(resolve) {
-    return __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Pay.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/user/Pay.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var uploadPlug = function uploadPlug(resolve) {
-    return __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/plug/Upload.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 
 var AdminTagList = function AdminTagList(resolve) {
-    return __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var AdminTagCreate = function AdminTagCreate(resolve) {
-    return __webpack_require__.e/* require */(15).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/Create.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(16).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/tag/Create.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var AdminIndex = function AdminIndex(resolve) {
-    return __webpack_require__.e/* require */(16).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(37).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/index/Index.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 var AdminUserList = function AdminUserList(resolve) {
-    return __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/user/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+    return __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/user/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+};
+var AdminPlugList = function AdminPlugList(resolve) {
+    return __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/plug/List.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
+};
+var AdminPlugUpdate = function AdminPlugUpdate(resolve) {
+    return __webpack_require__.e/* require */(36).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__("./resources/assets/js/components/admin/plug/Update.vue")]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: Index }, { path: '/home', name: 'home.index', component: Home }, { path: '/waTmw/:type', name: 'waTmw.index', component: WaTmw }, { path: '/info/:id', name: 'plug.info', component: Info }, { path: '/upload/:id?', name: 'upload.plug', component: uploadPlug }, { path: '/update/:id', name: 'update.plug', component: updatePlug }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: userIndex, children: [{ path: '/userInfo/info', name: 'user.info', component: userInfo }, { path: '/userInfo/setting', name: 'user.setting', component: userSetting }, { path: '/userInfo/orders', name: 'user.orders', component: userOrders }, { path: '/userInfo/collect', name: 'user.collect', component: userCollect }, { path: '/userInfo/upload', name: 'user.upload', component: userUpload }, { path: '/userInfo/pay', name: 'user.pay', component: userPay }] },
 
 //admin
-{ path: '/admin', name: 'admin.index', component: AdminIndex }, { path: '/admin/tag/list', name: 'admin.tag.list', component: AdminTagList }, { path: '/admin/tag/create', name: 'admin.tag.create', component: AdminTagCreate }, { path: '/admin/user/list', name: 'admin.user.list', component: AdminUserList }]);
+{ path: '/admin', name: 'admin.index', component: AdminIndex }, { path: '/admin/tag/list', name: 'admin.tag.list', component: AdminTagList }, { path: '/admin/tag/create', name: 'admin.tag.create', component: AdminTagCreate }, { path: '/admin/user/list', name: 'admin.user.list', component: AdminUserList }, { path: '/admin/plug/list', name: 'admin.plug.list', component: AdminPlugList }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: AdminPlugUpdate }]);
 
 /***/ }),
 

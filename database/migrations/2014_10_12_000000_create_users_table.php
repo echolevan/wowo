@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->comment('头像');
             $table->string('info',255)->default('')->comment('介绍');
-            $table->integer('tel')->default(0)->comment('手机号');
+            $table->string('tel',20)->default(0)->comment('手机号');
             $table->tinyInteger('is_active')->default(0)->comment('是否邮箱激活，0没有，1激活');
             $table->tinyInteger('camp')->comment('1是 联盟 2是部落');
             $table->tinyInteger('is_admin')->default(0)->comment('1是管理员');

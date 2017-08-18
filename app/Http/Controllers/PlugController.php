@@ -308,7 +308,7 @@ class PlugController extends Controller
      */
     public function plug_all_info ()
     {
-        $tag = [[1, 1, 'WA/TMW'], [2, 2, '插件']];
+        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -324,7 +324,7 @@ class PlugController extends Controller
 
     public function plug_all_info_for_admin()
     {
-        $tag = [[1, 1, 'WA/TMW'], [2, 2, '插件']];
+        $tag = [[1, 1, 'WA/TMW'], [2, 3, '插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -578,5 +578,71 @@ class PlugController extends Controller
             Cache::put('plug_index_census',$census,60);
         }
         return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census];
+    }
+
+    public function plug_list(Request $request , $page , $size)
+    {
+        $where = Plug::when($request->search['name'] != null, function ($query) use ($request) {
+            return $query->where('plugs.title', 'like' , '%'.$request->search['name'].'%');
+        })
+            ->when($request->search['plug_id'] != null, function ($query) use ($request) {
+                return $query->where('plugs.plug_id', $request->search['plug_id']);
+            })
+            ->when($request->search['user_id'] != null, function ($query) use ($request) {
+                return $query->where('plugs.user_id', $request->search['user_id']);
+            })
+            ->when($request->search['user_name'] != null, function ($query) use ($request) {
+                return $query->join('users' , 'users.id', '=' ,'plugs.user_id')->where('users.name', 'like' , '%'.$request->search['user_name'].'%')->select('users.id','users.name');
+            })
+            ->when($request->search['wwb'] == '1', function ($query) use ($request) {
+                return $query->where('plugs.wwb',0);
+            })
+            ->when($request->search['wwb'] == '2', function ($query) use ($request) {
+                return $query->where('plugs.wwb', '>' ,0);
+            })
+            ->when($request->search['status'] != null, function ($query) use ($request) {
+                return $query->where('plugs.status', $request->search['status']);
+            })
+            ->when($request->search['is_check'] != null, function ($query) use ($request) {
+                return $query->where('plugs.is_check', $request->search['is_check']);
+            })
+            ->when($request->search['orderBySome'] != null, function ($query) use ($request) {
+                return $query->orderBy("plugs.$request->search[orderBySome]", $request->search['orderByF']);
+            });
+
+        $count = $where->count();
+        $list = $where->with(['thumbs','tag_one','tag_two','user'])->skip(($page-1)*$size)->take($size)->orderBy('is_new','desc')->select('plugs.*')->get();
+        return ['sta'=>1, 'count'=>$count, 'list'=>$list];
+    }
+
+    public function change_rank($id, $rank)
+    {
+        $plug = Plug::where('id',$id)->update([
+           'rank' => $rank
+        ]);
+        if($plug)
+            return ['sta'=>1,'msg'=>'编辑成功'];
+        return ['sta'=>0,'msg'=>'编辑失败'];
+    }
+
+
+    public function change_status($id, $v)
+    {
+        $tag = Plug::where('id',$id)->update([
+            'status' =>$v
+        ]);
+        if($tag)
+            return ['sta'=>1, 'msg'=>'更新成功'];
+        return ['sta'=>0, 'msg'=>'更新失败'];
+    }
+
+    public function change_is_check($id, $v)
+    {
+        $tag = Plug::where('id',$id)->update([
+            'is_check' =>$v
+        ]);
+        if($tag)
+            return ['sta'=>1, 'msg'=>'更新成功'];
+        return ['sta'=>0, 'msg'=>'更新失败'];
     }
 }

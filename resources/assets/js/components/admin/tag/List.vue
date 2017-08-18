@@ -8,7 +8,7 @@
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="搜索插件"></Input>
+                <Input v-model.trim="formS.name" placeholder="搜索分类"></Input>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.status" clearable  placeholder="状态" style="width: 100px;">

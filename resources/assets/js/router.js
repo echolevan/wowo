@@ -17,6 +17,8 @@ const AdminTagList = resolve => require(['./components/admin/tag/List.vue'], res
 const AdminTagCreate = resolve => require(['./components/admin/tag/Create.vue'], resolve)
 const AdminIndex = resolve => require(['./components/admin/index/Index.vue'], resolve)
 const AdminUserList = resolve => require(['./components/admin/user/List.vue'], resolve)
+const AdminPlugList = resolve => require(['./components/admin/plug/List.vue'], resolve)
+const AdminPlugUpdate = resolve => require(['./components/admin/plug/Update.vue'], resolve)
 
 export default [
     { path: '/',name:'index' , component:Index},
@@ -40,5 +42,8 @@ export default [
     { path: '/admin/tag/create',name:'admin.tag.create' , component:AdminTagCreate},
 
     { path: '/admin/user/list',name:'admin.user.list' , component:AdminUserList},
+
+    { path: '/admin/plug/list',name:'admin.plug.list' , component:AdminPlugList},
+    { path: '/admin/plug/update/:id',name:'admin.plug.update' , component:AdminPlugUpdate},
 
 ]

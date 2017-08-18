@@ -25,3 +25,14 @@ export const isLogin = {
     0: '禁止',
     1: '允许'
 }
+
+export const plugType = {
+    1: 'WA',
+    2: 'TWM',
+    3: '魔兽插件'
+}
+
+export const checkType = {
+    0: '未审核',
+    1: '已审核'
+}

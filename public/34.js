@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([34],{
 
 /***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/plug/List.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -7,70 +7,6 @@ webpackJsonp([2],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_clipboard__ = __webpack_require__("./node_modules/_clipboard@1.7.1@clipboard/lib/clipboard.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_clipboard__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -174,18 +110,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             page_size: 10,
             total: 0,
             list: [],
-            formS: {
-                name: '',
-                plug_id: '',
-                user_name: '',
-                user_id: '',
-                wwb: '',
-                status: '',
-                is_check: '',
-                orderBySome: '',
-                orderByF: 'desc'
-            },
-            loading_s: false,
+            formS: {},
             configPlugType: configPlugType,
             configYesOrNo: configYesOrNo,
             configStatusType: configStatusType,
@@ -198,22 +123,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        toS: function toS() {
-            this.page = 1;
-            //                this.loading_s = true
-            this.search();
-        },
-        rest: function rest() {
-            this.formS.name = '';
-            this.formS.user_name = '';
-            this.formS.plug_id = '';
-            this.formS.user_id = '';
-            this.formS.wwb = '';
-            this.formS.status = '';
-            this.formS.is_check = '';
-            this.formS.orderBySome = '';
-            this.formS.orderByF = 'desc';
-        },
         c_rank: function c_rank(id, k) {
             var _this = this;
 
@@ -243,7 +152,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_status: function change_status(v, id, k) {
             var _this2 = this;
 
-            axios.get('admin/plug/change_status/' + id + '/' + v).then(function (res) {
+            axios.get('admin/tag/change_status/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this2.list[k].status = v;
                     _this2.$Message.success(res.data.msg);
@@ -252,29 +161,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        change_is_check: function change_is_check(v, id, k) {
-            var _this3 = this;
-
-            axios.get('admin/plug/change_is_check/' + id + '/' + v).then(function (res) {
-                if (res.data.sta === 1) {
-                    _this3.list[k].is_check = v;
-                    _this3.$Message.success(res.data.msg);
-                } else {
-                    _this3.$Message.error(res.data.msg);
-                }
-            });
-        },
         search: function search() {
-            var _this4 = this;
+            var _this3 = this;
 
             axios.post('admin/plug/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 console.log(res);
                 if (res.data.sta === 1) {
-                    _this4.total = res.data.count;
-                    _this4.list = res.data.list;
+                    _this3.total = res.data.count;
+                    _this3.list = res.data.list;
                 }
-                _this4.$Loading.finish();
-                _this4.loading_s = false;
+                _this3.$Loading.finish();
+                _this3.loading_s = false;
             });
         },
         page_c: function page_c(p) {
@@ -1147,220 +1044,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件列表")])], 1), _vm._v(" "), _c('Form', {
-    attrs: {
-      "model": _vm.formS,
-      "inline": ""
-    }
-  }, [_c('Form-item', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formS.plug_id),
-      expression: "formS.plug_id"
-    }]
-  }, [_c('Input', {
-    attrs: {
-      "placeholder": "插件唯一ID"
-    },
-    model: {
-      value: (_vm.formS.plug_id),
-      callback: function($$v) {
-        _vm.formS.plug_id = (typeof $$v === 'string' ? $$v.trim() : $$v)
-      },
-      expression: "formS.plug_id"
-    }
-  })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
-    attrs: {
-      "placeholder": "搜索插件名称"
-    },
-    model: {
-      value: (_vm.formS.name),
-      callback: function($$v) {
-        _vm.formS.name = (typeof $$v === 'string' ? $$v.trim() : $$v)
-      },
-      expression: "formS.name"
-    }
-  })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
-    attrs: {
-      "placeholder": "用户名称"
-    },
-    model: {
-      value: (_vm.formS.user_name),
-      callback: function($$v) {
-        _vm.formS.user_name = (typeof $$v === 'string' ? $$v.trim() : $$v)
-      },
-      expression: "formS.user_name"
-    }
-  })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
-    attrs: {
-      "placeholder": "用户ID"
-    },
-    model: {
-      value: (_vm.formS.user_id),
-      callback: function($$v) {
-        _vm.formS.user_id = (typeof $$v === 'string' ? $$v.trim() : $$v)
-      },
-      expression: "formS.user_id"
-    }
-  })], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
-    staticStyle: {
-      "width": "100px"
-    },
-    attrs: {
-      "clearable": "",
-      "placeholder": "是否免费"
-    },
-    model: {
-      value: (_vm.formS.wwb),
-      callback: function($$v) {
-        _vm.formS.wwb = $$v
-      },
-      expression: "formS.wwb"
-    }
-  }, [_c('Option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v("免费")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "2"
-    }
-  }, [_vm._v("收费")])], 1)], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
-    staticStyle: {
-      "width": "80px"
-    },
-    attrs: {
-      "clearable": "",
-      "placeholder": "状态"
-    },
-    model: {
-      value: (_vm.formS.status),
-      callback: function($$v) {
-        _vm.formS.status = $$v
-      },
-      expression: "formS.status"
-    }
-  }, _vm._l((_vm.configStatusType), function(v, k) {
-    return _c('Option', {
-      key: k,
-      attrs: {
-        "value": k
-      }
-    }, [_vm._v(_vm._s(v))])
-  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
-    staticStyle: {
-      "width": "100px"
-    },
-    attrs: {
-      "clearable": "",
-      "placeholder": "审核状态"
-    },
-    model: {
-      value: (_vm.formS.is_check),
-      callback: function($$v) {
-        _vm.formS.is_check = $$v
-      },
-      expression: "formS.is_check"
-    }
-  }, _vm._l((_vm.configCheckType), function(v, k) {
-    return _c('Option', {
-      key: k,
-      attrs: {
-        "value": k
-      }
-    }, [_vm._v(_vm._s(v))])
-  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
-    staticStyle: {
-      "width": "100px"
-    },
-    attrs: {
-      "clearable": "",
-      "placeholder": "排序条件"
-    },
-    model: {
-      value: (_vm.formS.orderBySome),
-      callback: function($$v) {
-        _vm.formS.orderBySome = $$v
-      },
-      expression: "formS.orderBySome"
-    }
-  }, [_c('Option', {
-    attrs: {
-      "value": "wwb"
-    }
-  }, [_vm._v("金币")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "rank"
-    }
-  }, [_vm._v("排序")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "like_num"
-    }
-  }, [_vm._v("点赞")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "download_num"
-    }
-  }, [_vm._v("下载")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "collect_num"
-    }
-  }, [_vm._v("收藏")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "score"
-    }
-  }, [_vm._v("评分")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "created_at"
-    }
-  }, [_vm._v("上传时间")])], 1)], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
-    staticStyle: {
-      "width": "80px"
-    },
-    attrs: {
-      "clearable": "",
-      "placeholder": "排序规则"
-    },
-    model: {
-      value: (_vm.formS.orderByF),
-      callback: function($$v) {
-        _vm.formS.orderByF = $$v
-      },
-      expression: "formS.orderByF"
-    }
-  }, [_c('Option', {
-    attrs: {
-      "value": "asc"
-    }
-  }, [_vm._v("正序")]), _vm._v(" "), _c('Option', {
-    attrs: {
-      "value": "desc"
-    }
-  }, [_vm._v("倒序")])], 1)], 1), _vm._v(" "), _c('Button', {
-    attrs: {
-      "type": "ghost"
-    },
-    on: {
-      "click": _vm.rest
-    }
-  }, [_c('span', [_vm._v("重置")])]), _vm._v(" "), _c('Button', {
-    attrs: {
-      "type": "primary",
-      "loading": _vm.loading_s
-    },
-    on: {
-      "click": _vm.toS
-    }
-  }, [_c('span', [_vm._v("搜索")])]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/tag/create"
-    }
-  }, [_c('Button', {
-    staticClass: "pull-right",
-    attrs: {
-      "type": "primary"
-    }
-  }, [_vm._v("添加插件")])], 1)], 1), _vm._v(" "), _c('table', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件列表")])], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', {
@@ -1439,11 +1123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "border",
         "color": v.is_new === 1 ? 'blue' : 'red'
       }
-    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_new]))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.download_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.like_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.collect_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.score))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "width": "8%"
-      }
-    }, [_c('Tag', {
+    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_new]))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.download_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.like_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.collect_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.score))]), _vm._v(" "), _c('td', [_c('Tag', {
       attrs: {
         "type": "dot",
         "color": v.status === 1 ? 'blue' : 'red'
@@ -1453,18 +1133,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.change_status(v.status === 1 ? 0 : 1, v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.configStatusType[v.status]))])], 1), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "width": "8%"
-      }
-    }, [_c('Tag', {
+    }, [_vm._v(_vm._s(_vm.configStatusType[v.status]))])], 1), _vm._v(" "), _c('td', [_c('Tag', {
       attrs: {
         "type": "dot",
         "color": v.is_check === 1 ? 'blue' : 'red'
       },
       nativeOn: {
         "click": function($event) {
-          _vm.change_is_check(v.is_check === 1 ? 0 : 1, v.id, k)
+          _vm.change_status(v.is_check === 1 ? 0 : 1, v.id, k)
         }
       }
     }, [_vm._v(_vm._s(_vm.configCheckType[v.is_check]))])], 1), _vm._v(" "), _c('td', [_c('Input-number', {
@@ -1493,16 +1169,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "ghost",
         "size": "small"
       }
-    }, [_c('router-link', {
-      attrs: {
-        "to": {
-          name: 'admin.plug.update',
-          params: {
-            id: v.id
-          }
-        }
-      }
-    }, [_vm._v("编辑")])], 1), _vm._v(" "), _c('Button', {
+    }, [_vm._v("编辑")]), _vm._v(" "), _c('Button', {
       attrs: {
         "type": "ghost",
         "size": "small"
