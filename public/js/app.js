@@ -1970,6 +1970,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -63978,6 +63981,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "admin.plug.list"
     }
   }, [_vm._v("插件列表")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/plug/create"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.plug.create"
+    }
+  }, [_vm._v("添加插件")])], 1), _vm._v(" "), _c('router-link', {
     attrs: {
       "to": "/admin/bm/list"
     }
