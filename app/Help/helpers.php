@@ -22,6 +22,16 @@ function upload_plug($file , $path){
     return false;
 }
 
+function upload_bm($file , $path){
+    $url = \Illuminate\Support\Facades\Storage::put($path, $file);
+
+    $url = ftp_file($url,'media');
+
+    if($url)
+        return $url;
+    return false;
+}
+
 function upload_avatar_img($file, $path, $size, $ext)
 {
 

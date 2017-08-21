@@ -91,7 +91,7 @@
                 <th style="width: 12%">操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="list.length > 0">
             <tr v-for="(v,k) in list">
                 <td class="hover_hand" title="点击复制ID">{{v.id}}</td>
                 <td>{{v.name}}</td>
@@ -131,6 +131,13 @@
                     <Button type="ghost" size="small">充值记录</Button>
                     <Button type="ghost" size="small">提现记录</Button>
                     <Button type="ghost" size="small">插件记录</Button>
+                </td>
+            </tr>
+            </tbody>
+            <tbody  v-else>
+            <tr>
+                <td style="text-align: center;font-size: 16px" colspan="15">
+                    暂无数据
                 </td>
             </tr>
             </tbody>

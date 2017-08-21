@@ -1,4 +1,4 @@
-webpackJsonp([19],{
+webpackJsonp([42],{
 
 /***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tag/Create.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {

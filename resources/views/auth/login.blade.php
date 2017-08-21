@@ -13,7 +13,7 @@
     </script>
     <script>
         var _hmt = _hmt || [];
-        (function() {
+        (function () {
             var hm = document.createElement("script");
             hm.src = "https://hm.baidu.com/hm.js?96b359efcd429833c49f99e3b00484b6";
             var s = document.getElementsByTagName("script")[0];
@@ -23,15 +23,20 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
     <style>
-
+        .lm_button{
+            background: #266ec1;
+        }
+        .bl_button{
+            background: #d13030;
+        }
     </style>
 </head>
 <body>
 <div>
-    <div class="left"  id="slider">
-        <img src="{{asset('images/default.png')}}" alt="" />
-        <img src="{{asset('images/bac2.png')}}" alt="" />
-        <img src="{{asset('images/bac3.png')}}" alt="" />
+    <div class="left" id="slider">
+        <img src="{{asset('images/default.png')}}" alt=""/>
+        <img src="{{asset('images/bac2.png')}}" alt=""/>
+        <img src="{{asset('images/bac3.png')}}" alt=""/>
     </div>
     <div class="filter">
 
@@ -41,7 +46,7 @@
             {{--<h2>登录</h2>--}}
             <form method="POST" action="{{ route('login') }}" class="cont_form_login">
                 {{ csrf_field() }}
-                <input type="text" name="email" placeholder="邮箱">
+                <input type="text" name="email" class="input_e" placeholder="邮箱">
                 @if ($errors->has('email'))
                     <p>{{ $errors->first('email') }}</p>
                 @endif
@@ -54,7 +59,7 @@
                 <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
             </form>
             <span>没有帐号？
-        <a href="{{route('register')}}">点我注册</a>  OR <a href="{{route('index')}}">返回首页</a>
+        <a href="{{route('register')}}" style="color: #fff">点我注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
         </div>
     </div>
@@ -62,15 +67,38 @@
 <script src="{{ asset('/js/jq.js') }}"></script>
 <script src="{{ asset('js/login2.js') }}"></script>
 <script>
-    $(function(){
+    $(function () {
+        let camp = $("select[name='camp']").val();
+        if (camp) {
+            window.myFlux.showImage(camp);
+        }
+
         window.myFlux = new flux.slider('#slider', {
             autoplay: false,
             pagination: false,
-            transitions: ['warp']
+            transitions: ['zip'],
+            delay: 20
         });
-        $(document).on("click","#ccc",function(){
-            window.myFlux.next();
+
+        $(".input_e").blur(function () {
+            $.ajax({
+                url: "/check_login_email",
+                type: 'post',
+                data: {email: $("input[name='email']").val() , '_token': "{{csrf_token()}}"},
+                success: function (res) {
+                    console.log(res)
+                    if(res.sta === 1){
+                        $(".my-button").removeClass('lm_button bl_button');
+                        $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
+                        window.myFlux.showImage(res.camp);
+                    }else{
+                        $(".my-button").removeClass('lm_button bl_button');
+                        window.myFlux.showImage(0);
+                    }
+                }
+            })
         })
+
     })
 </script>
 </body>

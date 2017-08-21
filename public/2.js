@@ -165,6 +165,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -182,8 +199,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 wwb: '',
                 status: '',
                 is_check: '',
-                orderBySome: '',
-                orderByF: 'desc'
+                orderBySome: 'created_at',
+                orderByF: 'desc',
+                is_new: '0'
             },
             loading_s: false,
             configPlugType: configPlugType,
@@ -200,7 +218,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         toS: function toS() {
             this.page = 1;
-            //                this.loading_s = true
+            this.loading_s = true;
+            this.search();
+        },
+        search_his: function search_his(id) {
+            this.page = 1;
+            this.formS.plug_id = id;
+            this.formS.is_new = '0';
             this.search();
         },
         rest: function rest() {
@@ -211,8 +235,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formS.wwb = '';
             this.formS.status = '';
             this.formS.is_check = '';
-            this.formS.orderBySome = '';
+            this.formS.orderBySome = 'created_at    ';
             this.formS.orderByF = 'desc';
+            this.formS.is_new = '0';
         },
         c_rank: function c_rank(id, k) {
             var _this = this;
@@ -1336,7 +1361,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "desc"
     }
-  }, [_vm._v("倒序")])], 1)], 1), _vm._v(" "), _c('Button', {
+  }, [_vm._v("倒序")])], 1)], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "含有历史"
+    },
+    model: {
+      value: (_vm.formS.is_new),
+      callback: function($$v) {
+        _vm.formS.is_new = $$v
+      },
+      expression: "formS.is_new"
+    }
+  }, [_c('Option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("含有历史")]), _vm._v(" "), _c('Option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("不包含历史")])], 1)], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "type": "ghost"
     },
@@ -1353,7 +1401,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', [_vm._v("搜索")])]), _vm._v(" "), _c('router-link', {
     attrs: {
-      "to": "/admin/tag/create"
+      "to": "/admin/plug/create"
     }
   }, [_c('Button', {
     staticClass: "pull-right",
@@ -1362,19 +1410,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("添加插件")])], 1)], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(v, k) {
+  }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', {
       staticClass: "hover_hand"
     }, [_c('Tooltip', {
       attrs: {
         "placement": "bottom-start"
       }
-    }, [_c('span', {
+    }, [_c('a', {
       staticClass: "toolTip",
+      attrs: {
+        "href": ("/#/info/" + (v.id)),
+        "target": "_blank"
+      }
+    }, [_c('span', {
       domProps: {
         "innerHTML": _vm._s(v.title)
       }
-    }), _vm._v(" "), _c('div', {
+    })]), _vm._v(" "), _c('div', {
       slot: "content"
     }, [_c('p', {
       domProps: {
@@ -1506,6 +1559,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "ghost",
         "size": "small"
+      },
+      on: {
+        "click": function($event) {
+          _vm.search_his(v.plug_id)
+        }
       }
     }, [_vm._v("历史版本")]), _vm._v(" "), _c('Button', {
       attrs: {
@@ -1518,7 +1576,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(_vm.is_disabled === k ? '提交' : '推荐'))])], 1)])
-  }))]), _vm._v(" "), _c('div', {
+  })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
     key: _vm.total,
@@ -1536,6 +1594,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者昵称")]), _vm._v(" "), _c('th', [_vm._v("插件简介")]), _vm._v(" "), _c('th', [_vm._v("收费金币")]), _vm._v(" "), _c('th', [_vm._v("插件分类")]), _vm._v(" "), _c('th', [_vm._v("插件内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("点赞次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("评分")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "15"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

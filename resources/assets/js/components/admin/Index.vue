@@ -27,7 +27,9 @@
                 <router-link to="/admin/plug/list">
                     <Menu-item name="admin.plug.list">插件列表</Menu-item>
                 </router-link>
-                <Menu-item name="2-2">嘿市</Menu-item>
+                <router-link to="/admin/bm/list">
+                    <Menu-item name="admin.bm.list">嘿市</Menu-item>
+                </router-link>
             </Submenu>
             <Submenu name="3">
                 <template slot="title">

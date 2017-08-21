@@ -55,6 +55,7 @@ class PlugController extends Controller
             ->where('is_new',1)
             ->where([['status', 1], ['is_check', 1]])
             ->skip($limit)->take(10)
+            ->orderBy('rank','desc')
             ->orderBy($orderBy, 'desc')
             ->get();
 
@@ -82,11 +83,11 @@ class PlugController extends Controller
         $type = $type == 'undefined' ? $type = 0 : config('my.plug_type')[$type];
         $rank_download = Plug::when($type > 0, function ($query) use ($type) {
             $query->where('type', $type);
-        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('download_num', 'desc')->get();
+        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('rank','desc')->orderBy('download_num', 'desc')->get();
 
         $rank_score = Plug::when($type > 0, function ($query) use ($type) {
             $query->where('type', $type);
-        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('score', 'desc')->get();
+        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('rank','desc')->orderBy('score', 'desc')->get();
 
         return ['rank_download' => $rank_download, 'rank_score' => $rank_score];
     }
@@ -520,35 +521,35 @@ class PlugController extends Controller
         if(Cache::has('plug_index_wa')){
             $wa = Cache::get('plug_index_wa');
         }else{
-            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_wa',$wa,60);
         }
 
         if(Cache::has('plug_index_twm')){
             $twm = Cache::get('plug_index_twm');
         }else{
-            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_twm',$twm,60);
         }
 
         if(Cache::has('plug_index_plug')){
             $plug = Cache::get('plug_index_plug');
         }else{
-            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_plug',$plug,60);
         }
 
         if(Cache::has('plug_index_recent_plugs')){
             $recent_plugs = Cache::get('plug_index_recent_plugs');
         }else{
-            $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_recent_plugs',$recent_plugs,60);
         }
 
         if(Cache::has('plug_index_download_plugs')){
             $download_plugs = Cache::get('plug_index_download_plugs');
         }else{
-            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->orderBy('rank','desc')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
             Cache::put('plug_index_download_plugs',$download_plugs,60);
         }
 
@@ -559,6 +560,7 @@ class PlugController extends Controller
                 ->where([['status', 1], ['is_check', 1]])
                 ->skip(0)->take(20)->select('plugs.id','plugs.title','plugs.created_at' , 'downloads.num')->
             leftJoin('downloads', 'plugs.plug_id' ,'=' ,'downloads.plug_id')
+                ->orderBy('rank','desc')
                 ->orderBy('downloads.num','desc')
                 ->get();
             Cache::put('plug_index_download_plugs_this_mouth',$download_plugs_this_mouth,60);
@@ -606,12 +608,16 @@ class PlugController extends Controller
             ->when($request->search['is_check'] != null, function ($query) use ($request) {
                 return $query->where('plugs.is_check', $request->search['is_check']);
             })
+            ->orderBy('is_new','desc')
             ->when($request->search['orderBySome'] != null, function ($query) use ($request) {
-                return $query->orderBy("plugs.$request->search[orderBySome]", $request->search['orderByF']);
+                return $query->orderBy("plugs.".$request->search['orderBySome'], $request->search['orderByF']);
+            })
+            ->when($request->search['is_new'] != 0, function ($query) use ($request) {
+                return $query->where("plugs.is_new", 1);
             });
 
         $count = $where->count();
-        $list = $where->with(['thumbs','tag_one','tag_two','user'])->skip(($page-1)*$size)->take($size)->orderBy('is_new','desc')->select('plugs.*')->get();
+        $list = $where->with(['thumbs','tag_one','tag_two','user'])->skip(($page-1)*$size)->take($size)->select('plugs.*')->get();
         return ['sta'=>1, 'count'=>$count, 'list'=>$list];
     }
 

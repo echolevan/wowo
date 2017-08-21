@@ -78,7 +78,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="div_block zf_div" style="background-color: #f5f5f5">
+                <div class="div_block zf_div">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
             </iCol>

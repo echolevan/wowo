@@ -1,11 +1,12 @@
 webpackJsonp([28],{
 
-/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Pay.vue":
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tag/List.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_imgView_vue__ = __webpack_require__("./resources/assets/js/components/common/imgView.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_imgView_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_imgView_vue__);
 //
 //
 //
@@ -135,168 +136,239 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        var _this = this;
+
+        var validateUploadList = function validateUploadList(rule, value, callback) {
+            setTimeout(function () {
+                if (_this.formItem.type.length === 1) {
+                    if (_this.formItem.thumb === '') {
+                        callback(new Error('请上传插件截图'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            }, 10);
+        };
+        var validateType = function validateType(rule, value, callback) {
+            if (value.length === 0) {
+                callback(new Error('插件分类不能为空'));
+            } else {
+                callback();
+            }
+        };
         return {
-            type: '',
-            money: '',
-            pay_amount_other: 1,
-            is_money: '',
-            orders_history: [],
             page: 1,
-            size: 10,
-            count: 0,
-            lv: {}
+            page_size: 10,
+            total: 0,
+            edit_k: 0,
+            list: [],
+            formS: {
+                name: '',
+                status: '',
+                is_for_user: ''
+            },
+            config_status_type: configStatusType,
+            config_is_for_user: configIsForUser,
+            loading_s: false,
+            loading_edit: false,
+            modal_edit: false,
+            visible: false,
+            csrfToken: window.Laravel.csrfToken,
+            imgName: '',
+            formItem: {
+                name: '',
+                type: [],
+                thumb: '',
+                id: ''
+            },
+            plug_tags: [],
+            ruleValidate: {
+                name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30', trigger: 'change' }],
+                type: [{ validator: validateType, required: true, trigger: 'change' }],
+                thumb: [{ validator: validateUploadList, required: true, trigger: 'change' }]
+            }
         };
     },
     mounted: function mounted() {
-        this.get_lv();
+        this.search();
     },
 
     methods: {
-        get_lv: function get_lv() {
-            var _this = this;
-
-            axios.get('user/lv').then(function (res) {
-                _this.lv = res.data.info;
-            });
+        toS: function toS() {
+            this.page = 1;
+            this.loading_s = true;
+            this.search();
         },
-        choice_type: function choice_type(num) {
-            this.type = num;
+        rest: function rest() {
+            this.formS.name = '';
+            this.formS.status = '';
+            this.formS.is_for_user = '';
         },
-        change_other: function change_other() {
-            if (!/^\d+$/.test(this.pay_amount_other)) {
-                this.pay_amount_other = Math.round(this.pay_amount_other);
-            }
+        tag_type: function tag_type(v) {
+            return configTagType[v];
         },
-        hover: function hover(num) {
-            if (num === 1) {
-                this.is_money = '';
-            } else {
-                this.is_money = num;
-            }
+        status_type: function status_type(v) {
+            return configStatusType[v];
         },
-        pay: function pay(money) {
+        is_for_user: function is_for_user(v) {
+            return configIsForUser[v];
+        },
+        change_status: function change_status(v, id, k) {
             var _this2 = this;
 
-            var recharge_amount_other = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-
-            if (!isNaN(money) && !/^\d+$/.test(this.pay_amount_other)) {
-                this.$Message.error('请选择充值金额');
-            } else if (!this.type) {
-                this.$Message.error('请选择充值方式');
-            } else {
-                axios.post('user/recharge', {
-                    recharge_type: this.type,
-                    recharge_amount: money,
-                    recharge_amount_other: recharge_amount_other
-                }).then(function (res) {
-                    if (res.data.sta === 0) {
-                        _this2.$Message.error(res.data.msg);
-                    } else {
-                        _this2.$store.commit('change_userInfo', res.data.info);
-                        _this2.$Message.success(res.data.msg);
-                    }
-                });
-            }
+            axios.get('admin/tag/change_status/' + id + '/' + v).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this2.list[k].status = v;
+                    _this2.$Message.success(res.data.msg);
+                } else {
+                    _this2.$Message.error(res.data.msg);
+                }
+            });
         },
-        change_page: function change_page(p) {
-            this.page = p;
-            this.get_orders_history(2);
-        },
-        get_orders_history: function get_orders_history(name) {
+        change_is_for_user: function change_is_for_user(v, id, k) {
             var _this3 = this;
 
-            if (name === '1') {
-                return false;
-            }
-            axios.post('user/get_orders_history/' + this.page + '/' + this.size).then(function (res) {
-                _this3.count = res.data.count;
-                _this3.orders_history = res.data.res;
+            axios.get('admin/tag/change_is_for_user/' + id + '/' + v).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this3.list[k].is_for_user = v;
+                    _this3.$Message.success(res.data.msg);
+                } else {
+                    _this3.$Message.error(res.data.msg);
+                }
             });
+        },
+        page_c: function page_c(p) {
+            this.page = p;
+            this.search();
+            this.$Loading.start();
+        },
+        size_c: function size_c(s) {
+            this.page_size = s;
+            this.search();
+            this.$Loading.start();
+        },
+        search: function search() {
+            var _this4 = this;
+
+            axios.post('admin/tag/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this4.total = res.data.count;
+                    _this4.list = res.data.list;
+                }
+                _this4.$Loading.finish();
+                _this4.loading_s = false;
+            });
+        },
+        edit: function edit(info, k) {
+            var _this5 = this;
+
+            this.edit_k = k;
+            axios.get('admin/plug_all_info').then(function (res) {
+                _this5.plug_tags = res.data;
+            });
+            this.formItem.name = info.name;
+            this.formItem.thumb = info.thumb;
+            this.formItem.id = info.id;
+            if (info.type === 1) {
+                var dataStrArr = [1, info.pid];
+                var dataIntArr = [];
+                dataStrArr.forEach(function (data, index, arr) {
+                    if (data > 0) {
+                        dataIntArr.push(+data);
+                    }
+                });
+                this.formItem.type = dataIntArr;
+            } else {
+                this.formItem.type = [3];
+            }
+            this.modal_edit = true;
+        },
+        handleSuccess: function handleSuccess(res, file) {
+            this.formItem.thumb = res.url;
+        },
+        handleView: function handleView(name) {
+            this.imgName = name;
+            this.visible = true;
+        },
+        handleRemove: function handleRemove() {
+            this.formItem.thumb = '';
+        },
+        on_sel: function on_sel(v) {
+            this.formItem.type = v;
+            console.log(this.formItem.type);
+        },
+        ok: function ok(name) {
+            var _this6 = this;
+
+            this.loading_edit = true;
+            this.$refs[name].validate(function (valid) {
+                if (valid) {
+                    axios.put('admin/tag/update/' + _this6.formItem.id, { data: _this6.formItem }).then(function (res) {
+                        if (res.data.sta === 1) {
+                            _this6.$Message.success('编辑成功!');
+                            _this6.formItem.name = '';
+                            _this6.formItem.type = [];
+                            _this6.formItem.thumb = '';
+                            _this6.formItem.id = '';
+                            _this6.modal_edit = false;
+                            _this6.list[_this6.edit_k] = res.data.info;
+                        }
+                    });
+                } else {
+                    _this6.$Message.error('表单验证失败!');
+                }
+            });
+            this.loading_edit = false;
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap'])
+    components: {
+        'img-view': __WEBPACK_IMPORTED_MODULE_0__common_imgView_vue___default.a
+    }
 });
 
 /***/ }),
 
-/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Pay.vue":
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/common/imgView.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            imgName: '',
+            visible: false
+        };
+    },
+
+    props: ['img'],
+    methods: {
+        handleView: function handleView(imgName) {
+            this.imgName = imgName;
+            this.visible = true;
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/common/imgView.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
@@ -304,411 +376,458 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.user_pay .choice_type a[data-v-45111128] {\n  padding: 0 40px 0 105px;\n  position: relative;\n  border: 1px solid #ddd;\n  height: 50px;\n  vertical-align: middle;\n  display: inline-block;\n}\n.user_pay .choice_type a .zfb[data-v-45111128] {\n  width: 72px;\n  height: 24px;\n  margin-top: -12px;\n  position: absolute;\n  background: url(\"/images/bank.png\");\n  left: 35px;\n  top: 50%;\n}\n.user_pay .choice_type a .wx[data-v-45111128] {\n  width: 29px;\n  height: 24px;\n  margin-top: -12px;\n  position: absolute;\n  background: url(\"/images/bank.png\");\n  left: 35px;\n  top: 50%;\n  background-position: -165px 0;\n}\n.user_pay .choice_type a .wx_font[data-v-45111128] {\n  color: #5d6a70;\n  font-size: 16px;\n  position: absolute;\n  top: 50%;\n  left: 70px;\n  margin-top: -12px;\n}\n.user_pay .choice_money .panel-body[data-v-45111128] {\n  padding: 0;\n  display: flex;\n  justify-content: center;\n}\n.user_pay .choice_money .panel-body[data-v-45111128]:nth-child(2n+1) {\n  padding: 0;\n}\n.user_pay .choice_money .panel-body .my_btn_wrapper[data-v-45111128] {\n  width: 300px;\n}\n.user_pay .pay_his .list[data-v-45111128] {\n  min-height: 320px;\n}\n.user_pay .pay_his .list li[data-v-45111128] {\n  padding: 5px 0;\n  width: 100%;\n  font-size: 14px;\n  border-bottom: 1px solid #f2f2f2;\n}\n.user_pay .pay_his .list li .time[data-v-45111128] {\n  float: right;\n  font-size: 14px;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-45111128\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Pay.vue":
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tag/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.small-upload-list[data-v-f6739d92] {\n  display: inline-block;\n  width: 60px;\n  height: 60px;\n  text-align: center;\n  line-height: 60px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.small-upload-list img[data-v-f6739d92] {\n  width: 100%;\n  height: 100%;\n}\n.small-upload-list-cover[data-v-f6739d92] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.small-upload-list:hover .small-upload-list-cover[data-v-f6739d92] {\n  display: block;\n}\n.small-upload-list-cover i[data-v-f6739d92] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-34c7acc8\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/common/imgView.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "user_pay"
-  }, [_c('Tabs', {
-    class: {
-      'bl_tab_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
+  return _c('div', [_c('img', {
+    staticClass: "view_img",
     attrs: {
-      "value": "1"
-    },
-    on: {
-      "on-click": _vm.get_orders_history
-    }
-  }, [_c('Tab-pane', {
-    attrs: {
-      "label": "充值金币",
-      "name": "1"
-    }
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    金币余额 : "), _c('span', {
-    staticClass: "normal_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    staticStyle: {
-      "font-size": "16px"
-    }
-  }, [_vm._v(_vm._s(_vm.userInfo.wwb))])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("请选择支付方式")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "choice_type"
-  }, [_c('Radio-group', {
-    model: {
-      value: (_vm.type),
-      callback: function($$v) {
-        _vm.type = $$v
-      },
-      expression: "type"
-    }
-  }, [_c('Radio', {
-    attrs: {
-      "label": "1"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "javascript:void(0);"
+      "src": _vm.img,
+      "alt": ""
     },
     on: {
       "click": function($event) {
-        _vm.choice_type(1)
+        _vm.handleView(_vm.img)
       }
     }
-  }, [_c('i', {
-    staticClass: "zfb"
-  })])]), _vm._v(" "), _c('Radio', {
+  }), _vm._v(" "), _c('Modal', {
     attrs: {
-      "label": "2"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "javascript:void(0);"
-    },
-    on: {
-      "click": function($event) {
-        _vm.choice_type(2)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "wx"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "wx_font"
-  }, [_vm._v("微信")])])])], 1)], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "panel panel-default choice_money"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("请选择金额 （比例为1元人民币 = 10金币）")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body",
-    staticStyle: {
-      "padding": "30px 0 0 0"
-    }
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "click": function($event) {
-        _vm.pay(500)
-      },
-      "mouseenter": function($event) {
-        _vm.hover(500)
-      },
-      "mouseleave": function($event) {
-        _vm.hover(1)
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("500元")])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "click": function($event) {
-        _vm.pay(400)
-      },
-      "mouseenter": function($event) {
-        _vm.hover(400)
-      },
-      "mouseleave": function($event) {
-        _vm.hover(1)
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("400元")])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "click": function($event) {
-        _vm.pay(300)
-      },
-      "mouseenter": function($event) {
-        _vm.hover(300)
-      },
-      "mouseleave": function($event) {
-        _vm.hover(1)
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("300元")])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [(_vm.is_money === 500) ? _c('span', {
-    staticClass: "normal_big_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("= 5000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 5000 / 100) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= 5000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 5000 / 100) + " 金币")]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [(_vm.is_money === 400) ? _c('span', {
-    staticClass: "normal_big_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("= 4000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 4000 / 100) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= 4000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 4000 / 100) + " 金币")]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [(_vm.is_money === 300) ? _c('span', {
-    staticClass: "normal_big_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("= 3000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 3000 / 100) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= 3000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 3000 / 100) + " 金币")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "click": function($event) {
-        _vm.pay(200)
-      },
-      "mouseenter": function($event) {
-        _vm.hover(200)
-      },
-      "mouseleave": function($event) {
-        _vm.hover(1)
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("200元")])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [_c('Input-number', {
-    staticStyle: {
-      "width": "100px",
-      "margin-top": "15px"
-    },
-    attrs: {
-      "min": 1
-    },
-    on: {
-      "on-change": _vm.change_other
+      "title": "查看图片"
     },
     model: {
-      value: (_vm.pay_amount_other),
+      value: (_vm.visible),
       callback: function($$v) {
-        _vm.pay_amount_other = $$v
+        _vm.visible = $$v
       },
-      expression: "pay_amount_other"
+      expression: "visible"
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "click": function($event) {
-        _vm.pay(_vm.pay_amount_other, 0)
-      },
-      "mouseenter": function($event) {
-        _vm.hover(0)
-      },
-      "mouseleave": function($event) {
-        _vm.hover(1)
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("充值自定义金额")])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body",
+  }, [(_vm.visible) ? _c('img', {
     staticStyle: {
-      "padding": "0 0 30px 0"
-    }
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [(_vm.is_money === 200) ? _c('span', {
-    staticClass: "normal_big_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("= 2000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 2000 / 100) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= 2000 金币 "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * 2000 / 100) + " 金币")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [_c('div', {
-    staticClass: "my_btn_wrapper"
-  }, [(_vm.is_money === 0) ? _c('span', {
-    staticClass: "normal_big_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 10) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 10) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制\n                    "), _c('br'), _vm._v("\n                    充值获得的金币可用于提现（满200即可提现）\n                    "), _c('br'), _vm._v("\n                    起充10元才能赠送金币\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
-    staticClass: "pay_his",
-    staticStyle: {
-      "padding": "0 15px"
+      "width": "100%"
     },
     attrs: {
-      "label": "充值记录",
-      "name": "2"
+      "src": _vm.imgName
     }
-  }, [(_vm.count > 0) ? _c('ul', {
-    staticClass: "list"
-  }, _vm._l((_vm.orders_history), function(v) {
-    return _c('li', {
-      staticClass: "my_a_style"
-    }, [_c('strong', [_vm._v("充值\n                        "), _c('span', {
-      staticClass: "normal_font",
-      class: {
-        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      }
-    }, [_vm._v(_vm._s(v.recharge_amount) + "\n                            ")]), _vm._v(" 元 ,\n                        获得金币 "), _c('span', {
-      staticClass: "normal_font",
-      class: {
-        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      }
-    }, [_vm._v(_vm._s(v.recharge_wwb) + "\n                            ")]), _vm._v(" +\n                        "), _c('span', {
-      staticClass: "normal_font",
-      class: {
-        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      }
-    }, [_vm._v(_vm._s(v.giving_wwb) + "\n                            ")])]), _vm._v(" "), _c('span', {
-      staticClass: "time"
-    }, [_vm._v(_vm._s(v.created_at))])])
-  })) : _c('p', {
-    staticClass: "normal_font",
-    class: {
-      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    }
-  }, [_vm._v("暂无记录")]), _vm._v(" "), _c('Page', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.count > 0),
-      expression: "count > 0"
-    }],
-    key: _vm.count,
-    class: {
-      'bl_page_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    staticStyle: {
-      "float": "right",
-      "margin-top": "30px"
-    },
-    attrs: {
-      "total": _vm.count,
-      "size": "small",
-      "show-total": ""
-    },
-    on: {
-      "on-change": _vm.change_page
-    }
-  })], 1)], 1)], 1)
+  }) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-45111128", module.exports)
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-34c7acc8", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Pay.vue":
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-f6739d92\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/tag/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Breadcrumb', {
+    staticStyle: {
+      "margin-bottom": "15px",
+      "font-size": "12px"
+    }
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("标签列表")])], 1), _vm._v(" "), _c('Form', {
+    attrs: {
+      "model": _vm.formS,
+      "inline": ""
+    }
+  }, [_c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "搜索分类"
+    },
+    model: {
+      value: (_vm.formS.name),
+      callback: function($$v) {
+        _vm.formS.name = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.name"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "状态"
+    },
+    model: {
+      value: (_vm.formS.status),
+      callback: function($$v) {
+        _vm.formS.status = $$v
+      },
+      expression: "formS.status"
+    }
+  }, _vm._l((_vm.config_status_type), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "200px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "用户能否使用"
+    },
+    model: {
+      value: (_vm.formS.is_for_user),
+      callback: function($$v) {
+        _vm.formS.is_for_user = $$v
+      },
+      expression: "formS.is_for_user"
+    }
+  }, _vm._l((_vm.config_is_for_user), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "ghost"
+    },
+    on: {
+      "click": _vm.rest
+    }
+  }, [_c('span', [_vm._v("重置")])]), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading_s
+    },
+    on: {
+      "click": _vm.toS
+    }
+  }, [_c('span', [_vm._v("搜索")])]), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/tag/create"
+    }
+  }, [_c('Button', {
+    staticClass: "pull-right",
+    attrs: {
+      "type": "primary"
+    }
+  }, [_vm._v("添加分类")])], 1)], 1), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered my_admin_table"
+  }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(v.name))]), _vm._v(" "), _c('td', [_c('img-view', {
+      attrs: {
+        "img": v.thumb
+      }
+    })], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.parent ? v.parent.name : '顶级'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.tag_type(v.type)))]), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "dot",
+        "color": v.status === 1 ? 'blue' : 'red'
+      },
+      nativeOn: {
+        "click": function($event) {
+          _vm.change_status(v.status === 1 ? 0 : 1, v.id, k)
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.status_type(v.status)))])], 1), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "dot",
+        "color": v.is_for_user === 1 ? 'blue' : 'red'
+      },
+      nativeOn: {
+        "click": function($event) {
+          _vm.change_is_for_user(v.is_for_user === 1 ? 0 : 1, v.id, k)
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.is_for_user(v.is_for_user)))])], 1), _vm._v(" "), _c('td', [_c('Button', {
+      attrs: {
+        "type": "ghost",
+        "size": "small"
+      },
+      on: {
+        "click": function($event) {
+          _vm.edit(v, k)
+        }
+      }
+    }, [_vm._v("编辑")])], 1)])
+  })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
+    staticClass: "page pull-right"
+  }, [_c('Page', {
+    key: _vm.total,
+    attrs: {
+      "total": _vm.total,
+      "size": "small",
+      "show-elevator": "",
+      "show-sizer": "",
+      "show-total": ""
+    },
+    on: {
+      "on-change": _vm.page_c,
+      "on-page-size-change": _vm.size_c
+    }
+  })], 1), _vm._v(" "), _c('Modal', {
+    attrs: {
+      "title": "编辑插件"
+    },
+    on: {
+      "on-ok": function($event) {
+        _vm.ok('formItem')
+      }
+    },
+    model: {
+      value: (_vm.modal_edit),
+      callback: function($$v) {
+        _vm.modal_edit = $$v
+      },
+      expression: "modal_edit"
+    }
+  }, [_c('Form', {
+    ref: "formItem",
+    staticClass: "div_center form_main",
+    attrs: {
+      "model": _vm.formItem,
+      "label-width": 80,
+      "rules": _vm.ruleValidate
+    }
+  }, [_c('Form-item', {
+    attrs: {
+      "label": "名称",
+      "prop": "name"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "请输入"
+    },
+    model: {
+      value: (_vm.formItem.name),
+      callback: function($$v) {
+        _vm.formItem.name = $$v
+      },
+      expression: "formItem.name"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    attrs: {
+      "label": "类型",
+      "prop": "type"
+    }
+  }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
+    attrs: {
+      "data": _vm.plug_tags,
+      "change-on-select": ""
+    },
+    on: {
+      "on-change": _vm.on_sel
+    },
+    model: {
+      value: (_vm.formItem.type),
+      callback: function($$v) {
+        _vm.formItem.type = $$v
+      },
+      expression: "formItem.type"
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.type.length === 1),
+      expression: "formItem.type.length === 1"
+    }],
+    attrs: {
+      "label": "分享图片",
+      "prop": "thumb"
+    }
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.thumb !== ''),
+      expression: "formItem.thumb !== ''"
+    }],
+    staticClass: "small-upload-list"
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.formItem.thumb
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "small-upload-list-cover"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-eye-outline"
+    },
+    nativeOn: {
+      "click": function($event) {
+        _vm.handleView(_vm.formItem.thumb)
+      }
+    }
+  }), _vm._v(" "), _c('Icon', {
+    attrs: {
+      "type": "ios-trash-outline"
+    },
+    nativeOn: {
+      "click": function($event) {
+        _vm.handleRemove(1)
+      }
+    }
+  })], 1)]), _vm._v(" "), _c('Upload', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.thumb === ''),
+      expression: "formItem.thumb === ''"
+    }],
+    ref: "upload",
+    staticStyle: {
+      "display": "inline-block",
+      "width": "58px"
+    },
+    attrs: {
+      "show-upload-list": false,
+      "on-success": _vm.handleSuccess,
+      "type": "drag",
+      "headers": {
+        "X-CSRF-TOKEN": _vm.csrfToken
+      },
+      "action": "/admin/upload_tag_img"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "width": "58px",
+      "height": "58px",
+      "line-height": "58px"
+    }
+  }, [_c('Icon', {
+    attrs: {
+      "type": "camera",
+      "size": "20"
+    }
+  })], 1)])], 1)], 1), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    staticClass: "pull-right",
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading_edit
+    },
+    on: {
+      "click": function($event) {
+        _vm.ok('formItem')
+      }
+    }
+  }, [_c('span', [_vm._v("提交")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)], 1), _vm._v(" "), _c('Modal', {
+    attrs: {
+      "title": "查看图片"
+    },
+    model: {
+      value: (_vm.visible),
+      callback: function($$v) {
+        _vm.visible = $$v
+      },
+      expression: "visible"
+    }
+  }, [(_vm.visible) ? _c('img', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "src": _vm.imgName
+    }
+  }) : _vm._e()])], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("标签名称")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("标签图标")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("所属类别")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("分类")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("状态")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("用户是否能使用")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("操作")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "7"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-f6739d92", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/common/imgView.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Pay.vue");
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/common/imgView.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("6a880e85", content, false);
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("22fa21c0", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Pay.vue", function() {
-     var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Pay.vue");
+   module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./imgView.vue", function() {
+     var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./imgView.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -719,29 +838,56 @@ if(false) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/user/Pay.vue":
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tag/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tag/List.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("54cb0c94", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/admin/tag/List.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-45111128\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Pay.vue")
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f6739d92\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tag/List.vue")
 }
 var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
   /* script */
-  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Pay.vue"),
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tag/List.vue"),
   /* template */
-  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-45111128\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Pay.vue"),
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-f6739d92\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/tag/List.vue"),
   /* styles */
   injectStyle,
   /* scopeId */
-  "data-v-45111128",
+  "data-v-f6739d92",
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\user\\Pay.vue"
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\admin\\tag\\List.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Pay.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] List.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -750,9 +896,54 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-45111128", Component.options)
+    hotAPI.createRecord("data-v-f6739d92", Component.options)
   } else {
-    hotAPI.reload("data-v-45111128", Component.options)
+    hotAPI.reload("data-v-f6739d92", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/common/imgView.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c7acc8\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/common/imgView.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/common/imgView.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-34c7acc8\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/common/imgView.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-34c7acc8",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\common\\imgView.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] imgView.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-34c7acc8", Component.options)
+  } else {
+    hotAPI.reload("data-v-34c7acc8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

@@ -33,6 +33,10 @@ return [
         '2' => '微信'
     ],
 
+    'upload_bm_type' => [
+        '1' => 'torrent'
+    ],
+
     'down_url' => 'https://down.iwowcn.com/'
 
 ];

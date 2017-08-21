@@ -1,6 +1,7 @@
 const Index = resolve => require(['./components/index/Index.vue'], resolve)
 const Home = resolve => require(['./components/home/Index.vue'], resolve)
 const WaTmw = resolve => require(['./components/plug/WaTmw.vue'], resolve)
+const Bm = resolve => require(['./components/plug/Bm.vue'], resolve)
 const Info = resolve => require(['./components/plug/Info.vue'], resolve)
 const updatePlug = resolve => require(['./components/plug/update.vue'], resolve)
 const userIndex = resolve => require(['./components/user/Index.vue'], resolve)
@@ -19,11 +20,14 @@ const AdminIndex = resolve => require(['./components/admin/index/Index.vue'], re
 const AdminUserList = resolve => require(['./components/admin/user/List.vue'], resolve)
 const AdminPlugList = resolve => require(['./components/admin/plug/List.vue'], resolve)
 const AdminPlugUpdate = resolve => require(['./components/admin/plug/Update.vue'], resolve)
+const AdminPlugCreate = resolve => require(['./components/admin/plug/Upload.vue'], resolve)
+const AdminBmList = resolve => require(['./components/admin/bm/List.vue'], resolve)
 
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
     { path: '/waTmw/:type', name:'waTmw.index' , component:WaTmw},
+    { path: '/bm', name:'bm.index' , component:Bm},
     { path: '/info/:id', name:'plug.info' , component:Info},
     { path: '/upload/:id?', name:'upload.plug' , component:uploadPlug},
     { path: '/update/:id', name:'update.plug' , component:updatePlug},
@@ -45,5 +49,9 @@ export default [
 
     { path: '/admin/plug/list',name:'admin.plug.list' , component:AdminPlugList},
     { path: '/admin/plug/update/:id',name:'admin.plug.update' , component:AdminPlugUpdate},
+    { path: '/admin/plug/create',name:'admin.plug.create' , component:AdminPlugCreate},
+
+
+    { path: '/admin/bm/list',name:'admin.bm.list' , component:AdminBmList}
 
 ]

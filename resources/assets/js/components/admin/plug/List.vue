@@ -55,6 +55,13 @@
                 </Select>
             </Form-item>
 
+            <Form-item>
+                <Select v-model="formS.is_new" clearable  placeholder="含有历史"  style="width: 100px;">
+                    <Option value="0">含有历史</Option>
+                    <Option value="1">不包含历史</Option>
+                </Select>
+            </Form-item>
+
             <Button type="ghost" @click="rest">
                 <span>重置</span>
             </Button>
@@ -63,7 +70,7 @@
                 <span>搜索</span>
             </Button>
 
-            <router-link to="/admin/tag/create">
+            <router-link to="/admin/plug/create">
                 <Button type="primary" class="pull-right">添加插件</Button>
             </router-link>
         </Form>
@@ -88,11 +95,13 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="list.length > 0">
             <tr v-for="(v, k) in list">
                 <td class="hover_hand">
                     <Tooltip placement="bottom-start">
-                        <span class="toolTip" v-html="v.title"></span>
+                        <a class="toolTip" :href="`/#/info/${v.id}`" target="_blank">
+                            <span v-html="v.title"></span>
+                        </a>
                         <div slot="content">
                             <p v-html="v.title"></p>
                         </div>
@@ -142,11 +151,19 @@
                     <Button type="ghost" size="small">
                         <router-link :to="{name: 'admin.plug.update' , params:{id: v.id}}">编辑</router-link>
                     </Button>
-                    <Button type="ghost" size="small">历史版本</Button>
+                    <Button type="ghost" size="small" @click="search_his(v.plug_id)">历史版本</Button>
                     <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '提交':'推荐' }}</Button>
                 </td>
             </tr>
             </tbody>
+            <tbody  v-else>
+            <tr>
+                <td style="text-align: center;font-size: 16px" colspan="15">
+                    暂无数据
+                </td>
+            </tr>
+            </tbody>
+
         </table>
 
         <div class="page pull-right">
@@ -173,8 +190,9 @@
                     wwb: '',
                     status: '',
                     is_check: '',
-                    orderBySome: '',
-                    orderByF: 'desc'
+                    orderBySome: 'created_at',
+                    orderByF: 'desc',
+                    is_new: '0',
                 },
                 loading_s: false,
                 configPlugType: configPlugType,
@@ -190,7 +208,13 @@
         methods: {
             toS() {
                 this.page = 1
-//                this.loading_s = true
+                this.loading_s = true
+                this.search()
+            },
+            search_his(id) {
+                this.page = 1
+                this.formS.plug_id = id
+                this.formS.is_new = '0'
                 this.search()
             },
             rest() {
@@ -201,8 +225,9 @@
                 this.formS.wwb = ''
                 this.formS.status = ''
                 this.formS.is_check = ''
-                this.formS.orderBySome = ''
+                this.formS.orderBySome = 'created_at    '
                 this.formS.orderByF = 'desc'
+                this.formS.is_new = '0'
             },
             c_rank(id, k){
                 if(this.is_disabled === k){

@@ -44,13 +44,16 @@
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'plug'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">魔兽插件</span></router-link>
+                            <span class="no_active">魔兽插件</span>
+                        </router-link>
                     </li>
                     <li>
                         <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>黑市</span></a>
+                        <router-link to="/bm" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span class="no_active">嘿市</span>
+                        </router-link>
                     </li>
                     <li>
                         <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>

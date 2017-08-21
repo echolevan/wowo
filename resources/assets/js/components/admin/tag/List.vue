@@ -47,7 +47,7 @@
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody v-if="list.length > 0">
             <tr v-for="(v, k) in list">
                 <td>{{v.name}}</td>
                 <td><img-view :img="v.thumb"></img-view></td>
@@ -61,6 +61,13 @@
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
+                </td>
+            </tr>
+            </tbody>
+            <tbody  v-else>
+            <tr>
+                <td style="text-align: center;font-size: 16px" colspan="7">
+                    暂无数据
                 </td>
             </tr>
             </tbody>

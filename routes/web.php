@@ -30,6 +30,7 @@ Auth::routes();
 
 
 Route::get('user/check_email/{token}' , 'UserController@check_email')->name('user.check_email');
+Route::post('check_login_email' , 'UserController@check_login_email')->name('user.check_login_email');
 
 Route::get('user/info' , 'UserController@index')->name('user.info');
 Route::get('user/logout' , 'UserController@logout')->name('user.logout');
@@ -77,6 +78,9 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("check/user_name",'UserController@user_name'); //检查用户名是否重复
     Route::post("check/user_email",'UserController@user_email'); //检查email是否重复
     Route::post("check/user_tel",'UserController@user_tel'); //检查tel是否重复
+
+    Route::post("bm/list/{page}/{size}",'BmController@bm_list'); //bm列表
+
 });
 
 
@@ -103,4 +107,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("plug/change_status/{id}/{v}",'PlugController@change_status')->name('admin.plug.change.status'); // 更改plug的status
     Route::get("plug/change_is_check/{id}/{v}",'PlugController@change_is_check')->name('admin.plug.change.is_check'); // 更改plug的is_check
 
+    Route::post("bm/list/{page}/{size}",'BmController@bm_list')->name('admin.bm.list'); // 获取黑市列表
+    Route::post("upload_bm_plug",'UploadController@upload_bm_plug')->name('admin.bm.upload'); // 上传BT
+    Route::put("bm/create",'BmController@create')->name('admin.bm.create'); // 新增黑市BT
+    Route::put("bm/update/{id}",'BmController@update')->name('admin.bm.update'); // 编辑黑市BT
+    Route::get("bm/change_rank/{id}/{rank}",'BmController@change_rank')->name('admin.bm.change_rank'); // 更换bm排序
+    Route::get("bm/change_status/{id}/{v}",'BmController@change_status')->name('admin.bm.change.status'); // 更改bm的status
 });

@@ -155,6 +155,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1119,7 +1126,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "12%"
     }
-  }, [_vm._v("操作")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(v, k) {
+  }, [_vm._v("操作")])])]), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', {
       staticClass: "hover_hand",
       attrs: {
@@ -1224,7 +1231,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "size": "small"
       }
     }, [_vm._v("插件记录")])], 1)])
-  }))]), _vm._v(" "), _c('v-user-edit', {
+  })) : _c('tbody', [_vm._m(0)])]), _vm._v(" "), _c('v-user-edit', {
     ref: "userEdit",
     on: {
       "subEdit": _vm.edit_ok
@@ -1245,7 +1252,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-page-size-change": _vm.size_c
     }
   })], 1)], 1)
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "15"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

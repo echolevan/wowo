@@ -36,3 +36,8 @@ export const checkType = {
     0: '未审核',
     1: '已审核'
 }
+
+export const bmType = {
+    1: 'BT',
+    2: '百度云'
+}

@@ -544,10 +544,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('strong', [_vm._v("用户统计")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
   }, [_c('ul', [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.user_count))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))]), _vm._v(" "), _c('li', [_vm._v("部落用户：" + _vm._s(_vm.census.bl_count))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "div_block zf_div",
-    staticStyle: {
-      "background-color": "#f5f5f5"
-    }
+    staticClass: "div_block zf_div"
   }, [_c('img', {
     attrs: {
       "src": "/images/pay/paypal.png",

@@ -23,7 +23,12 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
     <style>
-
+        .lm_button{
+            background: #266ec1;
+        }
+        .bl_button{
+            background: #d13030;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +76,7 @@
                 <button type="submit" class="btn_login my-button">注册</button>
             </form>
             <span>已有帐号？
-        <a href="{{route('login')}}">点我登录</a>  OR <a href="{{route('index')}}">返回首页</a>
+        <a href="{{route('login')}}" style="color: #fff">点我登录</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
         </div>
     </div>
@@ -88,9 +93,24 @@
             delay: 20
         });
         $(document).on("change","select",function(){
-            window.myFlux.showImage($("select[name='camp']").val());
+            let camp = $("select[name='camp']").val();
+            $(".my-button").removeClass('lm_button bl_button');
+            if(camp === '1'){
+                $(".my-button").addClass('lm_button');
+            }else if(camp === '2'){
+                $(".my-button").addClass('bl_button');
+            }else{
+                $(".my-button").removeClass('lm_button bl_button');
+            }
+            window.myFlux.showImage(camp);
         });
         $('select').niceSelect();
+
+        let camp = $("select[name='camp']").val();
+        if(camp){
+            window.myFlux.showImage(camp);
+            $(".my-button").addClass(camp === '1' ? 'lm_button' : 'bl_button');
+        }
 
         $(".captcha").click(function(){
             let url = '{{captcha_src()}}' + Math.random();

@@ -129,6 +129,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -531,7 +538,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("添加分类")])], 1)], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(v, k) {
+  }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', [_vm._v(_vm._s(v.name))]), _vm._v(" "), _c('td', [_c('img-view', {
       attrs: {
         "img": v.thumb
@@ -567,7 +574,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("编辑")])], 1)])
-  }))]), _vm._v(" "), _c('div', {
+  })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
     key: _vm.total,
@@ -783,6 +790,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "10%"
     }
   }, [_vm._v("操作")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "7"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

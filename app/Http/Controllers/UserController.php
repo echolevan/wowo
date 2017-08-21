@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\userLogin;
 use App\Lv;
 use App\Order;
 use App\Plug;
@@ -36,6 +37,18 @@ class UserController extends Controller
         $user = Auth::user();
         Auth::logout($user);
         return ['sta' =>'1'];
+    }
+
+    public function check_login_email(Request $request)
+    {
+        if($request->email){
+            $camp = User::where('email',$request->email)->value('camp');
+            if($camp){
+                return ['sta' => 1 , 'camp'=>$camp];
+            }
+            return ['sta' => 0];
+        }
+        return ['sta' => 0];
     }
 
     public function check_email($token)
