@@ -279,6 +279,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -289,6 +335,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             census: {},
             twms: [],
             plugs: [],
+            total_person: '',
+            new_user: '',
             recent_plugs: [],
             download_plugs: [],
             download_plugs_this_mouth: [],
@@ -356,6 +404,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.download_plugs = res.data.download_plugs;
                 _this2.download_plugs_this_mouth = res.data.download_plugs_this_mouth;
                 _this2.census = res.data.census;
+                _this2.total_person = res.data.total_person;
+                _this2.new_user = res.data.new_user;
             });
         },
         login: function login() {
@@ -405,14 +455,22 @@ exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: n
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('Row', [_c('iCol', {
+    staticStyle: {
+      "padding": "15px"
+    },
     attrs: {
       "span": "24"
     }
   }, [_c('div', {
-    staticClass: "div_block my_card_hover"
-  }, [_c('div', {
-    staticClass: "tool_user title"
-  }, [_c('strong', [_vm._v("快捷分享")])]), _vm._v(" "), _c('div', {
+    staticClass: "tool_user title",
+    staticStyle: {
+      "margin-bottom": "5px"
+    }
+  }, [_c('strong', {
+    staticStyle: {
+      "font-size": "14px"
+    }
+  }, [_vm._v("快捷分享")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
   }, [_c('iCol', {
     attrs: {
@@ -423,7 +481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入"
+      "placeholder": "请输入字符串"
     },
     model: {
       value: (_vm.content),
@@ -436,7 +494,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "span": "1"
     }
-  }, [_vm._v("\n                         \n                    ")]), _vm._v(" "), _c('iCol', {
+  }, [_vm._v("\n                     \n                ")]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "7"
     }
@@ -444,7 +502,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "w_input",
     attrs: {
       "data": _vm.plug_tags,
-      "placeholder": "请输入插件分类"
+      "placeholder": "请选择插件分类"
     },
     on: {
       "on-change": _vm.on_sel
@@ -471,7 +529,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "clear": "both"
     }
-  })], 1)])]), _vm._v(" "), _c('iCol', {
+  })], 1)]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "16"
     }
@@ -543,7 +601,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user title tool_title"
   }, [_c('strong', [_vm._v("用户统计")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [_c('ul', [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.user_count))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))]), _vm._v(" "), _c('li', [_vm._v("部落用户：" + _vm._s(_vm.census.bl_count))])])])]), _vm._v(" "), _c('div', {
+  }, [_c('ul', [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.user_count))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('li', [_vm._v("今日访问：" + _vm._s(_vm.total_person))]), _vm._v(" "), _c('li', [_vm._v("部落用户：" + _vm._s(_vm.census.bl_count))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('li', [_vm._v("欢迎新会员：" + _vm._s(_vm.new_user))])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "div_block zf_div"
   }, [_c('img', {
     attrs: {
@@ -562,18 +630,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "div_block my_card_hover"
   }, [_c('div', {
     staticClass: "tool_user title"
-  }, [_c('strong', [_vm._v("魔兽插件")]), _vm._v(" "), _c('router-link', {
+  }, [_c('strong', [_vm._v("WeakAuras")]), _vm._v(" "), _c('router-link', {
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
       "font-size": "12px"
     },
     attrs: {
-      "to": "/waTmw/plug"
+      "to": "/waTmw/wa"
     }
-  }, [_vm._v("更多")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("更多\n                    ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [_c('ul', _vm._l((_vm.plugs), function(v) {
+  }, [_c('ul', _vm._l((_vm.was), function(v) {
     return _c('li', [_c('router-link', {
       class: {
         'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -603,7 +671,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "span": "8"
     }
-  }, [_vm._v("\n             \n        ")]), _vm._v(" "), _c('iCol', {
+  }, [_c('div', {
+    staticClass: "div_block my_card_hover"
+  }, [_c('div', {
+    staticClass: "tool_user title"
+  }, [_c('strong', [_vm._v("TellMeWhen")]), _vm._v(" "), _c('router-link', {
+    staticClass: "pull-right my_a_style",
+    staticStyle: {
+      "padding-right": "10px",
+      "font-size": "12px"
+    },
+    attrs: {
+      "to": "/waTmw/twm"
+    }
+  }, [_vm._v("更多\n                    ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "tool_user_child child"
+  }, [_c('ul', _vm._l((_vm.twms), function(v) {
+    return _c('li', [_c('router-link', {
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
+      attrs: {
+        "title": v.title,
+        "to": {
+          name: 'plug.info',
+          params: {
+            id: v.id
+          }
+        }
+      }
+    }, [_c('Icon', {
+      attrs: {
+        "type": "arrow-right-b"
+      }
+    }), _vm._v(" "), _c('strong', {
+      staticClass: "my_a_style",
+      staticStyle: {
+        "padding-left": "10px"
+      }
+    }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
+      staticClass: "pull-right"
+    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
+  }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "8"
     }
@@ -651,18 +760,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "div_block my_card_hover"
   }, [_c('div', {
     staticClass: "tool_user title"
-  }, [_c('strong', [_vm._v("WeakAuras")]), _vm._v(" "), _c('router-link', {
+  }, [_c('strong', [_vm._v("游戏插件")]), _vm._v(" "), _c('router-link', {
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
       "font-size": "12px"
     },
     attrs: {
-      "to": "/waTmw/wa"
+      "to": "/waTmw/plug"
     }
-  }, [_vm._v("更多")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("更多\n                    ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [_c('ul', _vm._l((_vm.was), function(v) {
+  }, [_c('ul', _vm._l((_vm.plugs), function(v) {
     return _c('li', [_c('router-link', {
       class: {
         'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -696,44 +805,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "div_block my_card_hover"
   }, [_c('div', {
     staticClass: "tool_user title"
-  }, [_c('strong', [_vm._v("TellMeWhen")]), _vm._v(" "), _c('router-link', {
+  }, [_c('strong', [_vm._v("易游")]), _vm._v(" "), _c('router-link', {
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
       "font-size": "12px"
     },
     attrs: {
-      "to": "/waTmw/twm"
+      "to": "/waTmw/plug"
     }
-  }, [_vm._v("更多")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("更多\n                ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [_c('ul', _vm._l((_vm.twms), function(v) {
-    return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
-      attrs: {
-        "title": v.title,
-        "to": {
-          name: 'plug.info',
-          params: {
-            id: v.id
-          }
-        }
-      }
-    }, [_c('Icon', {
-      attrs: {
-        "type": "arrow-right-b"
-      }
-    }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
-      staticStyle: {
-        "padding-left": "10px"
-      }
-    }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
-      staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
-  }))])])]), _vm._v(" "), _c('iCol', {
+  })])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "8"
     }
@@ -769,7 +852,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
     }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
-  }))])])])], 1)], 1)
+  }))])])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

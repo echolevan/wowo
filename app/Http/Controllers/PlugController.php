@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Levan\Baidu\Stat\BaiduStatFacade;
 use function Sodium\increment;
 
 class PlugController extends Controller
@@ -317,7 +318,11 @@ class PlugController extends Controller
             $res[$k]['label'] = $v[2];
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
-            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])->get();
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
+                ->when(Auth::user()->is_admin === 0 , function ($query){
+                    $query->where('is_for_user', 1);
+                })
+                ->get();
         }
 
         return $res;
@@ -341,7 +346,7 @@ class PlugController extends Controller
 
     public function plug_all_info_no_login()
     {
-        $tag = [[1, 1, 'WA/TMW']];
+        $tag = [[1, 1, 'WA'] , [1,2,'TMW']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -518,6 +523,7 @@ class PlugController extends Controller
 
     public function plug_index()
     {
+
         if(Cache::has('plug_index_wa')){
             $wa = Cache::get('plug_index_wa');
         }else{
@@ -539,11 +545,26 @@ class PlugController extends Controller
             Cache::put('plug_index_plug',$plug,60);
         }
 
+        if(Cache::has('plug_index_new_user')){
+            $user = Cache::get('plug_index_new_user');
+        }else{
+            $user = User::latest()->value('name');
+            Cache::put('plug_index_new_user',$user,60);
+        }
+
         if(Cache::has('plug_index_recent_plugs')){
             $recent_plugs = Cache::get('plug_index_recent_plugs');
         }else{
             $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_recent_plugs',$recent_plugs,60);
+        }
+
+        if(Cache::has('plug_index_total_person')){
+            $total_person = Cache::get('plug_index_total_person');
+        }else{
+            $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
+            $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]) ? $total_person['info']['body']['data'][0]['result']['sum']['0'][1] : 0;
+            Cache::put('plug_index_total_person',$total_person,60);
         }
 
         if(Cache::has('plug_index_download_plugs')){
@@ -584,7 +605,7 @@ class PlugController extends Controller
             $census['bl_count'] = User::where('camp',2)->count();
             Cache::put('plug_index_census',$census,60);
         }
-        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census];
+        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
     }
 
     public function plug_list(Request $request , $page , $size)

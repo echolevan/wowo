@@ -36,15 +36,15 @@
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'wa'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">WeakAuras</span></router-link>
+                            <span class="no_active">WA</span></router-link>
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'twm'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">TellMeWhen</span></router-link>
+                            <span class="no_active">TMW</span></router-link>
                     </li>
                     <li>
                         <router-link :to="{name:'waTmw.index' , params:{'type':'plug'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">魔兽插件</span>
+                            <span class="no_active">游戏插件</span>
                         </router-link>
                     </li>
                     <li>
@@ -52,7 +52,7 @@
                     </li>
                     <li>
                         <router-link to="/bm" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span class="no_active">嘿市</span>
+                            <span class="no_active">黑市</span>
                         </router-link>
                     </li>
                     <li>

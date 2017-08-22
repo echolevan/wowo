@@ -11,27 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/make_users', function () {
-    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
-});
-
-Route::get('/make_admin', function () {
-    \App\User::where('name','Levan')->update([
-        'is_admin' => 1
-    ]);
-});
-
-//Route::get('/sign', function () {
-//    $user = \App\User::find(1);
-//    $user->notify(new \App\Notifications\UserCreated($user));
-//    return 1;
+//Route::get('/make_users', function () {
+//    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
 //});
-
-
+//
+//Route::get('/make_admin', function () {
+//    \App\User::where('name','Levan')->update([
+//        'is_admin' => 1
+//    ]);
+//});
 
 Auth::routes();
 
@@ -102,7 +92,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("tag/change_status/{id}/{v}",'TagController@change_status')->name('admin.tag.change.status'); // 更改tag的status
     Route::get("tag/change_is_for_user/{id}/{v}",'TagController@change_is_for_user')->name('admin.tag.change.is_for_user'); // 更改tag的is_for_user
     Route::put("tag/update/{id}",'TagController@update')->name('admin.tag.update'); // 编辑插件信息
-    Route::get("plug_all_info",'PlugController@plug_all_info_for_admin')->name('admin.tag.plug_all_info_for_admin'); //上传界面 获取 所有的type
+//    Route::get("plug_all_info",'PlugController@plug_all_info_for_admin')->name('admin.tag.plug_all_info_for_admin'); //上传界面 获取 所有的type
     Route::put("tag/create",'TagController@create')->name('admin.tag.create');
     Route::post("upload_tag_img",'UploadController@upload_plug_screen_img')->name('admin.tag.upload_plug_screen_img'); //上传插件详情图片
 

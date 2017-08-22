@@ -7,6 +7,7 @@ webpackJsonp([10],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -110,6 +111,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -214,7 +216,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
     mounted: function mounted() {
+        var _this2 = this;
+
+        setTimeout(function () {
+            if (!_this2.userInfo) {
+                _this2.$Message.error('请先登录');
+                _this2.$router.push('/home');
+            }
+        }, 200);
         this._init();
     },
 
@@ -225,24 +237,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         toLoading: function toLoading(name) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.loading = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('upload_plug/' + _this2.$route.params.id, { data: _this2.formItem }).then(function (res) {
+                    axios.put('upload_plug/' + _this3.$route.params.id, { data: _this3.formItem }).then(function (res) {
                         console.log(res);
                         if (res.data.sta === 0) {
-                            _this2.$Message.error(res.data.msg);
+                            _this3.$Message.error(res.data.msg);
                         } else {
-                            _this2.$Message.success(res.data.msg);
-                            _this2.$router.go(-1);
+                            _this3.$Message.success(res.data.msg);
+                            _this3.$router.go(-1);
                         }
                     });
                 } else {
-                    _this2.$Message.error('表单验证失败!');
+                    _this3.$Message.error('表单验证失败!');
                 }
-                _this2.loading = false;
+                _this3.loading = false;
             });
         },
         swi: function swi() {
@@ -255,19 +267,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.formItem);
         },
         _init: function _init() {
-            var _this3 = this;
+            var _this4 = this;
 
             if (this.$route.params.id) {
                 axios.get('check_plug_id/' + this.$route.params.id).then(function (res) {
                     if (res.data.sta === 0) {
-                        _this3.$router.go(-1);
+                        _this4.$router.go(-1);
                     }
                 }).catch(function (error) {
                     history.go(-1);
                 });
             }
             axios.get('plug_all_info').then(function (res) {
-                _this3.plug_tags = res.data;
+                _this4.plug_tags = res.data;
             });
             var quick_content = localStorage.getItem('quick_share_content');
 
@@ -286,7 +298,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         handleImageAdded: function handleImageAdded(file, Editor, cursorLocation) {
-            var _this4 = this;
+            var _this5 = this;
 
             var formData = new FormData();
             formData.append('image', file);
@@ -297,7 +309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data: formData
             }).then(function (result) {
                 if (result.data.sta === 0) {
-                    _this4.$Message.error(result.data.msg);
+                    _this5.$Message.error(result.data.msg);
                 } else {
                     var url = result.data.url;
                     Editor.insertEmbed(cursorLocation, 'image', url);

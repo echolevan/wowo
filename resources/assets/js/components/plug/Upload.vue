@@ -103,6 +103,7 @@
 
 <script>
     import {VueEditor} from 'vue2-editor'
+    import { mapState } from 'vuex'
 
     export default {
         data() {
@@ -231,7 +232,16 @@
                 }
             }
         },
+        computed: mapState([
+            'userInfo', 'choice_cmap'
+        ]),
         mounted() {
+            setTimeout(()=>{
+                if(!this.userInfo){
+                    this.$Message.error('请先登录')
+                    this.$router.push('/home')
+                }
+            },200)
             this._init()
         },
         watch: {

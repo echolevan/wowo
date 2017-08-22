@@ -172,6 +172,7 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Anchu\Ftp\FtpServiceProvider::class,
+        Levan\Baidu\Stat\BaiduStatServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -231,6 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
+        'BaiduStat' => Levan\Baidu\Stat\BaiduStatFacade::class
     ],
 
 ];
