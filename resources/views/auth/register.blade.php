@@ -34,9 +34,9 @@
 <body>
 <div id="app">
     <div class="left"  id="slider">
-        <img src="{{asset('images/default.png')}}" alt="" />
-        <img src="{{asset('images/bac2.png')}}" alt="" />
-        <img src="{{asset('images/bac3.png')}}" alt="" />
+        <img src="{{asset('images/default.jpg')}}" alt="" />
+        <img src="{{asset('images/bac2.jpg')}}" alt="" />
+        <img src="{{asset('images/bac3.jpg')}}" alt="" />
     </div>
     <div class="filter">
 
@@ -44,40 +44,42 @@
     <div class="right">
         <div class="right_div">
             {{--<h2>注册</h2>--}}
-            <form method="POST" action="{{ route('register') }}" class="cont_form_login">
-                {{csrf_field()}}
-                <select name="camp">
-                    <option value="" >请选择阵营</option>
-                    <option value="1" @if(old('camp') == 1) selected @endif>联盟</option>
-                    <option value="2" @if(old('camp') == 2) selected @endif>部落</option>
-                </select>
-                @if ($errors->has('camp'))
-                    <p>{{ $errors->first('camp') }}</p>
-                @endif
-                <input type="text" name="email" value="{{ old('email') }}" placeholder="请输入邮箱">
-                @if ($errors->has('email'))
-                    <p>{{ $errors->first('email') }}</p>
-                @endif
-                <input type="text"  name="name" value="{{ old('name') }}" placeholder="请输入用户名">
-                @if ($errors->has('name'))
-                    <p>{{ $errors->first('name') }}</p>
-                @endif
-                <input type="password" name="password" placeholder="请输入密码">
-                @if ($errors->has('password'))
-                    <p>{{ $errors->first('password') }}</p>
-                @endif
-                <input type="password" name="password_confirmation" placeholder="请确认密码">
-                <input type="text"  name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
-                <div style="margin: 15px 0 15px 15px; float: left;" class="captcha">{!! captcha_img() !!}</div>
-                <div style="clear: both"></div>
-                @if ($errors->has('captcha'))
-                    <p>{{ $errors->first('captcha') }}</p>
-                @endif
-                <button type="submit" class="btn_login my-button">注册</button>
-            </form>
-            <span>已有帐号？
+           <div>
+               <form method="POST" action="{{ route('register') }}" class="cont_form_login">
+                   {{csrf_field()}}
+                   <select name="camp">
+                       <option value="" >请选择阵营</option>
+                       <option value="1" @if(old('camp') == 1) selected @endif>联盟</option>
+                       <option value="2" @if(old('camp') == 2) selected @endif>部落</option>
+                   </select>
+                   @if ($errors->has('camp'))
+                       <p>{{ $errors->first('camp') }}</p>
+                   @endif
+                   <input type="text" name="email" value="{{ old('email') }}" placeholder="请输入邮箱">
+                   @if ($errors->has('email'))
+                       <p>{{ $errors->first('email') }}</p>
+                   @endif
+                   <input type="text"  name="name" value="{{ old('name') }}" placeholder="请输入用户名">
+                   @if ($errors->has('name'))
+                       <p>{{ $errors->first('name') }}</p>
+                   @endif
+                   <input type="password" name="password" placeholder="请输入密码">
+                   @if ($errors->has('password'))
+                       <p>{{ $errors->first('password') }}</p>
+                   @endif
+                   <input type="password" name="password_confirmation" placeholder="请确认密码">
+                   <input type="text"  name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
+                   <div style="margin: 15px 0 15px 15px; float: left;" class="captcha">{!! captcha_img() !!}</div>
+                   <div style="clear: both"></div>
+                   @if ($errors->has('captcha'))
+                       <p>{{ $errors->first('captcha') }}</p>
+                   @endif
+                   <button type="submit" class="btn_login my-button">注册</button>
+               </form>
+               <span>已有帐号？
         <a href="{{route('login')}}" style="color: #fff">点我登录</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
+           </div>
         </div>
     </div>
 </div>

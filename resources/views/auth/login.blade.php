@@ -34,9 +34,9 @@
 <body>
 <div>
     <div class="left" id="slider">
-        <img src="{{asset('images/default.png')}}" alt=""/>
-        <img src="{{asset('images/bac2.png')}}" alt=""/>
-        <img src="{{asset('images/bac3.png')}}" alt=""/>
+        <img src="{{asset('images/default.jpg')}}" alt=""/>
+        <img src="{{asset('images/bac2.jpg')}}" alt=""/>
+        <img src="{{asset('images/bac3.jpg')}}" alt=""/>
     </div>
     <div class="filter">
 
@@ -44,23 +44,25 @@
     <div class="right">
         <div class="right_div">
             {{--<h2>登录</h2>--}}
-            <form method="POST" action="{{ route('login') }}" class="cont_form_login">
-                {{ csrf_field() }}
-                <input type="text" name="email" class="input_e" placeholder="邮箱">
-                @if ($errors->has('email'))
-                    <p>{{ $errors->first('email') }}</p>
-                @endif
-                <br>
-                <input type="password" name="password" placeholder="密码">
-                @if ($errors->has('password'))
-                    <p>{{ $errors->first('password') }}</p>
-                @endif
-                <br>
-                <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
-            </form>
-            <span>没有帐号？
+            <div>
+                <form method="POST" action="{{ route('login') }}" class="cont_form_login">
+                    {{ csrf_field() }}
+                    <input type="text" name="email" class="input_e" placeholder="邮箱">
+                    @if ($errors->has('email'))
+                        <p>{{ $errors->first('email') }}</p>
+                    @endif
+                    <br>
+                    <input type="password" name="password" placeholder="密码">
+                    @if ($errors->has('password'))
+                        <p>{{ $errors->first('password') }}</p>
+                    @endif
+                    <br>
+                    <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
+                </form>
+                <span>没有帐号？
         <a href="{{route('register')}}" style="color: #fff">点我注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
+            </div>
         </div>
     </div>
 </div>

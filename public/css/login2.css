@@ -74,7 +74,10 @@ body{
 
 .right_div{
     padding: 30px;
-    background-color: rgba(0,0,0,.5);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #333;
 }
 
 .nice-select {
