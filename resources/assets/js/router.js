@@ -1,27 +1,26 @@
-const Index = resolve => require(['./components/index/Index.vue'], resolve)
-const Home = resolve => require(['./components/home/Index.vue'], resolve)
-const WaTmw = resolve => require(['./components/plug/WaTmw.vue'], resolve)
-const Bm = resolve => require(['./components/plug/Bm.vue'], resolve)
-const Info = resolve => require(['./components/plug/Info.vue'], resolve)
-const updatePlug = resolve => require(['./components/plug/update.vue'], resolve)
-const userIndex = resolve => require(['./components/user/Index.vue'], resolve)
-const userInfo = resolve => require(['./components/user/Info.vue'], resolve)
-const userSetting = resolve => require(['./components/user/Setting.vue'], resolve)
-const userOrders = resolve => require(['./components/user/Order.vue'], resolve)
-const userCollect = resolve => require(['./components/user/Collect.vue'], resolve)
-const userUpload = resolve => require(['./components/user/Upload.vue'], resolve)
-const userPay = resolve => require(['./components/user/Pay.vue'], resolve)
-const uploadPlug = resolve => require(['./components/plug/Upload.vue'], resolve)
+import Index from './components/index/Index.vue'
+import Home from './components/home/Index.vue'
+import WaTmw from './components/plug/WaTmw.vue'
+import Bm from './components/plug/Bm.vue'
+import Info from './components/plug/Info.vue'
+import updatePlug from './components/plug/update.vue'
+import userIndex from './components/user/Index.vue'
+import userInfo from './components/user/Info.vue'
+import userSetting from './components/user/Setting.vue'
+import userOrders from './components/user/Order.vue'
+import userCollect from './components/user/Collect.vue'
+import userUpload from './components/user/Upload.vue'
+import userPay from './components/user/Pay.vue'
+import uploadPlug from './components/plug/Upload.vue'
 
-
-const AdminTagList = resolve => require(['./components/admin/tag/List.vue'], resolve)
-const AdminTagCreate = resolve => require(['./components/admin/tag/Create.vue'], resolve)
-const AdminIndex = resolve => require(['./components/admin/index/Index.vue'], resolve)
-const AdminUserList = resolve => require(['./components/admin/user/List.vue'], resolve)
-const AdminPlugList = resolve => require(['./components/admin/plug/List.vue'], resolve)
-const AdminPlugUpdate = resolve => require(['./components/admin/plug/Update.vue'], resolve)
-const AdminPlugCreate = resolve => require(['./components/admin/plug/Upload.vue'], resolve)
-const AdminBmList = resolve => require(['./components/admin/bm/List.vue'], resolve)
+import AdminTagList from './components/admin/tag/List.vue'
+import AdminTagCreate from './components/admin/tag/Create.vue'
+import AdminIndex from './components/admin/index/Index.vue'
+import AdminUserList from './components/admin/user/List.vue'
+import AdminPlugList from './components/admin/plug/List.vue'
+import AdminPlugUpdate from './components/admin/plug/Update.vue'
+import AdminPlugCreate from './components/admin/plug/Upload.vue'
+import AdminBmList from './components/admin/bm/List.vue'
 
 export default [
     { path: '/',name:'index' , component:Index},
