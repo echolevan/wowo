@@ -19,6 +19,12 @@ Route::get('/make_users', function () {
     \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
 });
 
+Route::get('/make_admin', function () {
+    \App\User::where('name','Levan')->update([
+        'is_admin' => 1
+    ]);
+});
+
 //Route::get('/sign', function () {
 //    $user = \App\User::find(1);
 //    $user->notify(new \App\Notifications\UserCreated($user));
