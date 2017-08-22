@@ -15,15 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-Route::get('/abc', function () {
+Route::get('/make_users', function () {
     \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
 });
 
-Route::get('/sign', function () {
-    $user = \App\User::find(1);
-    $user->notify(new \App\Notifications\UserCreated($user));
-    return 1;
-});
+//Route::get('/sign', function () {
+//    $user = \App\User::find(1);
+//    $user->notify(new \App\Notifications\UserCreated($user));
+//    return 1;
+//});
 
 
 
