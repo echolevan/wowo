@@ -41,9 +41,6 @@
     <div class="filter">
 
     </div>
-    <div class="default_img">
-        <img src="/images/default.jpg" alt="">
-    </div>
     <div class="right">
         <div class="right_div">
 
@@ -122,10 +119,6 @@
             let url = '{{captcha_src()}}' + Math.random();
             $(this).find('img').attr('src',url)
         })
-
-        $(document).ready(function(){
-            $(".default_img").remove();
-        });
     })
 </script>
 </body>
