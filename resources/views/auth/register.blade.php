@@ -41,8 +41,12 @@
     <div class="filter">
 
     </div>
+    <div class="default_img">
+        <img src="/images/default.jpg" alt="">
+    </div>
     <div class="right">
         <div class="right_div">
+
             {{--<h2>注册</h2>--}}
            <div>
                <form method="POST" action="{{ route('register') }}" class="cont_form_login">

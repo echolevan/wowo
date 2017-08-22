@@ -41,6 +41,9 @@
     <div class="filter">
 
     </div>
+    <div class="default_img">
+        <img src="/images/default.jpg" alt="">
+    </div>
     <div class="right">
         <div class="right_div">
             {{--<h2>登录</h2>--}}
