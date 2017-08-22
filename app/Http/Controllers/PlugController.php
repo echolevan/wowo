@@ -573,7 +573,12 @@ class PlugController extends Controller
             $census['was_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',1)->count();
             $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',2)->count();
             $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
-            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at')->toDateTimeString();
+            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at');
+            if($census['last_time']){
+                $census['last_time'] = $census['last_time']->toDateTimeString();
+            }else{
+                $census['last_time'] = '暂无';
+            }
             $census['user_count'] = User::count();
             $census['lm_count'] = User::where('camp',1)->count();
             $census['bl_count'] = User::where('camp',2)->count();
