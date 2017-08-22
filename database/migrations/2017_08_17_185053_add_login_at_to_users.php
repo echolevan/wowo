@@ -15,7 +15,7 @@ class AddLoginAtToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->timestamp('login_at')->comment('登陆时间');
+            $table->timestamp('login_at')->nullable()->comment('登陆时间');
             $table->tinyInteger('status')->default(1)->comment('1正常 0禁止登陆');
         });
     }
