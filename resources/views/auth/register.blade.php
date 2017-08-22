@@ -122,6 +122,10 @@
             let url = '{{captcha_src()}}' + Math.random();
             $(this).find('img').attr('src',url)
         })
+
+        $(document).ready(function(){
+            $(".default_img").remove();
+        });
     })
 </script>
 </body>
