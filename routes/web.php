@@ -15,13 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
-//Route::get('/abc', function () {
-//    \Illuminate\Support\Facades\DB::update('ALTER TABLE USERS AUTO_INCREMENT = 100001');
-//});
+Route::get('/abc', function () {
+    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
+});
 
-//Route::get('/sign', function () {
-//    return view('sign');
-//});
+Route::get('/sign', function () {
+    $user = \App\User::find(1);
+    $user->notify(new \App\Notifications\UserCreated($user));
+    return 1;
+});
+
 
 
 Auth::routes();
