@@ -222,7 +222,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_status: function change_status(v, id, k) {
             var _this2 = this;
 
-            axios.get('admin/tag/change_status/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/tag/change_status/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this2.list[k].status = v;
                     _this2.$Message.success(res.data.msg);
@@ -234,7 +234,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_is_for_user: function change_is_for_user(v, id, k) {
             var _this3 = this;
 
-            axios.get('admin/tag/change_is_for_user/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/tag/change_is_for_user/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this3.list[k].is_for_user = v;
                     _this3.$Message.success(res.data.msg);
@@ -256,7 +256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         search: function search() {
             var _this4 = this;
 
-            axios.post('admin/tag/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+            axios.post('/admin/tag/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 if (res.data.sta === 1) {
                     _this4.total = res.data.count;
                     _this4.list = res.data.list;
@@ -269,7 +269,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this5 = this;
 
             this.edit_k = k;
-            axios.get('admin/plug_all_info').then(function (res) {
+            axios.get('/admin/plug_all_info').then(function (res) {
                 _this5.plug_tags = res.data;
             });
             this.formItem.name = info.name;
@@ -309,7 +309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading_edit = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('admin/tag/update/' + _this6.formItem.id, { data: _this6.formItem }).then(function (res) {
+                    axios.put('/admin/tag/update/' + _this6.formItem.id, { data: _this6.formItem }).then(function (res) {
                         if (res.data.sta === 1) {
                             _this6.$Message.success('编辑成功!');
                             _this6.formItem.name = '';

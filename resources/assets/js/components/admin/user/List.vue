@@ -211,7 +211,7 @@
                 this.edit_k = k
             },
             edit_ok() {
-                axios.put(`admin/user/update/${this.$refs.userEdit.formItem.id}`,{data:this.$refs.userEdit.formItem}).then(res => {
+                axios.put(`/admin/user/update/${this.$refs.userEdit.formItem.id}`,{data:this.$refs.userEdit.formItem}).then(res => {
                     if (res.data.sta === 1) {
                         this.list[this.edit_k].name = this.$refs.userEdit.formItem.name
                         this.list[this.edit_k].email = this.$refs.userEdit.formItem.email
@@ -226,7 +226,7 @@
                 })
             },
             search() {
-                axios.post(`admin/user/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
+                axios.post(`/admin/user/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.users
@@ -246,7 +246,7 @@
                 this.$Loading.start();
             },
             change_status(v, id, k) {
-                axios.get(`admin/user/change_status/${id}/${v}`).then(res => {
+                axios.get(`/admin/user/change_status/${id}/${v}`).then(res => {
                     if (res.data.sta === 1) {
                         this.list[k].status = v
                         this.$Message.success(res.data.msg)
@@ -256,7 +256,7 @@
                 })
             },
             change_is_admin(v, id, k) {
-                axios.get(`admin/user/change_is_admin/${id}/${v}`).then(res => {
+                axios.get(`/admin/user/change_is_admin/${id}/${v}`).then(res => {
                     if (res.data.sta === 1) {
                         this.list[k].is_admin = v
                         this.$Message.success(res.data.msg)

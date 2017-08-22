@@ -149,7 +149,7 @@
                         this.$Message.error('请输入大于0小于99的数字')
                         return false
                     }
-                    axios.get(`admin/bm/change_rank/${id}/${this.list[k].rank}`).then(res => {
+                    axios.get(`/admin/bm/change_rank/${id}/${this.list[k].rank}`).then(res => {
                         if(res.data.sta === 1){
                             this.$Message.success(res.data.msg)
                             this.is_disabled = ''
@@ -177,7 +177,7 @@
                 this.$refs.bmCreate.formItem.bm_url = v.type === 2 ? '' : v.url
             },
             edit_success() {
-                axios.put(`admin/bm/update/${this.$refs.bmCreate.formItem.id}`,{data: this.$refs.bmCreate.formItem}).then(res => {
+                axios.put(`/admin/bm/update/${this.$refs.bmCreate.formItem.id}`,{data: this.$refs.bmCreate.formItem}).then(res => {
                     if (res.data.sta === 1) {
                         this.$Message.success(res.data.msg)
                         this.$refs.bmCreate.modal_edit = false
@@ -199,7 +199,7 @@
                 this.$refs.bmCreate.modal_edit = true
             },
             success() {
-                axios.put('admin/bm/create',{data: this.$refs.bmCreate.formItem}).then(res => {
+                axios.put('/admin/bm/create',{data: this.$refs.bmCreate.formItem}).then(res => {
                     if (res.data.sta === 1) {
                         this.$Message.success(res.data.msg)
                         this.$refs.bmCreate.modal_edit = false
@@ -220,7 +220,7 @@
                 this.$Loading.start();
             },
             change_status(v, id, k) {
-                axios.get(`admin/bm/change_status/${id}/${v}`).then(res => {
+                axios.get(`/admin/bm/change_status/${id}/${v}`).then(res => {
                     if(res.data.sta === 1){
                         this.list[k].status = v
                         this.$Message.success(res.data.msg)
@@ -230,7 +230,7 @@
                 })
             },
             search() {
-                axios.post(`admin/bm/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
+                axios.post(`/admin/bm/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.list

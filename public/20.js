@@ -111,7 +111,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this2 = this;
 
-        axios.get('admin/plug_all_info').then(function (res) {
+        axios.get('/admin/plug_all_info').then(function (res) {
             console.log(res);
             _this2.plug_tags = res.data;
         });
@@ -138,7 +138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('admin/tag/create', { data: _this3.formItem }).then(function (res) {
+                    axios.put('/admin/tag/create', { data: _this3.formItem }).then(function (res) {
                         _this3.$Message.success('添加成功!');
                         _this3.formItem.name = '';
                         _this3.formItem.type = [];

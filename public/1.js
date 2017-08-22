@@ -225,7 +225,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         edit_ok: function edit_ok() {
             var _this = this;
 
-            axios.put('admin/user/update/' + this.$refs.userEdit.formItem.id, { data: this.$refs.userEdit.formItem }).then(function (res) {
+            axios.put('/admin/user/update/' + this.$refs.userEdit.formItem.id, { data: this.$refs.userEdit.formItem }).then(function (res) {
                 if (res.data.sta === 1) {
                     _this.list[_this.edit_k].name = _this.$refs.userEdit.formItem.name;
                     _this.list[_this.edit_k].email = _this.$refs.userEdit.formItem.email;
@@ -242,7 +242,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         search: function search() {
             var _this2 = this;
 
-            axios.post('admin/user/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+            axios.post('/admin/user/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 if (res.data.sta === 1) {
                     _this2.total = res.data.count;
                     _this2.list = res.data.users;
@@ -264,7 +264,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_status: function change_status(v, id, k) {
             var _this3 = this;
 
-            axios.get('admin/user/change_status/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/user/change_status/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this3.list[k].status = v;
                     _this3.$Message.success(res.data.msg);
@@ -276,7 +276,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_is_admin: function change_is_admin(v, id, k) {
             var _this4 = this;
 
-            axios.get('admin/user/change_is_admin/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/user/change_is_admin/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this4.list[k].is_admin = v;
                     _this4.$Message.success(res.data.msg);
@@ -374,7 +374,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         var validateUserName = function validateUserName(rule, value, callback) {
             if (_this.formItem.name !== '') {
-                axios.post('check/user_name', { name: _this.formItem.name, id: _this.formItem.id }).then(function (res) {
+                axios.post('/check/user_name', { name: _this.formItem.name, id: _this.formItem.id }).then(function (res) {
                     if (res.data.sta === 0) {
                         callback(new Error('用户名已经存在'));
                     } else {
@@ -387,7 +387,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         var validateEmail = function validateEmail(rule, value, callback) {
             if (_this.formItem.name !== '') {
-                axios.post('check/user_email', { email: _this.formItem.email, id: _this.formItem.id }).then(function (res) {
+                axios.post('/check/user_email', { email: _this.formItem.email, id: _this.formItem.id }).then(function (res) {
                     if (res.data.sta === 0) {
                         callback(new Error('邮箱已经存在'));
                     } else {
@@ -404,7 +404,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (!tel.test(value)) {
                     callback(new Error('请输入正确的手机号'));
                 } else {
-                    axios.post('check/user_tel', { tel: _this.formItem.tel, id: _this.formItem.id }).then(function (res) {
+                    axios.post('/check/user_tel', { tel: _this.formItem.tel, id: _this.formItem.id }).then(function (res) {
                         if (res.data.sta === 0) {
                             callback(new Error('手机号已经存在'));
                         } else {

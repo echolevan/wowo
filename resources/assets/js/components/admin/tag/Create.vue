@@ -107,7 +107,7 @@
             }
         },
         mounted() {
-            axios.get('admin/plug_all_info').then(res=>{
+            axios.get('/admin/plug_all_info').then(res=>{
                 console.log(res)
                 this.plug_tags = res.data
             })
@@ -131,7 +131,7 @@
                 this.loading = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.put('admin/tag/create',{data:this.formItem}).then(res=>{
+                        axios.put('/admin/tag/create',{data:this.formItem}).then(res=>{
                             this.$Message.success('添加成功!');
                             this.formItem.name = ''
                             this.formItem.type = []

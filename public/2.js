@@ -248,7 +248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.$Message.error('请输入大于0小于99的数字');
                     return false;
                 }
-                axios.get('admin/plug/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
+                axios.get('/admin/plug/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
                     if (res.data.sta === 1) {
                         _this.$Message.success(res.data.msg);
                         _this.is_disabled = '';
@@ -268,7 +268,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_status: function change_status(v, id, k) {
             var _this2 = this;
 
-            axios.get('admin/plug/change_status/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/plug/change_status/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this2.list[k].status = v;
                     _this2.$Message.success(res.data.msg);
@@ -280,7 +280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         change_is_check: function change_is_check(v, id, k) {
             var _this3 = this;
 
-            axios.get('admin/plug/change_is_check/' + id + '/' + v).then(function (res) {
+            axios.get('/admin/plug/change_is_check/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
                     _this3.list[k].is_check = v;
                     _this3.$Message.success(res.data.msg);
@@ -292,8 +292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         search: function search() {
             var _this4 = this;
 
-            axios.post('admin/plug/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
-                console.log(res);
+            axios.post('/admin/plug/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 if (res.data.sta === 1) {
                     _this4.total = res.data.count;
                     _this4.list = res.data.list;

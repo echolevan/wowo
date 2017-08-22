@@ -101,7 +101,7 @@
         },
         methods: {
             _init() {
-                axios.get('user/info').then(res => {
+                axios.get('/user/info').then(res => {
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo',res.data.info)
                         if(res.data.info.is_active === 0){

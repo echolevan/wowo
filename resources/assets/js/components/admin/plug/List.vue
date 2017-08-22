@@ -236,7 +236,7 @@
                         this.$Message.error('请输入大于0小于99的数字')
                         return false
                     }
-                    axios.get(`admin/plug/change_rank/${id}/${this.list[k].rank}`).then(res => {
+                    axios.get(`/admin/plug/change_rank/${id}/${this.list[k].rank}`).then(res => {
                         if(res.data.sta === 1){
                             this.$Message.success(res.data.msg)
                             this.is_disabled = ''
@@ -255,7 +255,7 @@
                 this.$Message.success('复制成功');
             },
             change_status(v, id, k) {
-                axios.get(`admin/plug/change_status/${id}/${v}`).then(res => {
+                axios.get(`/admin/plug/change_status/${id}/${v}`).then(res => {
                     if(res.data.sta === 1){
                         this.list[k].status = v
                         this.$Message.success(res.data.msg)
@@ -265,7 +265,7 @@
                 })
             },
             change_is_check(v, id, k) {
-                axios.get(`admin/plug/change_is_check/${id}/${v}`).then(res => {
+                axios.get(`/admin/plug/change_is_check/${id}/${v}`).then(res => {
                     if(res.data.sta === 1){
                         this.list[k].is_check = v
                         this.$Message.success(res.data.msg)
@@ -275,8 +275,7 @@
                 })
             },
             search() {
-                axios.post(`admin/plug/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
-                    console.log(res)
+                axios.post(`/admin/plug/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.list

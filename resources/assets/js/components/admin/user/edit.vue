@@ -71,7 +71,7 @@
             };
             const validateUserName = (rule, value, callback) => {
                 if(this.formItem.name !== ''){
-                    axios.post('check/user_name',{name: this.formItem.name, id: this.formItem.id}).then(res => {
+                    axios.post('/check/user_name',{name: this.formItem.name, id: this.formItem.id}).then(res => {
                         if(res.data.sta === 0){
                             callback(new Error('用户名已经存在'));
                         }else{
@@ -84,7 +84,7 @@
             };
             const validateEmail = (rule, value, callback) => {
                 if(this.formItem.name !== ''){
-                    axios.post('check/user_email',{email: this.formItem.email, id: this.formItem.id}).then(res => {
+                    axios.post('/check/user_email',{email: this.formItem.email, id: this.formItem.id}).then(res => {
                         if(res.data.sta === 0){
                             callback(new Error('邮箱已经存在'));
                         }else{
@@ -102,7 +102,7 @@
                     {
                         callback(new Error('请输入正确的手机号'));
                     }else{
-                        axios.post('check/user_tel',{tel: this.formItem.tel, id: this.formItem.id}).then(res => {
+                        axios.post('/check/user_tel',{tel: this.formItem.tel, id: this.formItem.id}).then(res => {
                             if(res.data.sta === 0){
                                 callback(new Error('手机号已经存在'));
                             }else{

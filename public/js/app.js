@@ -1991,7 +1991,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _init: function _init() {
             var _this = this;
 
-            axios.get('user/info').then(function (res) {
+            axios.get('/user/info').then(function (res) {
                 if (res.data.sta === '1') {
                     _this.$store.commit('change_userInfo', res.data.info);
                     if (res.data.info.is_active === 0) {

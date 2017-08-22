@@ -215,7 +215,7 @@
                 return configIsForUser[v]
             },
             change_status(v, id, k) {
-                axios.get(`admin/tag/change_status/${id}/${v}`).then(res => {
+                axios.get(`/admin/tag/change_status/${id}/${v}`).then(res => {
                     if(res.data.sta === 1){
                         this.list[k].status = v
                         this.$Message.success(res.data.msg)
@@ -225,7 +225,7 @@
                 })
             },
             change_is_for_user(v, id, k) {
-                axios.get(`admin/tag/change_is_for_user/${id}/${v}`).then(res => {
+                axios.get(`/admin/tag/change_is_for_user/${id}/${v}`).then(res => {
                     if(res.data.sta === 1){
                         this.list[k].is_for_user = v
                         this.$Message.success(res.data.msg)
@@ -245,7 +245,7 @@
                 this.$Loading.start();
             },
             search() {
-                axios.post(`admin/tag/list/${this.page}/${this.page_size}`,{search:this.formS}).then(res => {
+                axios.post(`/admin/tag/list/${this.page}/${this.page_size}`,{search:this.formS}).then(res => {
                     if(res.data.sta === 1){
                         this.total = res.data.count
                         this.list = res.data.list
@@ -256,7 +256,7 @@
             },
             edit(info, k) {
                 this.edit_k = k
-                axios.get('admin/plug_all_info').then(res=>{
+                axios.get('/admin/plug_all_info').then(res=>{
                     this.plug_tags = res.data
                 })
                 this.formItem.name = info.name
@@ -294,7 +294,7 @@
                 this.loading_edit = true
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.put(`admin/tag/update/${this.formItem.id}`,{data:this.formItem}).then(res=>{
+                        axios.put(`/admin/tag/update/${this.formItem.id}`,{data:this.formItem}).then(res=>{
                             if(res.data.sta === 1){
                                 this.$Message.success('编辑成功!');
                                 this.formItem.name = ''
