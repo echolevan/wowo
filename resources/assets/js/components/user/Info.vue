@@ -58,13 +58,13 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">出生地</span>
-                <span class="val" v-if="!userInfo.birthplace">还不知道你的出生地，点击立即设置</span>
-                <span class="val" v-else>{{userInfo.birthplace.province + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
+                <span class="val" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''">还不知道你的出生地，点击立即设置</span>
+                <span class="val" v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">居住地</span>
                 <span class="val" v-if="!userInfo.habitably || userInfo.habitably.province === ''">还不知道你的居住地，点击立即设置</span>
-                <span class="val" v-else>{{userInfo.habitably.province + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
+                <span class="val" v-else>{{(userInfo.habitably.province ? userInfo.habitably.province : '未知省') + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
         </ul>

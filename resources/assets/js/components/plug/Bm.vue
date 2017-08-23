@@ -48,6 +48,7 @@
                     title: '',
                     type: '',
                     status: '',
+                    zy_type: '',
                     orderBySome: 'created_at',
                     orderByF: 'desc'
                 },

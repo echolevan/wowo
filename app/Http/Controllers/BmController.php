@@ -20,6 +20,9 @@ class BmController extends Controller
             ->when($request->search['type'] != null, function ($query) use ($request) {
                 return $query->where('type', $request->search['type']);
             })
+            ->when($request->search['zy_type'] != null, function ($query) use ($request) {
+                return $query->where('zy_type', $request->search['zy_type']);
+            })
             ->when($request->search['status'] != null, function ($query) use ($request) {
                 return $query->where('status', $request->search['status']);
             })
@@ -27,7 +30,7 @@ class BmController extends Controller
                 return $query->orderBy($request->search['orderBySome'], $request->search['orderByF']);
             });
         $count = $where->count();
-        $list = $where->with('user')->skip(($page - 1) * $size)->take($size)->get();
+        $list = $where->with(['user'])->skip(($page - 1) * $size)->take($size)->get();
         return ['sta' => 1, 'count' => $count, 'list' => $list];
     }
 

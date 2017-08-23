@@ -21,6 +21,11 @@
                 </Select>
             </Form-item>
             <Form-item>
+                <Select v-model="formS.zy_type" clearable  placeholder="资源类型" style="width: 100px;">
+                    <Option v-for="(v , k) in configBmType" :value="k" :key="k">{{v}}</Option>
+                </Select>
+            </Form-item>
+            <Form-item>
                 <Select v-model="formS.orderBySome" clearable placeholder="排序条件"  style="width: 100px;">
                     <Option value="download_num">下载</Option>
                     <Option value="created_at">上传时间</Option>
@@ -87,7 +92,7 @@
             </tbody>
             <tbody v-else>
             <tr>
-                <td style="text-align: center;font-size: 16px" colspan="8">
+                <td style="text-align: center;font-size: 16px" colspan="9">
                     暂无数据
                 </td>
             </tr>
@@ -120,6 +125,7 @@
                     title: '',
                     type: '',
                     status: '',
+                    zy_type: '',
                     orderBySome: 'created_at',
                     orderByF: 'desc'
                 },
@@ -142,6 +148,7 @@
                 this.formS.title = ''
                 this.formS.type = ''
                 this.formS.status = ''
+                this.formS.zy_type = ''
                 this.formS.orderBySome = 'created_at    '
                 this.formS.orderByF = 'desc'
             },

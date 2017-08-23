@@ -2230,6 +2230,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2245,6 +2250,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: '',
                 type: '',
                 status: '',
+                zy_type: '',
                 orderBySome: 'created_at',
                 orderByF: 'desc'
             },
@@ -2268,6 +2274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formS.title = '';
             this.formS.type = '';
             this.formS.status = '';
+            this.formS.zy_type = '';
             this.formS.orderBySome = 'created_at    ';
             this.formS.orderByF = 'desc';
         },
@@ -5184,6 +5191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: '',
                 type: '',
                 status: '',
+                zy_type: '',
                 orderBySome: 'created_at',
                 orderByF: 'desc'
             }
@@ -72199,11 +72207,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
-  }, [_vm._v("出生地")]), _vm._v(" "), (!_vm.userInfo.birthplace) ? _c('span', {
+  }, [_vm._v("出生地")]), _vm._v(" "), (!_vm.userInfo.birthplace || _vm.userInfo.birthplace.province === '') ? _c('span', {
     staticClass: "val"
   }, [_vm._v("还不知道你的出生地，点击立即设置")]) : _c('span', {
     staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.birthplace.province + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s((_vm.userInfo.birthplace.province ? _vm.userInfo.birthplace.province : '未知省') + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -72213,7 +72221,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "val"
   }, [_vm._v("还不知道你的居住地，点击立即设置")]) : _c('span', {
     staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.habitably.province + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s((_vm.userInfo.habitably.province ? _vm.userInfo.habitably.province : '未知省') + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -73166,6 +73174,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
+      "placeholder": "资源类型"
+    },
+    model: {
+      value: (_vm.formS.zy_type),
+      callback: function($$v) {
+        _vm.formS.zy_type = $$v
+      },
+      expression: "formS.zy_type"
+    }
+  }, _vm._l((_vm.configBmType), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
       "placeholder": "排序条件"
     },
     model: {
@@ -73368,7 +73398,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "16px"
     },
     attrs: {
-      "colspan": "8"
+      "colspan": "9"
     }
   }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
