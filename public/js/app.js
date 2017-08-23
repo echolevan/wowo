@@ -70384,7 +70384,7 @@ module.exports = function normalizeComponent (
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('Row', [_c('iCol', {
     staticStyle: {
-      "padding": "15px"
+      "padding": "0 0 15px 15px"
     },
     attrs: {
       "span": "24"
@@ -70393,7 +70393,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('iCol', {
     attrs: {
-      "span": "20"
+      "span": "19"
     }
   }, [_c('Input', {
     staticClass: "w_input",
@@ -70415,7 +70415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                     \n                ")]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "3"
+      "span": "4"
     }
   }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
     staticClass: "w_input",
@@ -70502,7 +70502,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "5"
     }
   }, [_c('div', {
-    staticClass: "div_block my_card_hover"
+    staticClass: "div_block my_card_hover",
+    staticStyle: {
+      "width": "250px"
+    }
   }, [_c('div', {
     staticClass: "tool_user title tool_title"
   }, [_c('strong', {
@@ -70538,7 +70541,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "clear": "both"
     }
   })])])]), _vm._v(" "), _c('div', {
-    staticClass: "div_block my_card_hover"
+    staticClass: "div_block my_card_hover",
+    staticStyle: {
+      "width": "250px"
+    }
   }, [_c('div', {
     staticClass: "tool_user title tool_title"
   }, [_c('strong', [_vm._v("用户统计")])]), _vm._v(" "), _c('div', {

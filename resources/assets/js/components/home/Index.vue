@@ -2,15 +2,15 @@
     <div>
         <Row>
             <!--快捷分享-->
-            <iCol span="24" style="padding:15px">
+            <iCol span="24" style="padding:0 0 15px 15px">
                 <div class="tool_user_child child">
-                    <iCol span="20">
+                    <iCol span="19">
                         <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
                     </iCol>
                     <iCol span="1">
                         &nbsp;
                     </iCol>
-                    <iCol span="3">
+                    <iCol span="4">
                         <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                   @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
                         <div class="my_btn_wrapper pull-right"
@@ -51,7 +51,7 @@
             </iCol>
             <!--网站公告-->
             <iCol span="5">
-                <div class="div_block my_card_hover">
+                <div class="div_block my_card_hover" style="width: 250px">
                     <div class="tool_user title tool_title">
                         <strong class="hover_hand"
                                 :class="{'title_hover': is_title_hover === 1,'bl_border_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="div_block my_card_hover">
+                <div class="div_block my_card_hover" style="width: 250px">
                     <div class="tool_user title tool_title">
                         <strong>用户统计</strong>
                     </div>

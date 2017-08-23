@@ -84,7 +84,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'token' => $token,
             'login_at' => Carbon::now(),
-            'avatar' => 'https://down.iwowcn.com/image/2017-08-13/1FdBRnISU7mMJb3ihGgao5354.png',
+            'avatar' => $data['camp'] == 1 ? '/images/avatar/1.jpg' : '/images/avatar/2.jpg',
             'password' => bcrypt($data['password']),
         ]);
 
