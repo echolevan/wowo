@@ -54,6 +54,7 @@ function ftp_file($path , $type){
 
     $new_dir = date('Y-m-d');
 
+    dd($addons);
     if(!in_array($new_dir,$addons)){
         $ftp->makeDir('down.iwowcn.com/'.$type.'/'.$new_dir);
     }
