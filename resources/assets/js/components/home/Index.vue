@@ -4,13 +4,13 @@
             <!--快捷分享-->
             <iCol span="24" style="padding:0 0 15px 15px">
                 <div class="tool_user_child child">
-                    <iCol span="19">
-                        <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
+                    <iCol span="18">
+                        <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input" v-on:input="keyUp"></Input>
                     </iCol>
                     <iCol span="1">
                         &nbsp;
                     </iCol>
-                    <iCol span="4">
+                    <iCol span="5">
                         <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                   @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
                         <div class="my_btn_wrapper pull-right"
@@ -28,7 +28,7 @@
             </iCol>
 
             <!--最新主题-->
-            <iCol span="19">
+            <iCol span="18">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>最新主题</strong>
@@ -50,8 +50,8 @@
                 </div>
             </iCol>
             <!--网站公告-->
-            <iCol span="5">
-                <div class="div_block my_card_hover" style="width: 250px">
+            <iCol span="6">
+                <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title tool_title">
                         <strong class="hover_hand"
                                 :class="{'title_hover': is_title_hover === 1,'bl_border_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="div_block my_card_hover" style="width: 250px">
+                <div class="div_block my_card_hover" style="width: 250px;margin:15px auto;">
                     <div class="tool_user title tool_title">
                         <strong>用户统计</strong>
                     </div>
@@ -102,13 +102,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="div_block zf_div">
+                <div class="div_block zf_div" style="margin-left: 0">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
             </iCol>
             <div style="clear: both"></div>
             <!--WeakAuras-->
-            <iCol span="8">
+            <iCol span="9">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>WeakAuras</strong>
@@ -133,7 +133,7 @@
                 </div>
             </iCol>
             <!--TellMeWhen-->
-            <iCol span="8">
+            <iCol span="9">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>TellMeWhen</strong>
@@ -158,8 +158,8 @@
                 </div>
             </iCol>
             <!--总下载量排行-->
-            <iCol span="8">
-                <div class="div_block my_card_hover">
+            <iCol span="6">
+                <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title">
                         <strong>总下载量排行</strong>
                     </div>
@@ -172,7 +172,7 @@
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
                             </li>
                         </ul>
@@ -181,7 +181,7 @@
             </iCol>
             <div style="clear: both"></div>
             <!--魔兽插件-->
-            <iCol span="8">
+            <iCol span="9">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>游戏插件</strong>
@@ -205,7 +205,7 @@
                     </div>
                 </div>
             </iCol>
-            <iCol span="8">
+            <iCol span="9">
             <div class="div_block my_card_hover">
                 <div class="tool_user title">
                     <strong>易游</strong>
@@ -219,8 +219,8 @@
             </div>
             </iCol>
             <!--月下载量排行-->
-            <iCol span="8">
-                <div class="div_block my_card_hover">
+            <iCol span="6">
+                <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title">
                         <strong>月下载量排行</strong>
                     </div>
@@ -233,7 +233,7 @@
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
                             </li>
                         </ul>
@@ -283,6 +283,9 @@
             this._init()
         },
         methods: {
+            keyUp() {
+                this.content = this.content.replace(/[^\w\.\/]/ig,'')
+            },
             quick_share() {
                 if (this.content === '' || this.type.length === 0) {
                     this.$Message.error('请先填写字符串并选择分类')

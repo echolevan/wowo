@@ -60,6 +60,10 @@
                    @if ($errors->has('name'))
                        <p>{{ $errors->first('name') }}</p>
                    @endif
+                   <input type="text"  name="nickname" value="{{ old('nickname') }}" placeholder="昵称">
+                   @if ($errors->has('nickname'))
+                       <p>{{ $errors->first('nickname') }}</p>
+                   @endif
                    <input type="password" name="password" placeholder="密码(必须有大小写+数字、不少于8位)">
                    @if ($errors->has('password'))
                        <p>{{ $errors->first('password') }}</p>

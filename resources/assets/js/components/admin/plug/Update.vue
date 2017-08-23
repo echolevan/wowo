@@ -16,7 +16,7 @@
             </Form-item>
 
             <Form-item label="插件字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..." v-on:input="keyUp"></Input>
             </Form-item>
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
@@ -31,16 +31,8 @@
                 <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">删除上传的文件重新上传</span>
             </Form-item>
 
-            <Form-item label="插件简介" prop="simple_info">
-                <Input v-model="formItem.simple_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
-            </Form-item>
-
             <Form-item label="更新说明" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
-            </Form-item>
-
-            <Form-item label="版本号" prop="version">
-                <Input v-model="formItem.version" placeholder="请输入" disabled ></Input>
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
@@ -85,7 +77,7 @@
                 </Upload>
             </Form-item>
 
-            <Form-item label="插件详情" prop="info">
+            <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
             </Form-item>
 
@@ -94,6 +86,7 @@
                 <span v-if="!loading">提交</span>
                 <span v-else>Loading...</span>
             </Button>
+            <div style="clear: both"></div>
 
         </Form>
 
@@ -167,9 +160,7 @@
                     type: [],
                     content: '',
                     info: '',
-                    simple_info: '',
                     updated_info: '',
-                    version: '',
                     game_version: '',
                     is_free: false,
                     wwb: 1,
@@ -198,11 +189,6 @@
                     info: [
                         {required: true, message: '插件详情不能为空'}
                     ],
-                    simple_info: [
-                        {required: true, message: '插件详情简介不能为空', trigger: 'blur'},
-                        {max: 100, message: '插件详情简介最长100', trigger: 'change'},
-                        {max: 100, message: '插件详情简介最长100', trigger: 'blur'},
-                    ],
                     updated_info: [
                         {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
                         {max: 150, message: '插件更新详情最长150', trigger: 'change'},
@@ -210,9 +196,6 @@
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
-                    ],
-                    version: [
-                        {required: true, message: '插件版本号不能为空', trigger: 'blur'}
                     ],
                     game_version: [
                         {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
@@ -232,6 +215,10 @@
             }
         },
         methods: {
+            keyUp() {
+                console.log(1)
+                this.content = this.content.replace(/[^\w\.\/]/ig,'')
+            },
             toLoading (name) {
                 this.loading = true;
                 this.$refs[name].validate((valid) => {
@@ -241,7 +228,7 @@
                                 this.$Message.error(res.data.msg)
                             }else{
                                 this.$Message.success(res.data.msg)
-                                this.$router.go(-1)
+                                this.$router.push('/admin/plug/list')
                             }
                         })
                     } else {
@@ -267,9 +254,7 @@
                     this.formItem.type = res.data.plug.type
                     this.formItem.content = res.data.plug.content
                     this.formItem.info = res.data.plug.info
-                    this.formItem.simple_info = res.data.plug.simple_info
                     this.formItem.updated_info = res.data.plug.updated_info
-                    this.formItem.version = res.data.plug.version
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
                     this.formItem.wwb = res.data.plug.wwb

@@ -3,13 +3,13 @@
         <Modal
                 v-model="modal_edit"
                 :title="model_title">
-            <Form :model="formItem" :label-width="80" ref="formItem" :rules="ruleValidate">
+            <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
                 <Form-item label="名称" prop="title">
                     <Input v-model="formItem.title" placeholder="请输入"></Input>
                 </Form-item>
-                <Form-item label="类型" prop="type">
+                <Form-item label="下载方式" prop="type">
                     <Select v-model="formItem.type" style="width:200px">
-                        <Option v-for="(v, k) in configBtType" :value="k" :key="k">{{ v }}</Option>
+                        <Option v-for="(v, k) in configBmDownloadType" :value="k" :key="k">{{ v }}</Option>
                     </Select>
                 </Form-item>
                 <Form-item label="云盘地址" prop="url" v-show="formItem.type === '2'">
@@ -27,6 +27,24 @@
                         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                     </Upload>
                     <p v-show="formItem.bm_url !== ''" @click="removePlug" class="hover_hand">需要重新上传BT点我删除</p>
+                </Form-item>
+
+                <Form-item label="资源类型" prop="zy_type">
+                    <Select v-model="formItem.zy_type" style="width:200px">
+                        <Option v-for="(v, k) in configBmType" :value="k" :key="k">{{ v }}</Option>
+                    </Select>
+                </Form-item>
+                <Form-item label="是否收费" v-show="formItem.type[0] < 3">
+                    <i-Switch v-model="formItem.is_free" size="large" @on-change="swi">
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
+                    </i-Switch>
+                </Form-item>
+                <Form-item label="价格（金币）" v-show="formItem.is_free" prop="wwb">
+                    <Input-number
+                            :min="1"
+                            v-model="formItem.wwb"
+                            @on-change="change_other"></Input-number>
                 </Form-item>
             </Form>
             <div slot="footer">
@@ -66,8 +84,20 @@
                    }
                },10)
             };
+            const validateWWB = (rule, value, callback) => {
+                if (value === 0) {
+                    if (this.formItem.is_free === true) {
+                        callback(new Error('插件收费不能为空'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
             return {
-                configBtType: configBtType,
+                configBmDownloadType: configBmDownloadType,
+                configBmType: configBmType,
                 csrfToken: window.Laravel.csrfToken,
                 loading_edit: false,
                 modal_edit: false,
@@ -78,6 +108,9 @@
                     type: '',
                     url: '',
                     bm_url: '',
+                    zy_type: '',
+                    wwb: 0,
+                    is_free: false,
                 },
                 ruleValidate: {
                     title: [
@@ -85,7 +118,10 @@
                         {max: 60, message: '插件标题最长60', trigger: 'change'}
                     ],
                     type: [
-                        {required: true, message: '插件分类不能为空', trigger: 'change'}
+                        {required: true, message: '下载方式不能为空', trigger: 'change'}
+                    ],
+                    zy_type: [
+                        {required: true, message: '资源分类不能为空', trigger: 'change'}
                     ],
                     url: [
                         {validator: validateUrl, trigger: 'change'}
@@ -93,6 +129,9 @@
                     bm_url: [
                         {validator: validateBmUrl, trigger: 'change'}
                     ],
+                    wwb: [
+                        {validator: validateWWB, trigger: 'change'}
+                    ]
                 }
             }
         },
@@ -136,6 +175,14 @@
                     }
                 })
                 this.loading_edit = false
+            },
+            swi() {
+                this.formItem.wwb = 0
+            },
+            change_other() {
+                if (!(/^\d+$/.test(this.formItem.wwb))) {
+                    this.formItem.wwb = Math.round(this.formItem.wwb)
+                }
             }
         }
     }

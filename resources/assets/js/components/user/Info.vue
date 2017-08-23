@@ -1,20 +1,33 @@
 <template>
     <div class="user_info">
         <ul class="info_list">
-            <li><span class="title">姓名</span><span class="val">{{userInfo.name}}</span></li>
-            <div style="clear: both"></div>
+            <li><span class="title">嘿市ID</span><span class="val">{{userInfo.id}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">用户名</span><span class="val">{{userInfo.name}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">昵称</span><span class="val">{{userInfo.nickname}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">性别</span><span class="val">{{userInfo.sex === 0 ? '保密' : userInfo.sex === 1 ? '男' : '女'}}</span>
+                <div style="clear: both"></div>
+            </li>
             <li><span class="title">等级</span>
                 <Poptip v-if="lv" trigger="hover" :content="`充值金币将会赠送${lv.giving}%的金币`" placement="bottom">
                     <span class="hover_hand">{{lv.name}}</span>
                 </Poptip>
+                <div style="clear: both"></div>
             </li>
-            <div style="clear: both"></div>
-            <li><span class="title">阵营</span><span class="val"  v-if="userInfo.camp === 1">联盟</span><span class="val" v-else>部落</span></li>
-            <div style="clear: both"></div>
-            <li><span class="title">简介</span><span class="val" v-if="userInfo.info">{{userInfo.info}}</span><span class="val" v-else-if="userInfo.camp === 1">为了联盟</span><span class="val" v-else>为了部落</span></li>
-            <div style="clear: both"></div>
-            <li><span class="title">金币</span><span class="val">{{userInfo.wwb}}</span></li>
-            <div style="clear: both"></div>
+            <li><span class="title">阵营</span><span class="val"  v-if="userInfo.camp === 1">联盟</span><span class="val" v-else>部落</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">简介</span><span class="val" v-if="userInfo.info">{{userInfo.info}}</span><span class="val" v-else-if="userInfo.camp === 1">为了联盟</span><span class="val" v-else>为了部落</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">金币</span><span class="val">{{userInfo.wwb}}</span>
+                <div style="clear: both"></div>
+            </li>
             <li><span class="title">邮箱</span><span class="val">
                 <Button type="success"  size="small" v-if="userInfo.is_active === 1">
                     <Tooltip content="邮箱已经激活">
@@ -31,11 +44,28 @@
                             <span v-else>邮件已经发送，{{rest_time}} S后可以再次发送</span>
                         </Tooltip>
                     </Button>
-                </span></li>
-            <div style="clear: both"></div>
+                </span>
+                <div style="clear: both"></div>
+            </li>
             <li><span class="title">手机号</span>
-                <span class="val" v-if="userInfo.tel === 0">还没有绑定手机号，点击立即绑定</span>
+                <span class="val" v-if="userInfo.tel === '0'">还没有绑定手机号，点击立即绑定</span>
                 <span class="val" v-else>{{userInfo.tel}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">生日</span>
+                <span class="val" v-if="!userInfo.birthday">还不知道你的生日，点击立即设置</span>
+                <span class="val" v-else>{{userInfo.birthday}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">出生地</span>
+                <span class="val" v-if="!userInfo.birthplace">还不知道你的出生地，点击立即设置</span>
+                <span class="val" v-else>{{userInfo.birthplace.province + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">居住地</span>
+                <span class="val" v-if="!userInfo.habitably || userInfo.habitably.province === ''">还不知道你的居住地，点击立即设置</span>
+                <span class="val" v-else>{{userInfo.habitably.province + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
+                <div style="clear: both"></div>
             </li>
         </ul>
         <!--<div class="user_info_card">-->

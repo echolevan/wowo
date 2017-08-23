@@ -79,6 +79,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("check/user_tel",'UserController@user_tel'); //检查tel是否重复
 
     Route::post("bm/list/{page}/{size}",'BmController@bm_list'); //bm列表
+    Route::get("bm/download/{id}",'BmController@download'); //下载bm
 
 });
 

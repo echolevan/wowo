@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-nav v-if="$route.name !== 'index'"></v-nav>
-        <div class="main content">
+        <div class="main content" style="background-color: #fff">
             <!--mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated zoomOutDown"-->
             <transition>
                 <router-view></router-view>
@@ -62,6 +62,8 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
     .main.content
         width 1240px
-        margin 20px auto
+        padding: 15px
+        margin 0 auto
+        margin-bottom 30px
 
 </style>

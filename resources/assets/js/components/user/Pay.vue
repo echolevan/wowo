@@ -9,88 +9,67 @@
                                      :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.wwb}}</span>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">请选择支付方式</div>
-                    <div class="panel-body">
-                        <div class="choice_type">
-                            <Radio-group v-model="type">
-                                <Radio label="1">
-                                    <a href="javascript:void(0);" @click="choice_type(1)">
-                                        <i class="zfb"></i>
-                                    </a>
-                                </Radio>
-                                <Radio label="2">
-                                    <a href="javascript:void(0);" @click="choice_type(2)">
-                                        <i class="wx"></i>
-                                        <span class="wx_font">微信</span>
-                                    </a>
-                                </Radio>
-                            </Radio-group>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="panel panel-default choice_money">
-                    <div class="panel-heading">请选择金额 （比例为1元人民币 = 10金币）</div>
                     <div class="panel-body" style="padding: 30px 0 0 0">
 
                         <div class="my_btn_wrapper"
-                             @click="pay(500)"
-                             @mouseenter="hover(500)"
+                             @click="pay(30)"
+                             @mouseenter="hover(30)"
                              @mouseleave="hover(1)"
                              :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">500元</div>
+                            <div class="button_one_text">30元</div>
                         </div>
 
 
                         <div class="my_btn_wrapper"
-                             @click="pay(400)"
-                             @mouseenter="hover(400)"
+                             @click="pay(50)"
+                             @mouseenter="hover(50)"
                              @mouseleave="hover(1)"
                              :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">400元</div>
+                            <div class="button_one_text">50元</div>
                         </div>
 
 
                         <div class="my_btn_wrapper"
-                             @click="pay(300)"
-                             @mouseenter="hover(300)"
+                             @click="pay(100)"
+                             @mouseenter="hover(100)"
                              @mouseleave="hover(1)"
                              :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">300元</div>
+                            <div class="button_one_text">100元</div>
                         </div>
 
                     </div>
                     <div class="panel-body">
 
                         <div class="my_btn_wrapper">
-                            <span v-if="is_money === 500" class="normal_big_font"
-                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 5000 金币 <span
-                                    v-if="lv">+ {{lv.giving * 5000 / 100}} 金币</span></span>
-                            <span v-else>= 5000 金币 <span v-if="lv">+ {{lv.giving * 5000 / 100}} 金币</span> </span>
+                            <span v-if="is_money === 30" class="normal_big_font"
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 300 金币 <span
+                                    v-if="lv">+ {{lv.giving * 300 / 100}} 金币</span></span>
+                            <span v-else>= 300 金币 <span v-if="lv">+ {{Math.floor(lv.giving * 300 / 100)}} 金币</span> </span>
                         </div>
 
                         <div class="my_btn_wrapper">
-                            <span v-if="is_money === 400" class="normal_big_font"
-                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 4000 金币 <span
-                                    v-if="lv">+ {{lv.giving * 4000 / 100}} 金币</span></span>
-                            <span v-else>= 4000 金币 <span v-if="lv">+ {{lv.giving * 4000 / 100}} 金币</span></span>
+                            <span v-if="is_money === 50" class="normal_big_font"
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 500 金币 <span
+                                    v-if="lv">+ {{lv.giving * 500 / 100}} 金币</span></span>
+                            <span v-else>= 500 金币 <span v-if="lv">+ {{Math.floor(lv.giving * 500 / 100)}} 金币</span></span>
                         </div>
 
                         <div class="my_btn_wrapper">
-                            <span v-if="is_money === 300" class="normal_big_font"
-                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 3000 金币 <span
-                                    v-if="lv">+ {{lv.giving * 3000 / 100}} 金币</span></span>
-                            <span v-else>= 3000 金币 <span v-if="lv">+ {{lv.giving * 3000 / 100}} 金币</span></span>
+                            <span v-if="is_money === 100" class="normal_big_font"
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= 1000 金币 <span
+                                    v-if="lv">+ {{lv.giving * 1000 / 100}} 金币</span></span>
+                            <span v-else>= 1000 金币 <span v-if="lv">+ {{Math.floor(lv.giving * 1000 / 100)}} 金币</span></span>
                         </div>
 
                     </div>
@@ -155,14 +134,35 @@
 
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="choice_type">
+                            <Radio-group v-model="type">
+                                <Radio label="1">
+                                    <a href="javascript:void(0);" @click="choice_type(1)">
+                                        <i class="zfb"></i>
+                                    </a>
+                                </Radio>
+                                <Radio label="2">
+                                    <a href="javascript:void(0);" @click="choice_type(2)">
+                                        <i class="wx"></i>
+                                        <span class="wx_font">微信</span>
+                                    </a>
+                                </Radio>
+                            </Radio-group>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        充值比例为：1元 = 10金币
+                        <br>
                         在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制
                         <br>
-                        充值获得的金币可用于提现（满200即可提现）
+                        充值获得的金币可用于提现（满金币等同于200人名币即可提现）
                         <br>
-                        起充10元才能赠送金币
+                        达到Lv2(随机)充值可获赠金币（起充10元）
                     </div>
                 </div>
             </Tab-pane>

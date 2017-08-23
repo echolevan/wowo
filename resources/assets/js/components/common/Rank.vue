@@ -11,7 +11,7 @@
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
                         <span style="color: #333 !important;background-color: #fff !important;"  class="tit my_a_style">{{v.title}}</span>
                     </router-link>
-                    <span class="dig">{{v.simple_info}}</span>
+                    <span class="dig" v-html="v.info"></span>
                     <span class="size">{{v.download_num}}</span>
                 </li>
             </ul>
@@ -19,7 +19,7 @@
 
         <div class="start_rank">
             <div class="title">
-                <strong>评分排行榜</strong>
+                <strong>推荐排行榜</strong>
                 <!--<span>More</span>-->
             </div>
             <ul>
@@ -28,8 +28,8 @@
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
                         <span style="color: #333 !important;background-color: #fff !important;"  class="tit my_a_style">{{v.title}}</span>
                     </router-link>
-                    <span class="dig">{{v.simple_info}}</span>
-                    <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.score}}</span>
+                    <span class="dig" v-html="v.info"></span>
+                    <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.rank}}</span>
                 </li>
             </ul>
         </div>
@@ -122,6 +122,7 @@
                 display: block;
                 position: relative;
                 top: 10px;
+                height: 20px;
                 left 30px
                 width: 210px;
                 white-space: nowrap;

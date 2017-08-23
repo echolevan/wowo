@@ -16,8 +16,8 @@
             </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.type" clearable  placeholder="类型" style="width: 100px;">
-                    <Option v-for="(v , k) in configBtType" :value="k" :key="k">{{v}}</Option>
+                <Select v-model="formS.type" clearable  placeholder="下载方式" style="width: 100px;">
+                    <Option v-for="(v , k) in configBmDownloadType" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
             <Form-item>
@@ -29,8 +29,8 @@
 
             <Form-item>
                 <Select v-model="formS.orderByF" clearable  placeholder="排序规则"  style="width: 80px;">
-                    <Option value="asc">正序</Option>
-                    <Option value="desc">倒序</Option>
+                    <Option value="asc">升序</Option>
+                    <Option value="desc">降序</Option>
                 </Select>
             </Form-item>
 
@@ -47,9 +47,10 @@
         <table class="table table-bordered my_admin_table">
             <thead>
             <tr>
+                <th style="width: 10%">下载方式</th>
+                <th style="width: 10%">分类</th>
                 <th style="width: 10%">标题</th>
-                <th style="width: 10%">作者</th>
-                <th style="width: 10%">类型</th>
+                <th style="width: 10%">售价</th>
                 <th style="width: 10%">地址</th>
                 <th style="width: 10%">下载次数</th>
                 <th style="width: 5%">状态</th>
@@ -59,6 +60,8 @@
             </thead>
             <tbody v-if="list.length > 0">
             <tr v-for="(v, k) in list">
+                <td>{{configBmDownloadType[v.type]}}</td>
+                <td>{{configBmType[v.zy_type]}}</td>
                 <td>
                     <Tooltip placement="bottom-start">
                         <span class="toolTip">{{v.title}}</span>
@@ -67,8 +70,7 @@
                         </div>
                     </Tooltip>
                 </td>
-                <td>{{v.user.name}}</td>
-                <td>{{configBtType[v.type]}}</td>
+                <td>{{v.wwb === 0 ? '免费' : v.wwb}}</td>
                 <td><a :href="v.url" target="_blank">点我下载</a></td>
                 <td>{{v.download_num}}</td>
                 <td>
@@ -121,8 +123,9 @@
                     orderBySome: 'created_at',
                     orderByF: 'desc'
                 },
-                configBtType: configBtType,
                 configStatusType: configStatusType,
+                configBmDownloadType: configBmDownloadType,
+                configBmType: configBmType,
                 is_disabled: ''
             }
         },
@@ -172,6 +175,9 @@
                 this.$refs.bmCreate.modal_edit = true
                 this.$refs.bmCreate.formItem.id = v.id
                 this.$refs.bmCreate.formItem.title = v.title
+                this.$refs.bmCreate.formItem.zy_type = v.zy_type + ''
+                this.$refs.bmCreate.formItem.wwb = v.wwb
+                this.$refs.bmCreate.formItem.is_free = v.wwb === 0 ? false : true
                 this.$refs.bmCreate.formItem.type = v.type + ''
                 this.$refs.bmCreate.formItem.url = v.type === 1 ? '' : v.url
                 this.$refs.bmCreate.formItem.bm_url = v.type === 2 ? '' : v.url

@@ -33,6 +33,17 @@
   background: #d13030 !important;
   color: #fff;
 }
+.over_div{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+
+.my_address select
+{
+  width: 100px;
+  height: 30px !important;
+}
 
 .normal_font{
   color: #266ec1

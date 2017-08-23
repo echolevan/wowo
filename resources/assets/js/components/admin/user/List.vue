@@ -9,10 +9,10 @@
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.id" placeholder="搜索Id"></Input>
+                <Input v-model.trim="formS.id" placeholder="搜索嘿市号"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="搜索昵称"></Input>
+                <Input v-model.trim="formS.name" placeholder="搜索用户名"></Input>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.camp" clearable  placeholder="阵营" style="width: 100px;">
@@ -74,18 +74,18 @@
         <table class="table table-bordered my_admin_table">
             <thead>
             <tr>
-                <th style="width: 5%">ID</th>
-                <th style="width: 5%">昵称</th>
+                <th style="width: 5%">嘿市号</th>
+                <th style="width: 5%">用户名</th>
                 <th style="width: 5%">头像</th>
                 <th style="width: 10%" v-show="show_info">签名</th>
                 <th style="width: 7%">手机号</th>
                 <th style="width: 8%" v-show="show_email">邮箱</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
-                <th style="width: 5%">发布插件数</th>
+                <th style="width: 5%">发布资源数</th>
                 <th style="width: 10%" v-show="show_c_at">注册时间</th>
                 <th style="width: 10%" v-show="show_l_at">最近登陆</th>
-                <th style="width: 5%">是否激活</th>
+                <th style="width: 5%">帐号是否激活</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否是管理员</th>
                 <th style="width: 12%">操作</th>
@@ -130,7 +130,7 @@
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
                     <Button type="ghost" size="small">充值记录</Button>
                     <Button type="ghost" size="small">提现记录</Button>
-                    <Button type="ghost" size="small">插件记录</Button>
+                    <Button type="ghost" size="small">资源记录</Button>
                 </td>
             </tr>
             </tbody>

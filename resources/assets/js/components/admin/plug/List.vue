@@ -17,12 +17,17 @@
                 <Input v-model.trim="formS.user_name" placeholder="用户名称"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.user_id" placeholder="用户ID"></Input>
+                <Input v-model.trim="formS.user_id" placeholder="嘿市号"></Input>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.wwb" clearable  placeholder="是否免费"  style="width: 100px;">
                     <Option value="1">免费</Option>
                     <Option value="2">收费</Option>
+                </Select>
+            </Form-item>
+            <Form-item>
+                <Select v-model="formS.tagType" clearable placeholder="资源类型"  style="width: 100px;">
+                    <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
             <Form-item>
@@ -39,19 +44,17 @@
             <Form-item>
                 <Select v-model="formS.orderBySome" clearable placeholder="排序条件"  style="width: 100px;">
                     <Option value="wwb">金币</Option>
-                    <Option value="rank">排序</Option>
-                    <Option value="like_num">点赞</Option>
+                    <Option value="rank">推荐</Option>
                     <Option value="download_num">下载</Option>
                     <Option value="collect_num">收藏</Option>
-                    <Option value="score">评分</Option>
                     <Option value="created_at">上传时间</Option>
                 </Select>
             </Form-item>
 
             <Form-item>
                 <Select v-model="formS.orderByF" clearable  placeholder="排序规则"  style="width: 80px;">
-                    <Option value="asc">正序</Option>
-                    <Option value="desc">倒序</Option>
+                    <Option value="asc">升序</Option>
+                    <Option value="desc">降序</Option>
                 </Select>
             </Form-item>
 
@@ -79,16 +82,14 @@
             <thead>
             <tr>
                 <th>插件名称</th>
-                <th>作者昵称</th>
-                <th>插件简介</th>
+                <th>作者</th>
                 <th>收费金币</th>
-                <th>插件分类</th>
-                <th>插件内容</th>
+                <th>分类</th>
+                <th>资源内容</th>
                 <th>是否为最新</th>
                 <th>下载次数</th>
                 <th>点赞次数</th>
                 <th>收藏次数</th>
-                <th>评分</th>
                 <th>状态</th>
                 <th>审核</th>
                 <th>排序</th>
@@ -108,14 +109,6 @@
                     </Tooltip>
                 </td>
                 <td>{{v.user.name}}</td>
-                <td class="hover_hand">
-                    <Tooltip placement="bottom-start">
-                        <span class="toolTip" v-html="v.simple_info"></span>
-                        <div slot="content">
-                            <p v-html="v.simple_info"></p>
-                        </div>
-                    </Tooltip>
-                </td>
                 <td>{{v.wwb === 0 ? '免费' : v.wwb}}</td>
                 <td class="hover_hand">
                     <Tooltip placement="bottom-start">
@@ -137,7 +130,6 @@
                 <td>{{v.download_num}}</td>
                 <td>{{v.like_num}}</td>
                 <td>{{v.collect_num}}</td>
-                <td>{{v.score}}</td>
                 <td style="width: 8%">
                     <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'" @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{configStatusType[v.status]}}</Tag>
                 </td>
@@ -188,6 +180,7 @@
                     user_name: '',
                     user_id: '',
                     wwb: '',
+                    tagType: '',
                     status: '',
                     is_check: '',
                     orderBySome: 'created_at',
@@ -199,6 +192,7 @@
                 configYesOrNo: configYesOrNo,
                 configStatusType: configStatusType,
                 configCheckType: configCheckType,
+                configTagType: configTagType,
                 is_disabled: ''
             }
         },
@@ -225,6 +219,7 @@
                 this.formS.wwb = ''
                 this.formS.status = ''
                 this.formS.is_check = ''
+                this.formS.tagType = ''
                 this.formS.orderBySome = 'created_at    '
                 this.formS.orderByF = 'desc'
                 this.formS.is_new = '0'

@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('is_pass', function ($attribute, $value, $parameters, $validator) {
             return preg_match('/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])/',$value);
         });
+
+        Validator::extend('is_nickname', function ($attribute, $value, $parameters, $validator) {
+            return !is_numeric($value);
+        });
+
     }
 
     /**

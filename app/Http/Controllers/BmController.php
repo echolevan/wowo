@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Bm;
+use App\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BmController extends Controller
 {
     //
-    public function bm_list(Request $request , $page , $size)
+    public function bm_list (Request $request, $page, $size)
     {
         $where = Bm::when($request->search['title'] != null, function ($query) use ($request) {
-            return $query->where('title', 'like' , '%'.$request->search['title'].'%');
+            return $query->where('title', 'like', '%' . $request->search['title'] . '%');
         })
             ->when($request->search['type'] != null, function ($query) use ($request) {
                 return $query->where('type', $request->search['type']);
@@ -24,54 +27,101 @@ class BmController extends Controller
                 return $query->orderBy($request->search['orderBySome'], $request->search['orderByF']);
             });
         $count = $where->count();
-        $list = $where->with('user')->skip(($page-1)*$size)->take($size)->get();
-        return ['sta'=>1, 'count'=>$count, 'list'=>$list];
+        $list = $where->with('user')->skip(($page - 1) * $size)->take($size)->get();
+        return ['sta' => 1, 'count' => $count, 'list' => $list];
     }
 
-    public function create(Request $request)
+    public function create (Request $request)
     {
         $bm = Bm::create([
-           'title' => $request->data['title'],
-           'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
-           'user_id' => Auth::id(),
-           'type' => $request->data['type']
-        ]);
-
-        if($bm)
-            return ['sta'=>1 , 'msg'=>'新增成功'];
-        return ['sta'=>0 , 'msg'=>'新增失败'];
-    }
-
-    public function update(Request $request , $id)
-    {
-        $bm = Bm::where('id',$id)->update([
             'title' => $request->data['title'],
             'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
-            'type' => $request->data['type']
+            'user_id' => Auth::id(),
+            'type' => $request->data['type'],
+            'zy_type' => $request->data['zy_type'],
+            'wwb' => !$request->data['is_free'] ? 0 : $request->data['wwb'],
         ]);
-        if($bm)
-            return ['sta'=>1 , 'msg'=>'编辑成功'];
-        return ['sta'=>0 , 'msg'=>'编辑失败'];
+
+        if ($bm)
+            return ['sta' => 1, 'msg' => '新增成功'];
+        return ['sta' => 0, 'msg' => '新增失败'];
     }
 
-    public function change_rank($id, $rank)
+    public function update (Request $request, $id)
     {
-        $plug = Bm::where('id',$id)->update([
+        $bm = Bm::where('id', $id)->update([
+            'title' => $request->data['title'],
+            'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
+            'type' => $request->data['type'],
+            'zy_type' => $request->data['zy_type'],
+            'wwb' => !$request->data['is_free'] ? 0 : $request->data['wwb'],
+        ]);
+        if ($bm)
+            return ['sta' => 1, 'msg' => '编辑成功'];
+        return ['sta' => 0, 'msg' => '编辑失败'];
+    }
+
+    public function change_rank ($id, $rank)
+    {
+        $plug = Bm::where('id', $id)->update([
             'rank' => $rank
         ]);
-        if($plug)
-            return ['sta'=>1,'msg'=>'编辑成功'];
-        return ['sta'=>0,'msg'=>'编辑失败'];
+        if ($plug)
+            return ['sta' => 1, 'msg' => '编辑成功'];
+        return ['sta' => 0, 'msg' => '编辑失败'];
     }
 
-    public function change_status($id, $v)
+    public function change_status ($id, $v)
     {
-        $tag = Bm::where('id',$id)->update([
-            'status' =>$v
+        $tag = Bm::where('id', $id)->update([
+            'status' => $v
         ]);
-        if($tag)
-            return ['sta'=>1, 'msg'=>'更新成功'];
-        return ['sta'=>0, 'msg'=>'更新失败'];
+        if ($tag)
+            return ['sta' => 1, 'msg' => '更新成功'];
+        return ['sta' => 0, 'msg' => '更新失败'];
+    }
+
+    public function download ($id)
+    {
+        $bm = Bm::find($id);
+
+        if ($bm->wwb === 0) {
+            $bm->increment('download_num');
+            return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
+        } else {
+            // check has order
+            $order = Order::where([['plug_id',$bm->id],['user_id',Auth::id()],['type',4]])->count();
+            if($order > 0){
+                $bm->increment('download_num');
+                return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
+            }
+            if($bm->wwb > Auth::user()->wwb){
+                return ['sta'=>0 ,'msg'=>'您的金币不足，请先充值'];
+            }else{
+                 DB::beginTransaction();
+                 try{
+                    // create order
+                     Order::create([
+                         'plug_id' => $bm->id,
+                         'plug_only_id' =>'bm',
+                         'user_id' =>Auth::id(),
+                         'wwb' => $bm->wwb,
+                         'status' => 1,
+                         'type' => 4
+                     ]);
+
+                     User::where('id',Auth::id())->update([
+                         'wwb' => Auth::user()->wwb - $bm->wwb
+                     ]);
+                     $bm->increment('download_num');
+                     DB::commit();
+                 }catch(\Exception $e){
+                     DB::rollBack();
+                     return ['sta'=>0 , 'msg'=>'下载失败'];
+                 }
+                return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
+            }
+        }
     }
 
 }

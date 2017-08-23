@@ -11,7 +11,7 @@
             </Form-item>
 
             <Form-item label="插件字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."  v-on:input="keyUp"></Input>
             </Form-item>
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
@@ -25,18 +25,9 @@
                 </Upload>
             </Form-item>
 
-            <Form-item label="插件简介" prop="simple_info">
-                <Input v-model="formItem.simple_info" type="textarea" :autosize="{minRows: 2}"
-                       placeholder="请输入..."></Input>
-            </Form-item>
-
             <Form-item label="更新说明" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
                        placeholder="请输入..."></Input>
-            </Form-item>
-
-            <Form-item label="版本号" prop="version">
-                <Input v-model="formItem.version" placeholder="请输入，例如1.0 1.1 2.0的格式"></Input>
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
@@ -50,7 +41,7 @@
                 </i-Switch>
             </Form-item>
 
-            <Form-item label="价格" v-show="formItem.is_free" prop="wwb">
+            <Form-item label="价格（金币）" v-show="formItem.is_free" prop="wwb">
                 <Input-number
                         :min="1"
                         v-model="formItem.wwb"
@@ -82,7 +73,7 @@
                 </Upload>
             </Form-item>
 
-            <Form-item label="插件详情" prop="info">
+            <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
             </Form-item>
 
@@ -158,17 +149,6 @@
                     }
                 }, 10);
             };
-            const validateVersion = (rule, value, callback) => {
-                if(value !== ''){
-                    axios.post(`check_version/${this.$route.params.id}`,{version:value}).then(res=>{
-                        if(res.data.sta === 0){
-                            callback(new Error(res.data.msg));
-                        }else{
-                            callback();
-                        }
-                    })
-                }
-            };
             return {
                 plug_tags: [],
                 formItem: {
@@ -176,9 +156,7 @@
                     type: [],
                     content: '',
                     info: '',
-                    simple_info: '',
                     updated_info: '',
-                    version: '',
                     game_version: '',
                     is_free: false,
                     wwb: 1,
@@ -206,11 +184,6 @@
                     info: [
                         {required: true, message: '插件详情不能为空'}
                     ],
-                    simple_info: [
-                        {required: true, message: '插件详情简介不能为空', trigger: 'blur'},
-                        {max: 100, message: '插件详情简介最长100', trigger: 'change'},
-                        {max: 100, message: '插件详情简介最长100', trigger: 'blur'},
-                    ],
                     updated_info: [
                         {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
                         {max: 150, message: '插件更新详情最长150', trigger: 'change'},
@@ -218,10 +191,6 @@
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
-                    ],
-                    version: [
-                        {required: true, message: '插件版本号不能为空', trigger: 'blur'},
-                        {validator: validateVersion, required: true, trigger: 'blur'},
                     ],
                     game_version: [
                         {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
@@ -236,12 +205,13 @@
             'userInfo', 'choice_cmap'
         ]),
         mounted() {
+            console.log(this.$route)
             setTimeout(()=>{
                 if(!this.userInfo){
                     this.$Message.error('请先登录')
                     this.$router.push('/home')
                 }
-            },200)
+            },500)
             this._init()
         },
         watch: {
@@ -250,17 +220,24 @@
             }
         },
         methods: {
+            keyUp() {
+                console.log(1)
+                this.content = this.content.replace(/[^\w\.\/]/ig,'')
+            },
             toLoading(name) {
                 this.loading = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         axios.put(`upload_plug/${this.$route.params.id}`, {data: this.formItem}).then(res => {
-                            console.log(res)
                             if (res.data.sta === 0) {
                                 this.$Message.error(res.data.msg)
                             } else {
                                 this.$Message.success(res.data.msg)
-                                this.$router.go(-1)
+                                if(this.$route.name === 'admin.plug.create'){
+                                    this.$router.push('/admin/plug/list')
+                                }else{
+                                    this.$router.push('/waTmw/wa')
+                                }
                             }
                         })
                     } else {

@@ -19,7 +19,7 @@
                     <div v-else>
                          <span>
                             <a href="javascript:void(0);">欢迎回来</a>&nbsp;&nbsp;&nbsp;
-                            <router-link to="/userInfo" class="my_a_style">{{userInfo.name}}</router-link>
+                            <router-link to="/userInfo" class="my_a_style">{{userInfo.nickname}}</router-link>
                         </span>
                         <span>|</span>
                         <span><a href="javascript:void(0);" class="my_a_style" @click="logout">退出登录</a></span>
@@ -123,7 +123,9 @@
                     padding 0 7px
 
     .nav.menu
-        padding 15px 0
+        padding 15px
         margin 0 auto
         width 1240px
+        background-color #fff
+        border-bottom 1px solid #f5f5f5
 </style>

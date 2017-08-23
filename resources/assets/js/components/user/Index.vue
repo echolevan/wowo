@@ -6,7 +6,7 @@
                 <img :src="userInfo.avatar" alt="Member">
             </div>
             <div class="member-info">
-                <p class="nickname">{{userInfo.name}}</p>
+                <p class="nickname">{{userInfo.nickname}}</p>
                 <p class="camp" v-if="userInfo.camp === 1">阵营：联盟</p>
                 <p class="camp" v-else>阵营：联盟</p>
                 <p v-if="userInfo.info">{{userInfo.info}}</p>
@@ -25,31 +25,33 @@
                         <router-link to="/userInfo/setting" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">修改资料</router-link>
                     </li>
                     <li>
-                        <router-link to="/userInfo/orders" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">购买的插件</router-link>
+                        <router-link to="/userInfo/orders" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">购买记录</router-link>
                     </li>
                     <li>
-                        <router-link to="/userInfo/collect" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">收藏的插件</router-link>
+                        <router-link to="/userInfo/collect" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">收藏的资源</router-link>
 
                     </li>
                     <li>
-                        <router-link to="/userInfo/upload" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">发布的插件</router-link>
+                        <router-link to="/userInfo/upload" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">分享的资源</router-link>
                     </li>
                     <li>
                         <router-link to="/userInfo/pay" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">充值金币&记录</router-link>
-
+                    </li>
+                    <li>
+                        <a href="/admin/#/admin" class="r-l my_a_style"
+                           v-show="userInfo.is_admin === 1"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">进入后台管理</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="info">
-            <transition
-                    mode="out-in" enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutRight"
-            >
+            <transition>
                 <router-view></router-view>
             </transition>
         </div>
-
+        <div style="clear: both"></div>
     </div>
 </template>
 
@@ -72,7 +74,7 @@
                 if(!this.userInfo){
                     this.$router.push("/home")
                 }
-            },300)
+            },500)
         },
         computed: mapState([
             'userInfo', 'choice_cmap'
@@ -83,6 +85,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
     @import "../../../common/card.css"
     .user_card
+        min-height 700px
         .card
             .member-image
                 img

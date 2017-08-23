@@ -40,4 +40,14 @@ class User extends Authenticatable
         return $this->hasMany(Plug::class);
     }
 
+    public function getBirthplaceAttribute($birthplace)
+    {
+        return $this->birthplace = json_decode($birthplace,true);
+    }
+
+    public function getHabitablyAttribute($habitably)
+    {
+        return $this->habitably = json_decode($habitably,true);
+    }
+
 }

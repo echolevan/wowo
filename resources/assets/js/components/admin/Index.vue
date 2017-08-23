@@ -22,7 +22,7 @@
             <Submenu name="2">
                 <template slot="title">
                     <Icon type="ios-people"></Icon>
-                    插件管理
+                    资源管理
                 </template>
                 <router-link to="/admin/plug/list">
                     <Menu-item name="admin.plug.list">插件列表</Menu-item>
@@ -67,7 +67,7 @@
                 <div class="pull-right">
                     <Dropdown>
                         <a class="user_name" href="javascript:void(0)">
-                            {{userInfo.name}}
+                            {{userInfo.nickname}}
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <Dropdown-menu slot="list">

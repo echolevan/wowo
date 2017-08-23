@@ -14,9 +14,17 @@
                                 <li  v-for="child in tag.tags " :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(child.id , child.pid)" >{{child.name}}</li>
                             </div>
                         </div>
-                        <li @click="upload_plug">
-                            <a href="javascript:void(0)" >上传插件</a>
+                        <li @click="upload_plug" v-if="$route.params.type !== 'plug'">
+                            <a href="javascript:void(0)" >分享字符串</a>
                         </li>
+                        <div  v-else>
+                            <li @click="upload_plug">
+                                <a href="javascript:void(0)" >整合界面分享</a>
+                            </li>
+                            <li @click="upload_plug">
+                                <a href="javascript:void(0)" >原创界面分享</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </iCol>
@@ -37,15 +45,12 @@
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
-                            <!--<router-link :to="{name:'plug.info' , params:{id: plug.id}}">-->
-                                <!--<Button type="success" class="my-button">下载</Button>-->
-                            <!--</router-link>-->
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
                             <Icon type="ios-star-outline"></Icon><span>{{plug.score}}</span>
                             <Icon type="ios-heart-outline"></Icon><span>{{plug.collect_num}}</span>
-                            <p>{{plug.simple_info}}</p>
+                            <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
                         </div>
                     </div>
                     <div class="sel sel_bottom">

@@ -36269,6 +36269,17 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   color: #fff;
 }
 
+.over_div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my_address select {
+  width: 100px;
+  height: 30px !important;
+}
+
 .normal_font {
   color: #266ec1;
 }

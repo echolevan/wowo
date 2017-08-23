@@ -104,7 +104,7 @@
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
                             <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
-                            <p>插件作者：<span>{{plug.user.name}}</span></p>
+                            <p>插件作者：<span>{{plug.user.nickname}}</span></p>
                         </div>
                         <v-rank></v-rank>
                     </iCol>
@@ -326,7 +326,7 @@
                             this.download_model = true
                         } else if (res.data.type === 2) {
                             // 跳转 下载
-                            window.location.href = res.data.info.content;
+                            window.open(res.data.info.content);
                         } else {
                             this.down_plug = res.data.info
                             this.download_pay_model = true

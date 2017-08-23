@@ -1,6 +1,6 @@
 export const tagType = {
     1 : 'wa/twm',
-    2: '魔兽插件'
+    2: '游戏插件'
 }
 export const statusType = {
     0: '回收站',
@@ -33,11 +33,18 @@ export const plugType = {
 }
 
 export const checkType = {
-    0: '未审核',
+    0: '待审核',
     1: '已审核'
 }
 
-export const bmType = {
+export const bmDownloadType = {
     1: 'BT',
-    2: '百度云'
+    2: '云盘'
+}
+
+export const bmType = {
+    1: '影视',
+    2: '剧集',
+    3: '软件',
+    4: '其他'
 }

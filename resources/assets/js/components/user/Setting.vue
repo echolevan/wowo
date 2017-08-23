@@ -6,8 +6,8 @@
                     <Form-item label="头像">
                         <img :src="formItem.avatar"  class="img-circle" id="set-avatar">
                     </Form-item>
-                    <Form-item label="昵称" prop="name">
-                        <Input v-model="formItem.name" placeholder="请输入"></Input>
+                    <Form-item label="昵称" prop="nickname">
+                        <Input v-model="formItem.nickname" placeholder="请输入"></Input>
                     </Form-item>
                     <Form-item label="阵营" >
                         <Select v-model="formItem.camp" :disabled="!is_camp" placeholder="请选择阵营">
@@ -15,6 +15,30 @@
                             <Option value="2">部落</Option>
                         </Select>
                         <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">30天内不能再次修改阵营</p>
+                    </Form-item>
+                    <Form-item label="性别" >
+                        <Select v-model="formItem.sex"  placeholder="请选择阵营">
+                            <Option value="0">保密</Option>
+                            <Option value="1">男</Option>
+                            <Option value="2">女</Option>
+                        </Select>
+                    </Form-item>
+                    <Form-item label="生日" >
+                        <Date-picker type="date" v-model="formItem.birthday" placeholder="选择日期" style="width: 200px"></Date-picker>
+                    </Form-item>
+                    <Form-item label="出生地" >
+                        <v-distpicker :province="formItem.birthplace.province" :city="formItem.birthplace.city" :area="formItem.birthplace.area"
+                                      @province="onProvinceBirthplace"
+                                      @city="onCityBbirthplace"
+                                      @area="onAreaBirthplace"
+                                      class="my_address"></v-distpicker>
+                    </Form-item>
+                    <Form-item label="居住地" >
+                        <v-distpicker :province="formItem.habitably.province" :city="formItem.habitably.city" :area="formItem.habitably.area"
+                                      @province="onProvinceHabitably"
+                                      @city="onCityBHabitably"
+                                      @area="onAreaHabitably"
+                                      class="my_address"></v-distpicker>
                     </Form-item>
                     <Form-item label="介绍" prop="info">
                         <Input v-model="formItem.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
@@ -44,29 +68,63 @@
     import AvatarCropper from 'vue-avatar-cropper'
     import restPassword from '../common/restPassword.vue'
     import {mapState} from 'vuex'
+    import VDistpicker from 'v-distpicker'
 
     export default {
         data() {
             return {
                 formItem: {
                     avatar: '',
-                    name: '',
+                    nickname: '',
                     camp: '',
-                    info: ''
+                    info: '',
+                    sex: '',
+                    birthday: '',
+                    birthplace: {
+                        province: '省',
+                        city: '市',
+                        area: '区',
+                    },
+                    habitably: {
+                        province: '省',
+                        city: '市',
+                        area: '区',
+                    }
                 },
                 is_camp: false,
                 ruleValidate: {
-                    name: [
+                    nickname: [
                         { required: true, message: '昵称不能为空', trigger: 'blur' }
                     ],
                     info: [
                         { type: 'string', max: 255, message: '介绍不能多于255个字', trigger: 'change' }
                     ]
                 },
-                csrfToken : window.Laravel.csrfToken
+                csrfToken : window.Laravel.csrfToken,
             }
         },
         methods: {
+            onProvinceBirthplace(data) {
+                this.formItem.birthplace.province = data.value
+            },
+            onCityBbirthplace(data) {
+                this.formItem.birthplace.city = data.value
+            },
+            onAreaBirthplace(data) {
+                console.log(data)
+                this.formItem.birthplace.area = data.value
+            },
+
+            onProvinceHabitably(data) {
+                this.formItem.habitably.province = data.value
+            },
+            onCityBHabitably(data) {
+                this.formItem.habitably.city = data.value
+            },
+            onAreaHabitably(data) {
+                this.formItem.habitably.area = data.value
+            },
+
             check_is_camp() {
               axios.get('user/check_is_camp').then(res=>{
                   if(res.data.sta === 1){
@@ -75,6 +133,24 @@
                       this.is_camp = false
                   }
               })
+            },
+            put_v(){
+                this.formItem.avatar = this.userInfo.avatar
+                this.formItem.nickname = this.userInfo.nickname
+                this.formItem.birthday = this.userInfo.birthday
+                this.formItem.camp = this.userInfo.camp + ''
+                this.formItem.birthplace = this.userInfo.birthplace ? this.userInfo.birthplace : {
+                    province: '',
+                    city: '',
+                    area: '',
+                }
+                this.formItem.habitably = this.userInfo.habitably ? this.userInfo.habitably : {
+                    province: '',
+                    city: '',
+                    area: '',
+                }
+                this.formItem.sex = this.userInfo.sex + ''
+                this.formItem.info = this.userInfo.info
             },
             updateUserAvatar(res) {
                 if(res.sta === 1){
@@ -88,7 +164,15 @@
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.post('user/update',{name:this.formItem.name,info:this.formItem.info,camp:this.formItem.camp}).then(res=>{
+                        axios.post('user/update',{
+                            nickname:this.formItem.nickname,
+                            info:this.formItem.info,
+                            camp:this.formItem.camp,
+                            sex:this.formItem.sex,
+                            birthday:this.formItem.birthday,
+                            birthplace:this.formItem.birthplace,
+                            habitably:this.formItem.habitably,
+                        }).then(res=>{
                             if(res.data.sta === 1){
                                 this.check_is_camp()
                                 this.$Message.success('信息更新成功')
@@ -106,18 +190,21 @@
         computed: mapState([
             'userInfo', 'choice_cmap'
         ]),
+        watch: {
+          userInfo() {
+              this.put_v()
+            }
+        },
         mounted(){
-           setTimeout(()=>{
-               this.formItem.avatar = this.userInfo.avatar
-               this.formItem.name = this.userInfo.name
-               this.formItem.camp = this.userInfo.camp + ''
-               this.formItem.info = this.userInfo.info
-           },300);
+            if(this.userInfo){
+                this.put_v()
+            }
            this.check_is_camp()
         },
         components: {
             'avatar-cropper': AvatarCropper,
-            'rest-password': restPassword
+            'rest-password': restPassword,
+            'v-distpicker': VDistpicker
         }
     }
 </script>

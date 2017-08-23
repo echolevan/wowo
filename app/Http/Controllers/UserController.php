@@ -8,6 +8,7 @@ use App\Order;
 use App\Plug;
 use App\Recharge;
 use App\User;
+use Carbon\Carbon;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -165,6 +166,14 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        $birthplace['province'] = $request->birthplace['province'] === '省' ? '' : $request->birthplace['province'];
+        $birthplace['city']  = $request->birthplace['city'] === '市' ? '' : $request->birthplace['city'];
+        $birthplace['area'] = $request->birthplace['area'] === '区' ? '' : $request->birthplace['area'];
+
+        $habitably['province'] = $request->habitably['province'] === '省' ? '' : $request->habitably['province'];
+        $habitably['city'] = $request->habitably['city'] === '市' ? '' : $request->habitably['city'];
+        $habitably['area'] = $request->habitably['area'] === '区' ? '' : $request->habitably['area'];
+
         if($request->camp != Auth::user()->camp){
 
             $sta = $this->check_is_camp();
@@ -173,15 +182,24 @@ class UserController extends Controller
             }
 
             $arr = [
-                'name' => $request->name,
+                'nickname' => $request->nickname,
                 'camp' => $request->camp,
                 'info' => is_null($request->info) ? '' : $request->info,
-                'update_camp_at' => time()
+                'update_camp_at' => time(),
+                'sex' => $request->sex,
+                'birthday' => $request->birthday ? Carbon::createFromTimestamp(strtotime($request->birthday))->toDateString() : '',
+                'birthplace' => json_encode($birthplace),
+                'habitably' => json_encode($habitably),
             ];
         }else{
             $arr = [
-                'name' => $request->name,
+                'nickname' => $request->nickname,
                 'info' => is_null($request->info) ? '' : $request->info,
+                'update_camp_at' => time(),
+                'sex' => $request->sex,
+                'birthday' => $request->birthday ? Carbon::createFromTimestamp(strtotime($request->birthday))->toDateString() : '',
+                'birthplace' => json_encode($birthplace),
+                'habitably' =>  json_encode($habitably)
             ];
         }
 

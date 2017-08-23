@@ -56,11 +56,16 @@ class RegisterController extends Controller
             'captcha.captcha' => '验证码输入错误',
             'name.is_num' => '用户名不能为纯数字',
             'password.is_pass' => '密码必须有大小写字母+数字',
+            'nickname.required' => '昵称不能为空',
+            'nickname.max' => '昵称最长为10',
+            'nickname.unique' => '昵称已经存在',
+            'nickname.alpha_num' => '昵称不能含有符号',
         ];
 
         return Validator::make($data, [
             'name' => 'required|string|max:255|unique:users|alpha_num|is_num',
             'email' => 'required|string|email|max:255|unique:users',
+            'nickname' => 'required|string|max:10|unique:users|alpha_num',
             'password' => 'required|string|min:8|is_pass|confirmed',
             'captcha' => 'required|captcha',
             'camp' => 'required'
@@ -82,6 +87,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'camp' => $data['camp'],
             'email' => $data['email'],
+            'nickname' => $data['nickname'],
             'token' => $token,
             'login_at' => Carbon::now(),
             'avatar' => $data['camp'] == 1 ? '/images/avatar/1.jpg' : '/images/avatar/2.jpg',
