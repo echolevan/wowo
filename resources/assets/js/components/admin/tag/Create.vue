@@ -59,19 +59,6 @@
 <script>
     export default {
         data() {
-            const validateUploadList = (rule, value, callback) => {
-                setTimeout(() => {
-                    if (this.formItem.type.length === 1) {
-                        if(this.formItem.thumb === ''){
-                            callback(new Error('请上传插件截图'));
-                        }else{
-                            callback();
-                        }
-                    } else {
-                        callback();
-                    }
-                }, 10);
-            };
             const validateType = (rule, value, callback) => {
                 if (value.length === 0) {
                     callback(new Error('插件分类不能为空'));
@@ -98,9 +85,6 @@
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
-                    ],
-                    thumb: [
-                        {validator: validateUploadList, required: true, trigger: 'change'},
                     ]
                 }
 

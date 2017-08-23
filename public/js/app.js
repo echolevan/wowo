@@ -3459,21 +3459,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        var _this = this;
-
-        var validateUploadList = function validateUploadList(rule, value, callback) {
-            setTimeout(function () {
-                if (_this.formItem.type.length === 1) {
-                    if (_this.formItem.thumb === '') {
-                        callback(new Error('请上传插件截图'));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            }, 10);
-        };
         var validateType = function validateType(rule, value, callback) {
             if (value.length === 0) {
                 callback(new Error('插件分类不能为空'));
@@ -3495,18 +3480,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             plug_tags: [],
             ruleValidate: {
                 name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30', trigger: 'change' }],
-                type: [{ validator: validateType, required: true, trigger: 'change' }],
-                thumb: [{ validator: validateUploadList, required: true, trigger: 'change' }]
+                type: [{ validator: validateType, required: true, trigger: 'change' }]
             }
 
         };
     },
     mounted: function mounted() {
-        var _this2 = this;
+        var _this = this;
 
         axios.get('/admin/plug_all_info').then(function (res) {
             console.log(res);
-            _this2.plug_tags = res.data;
+            _this.plug_tags = res.data;
         });
     },
 
@@ -3526,22 +3510,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.formItem.type);
         },
         add_to: function add_to(name) {
-            var _this3 = this;
+            var _this2 = this;
 
             this.loading = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('/admin/tag/create', { data: _this3.formItem }).then(function (res) {
-                        _this3.$Message.success('添加成功!');
-                        _this3.formItem.name = '';
-                        _this3.formItem.type = [];
-                        _this3.formItem.thumb = '';
-                        _this3.formItem.is_for_user = true;
+                    axios.put('/admin/tag/create', { data: _this2.formItem }).then(function (res) {
+                        _this2.$Message.success('添加成功!');
+                        _this2.formItem.name = '';
+                        _this2.formItem.type = [];
+                        _this2.formItem.thumb = '';
+                        _this2.formItem.is_for_user = true;
                     });
                 } else {
-                    _this3.$Message.error('表单验证失败!');
+                    _this2.$Message.error('表单验证失败!');
                 }
-                _this3.loading = false;
+                _this2.loading = false;
             });
         }
     }
