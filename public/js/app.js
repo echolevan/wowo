@@ -2933,14 +2933,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
+        formItem: function formItem() {
+            this.keyUp();
+        },
         '$route': function $route(to, from) {
             this.$router.go(-1);
         }
     },
     methods: {
         keyUp: function keyUp() {
-            console.log(1);
-            this.content = this.content.replace(/[^\w\.\/]/ig, '');
+            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -3282,14 +3284,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
+        formItem: function formItem() {
+            this.keyUp();
+        },
         '$route': function $route(to, from) {
             this.$router.go(-1);
         }
     },
     methods: {
         keyUp: function keyUp() {
-            console.log(1);
-            this.content = this.content.replace(/[^\w\.\/]/ig, '');
+            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
         },
         toLoading: function toLoading(name) {
             var _this3 = this;
@@ -4873,6 +4877,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
     watch: {
+        content: function content() {
+            this.keyUp();
+        },
         '$route': function $route(to, from) {
             this._init();
             this.tag_active = 0;
@@ -5852,7 +5859,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this2 = this;
 
-        console.log(this.$route);
         setTimeout(function () {
             if (!_this2.userInfo) {
                 _this2.$Message.error('请先登录');
@@ -5863,14 +5869,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
+        formItem: function formItem() {
+            this.keyUp();
+        },
         '$route': function $route(to, from) {
             this.$router.go(-1);
         }
     },
     methods: {
         keyUp: function keyUp() {
-            console.log(1);
-            this.content = this.content.replace(/[^\w\.\/]/ig, '');
+            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
         },
         toLoading: function toLoading(name) {
             var _this3 = this;
@@ -6388,14 +6396,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     watch: {
+        formItem: function formItem() {
+            this.keyUp();
+        },
         '$route': function $route(to, from) {
             this.$router.go(-1);
         }
     },
     methods: {
         keyUp: function keyUp() {
-            console.log(1);
-            this.content = this.content.replace(/[^\w\.\/]/ig, '');
+            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -70560,9 +70570,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "rows": 8,
       "placeholder": "请输入字符串"
     },
-    on: {
-      "input": _vm.keyUp
-    },
     model: {
       value: (_vm.content),
       callback: function($$v) {
@@ -70572,11 +70579,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "1"
+      "span": "6"
     }
-  }, [_vm._v("\n                     \n                ")]), _vm._v(" "), _c('iCol', {
-    attrs: {
-      "span": "5"
+  }, [_c('div', {
+    staticStyle: {
+      "width": "250px",
+      "margin": "0 auto"
     }
   }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
     staticClass: "w_input",
@@ -70618,7 +70626,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "button_one_text"
-  }, [_vm._v("快速分享")])])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("快速分享")])])], 1)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -70691,7 +70699,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("网站统计")])]), _vm._v(" "), _c('div', {
-    staticClass: "tool_user_child child"
+    staticClass: "tool_user_child child",
+    staticStyle: {
+      "height": "100px"
+    }
   }, [(_vm.is_title_hover === 1) ? _c('span', [_vm._v("23232")]) : _c('ul', [_c('div', {
     staticClass: "col-md-6"
   }, [_c('li', [_vm._v("资源总数：" + _vm._s(_vm.census.plugs_count))]), _vm._v(" "), _c('li', [_vm._v("WA资源：" + _vm._s(_vm.census.was_count))])]), _vm._v(" "), _c('div', {

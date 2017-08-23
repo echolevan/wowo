@@ -5,23 +5,23 @@
             <iCol span="24" style="padding:0 0 15px 15px">
                 <div class="tool_user_child child">
                     <iCol span="18">
-                        <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input" v-on:input="keyUp"></Input>
+                        <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
                     </iCol>
-                    <iCol span="1">
-                        &nbsp;
-                    </iCol>
-                    <iCol span="5">
-                        <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
-                                  @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
-                        <div class="my_btn_wrapper pull-right"
-                             @click="quick_share"
-                             style="margin:15px 0 0 0"
-                             :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <svg height="45" width="150">
-                                <rect class="button_one" height="45" width="150"></rect>
-                            </svg>
-                            <div class="button_one_text">快速分享</div>
+                    <iCol span="6">
+                        <div  style="width: 250px;margin:0 auto">
+                            <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
+                                      @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
+                            <div class="my_btn_wrapper pull-right"
+                                 @click="quick_share"
+                                 style="margin:15px 0 0 0"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"></rect>
+                                </svg>
+                                <div class="button_one_text">快速分享</div>
+                            </div>
                         </div>
+
                     </iCol>
                     <div style="clear: both"></div>
                 </div>
@@ -62,7 +62,7 @@
                                 v-on:mouseenter="is_title_hover = 2"
                         >网站统计</strong>
                     </div>
-                    <div class="tool_user_child child">
+                    <div class="tool_user_child child" style="height: 100px">
                         <span v-if="is_title_hover === 1">23232</span>
                         <ul v-else>
                             <div class="col-md-6">
@@ -273,6 +273,9 @@
             'userInfo', 'choice_cmap'
         ]),
         watch: {
+            content(){
+                this.keyUp()
+            },
             '$route'(to, from) {
                 this._init()
                 this.tag_active = 0

@@ -53,7 +53,7 @@
                         <p>{{ $errors->first('email') }}</p>
                     @endif
                     <br>
-                    <input type="password" name="password" placeholder="密码">
+                    <input type="password" name="password" class="input_p" placeholder="密码">
                     @if ($errors->has('password'))
                         <p>{{ $errors->first('password') }}</p>
                     @endif
@@ -84,6 +84,28 @@
             delay: 20
         });
 
+        $(".input_e").focus(function () {
+            console.log(this_camp)
+            if(this_camp === 1 || this_camp === 2 || this_camp === 0){
+
+            }else{
+                $(".my-button").removeClass('lm_button bl_button');
+                this_camp = 0
+                window.myFlux.showImage(0);
+            }
+        })
+
+        $(".input_p").focus(function () {
+            console.log(this_camp)
+            if(this_camp === 1 || this_camp === 2 || this_camp === 3){
+
+            }else{
+                $(".my-button").removeClass('lm_button bl_button');
+                this_camp = 3
+                window.myFlux.showImage(3);
+            }
+        })
+
         $(".input_e").blur(function () {
             $.ajax({
                 url: "/check_login_email",
@@ -101,10 +123,13 @@
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
                         window.myFlux.showImage(res.camp);
                     }else{
-                        let camp = this_camp === 0 ? 3 : 0;
-                        this_camp = camp;
-                        $(".my-button").removeClass('lm_button bl_button');
-                        window.myFlux.showImage(camp);
+                        if(this_camp === 0 || this_camp === 3){
+
+                        }else{
+                            this_camp = 0
+                            window.myFlux.showImage(0);
+                        }
+
                     }
                 }
             })

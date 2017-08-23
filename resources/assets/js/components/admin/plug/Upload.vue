@@ -221,14 +221,16 @@
             this._init()
         },
         watch: {
+            formItem(){
+                this.keyUp()
+            },
             '$route'(to, from) {
                 this.$router.go(-1)
             }
         },
         methods: {
             keyUp() {
-                console.log(1)
-                this.content = this.content.replace(/[^\w\.\/]/ig,'')
+                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading(name) {
                 this.loading = true;

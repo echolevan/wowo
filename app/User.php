@@ -42,20 +42,12 @@ class User extends Authenticatable
 
     public function getBirthplaceAttribute($birthplace)
     {
-        if(!is_string($birthplace)){
-            return $this->birthplace = json_decode($birthplace,true);
-        }else{
-            return $this->birthplace = '';
-        }
+        return $this->birthplace = json_decode($birthplace,true);
     }
 
     public function getHabitablyAttribute($habitably)
     {
-        if(!is_string($habitably)){
-            return $this->habitably = json_decode($habitably,true);
-        }else{
-            return $this->habitably = '';
-        }
+        return $this->habitably = json_decode($habitably,true);
     }
 
 }
