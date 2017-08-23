@@ -3,28 +3,32 @@
         <Row>
             <!--快捷分享-->
             <iCol span="24" style="padding:15px">
-                <div class="tool_user title" style="margin-bottom: 5px">
-                    <strong style="font-size: 14px">快捷分享</strong>
-                </div>
                 <div class="tool_user_child child">
-                    <iCol span="16">
+                    <iCol span="20">
                         <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
                     </iCol>
                     <iCol span="1">
                         &nbsp;
                     </iCol>
-                    <iCol span="7">
+                    <iCol span="3">
                         <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                   @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
-                        <a href="javascript:void(0)" @click="quick_share" class="pull-right my_a_style"
-                           style="padding: 15px">快速分享</a>
+                        <div class="my_btn_wrapper pull-right"
+                             @click="quick_share"
+                             style="margin:15px 0 0 0"
+                             :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <svg height="45" width="150">
+                                <rect class="button_one" height="45" width="150"></rect>
+                            </svg>
+                            <div class="button_one_text">快速分享</div>
+                        </div>
                     </iCol>
                     <div style="clear: both"></div>
                 </div>
             </iCol>
 
             <!--最新主题-->
-            <iCol span="16">
+            <iCol span="19">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>最新主题</strong>
@@ -46,7 +50,7 @@
                 </div>
             </iCol>
             <!--网站公告-->
-            <iCol span="8">
+            <iCol span="5">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title tool_title">
                         <strong class="hover_hand"
@@ -61,11 +65,18 @@
                     <div class="tool_user_child child">
                         <span v-if="is_title_hover === 1">23232</span>
                         <ul v-else>
-                            <li>资源总数：{{census.plugs_count}}</li>
-                            <li>WA资源：{{census.was_count}}</li>
-                            <li>TMW资源：{{census.tmws_count}}</li>
-                            <li>今日更新：{{census.today_count}}</li>
-                            <li>最近更新：{{census.last_time}}</li>
+                            <div class="col-md-6">
+                                <li>资源总数：{{census.plugs_count}}</li>
+                                <li>WA资源：{{census.was_count}}</li>
+                            </div>
+                            <div class="col-md-6">
+                                <li>今日更新：{{census.today_count}}</li>
+                                <li>TMW资源：{{census.tmws_count}}</li>
+                            </div>
+                            <div class="col-md-12">
+                                <li>最近更新：{{census.last_time}}</li>
+                            </div>
+                            <div style="clear: both"></div>
                         </ul>
                     </div>
                 </div>
@@ -102,7 +113,7 @@
                     <div class="tool_user title">
                         <strong>WeakAuras</strong>
                         <router-link to="/waTmw/wa" class="pull-right my_a_style"
-                                     style="padding-right: 10px;font-size: 12px">更多
+                                     style="padding-right: 10px;font-size: 12px;width: 40px">更多
                         </router-link>
                     </div>
                     <div class="tool_user_child child">
@@ -127,7 +138,7 @@
                     <div class="tool_user title">
                         <strong>TellMeWhen</strong>
                         <router-link to="/waTmw/twm" class="pull-right my_a_style"
-                                     style="padding-right: 10px;font-size: 12px">更多
+                                     style="padding-right: 10px;font-size: 12px;width: 40px">更多
                         </router-link>
                     </div>
                     <div class="tool_user_child child">
@@ -175,7 +186,7 @@
                     <div class="tool_user title">
                         <strong>游戏插件</strong>
                         <router-link to="/waTmw/plug" class="pull-right my_a_style"
-                                     style="padding-right: 10px;font-size: 12px">更多
+                                     style="padding-right: 10px;font-size: 12px;width:40px">更多
                         </router-link>
                     </div>
                     <div class="tool_user_child child">
@@ -199,7 +210,7 @@
                 <div class="tool_user title">
                     <strong>易游</strong>
                     <router-link to="/waTmw/plug" class="pull-right my_a_style"
-                                 style="padding-right: 10px;font-size: 12px">更多
+                                 style="padding-right: 10px;font-size: 12px;width: 40px">更多
                     </router-link>
                 </div>
                 <div class="tool_user_child child">

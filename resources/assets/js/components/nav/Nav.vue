@@ -3,8 +3,8 @@
         <div id="nav" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2) || (!userInfo &&choice_cmap === '2') }">
             <div class="title">
                 <div class="logo">
-                    <router-link to="/" class="my_a_style" v-if="!userInfo">窝窝来了</router-link>
-                    <router-link to="/home" class="my_a_style" v-else>窝窝来了</router-link>
+                    <router-link to="/" class="my_a_style" v-if="!userInfo">嘿市</router-link>
+                    <router-link to="/home" class="my_a_style" v-else>嘿市</router-link>
                 </div>
                 <div class="login">
                     <div v-if="!userInfo">

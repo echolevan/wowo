@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>窝窝来了</title>
+    <title>嘿市</title>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -34,9 +34,10 @@
 <body>
 <div>
     <div class="left" id="slider">
-        <img src="{{asset('images/default.jpg')}}" alt=""/>
+        <img src="{{asset('images/01.jpg')}}" alt=""/>
         <img src="{{asset('images/bac2.jpg')}}" alt=""/>
         <img src="{{asset('images/bac3.jpg')}}" alt=""/>
+        <img src="{{asset('images/02.jpg')}}" alt=""/>
     </div>
     <div class="filter">
 
@@ -47,7 +48,7 @@
             <div>
                 <form method="POST" action="{{ route('login') }}" class="cont_form_login">
                     {{ csrf_field() }}
-                    <input type="text" name="email" class="input_e" placeholder="邮箱">
+                    <input type="text" name="email" class="input_e" placeholder="输入用户名/数字ID">
                     @if ($errors->has('email'))
                         <p>{{ $errors->first('email') }}</p>
                     @endif
@@ -60,7 +61,7 @@
                     <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
                 </form>
                 <span>没有帐号？
-        <a href="{{route('register')}}" style="color: #fff">点我注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
+        <a href="{{route('register')}}" style="color: #fff">点击注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
             </div>
         </div>
@@ -70,6 +71,7 @@
 <script src="{{ asset('js/login2.js') }}"></script>
 <script>
     $(function () {
+        var this_camp = 0;
         let camp = $("select[name='camp']").val();
         if (camp) {
             window.myFlux.showImage(camp);
@@ -90,12 +92,19 @@
                 success: function (res) {
                     console.log(res)
                     if(res.sta === 1){
+                        if(this_camp === res.camp){
+                            return false
+                        }else{
+                            this_camp = res.camp;
+                        }
                         $(".my-button").removeClass('lm_button bl_button');
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
                         window.myFlux.showImage(res.camp);
                     }else{
+                        let camp = this_camp === 0 ? 3 : 0;
+                        this_camp = camp;
                         $(".my-button").removeClass('lm_button bl_button');
-                        window.myFlux.showImage(0);
+                        window.myFlux.showImage(camp);
                     }
                 }
             })

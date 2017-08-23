@@ -42,7 +42,12 @@ class UserController extends Controller
     public function check_login_email(Request $request)
     {
         if($request->email){
-            $camp = User::where('email',$request->email)->value('camp');
+            if(is_numeric($request->email)){
+                $camp = User::where('id',$request->email)->value('camp');
+            }else{
+                $camp = User::where('name',$request->email)->value('camp');
+            }
+//            $camp = User::where('id',$request->email)->orWhere('name',$request->email)->value('camp');
             if($camp){
                 return ['sta' => 1 , 'camp'=>$camp];
             }

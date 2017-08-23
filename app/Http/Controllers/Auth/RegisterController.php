@@ -54,13 +54,14 @@ class RegisterController extends Controller
             'camp.required' => '请选择阵营',
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '验证码输入错误',
+            'name.is_num' => '用户名不能为纯数字',
+            'password.is_pass' => '密码必须有大小写字母+数字',
         ];
 
-
         return Validator::make($data, [
-            'name' => 'required|string|max:255|unique:users',
+            'name' => 'required|string|max:255|unique:users|alpha_num|is_num',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|is_pass|confirmed',
             'captcha' => 'required|captcha',
             'camp' => 'required'
         ],$messages);

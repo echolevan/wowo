@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <div class="title"  v-if="!userInfo">
-            选择你的阵营
+            选择阵营
         </div>
         <div class="choice"  v-if="!userInfo">
             <div class="c_one">

@@ -75,15 +75,15 @@
                 orderByList:[
                     {
                         value: '1',
-                        label: '更新',
+                        label: '更新时间',
                     },
                     {
                         value: '2',
-                        label: '下载',
+                        label: '下载量',
                     },
                     {
                         value: '3',
-                        label: '收藏',
+                        label: '推荐度',
                     }
                 ],
                 tags:[],

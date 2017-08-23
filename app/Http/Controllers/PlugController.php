@@ -29,7 +29,7 @@ class PlugController extends Controller
         } else if ($request->orderBy == 2) {
             $orderBy = 'download_num';
         } else {
-            $orderBy = 'collect_num';
+            $orderBy = 'rank';
         }
 
         // search 条件

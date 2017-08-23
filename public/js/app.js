@@ -4817,6 +4817,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6050,13 +6061,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             orderByList: [{
                 value: '1',
-                label: '更新'
+                label: '更新时间'
             }, {
                 value: '2',
-                label: '下载'
+                label: '下载量'
             }, {
                 value: '3',
-                label: '收藏'
+                label: '推荐度'
             }],
             tags: [],
             orderBy: '1',
@@ -70379,19 +70390,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "24"
     }
   }, [_c('div', {
-    staticClass: "tool_user title",
-    staticStyle: {
-      "margin-bottom": "5px"
-    }
-  }, [_c('strong', {
-    staticStyle: {
-      "font-size": "14px"
-    }
-  }, [_vm._v("快捷分享")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
   }, [_c('iCol', {
     attrs: {
-      "span": "16"
+      "span": "20"
     }
   }, [_c('Input', {
     staticClass: "w_input",
@@ -70413,7 +70415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n                     \n                ")]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "7"
+      "span": "3"
     }
   }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
     staticClass: "w_input",
@@ -70431,24 +70433,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "type"
     }
-  }) : _vm._e(), _vm._v(" "), _c('a', {
-    staticClass: "pull-right my_a_style",
-    staticStyle: {
-      "padding": "15px"
+  }) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "my_btn_wrapper pull-right",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
-    attrs: {
-      "href": "javascript:void(0)"
+    staticStyle: {
+      "margin": "15px 0 0 0"
     },
     on: {
       "click": _vm.quick_share
     }
-  }, [_vm._v("快速分享")])], 1), _vm._v(" "), _c('div', {
+  }, [_c('svg', {
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  }, [_c('rect', {
+    staticClass: "button_one",
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text"
+  }, [_vm._v("快速分享")])])], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
   })], 1)]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "16"
+      "span": "19"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover"
@@ -70484,7 +70499,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "8"
+      "span": "5"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover"
@@ -70512,7 +70527,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("网站统计")])]), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [(_vm.is_title_hover === 1) ? _c('span', [_vm._v("23232")]) : _c('ul', [_c('li', [_vm._v("资源总数：" + _vm._s(_vm.census.plugs_count))]), _vm._v(" "), _c('li', [_vm._v("WA资源：" + _vm._s(_vm.census.was_count))]), _vm._v(" "), _c('li', [_vm._v("TMW资源：" + _vm._s(_vm.census.tmws_count))]), _vm._v(" "), _c('li', [_vm._v("今日更新：" + _vm._s(_vm.census.today_count))]), _vm._v(" "), _c('li', [_vm._v("最近更新：" + _vm._s(_vm.census.last_time))])])])]), _vm._v(" "), _c('div', {
+  }, [(_vm.is_title_hover === 1) ? _c('span', [_vm._v("23232")]) : _c('ul', [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('li', [_vm._v("资源总数：" + _vm._s(_vm.census.plugs_count))]), _vm._v(" "), _c('li', [_vm._v("WA资源：" + _vm._s(_vm.census.was_count))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('li', [_vm._v("今日更新：" + _vm._s(_vm.census.today_count))]), _vm._v(" "), _c('li', [_vm._v("TMW资源：" + _vm._s(_vm.census.tmws_count))])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('li', [_vm._v("最近更新：" + _vm._s(_vm.census.last_time))])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "div_block my_card_hover"
   }, [_c('div', {
     staticClass: "tool_user title tool_title"
@@ -70551,7 +70576,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
-      "font-size": "12px"
+      "font-size": "12px",
+      "width": "40px"
     },
     attrs: {
       "to": "/waTmw/wa"
@@ -70596,7 +70622,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
-      "font-size": "12px"
+      "font-size": "12px",
+      "width": "40px"
     },
     attrs: {
       "to": "/waTmw/twm"
@@ -70681,7 +70708,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
-      "font-size": "12px"
+      "font-size": "12px",
+      "width": "40px"
     },
     attrs: {
       "to": "/waTmw/plug"
@@ -70726,7 +70754,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-right my_a_style",
     staticStyle: {
       "padding-right": "10px",
-      "font-size": "12px"
+      "font-size": "12px",
+      "width": "40px"
     },
     attrs: {
       "to": "/waTmw/plug"
@@ -71726,7 +71755,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "index"
   }, [(!_vm.userInfo) ? _c('div', {
     staticClass: "title"
-  }, [_vm._v("\n        选择你的阵营\n    ")]) : _vm._e(), _vm._v(" "), (!_vm.userInfo) ? _c('div', {
+  }, [_vm._v("\n        选择阵营\n    ")]) : _vm._e(), _vm._v(" "), (!_vm.userInfo) ? _c('div', {
     staticClass: "choice"
   }, [_c('div', {
     staticClass: "c_one"
@@ -72252,12 +72281,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/"
     }
-  }, [_vm._v("窝窝来了")]) : _c('router-link', {
+  }, [_vm._v("嘿市")]) : _c('router-link', {
     staticClass: "my_a_style",
     attrs: {
       "to": "/home"
     }
-  }, [_vm._v("窝窝来了")])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("嘿市")])], 1), _vm._v(" "), _c('div', {
     staticClass: "login"
   }, [(!_vm.userInfo) ? _c('div', [_c('span', [_c('a', {
     staticClass: "my_a_style",
