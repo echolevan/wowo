@@ -42,10 +42,6 @@
             <Button type="primary" :loading="loading_s" @click="toS">
                 <span>搜索</span>
             </Button>
-
-            <router-link to="/admin/tag/create">
-                <Button type="primary" class="pull-right">添加分类</Button>
-            </router-link>
         </Form>
 
         <div style="padding: 10px 0">
@@ -109,7 +105,7 @@
                 <td>{{v.tel === 0 ? '暂无手机号' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
                 <td>{{configCamp[v.camp]}}</td>
-                <td>{{v.wwb}}</td>
+                <td>{{v.gold}}</td>
                 <td>{{v.plugs.length}}</td>
                 <td v-show="show_c_at">{{v.created_at}}</td>
                 <td v-show="show_l_at">{{v.login_at}}</td>
@@ -203,7 +199,7 @@
                 this.$refs.userEdit.formItem.id = v.id
                 this.$refs.userEdit.formItem.name = v.name
                 this.$refs.userEdit.formItem.email = v.email
-                this.$refs.userEdit.formItem.tel = v.tel === 0 ? '' : v.tel
+                this.$refs.userEdit.formItem.tel = v.tel === '0' ? '' : v.tel
                 this.$refs.userEdit.formItem.avatar = v.avatar
                 this.$refs.userEdit.formItem.camp = v.camp + ''
                 this.$refs.userEdit.is_disabled = true

@@ -25,7 +25,7 @@
             <li><span class="title">简介</span><span class="val" v-if="userInfo.info">{{userInfo.info}}</span><span class="val" v-else-if="userInfo.camp === 1">为了联盟</span><span class="val" v-else>为了部落</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">金币</span><span class="val">{{userInfo.wwb}}</span>
+            <li><span class="title">金币</span><span class="val">{{userInfo.gold}}</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">邮箱</span><span class="val">

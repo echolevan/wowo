@@ -41,10 +41,10 @@
                 </i-Switch>
             </Form-item>
 
-            <Form-item label="价格（金币）" v-show="formItem.is_free" prop="wwb">
+            <Form-item label="价格（金币）" v-show="formItem.is_free" prop="gold">
                 <Input-number
                         :min="1"
-                        v-model="formItem.wwb"
+                        v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
             </Form-item>
 
@@ -114,7 +114,7 @@
                     callback();
                 }
             };
-            const validateWWB = (rule, value, callback) => {
+            const validategold = (rule, value, callback) => {
                 if (value.length === 0) {
                     if (this.formItem.is_free === true) {
                         callback(new Error('插件收费不能为空'));
@@ -159,7 +159,7 @@
                     updated_info: '',
                     game_version: '',
                     is_free: false,
-                    wwb: 1,
+                    gold: 1,
                     uploadList: [],
                     plug_url: '',
                 },
@@ -195,8 +195,8 @@
                     game_version: [
                         {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
                     ],
-                    wwb: [
-                        {validator: validateWWB, trigger: 'change'}
+                    gold: [
+                        {validator: validategold, trigger: 'change'}
                     ]
                 }
             }
@@ -248,7 +248,7 @@
                 })
             },
             swi() {
-                this.formItem.wwb = 0
+                this.formItem.gold = 0
             },
             on_sel(v) {
                 this.formItem.type = v
@@ -350,8 +350,8 @@
                 this.formItem.plug_url = ''
             },
             change_other() {
-                if (!(/^\d+$/.test(this.formItem.wwb))) {
-                    this.formItem.wwb = Math.round(this.formItem.wwb)
+                if (!(/^\d+$/.test(this.formItem.gold))) {
+                    this.formItem.gold = Math.round(this.formItem.gold)
                 }
             }
         },

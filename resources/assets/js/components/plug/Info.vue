@@ -13,11 +13,11 @@
                             <span v-if="plug.tag_two"> > </span><span>{{plug.tag_two ? plug.tag_two.name : ''}}</span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
-                            <span class="wwb_class"
+                            <span class="gold_class"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                   style="font-size: 16px">
-                                <span v-if="plug.is_pay"><s>{{plug.wwb}}</s></span>
-                                <span v-else>{{plug.wwb}}</span>
+                                <span v-if="plug.is_pay"><s>{{plug.gold}}</s></span>
+                                <span v-else>{{plug.gold}}</span>
                             </span>
                             金币</span>
                             <span v-if="plug.is_pay">（您已经购买过）</span>
@@ -148,33 +148,33 @@
                 <div class="title">资源购买</div>
                 <ul>
                     <li>此插件售价
-                        <span class="wwb_class" style="font-size: 16px"
-                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.wwb}}</span>
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
                     </li>
                     <li>提示：此非实物交易，购买后不退款，请考虑好再买</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
-                        <a class="wwb_class"
+                        <a class="gold_class"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                            href="javascript:void(0)" @click="login">您还未登录，请先登录</a>
                     </li>
                     <li style="padding-top: 15px" v-else>
                         您的金币余额：
-                        <span class="wwb_class" style="font-size: 16px"
-                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.wwb}}</span>
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
-                        <span v-if="userInfo.wwb >= down_plug.wwb">
+                        <span v-if="userInfo.gold >= down_plug.gold">
                              支付成功后，剩余：
-                            <span class="wwb_class" style="font-size: 16px"
+                            <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                {{userInfo.wwb - down_plug.wwb}}
+                                {{userInfo.gold - down_plug.gold}}
                             </span>
                         </span>
                         <span v-else>您的金币不足，请先充值：</span>
                     </li>
                 </ul>
 
-                <div v-show="userInfo && userInfo.wwb < down_plug.wwb" style="margin-top: 15px">
+                <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
                     <Radio-group v-model="pay_type" type="button"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                         <Radio label="1">支付宝</Radio>
@@ -200,14 +200,14 @@
                     </Radio-group>
 
                     <p style="margin-top: 15px">您需要花费
-                        <span class="wwb_class" style="font-size: 16px"
+                        <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span v-if="pay_amount > 0">{{ pay_amount }}</span>
                             <span v-else>{{pay_amount_other}}</span>
                         </span>
                         元
                         将会得到
-                        <span class="wwb_class" style="font-size: 16px"
+                        <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
                             <span v-else>{{pay_amount_other * 10}} <span v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other*10 / 100)}}</span></span>
@@ -223,7 +223,7 @@
                 </div>
 
             </div>
-            <div slot="footer" v-show="userInfo && userInfo.wwb >= down_plug.wwb">
+            <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
                 <Button type="primary" :loading="loading"
                         :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                         @click="toLoading(plug.id)">
@@ -460,7 +460,7 @@
         word-wrap break-word
         word-break break-all
 
-    .wwb_class
+    .gold_class
         color #266ec1
 
     .model_title

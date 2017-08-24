@@ -40,10 +40,10 @@
                         <span slot="close">否</span>
                     </i-Switch>
                 </Form-item>
-                <Form-item label="价格（金币）" v-show="formItem.is_free" prop="wwb">
+                <Form-item label="价格（金币）" v-show="formItem.is_free" prop="gold">
                     <Input-number
                             :min="1"
-                            v-model="formItem.wwb"
+                            v-model="formItem.gold"
                             @on-change="change_other"></Input-number>
                 </Form-item>
             </Form>
@@ -84,7 +84,7 @@
                    }
                },10)
             };
-            const validateWWB = (rule, value, callback) => {
+            const validategold = (rule, value, callback) => {
                 if (value === 0) {
                     if (this.formItem.is_free === true) {
                         callback(new Error('插件收费不能为空'));
@@ -109,7 +109,7 @@
                     url: '',
                     bm_url: '',
                     zy_type: '',
-                    wwb: 0,
+                    gold: 0,
                     is_free: false,
                 },
                 ruleValidate: {
@@ -129,8 +129,8 @@
                     bm_url: [
                         {validator: validateBmUrl, trigger: 'change'}
                     ],
-                    wwb: [
-                        {validator: validateWWB, trigger: 'change'}
+                    gold: [
+                        {validator: validategold, trigger: 'change'}
                     ]
                 }
             }
@@ -177,11 +177,11 @@
                 this.loading_edit = false
             },
             swi() {
-                this.formItem.wwb = 0
+                this.formItem.gold = 0
             },
             change_other() {
-                if (!(/^\d+$/.test(this.formItem.wwb))) {
-                    this.formItem.wwb = Math.round(this.formItem.wwb)
+                if (!(/^\d+$/.test(this.formItem.gold))) {
+                    this.formItem.gold = Math.round(this.formItem.gold)
                 }
             }
         }

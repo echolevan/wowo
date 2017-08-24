@@ -14,8 +14,8 @@
                         {{v.title}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%" v-if="v.wwb === 0">免费</div>
-                <div class="td_child" style="width: 10%" v-else>{{v.wwb}} 金币</div>
+                <div class="td_child" style="width: 10%" v-if="v.gold === 0">免费</div>
+                <div class="td_child" style="width: 10%" v-else>{{v.gold}} 金币</div>
                 <div class="td_child" style="width: 10%">{{v.version}}</div>
                 <div class="td_child" style="width: 10%">{{v.game_version}}</div>
                 <div class="td_child tool" style="width: 10%">

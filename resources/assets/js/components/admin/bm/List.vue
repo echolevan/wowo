@@ -75,7 +75,7 @@
                         </div>
                     </Tooltip>
                 </td>
-                <td>{{v.wwb === 0 ? '免费' : v.wwb}}</td>
+                <td>{{v.gold === 0 ? '免费' : v.gold}}</td>
                 <td><a :href="v.url" target="_blank">点我下载</a></td>
                 <td>{{v.download_num}}</td>
                 <td>
@@ -183,8 +183,8 @@
                 this.$refs.bmCreate.formItem.id = v.id
                 this.$refs.bmCreate.formItem.title = v.title
                 this.$refs.bmCreate.formItem.zy_type = v.zy_type + ''
-                this.$refs.bmCreate.formItem.wwb = v.wwb
-                this.$refs.bmCreate.formItem.is_free = v.wwb === 0 ? false : true
+                this.$refs.bmCreate.formItem.gold = v.gold
+                this.$refs.bmCreate.formItem.is_free = v.gold === 0 ? false : true
                 this.$refs.bmCreate.formItem.type = v.type + ''
                 this.$refs.bmCreate.formItem.url = v.type === 1 ? '' : v.url
                 this.$refs.bmCreate.formItem.bm_url = v.type === 2 ? '' : v.url

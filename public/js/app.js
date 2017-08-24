@@ -2046,7 +2046,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }, 10);
         };
-        var validateWWB = function validateWWB(rule, value, callback) {
+        var validategold = function validategold(rule, value, callback) {
             if (value === 0) {
                 if (_this.formItem.is_free === true) {
                     callback(new Error('插件收费不能为空'));
@@ -2071,7 +2071,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 url: '',
                 bm_url: '',
                 zy_type: '',
-                wwb: 0,
+                gold: 0,
                 is_free: false
             },
             ruleValidate: {
@@ -2080,7 +2080,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 zy_type: [{ required: true, message: '资源分类不能为空', trigger: 'change' }],
                 url: [{ validator: validateUrl, trigger: 'change' }],
                 bm_url: [{ validator: validateBmUrl, trigger: 'change' }],
-                wwb: [{ validator: validateWWB, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }]
             }
         };
     },
@@ -2128,11 +2128,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading_edit = false;
         },
         swi: function swi() {
-            this.formItem.wwb = 0;
+            this.formItem.gold = 0;
         },
         change_other: function change_other() {
-            if (!/^\d+$/.test(this.formItem.wwb)) {
-                this.formItem.wwb = Math.round(this.formItem.wwb);
+            if (!/^\d+$/.test(this.formItem.gold)) {
+                this.formItem.gold = Math.round(this.formItem.gold);
             }
         }
     }
@@ -2335,8 +2335,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.bmCreate.formItem.id = v.id;
             this.$refs.bmCreate.formItem.title = v.title;
             this.$refs.bmCreate.formItem.zy_type = v.zy_type + '';
-            this.$refs.bmCreate.formItem.wwb = v.wwb;
-            this.$refs.bmCreate.formItem.is_free = v.wwb === 0 ? false : true;
+            this.$refs.bmCreate.formItem.gold = v.gold;
+            this.$refs.bmCreate.formItem.is_free = v.gold === 0 ? false : true;
             this.$refs.bmCreate.formItem.type = v.type + '';
             this.$refs.bmCreate.formItem.url = v.type === 1 ? '' : v.url;
             this.$refs.bmCreate.formItem.bm_url = v.type === 2 ? '' : v.url;
@@ -2628,7 +2628,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 plug_id: '',
                 user_name: '',
                 user_id: '',
-                wwb: '',
+                gold: '',
                 tagType: '',
                 status: '',
                 is_check: '',
@@ -2666,7 +2666,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formS.user_name = '';
             this.formS.plug_id = '';
             this.formS.user_id = '';
-            this.formS.wwb = '';
+            this.formS.gold = '';
             this.formS.status = '';
             this.formS.is_check = '';
             this.formS.tagType = '';
@@ -2885,7 +2885,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
-        var validateWWB = function validateWWB(rule, value, callback) {
+        var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
                     callback(new Error('插件收费不能为空'));
@@ -2930,7 +2930,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: '',
                 game_version: '',
                 is_free: false,
-                wwb: 1,
+                gold: 1,
                 uploadList: [],
                 plug_url: ''
             },
@@ -2948,7 +2948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
-                wwb: [{ validator: validateWWB, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }]
             }
         };
     },
@@ -2974,7 +2974,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('update_plug/' + _this2.$route.params.id, { data: _this2.formItem }).then(function (res) {
+                    axios.put('/update_plug/' + _this2.$route.params.id, { data: _this2.formItem }).then(function (res) {
                         if (res.data.sta === 0) {
                             _this2.$Message.error(res.data.msg);
                         } else {
@@ -2989,7 +2989,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.wwb = 0;
+            this.formItem.gold = 0;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -2999,7 +2999,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _init: function _init() {
             var _this3 = this;
 
-            axios.get('update_plugInfo/' + this.$route.params.id).then(function (res) {
+            axios.get('/update_plugInfo/' + this.$route.params.id).then(function (res) {
                 if (res.data.sta === 0) {
                     _this3.$router.go(-1);
                 }
@@ -3010,13 +3010,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.formItem.updated_info = res.data.plug.updated_info;
                 _this3.formItem.game_version = res.data.plug.game_version;
                 _this3.formItem.is_free = res.data.plug.is_free;
-                _this3.formItem.wwb = res.data.plug.wwb;
+                _this3.formItem.gold = res.data.plug.gold;
                 _this3.formItem.plug_url = res.data.plug.content;
                 _this3.formItem.uploadList = res.data.plug.thumbs;
             }).catch(function (error) {
                 history.go(-1);
             });
-            axios.get('plug_all_info').then(function (res) {
+            axios.get('/plug_all_info').then(function (res) {
                 _this3.plug_tags = res.data;
             });
         },
@@ -3082,8 +3082,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.plug_url = '';
         },
         change_other: function change_other() {
-            if (!/^\d+$/.test(this.formItem.wwb)) {
-                this.formItem.wwb = Math.round(this.formItem.wwb);
+            if (!/^\d+$/.test(this.formItem.gold)) {
+                this.formItem.gold = Math.round(this.formItem.gold);
             }
         }
     },
@@ -3227,7 +3227,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
-        var validateWWB = function validateWWB(rule, value, callback) {
+        var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
                     callback(new Error('插件收费不能为空'));
@@ -3272,7 +3272,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: '',
                 game_version: '',
                 is_free: false,
-                wwb: 1,
+                gold: 1,
                 uploadList: [],
                 plug_url: ''
             },
@@ -3289,7 +3289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
-                wwb: [{ validator: validateWWB, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }]
             }
         };
     },
@@ -3325,7 +3325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('upload_plug/' + _this3.$route.params.id, { data: _this3.formItem }).then(function (res) {
+                    axios.put('/upload_plug/' + _this3.$route.params.id, { data: _this3.formItem }).then(function (res) {
                         if (res.data.sta === 0) {
                             _this3.$Message.error(res.data.msg);
                         } else {
@@ -3340,7 +3340,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.wwb = 0;
+            this.formItem.gold = 0;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -3352,7 +3352,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             if (this.$route.params.id) {
-                axios.get('check_plug_id/' + this.$route.params.id).then(function (res) {
+                axios.get('/check_plug_id/' + this.$route.params.id).then(function (res) {
                     if (res.data.sta === 0) {
                         _this4.$router.go(-1);
                     }
@@ -3360,7 +3360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     history.go(-1);
                 });
             }
-            axios.get('plug_all_info').then(function (res) {
+            axios.get('/plug_all_info').then(function (res) {
                 _this4.plug_tags = res.data;
             });
             var quick_content = localStorage.getItem('quick_share_content');
@@ -3443,8 +3443,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.plug_url = '';
         },
         change_other: function change_other() {
-            if (!/^\d+$/.test(this.formItem.wwb)) {
-                this.formItem.wwb = Math.round(this.formItem.wwb);
+            if (!/^\d+$/.test(this.formItem.gold)) {
+                this.formItem.gold = Math.round(this.formItem.gold);
             }
         }
     },
@@ -4181,10 +4181,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -4238,7 +4234,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.userEdit.formItem.id = v.id;
             this.$refs.userEdit.formItem.name = v.name;
             this.$refs.userEdit.formItem.email = v.email;
-            this.$refs.userEdit.formItem.tel = v.tel === 0 ? '' : v.tel;
+            this.$refs.userEdit.formItem.tel = v.tel === '0' ? '' : v.tel;
             this.$refs.userEdit.formItem.avatar = v.avatar;
             this.$refs.userEdit.formItem.camp = v.camp + '';
             this.$refs.userEdit.is_disabled = true;
@@ -5903,7 +5899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
-        var validateWWB = function validateWWB(rule, value, callback) {
+        var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
                     callback(new Error('插件收费不能为空'));
@@ -5948,7 +5944,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: '',
                 game_version: '',
                 is_free: false,
-                wwb: 1,
+                gold: 1,
                 uploadList: [],
                 plug_url: ''
             },
@@ -5965,7 +5961,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
-                wwb: [{ validator: validateWWB, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }]
             }
         };
     },
@@ -6020,7 +6016,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.wwb = 0;
+            this.formItem.gold = 0;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -6121,8 +6117,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.plug_url = '';
         },
         change_other: function change_other() {
-            if (!/^\d+$/.test(this.formItem.wwb)) {
-                this.formItem.wwb = Math.round(this.formItem.wwb);
+            if (!/^\d+$/.test(this.formItem.gold)) {
+                this.formItem.gold = Math.round(this.formItem.gold);
             }
         }
     },
@@ -6437,7 +6433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
-        var validateWWB = function validateWWB(rule, value, callback) {
+        var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
                     callback(new Error('插件收费不能为空'));
@@ -6482,7 +6478,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: '',
                 game_version: '',
                 is_free: false,
-                wwb: 1,
+                gold: 1,
                 uploadList: [],
                 plug_url: ''
             },
@@ -6500,7 +6496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '插件更新详情不能为空', trigger: 'blur' }, { max: 150, message: '插件更新详情最长150', trigger: 'change' }, { max: 150, message: '插件更新详情最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur' }],
-                wwb: [{ validator: validateWWB, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }]
             }
         };
     },
@@ -6545,7 +6541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.wwb = 0;
+            this.formItem.gold = 0;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -6566,7 +6562,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.formItem.updated_info = res.data.plug.updated_info;
                 _this3.formItem.game_version = res.data.plug.game_version;
                 _this3.formItem.is_free = res.data.plug.is_free;
-                _this3.formItem.wwb = res.data.plug.wwb;
+                _this3.formItem.gold = res.data.plug.gold;
                 _this3.formItem.plug_url = res.data.plug.content;
                 _this3.formItem.uploadList = res.data.plug.thumbs;
             }).catch(function (error) {
@@ -6636,8 +6632,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.plug_url = '';
         },
         change_other: function change_other() {
-            if (!/^\d+$/.test(this.formItem.wwb)) {
-                this.formItem.wwb = Math.round(this.formItem.wwb);
+            if (!/^\d+$/.test(this.formItem.gold)) {
+                this.formItem.gold = Math.round(this.formItem.gold);
             }
         }
     },
@@ -10601,7 +10597,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.plug_info .title[data-v-0959b4fb] {\n  display: flex;\n  padding-bottom: 15px;\n  margin-bottom: 15px;\n}\n.plug_info .title .info[data-v-0959b4fb] {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.plug_info .title .info strong[data-v-0959b4fb] {\n  font-size: 20px;\n}\n.plug_info .title .info p span[data-v-0959b4fb] {\n  margin: 0 5px;\n}\n.plug_info .title .img[data-v-0959b4fb] {\n  margin-right: 15px;\n  width: 64px;\n  height: 64px;\n}\n.plug_info .title .img img[data-v-0959b4fb] {\n  border: 1px solid #f2f2f2;\n  width: 64px;\n  height: 64px;\n}\n.plug_info .score_down[data-v-0959b4fb] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.plug_info .score_down strong span[data-v-0959b4fb] {\n  color: #266ec1;\n  font-size: 20px;\n}\n.plug_info .score_down button[data-v-0959b4fb] {\n  padding: 15px 60px;\n  float: right;\n}\n.plug_info .thumb_view[data-v-0959b4fb] {\n  padding: 15px 0;\n  border-bottom: 1px solid #ddd;\n}\n.plug_info .thumb_view .title[data-v-0959b4fb] {\n  height: 36px;\n  line-height: 36px;\n  float: left;\n  color: #266ec1;\n  font-size: 14px;\n  border-bottom: 2px solid #266ec1;\n  clear: left;\n}\n.plug_info .info_content .tool[data-v-0959b4fb] {\n  width: 100%;\n  height: 36px;\n  line-height: 36px;\n  border-bottom: 1px solid #ddd;\n}\n.plug_info .info_content .tool .num[data-v-0959b4fb] {\n  float: right;\n}\n.plug_info .info_content .tool .num span[data-v-0959b4fb] {\n  margin-left: 15px;\n  cursor: pointer;\n}\n.plug_info .info_content .plug_sim_info[data-v-0959b4fb] {\n  padding: 15px 0;\n  border: 1px solid #ddd;\n  border-bottom: none;\n  border-top: none;\n}\n.plug_info .info_content .plug_sim_info p[data-v-0959b4fb] {\n  padding: 5px 15px;\n}\n.plug_info .info_content .plug_sim_info span[data-v-0959b4fb] {\n  float: right;\n}\n.plug_info[data-v-0959b4fb] {\n  width: 100%;\n  word-wrap: break-word;\n  word-break: break-all;\n}\n.wwb_class[data-v-0959b4fb] {\n  color: #266ec1;\n}\n.model_title span[data-v-0959b4fb] {\n  color: #266ec1;\n}\n.table_tr[data-v-0959b4fb] {\n  background: #266ec1;\n  color: #fff;\n}\n", ""]);
+exports.push([module.i, "\n.plug_info .title[data-v-0959b4fb] {\n  display: flex;\n  padding-bottom: 15px;\n  margin-bottom: 15px;\n}\n.plug_info .title .info[data-v-0959b4fb] {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.plug_info .title .info strong[data-v-0959b4fb] {\n  font-size: 20px;\n}\n.plug_info .title .info p span[data-v-0959b4fb] {\n  margin: 0 5px;\n}\n.plug_info .title .img[data-v-0959b4fb] {\n  margin-right: 15px;\n  width: 64px;\n  height: 64px;\n}\n.plug_info .title .img img[data-v-0959b4fb] {\n  border: 1px solid #f2f2f2;\n  width: 64px;\n  height: 64px;\n}\n.plug_info .score_down[data-v-0959b4fb] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.plug_info .score_down strong span[data-v-0959b4fb] {\n  color: #266ec1;\n  font-size: 20px;\n}\n.plug_info .score_down button[data-v-0959b4fb] {\n  padding: 15px 60px;\n  float: right;\n}\n.plug_info .thumb_view[data-v-0959b4fb] {\n  padding: 15px 0;\n  border-bottom: 1px solid #ddd;\n}\n.plug_info .thumb_view .title[data-v-0959b4fb] {\n  height: 36px;\n  line-height: 36px;\n  float: left;\n  color: #266ec1;\n  font-size: 14px;\n  border-bottom: 2px solid #266ec1;\n  clear: left;\n}\n.plug_info .info_content .tool[data-v-0959b4fb] {\n  width: 100%;\n  height: 36px;\n  line-height: 36px;\n  border-bottom: 1px solid #ddd;\n}\n.plug_info .info_content .tool .num[data-v-0959b4fb] {\n  float: right;\n}\n.plug_info .info_content .tool .num span[data-v-0959b4fb] {\n  margin-left: 15px;\n  cursor: pointer;\n}\n.plug_info .info_content .plug_sim_info[data-v-0959b4fb] {\n  padding: 15px 0;\n  border: 1px solid #ddd;\n  border-bottom: none;\n  border-top: none;\n}\n.plug_info .info_content .plug_sim_info p[data-v-0959b4fb] {\n  padding: 5px 15px;\n}\n.plug_info .info_content .plug_sim_info span[data-v-0959b4fb] {\n  float: right;\n}\n.plug_info[data-v-0959b4fb] {\n  width: 100%;\n  word-wrap: break-word;\n  word-break: break-all;\n}\n.gold_class[data-v-0959b4fb] {\n  color: #266ec1;\n}\n.model_title span[data-v-0959b4fb] {\n  color: #266ec1;\n}\n.table_tr[data-v-0959b4fb] {\n  background: #266ec1;\n  color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -71312,7 +71308,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "label": "价格",
-      "prop": "wwb"
+      "prop": "gold"
     }
   }, [_c('Input-number', {
     attrs: {
@@ -71322,11 +71318,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-change": _vm.change_other
     },
     model: {
-      value: (_vm.formItem.wwb),
+      value: (_vm.formItem.gold),
       callback: function($$v) {
-        _vm.formItem.wwb = $$v
+        _vm.formItem.gold = $$v
       },
-      expression: "formItem.wwb"
+      expression: "formItem.gold"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -71478,14 +71474,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('div', {
     staticClass: "info"
   }, [_c('strong', [_vm._v(_vm._s(_vm.plug.title))]), _vm._v(" "), _c('p', [_c('span', [_vm._v(_vm._s(_vm.plug.type_name))]), _c('span', [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
       "font-size": "16px"
     }
-  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.wwb))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.wwb))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("（您已经购买过）")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
+  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.gold))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.gold))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("（您已经购买过）")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
     staticClass: "score_down",
     attrs: {
       "span": "8"
@@ -71718,19 +71714,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "title"
   }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("此插件售价\n                    "), _c('span', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.down_plug.wwb))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
+  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
     staticStyle: {
       "padding-top": "15px"
     }
   }, [_c('a', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -71745,27 +71741,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding-top": "15px"
     }
   }, [_vm._v("\n                    您的金币余额：\n                    "), _c('span', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.wwb))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.wwb >= _vm.down_plug.wwb) ? _c('span', [_vm._v("\n                         支付成功后，剩余：\n                        "), _c('span', {
-    staticClass: "wwb_class",
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后，剩余：\n                        "), _c('span', {
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                            " + _vm._s(_vm.userInfo.wwb - _vm.down_plug.wwb) + "\n                        ")])]) : _c('span', [_vm._v("您的金币不足，请先充值：")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.userInfo.gold - _vm.down_plug.gold) + "\n                        ")])]) : _c('span', [_vm._v("您的金币不足，请先充值：")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.userInfo && _vm.userInfo.wwb < _vm.down_plug.wwb),
-      expression: "userInfo && userInfo.wwb < down_plug.wwb"
+      value: (_vm.userInfo && _vm.userInfo.gold < _vm.down_plug.gold),
+      expression: "userInfo && userInfo.gold < down_plug.gold"
     }],
     staticStyle: {
       "margin-top": "15px"
@@ -71866,7 +71862,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "15px"
     }
   }, [_vm._v("您需要花费\n                    "), _c('span', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -71874,7 +71870,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "16px"
     }
   }, [(_vm.pay_amount > 0) ? _c('span', [_vm._v(_vm._s(_vm.pay_amount))]) : _c('span', [_vm._v(_vm._s(_vm.pay_amount_other))])]), _vm._v("\n                    元\n                    将会得到\n                    "), _c('span', {
-    staticClass: "wwb_class",
+    staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -71896,8 +71892,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.userInfo && _vm.userInfo.wwb >= _vm.down_plug.wwb),
-      expression: "userInfo && userInfo.wwb >= down_plug.wwb"
+      value: (_vm.userInfo && _vm.userInfo.gold >= _vm.down_plug.gold),
+      expression: "userInfo && userInfo.gold >= down_plug.gold"
     }],
     slot: "footer"
   }, [_c('Button', {
@@ -72110,7 +72106,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "trigger": "hover",
         "placement": "bottom"
       }
-    }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.wwb === 0) ? _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.gold === 0) ? _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -72120,7 +72116,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.wwb) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -72290,7 +72286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title"
   }, [_vm._v("金币")]), _c('span', {
     staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.wwb))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -72432,11 +72428,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n\n            " + _vm._s(v.created_at))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('br'), _vm._v(" "), (v.wwb === 0) ? _c('span', {
+    }, [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('br'), _vm._v(" "), (v.gold === 0) ? _c('span', {
       staticClass: "pull-right"
     }, [_vm._v("免费")]) : _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v("售价：" + _vm._s(v.wwb))]), _vm._v(" "), _c('div', {
+    }, [_vm._v("售价：" + _vm._s(v.gold))]), _vm._v(" "), _c('div', {
       staticStyle: {
         "clear": "both"
       }
@@ -72494,7 +72490,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "admin_login"
-  }, [_vm._v("\n            熊猫人\n        ")]), _vm._v(" "), _c('router-link', {
+  }, [_c('a', {
+    staticStyle: {
+      "color": "#fff"
+    },
+    attrs: {
+      "href": "/#/home"
+    }
+  }, [_vm._v("熊猫人")])]), _vm._v(" "), _c('router-link', {
     staticClass: "ivu-menu-submenu",
     attrs: {
       "to": "/admin"
@@ -73429,7 +73432,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.title)
       }
-    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.wwb === 0 ? '免费' : v.wwb))]), _vm._v(" "), _c('td', [_c('a', {
+    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold === 0 ? '免费' : v.gold))]), _vm._v(" "), _c('td', [_c('a', {
       attrs: {
         "href": v.url,
         "target": "_blank"
@@ -73600,7 +73603,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.wwb))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))])])]), _vm._v(" "), _c('div', {
     staticClass: "panel panel-default choice_money"
   }, [_c('div', {
     staticClass: "panel-body",
@@ -73896,12 +73899,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.recharge_wwb) + "\n                            ")]), _vm._v(" +\n                        "), _c('span', {
+    }, [_vm._v(_vm._s(v.recharge_gold) + "\n                            ")]), _vm._v(" +\n                        "), _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.giving_wwb) + "\n                            ")])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.giving_gold) + "\n                            ")])]), _vm._v(" "), _c('span', {
       staticClass: "time"
     }, [_vm._v(_vm._s(v.created_at))])])
   })) : _c('p', {
@@ -74062,7 +74065,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "trigger": "hover",
         "placement": "bottom"
       }
-    }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.wwb === 0) ? _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.gold === 0) ? _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -74072,7 +74075,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.wwb) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -74152,7 +74155,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "trigger": "hover",
           "placement": "bottom"
         }
-      }, [_vm._v("\n                            " + _vm._s(vv.title) + "\n                        ")])], 1), _vm._v(" "), (vv.wwb === 0) ? _c('div', {
+      }, [_vm._v("\n                            " + _vm._s(vv.title) + "\n                        ")])], 1), _vm._v(" "), (vv.gold === 0) ? _c('div', {
         staticClass: "td_child",
         staticStyle: {
           "width": "10%"
@@ -74162,7 +74165,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticStyle: {
           "width": "10%"
         }
-      }, [_vm._v(_vm._s(vv.wwb) + " 金币")]), _vm._v(" "), _c('div', {
+      }, [_vm._v(_vm._s(vv.gold) + " 金币")]), _vm._v(" "), _c('div', {
         staticClass: "td_child",
         staticStyle: {
           "width": "10%"
@@ -74450,7 +74453,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "label": "价格（金币）",
-      "prop": "wwb"
+      "prop": "gold"
     }
   }, [_c('Input-number', {
     attrs: {
@@ -74460,11 +74463,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-change": _vm.change_other
     },
     model: {
-      value: (_vm.formItem.wwb),
+      value: (_vm.formItem.gold),
       callback: function($$v) {
-        _vm.formItem.wwb = $$v
+        _vm.formItem.gold = $$v
       },
-      expression: "formItem.wwb"
+      expression: "formItem.gold"
     }
   })], 1)], 1), _vm._v(" "), _c('div', {
     slot: "footer"
@@ -74786,7 +74789,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "label": "价格",
-      "prop": "wwb"
+      "prop": "gold"
     }
   }, [_c('Input-number', {
     attrs: {
@@ -74796,11 +74799,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-change": _vm.change_other
     },
     model: {
-      value: (_vm.formItem.wwb),
+      value: (_vm.formItem.gold),
       callback: function($$v) {
-        _vm.formItem.wwb = $$v
+        _vm.formItem.gold = $$v
       },
-      expression: "formItem.wwb"
+      expression: "formItem.gold"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -75112,7 +75115,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "label": "价格（金币）",
-      "prop": "wwb"
+      "prop": "gold"
     }
   }, [_c('Input-number', {
     attrs: {
@@ -75122,11 +75125,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-change": _vm.change_other
     },
     model: {
-      value: (_vm.formItem.wwb),
+      value: (_vm.formItem.gold),
       callback: function($$v) {
-        _vm.formItem.wwb = $$v
+        _vm.formItem.gold = $$v
       },
-      expression: "formItem.wwb"
+      expression: "formItem.gold"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -75456,7 +75459,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "label": "价格（金币）",
-      "prop": "wwb"
+      "prop": "gold"
     }
   }, [_c('Input-number', {
     attrs: {
@@ -75466,11 +75469,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-change": _vm.change_other
     },
     model: {
-      value: (_vm.formItem.wwb),
+      value: (_vm.formItem.gold),
       callback: function($$v) {
-        _vm.formItem.wwb = $$v
+        _vm.formItem.gold = $$v
       },
-      expression: "formItem.wwb"
+      expression: "formItem.gold"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -75952,16 +75955,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toS
     }
-  }, [_c('span', [_vm._v("搜索")])]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/tag/create"
-    }
-  }, [_c('Button', {
-    staticClass: "pull-right",
-    attrs: {
-      "type": "primary"
-    }
-  }, [_vm._v("添加分类")])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("搜索")])])], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "padding": "10px 0"
     }
@@ -76163,7 +76157,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         value: (_vm.show_email),
         expression: "show_email"
       }]
-    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.wwb))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -76344,11 +76338,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "是否免费"
     },
     model: {
-      value: (_vm.formS.wwb),
+      value: (_vm.formS.gold),
       callback: function($$v) {
-        _vm.formS.wwb = $$v
+        _vm.formS.gold = $$v
       },
-      expression: "formS.wwb"
+      expression: "formS.gold"
     }
   }, [_c('Option', {
     attrs: {
@@ -76441,7 +76435,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Option', {
     attrs: {
-      "value": "wwb"
+      "value": "gold"
     }
   }, [_vm._v("金币")]), _vm._v(" "), _c('Option', {
     attrs: {
@@ -76554,7 +76548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.title)
       }
-    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.wwb === 0 ? '免费' : v.wwb))]), _vm._v(" "), _c('td', {
+    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold === 0 ? '免费' : v.gold))]), _vm._v(" "), _c('td', {
       staticClass: "hover_hand"
     }, [_c('Tooltip', {
       attrs: {
@@ -76741,7 +76735,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "trigger": "hover",
         "placement": "bottom"
       }
-    }, [_vm._v("\n                    " + _vm._s(v.plug.title) + "\n                ")])], 1), _vm._v(" "), (v.plug.wwb === 0) ? _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(v.plug.title) + "\n                ")])], 1), _vm._v(" "), (v.plug.gold === 0) ? _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -76751,7 +76745,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.plug.wwb) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(v.plug.gold) + " 金币")]), _vm._v(" "), _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"

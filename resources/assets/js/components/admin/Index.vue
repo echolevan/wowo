@@ -2,7 +2,7 @@
     <div class="admin_content">
         <Menu theme="dark"  class="my_menu" :active-name="$route.name" accordion>
             <div class="admin_login">
-                熊猫人
+                <a href="/#/home" style="color: #fff">熊猫人</a>
             </div>
             <router-link to="/admin" class="ivu-menu-submenu" >
                 <Menu-item name="admin.index" style="padding-left: 24px">

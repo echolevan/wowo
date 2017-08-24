@@ -6,7 +6,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         金币余额 : <span style="font-size: 16px" class="normal_font"
-                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.wwb}}</span>
+                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                     </div>
                 </div>
 
@@ -175,10 +175,10 @@
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.recharge_amount}}
                                 </span> 元 ,
                             获得金币 <span class="normal_font"
-                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.recharge_wwb}}
+                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.recharge_gold}}
                                 </span> +
                             <span class="normal_font"
-                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.giving_wwb}}
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.giving_gold}}
                                 </span>
 
                         </strong>

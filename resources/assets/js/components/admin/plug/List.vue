@@ -20,7 +20,7 @@
                 <Input v-model.trim="formS.user_id" placeholder="嘿市号"></Input>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.wwb" clearable  placeholder="是否免费"  style="width: 100px;">
+                <Select v-model="formS.gold" clearable  placeholder="是否免费"  style="width: 100px;">
                     <Option value="1">免费</Option>
                     <Option value="2">收费</Option>
                 </Select>
@@ -43,7 +43,7 @@
 
             <Form-item>
                 <Select v-model="formS.orderBySome" clearable placeholder="排序条件"  style="width: 100px;">
-                    <Option value="wwb">金币</Option>
+                    <Option value="gold">金币</Option>
                     <Option value="rank">推荐</Option>
                     <Option value="download_num">下载</Option>
                     <Option value="collect_num">收藏</Option>
@@ -109,7 +109,7 @@
                     </Tooltip>
                 </td>
                 <td>{{v.user.name}}</td>
-                <td>{{v.wwb === 0 ? '免费' : v.wwb}}</td>
+                <td>{{v.gold === 0 ? '免费' : v.gold}}</td>
                 <td class="hover_hand">
                     <Tooltip placement="bottom-start">
                         <span class="toolTip" v-html="configPlugType[v.type] + (v.tag_one ? '/'+v.tag_one.name : '' ) + (v.tag_two ? '/'+v.tag_two.name : '')"></span>
@@ -179,7 +179,7 @@
                     plug_id: '',
                     user_name: '',
                     user_id: '',
-                    wwb: '',
+                    gold: '',
                     tagType: '',
                     status: '',
                     is_check: '',
@@ -216,7 +216,7 @@
                 this.formS.user_name = ''
                 this.formS.plug_id = ''
                 this.formS.user_id = ''
-                this.formS.wwb = ''
+                this.formS.gold = ''
                 this.formS.status = ''
                 this.formS.is_check = ''
                 this.formS.tagType = ''

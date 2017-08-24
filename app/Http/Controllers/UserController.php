@@ -101,8 +101,8 @@ class UserController extends Controller
             'user_id' => Auth::id(),
             'recharge_type' => $request->recharge_type,
             'recharge_amount' => sprintf("%.2f",$recharge_amount),
-            'recharge_wwb' => $recharge_amount*10,
-            'giving_wwb' => floor($recharge_amount*10*$lv['info']->giving / 100),
+            'recharge_gold' => $recharge_amount*10,
+            'giving_gold' => floor($recharge_amount*10*$lv['info']->giving / 100),
             'status' => 0,
         ]);
 
@@ -128,7 +128,7 @@ class UserController extends Controller
                  'status'=>9
              ]);
              User::where('id',Auth::id())->update([
-                 'wwb' => Auth::user()->wwb + $recharge_amount*10 + floor( $recharge_amount*10*$lv['info']->giving / 100)
+                 'gold' => Auth::user()->gold + $recharge_amount*10 + floor( $recharge_amount*10*$lv['info']->giving / 100)
              ]);
              DB::commit();
          }catch(\Exception $e){
@@ -235,7 +235,7 @@ class UserController extends Controller
     {
         $count = Order::where('user_id',Auth::id())->where('type','<','4')->count();
         $res = Order::where('user_id',Auth::id())->with(['plug'=>function($query){
-            $query->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id');
+            $query->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id');
         }])->with(['score'=>function($query){
             $query->where('scores.user_id',Auth::id());
         }])->where('type','<','4')->skip(($page-1)*$size)->take($size)->get();
@@ -251,7 +251,7 @@ class UserController extends Controller
     public function orders_collect($page, $size)
     {
         $count = Plug::leftJoin('collect_plugs','plugs.plug_id','collect_plugs.plug_id')->where('is_new',1)->where('collect_plugs.user_id',Auth::id())->count();
-        $res = Plug::leftJoin('collect_plugs','plugs.plug_id','collect_plugs.plug_id')->where('is_new',1)->where('collect_plugs.user_id',Auth::id())->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->skip(($page-1)*$size)->take($size)->get();
+        $res = Plug::leftJoin('collect_plugs','plugs.plug_id','collect_plugs.plug_id')->where('is_new',1)->where('collect_plugs.user_id',Auth::id())->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id')->skip(($page-1)*$size)->take($size)->get();
         return ['res'=>$res,'count'=>$count];
     }
 
@@ -264,8 +264,8 @@ class UserController extends Controller
     {
         $count = Plug::where('user_id',Auth::id())->where('is_new',1)->count();
         $res = Plug::where('user_id',Auth::id())->with(['historys'=>function($query){
-            $query->where('is_new',0)->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->latest();
-        }])->where('is_new',1)->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id')->orderBy('created_at','desc')->skip(($page-1)*$size)->take($size)->get();
+            $query->where('is_new',0)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id')->latest();
+        }])->where('is_new',1)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id')->orderBy('created_at','desc')->skip(($page-1)*$size)->take($size)->get();
         return ['count'=>$count , 'res'=>$res];
     }
 

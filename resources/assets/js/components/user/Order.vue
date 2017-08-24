@@ -15,8 +15,8 @@
                         {{v.plug.title}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%" v-if="v.plug.wwb === 0">免费</div>
-                <div class="td_child" style="width: 10%" v-else>{{v.plug.wwb}} 金币</div>
+                <div class="td_child" style="width: 10%" v-if="v.plug.gold === 0">免费</div>
+                <div class="td_child" style="width: 10%" v-else>{{v.plug.gold}} 金币</div>
                 <div class="td_child" style="width: 10%">{{v.plug.version}}</div>
                 <div class="td_child" style="width: 10%">{{v.plug.game_version}}</div>
                 <div class="td_child tool" style="width: 30%;position: relative">

@@ -42,7 +42,7 @@ class BmController extends Controller
             'user_id' => Auth::id(),
             'type' => $request->data['type'],
             'zy_type' => $request->data['zy_type'],
-            'wwb' => !$request->data['is_free'] ? 0 : $request->data['wwb'],
+            'gold' => !$request->data['is_free'] ? 0 : $request->data['gold'],
         ]);
 
         if ($bm)
@@ -57,7 +57,7 @@ class BmController extends Controller
             'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
             'type' => $request->data['type'],
             'zy_type' => $request->data['zy_type'],
-            'wwb' => !$request->data['is_free'] ? 0 : $request->data['wwb'],
+            'gold' => !$request->data['is_free'] ? 0 : $request->data['gold'],
         ]);
         if ($bm)
             return ['sta' => 1, 'msg' => '编辑成功'];
@@ -88,7 +88,7 @@ class BmController extends Controller
     {
         $bm = Bm::find($id);
 
-        if ($bm->wwb === 0) {
+        if ($bm->gold === 0) {
             $bm->increment('download_num');
             return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
         } else {
@@ -98,7 +98,7 @@ class BmController extends Controller
                 $bm->increment('download_num');
                 return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
             }
-            if($bm->wwb > Auth::user()->wwb){
+            if($bm->gold > Auth::user()->gold){
                 return ['sta'=>0 ,'msg'=>'您的金币不足，请先充值'];
             }else{
                  DB::beginTransaction();
@@ -108,13 +108,13 @@ class BmController extends Controller
                          'plug_id' => $bm->id,
                          'plug_only_id' =>'bm',
                          'user_id' =>Auth::id(),
-                         'wwb' => $bm->wwb,
+                         'gold' => $bm->gold,
                          'status' => 1,
                          'type' => 4
                      ]);
 
                      User::where('id',Auth::id())->update([
-                         'wwb' => Auth::user()->wwb - $bm->wwb
+                         'gold' => Auth::user()->gold - $bm->gold
                      ]);
                      $bm->increment('download_num');
                      DB::commit();

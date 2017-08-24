@@ -25,6 +25,7 @@ return array(
     'connections' => array(
 
         'xmr' => array(
+//            'host'   => '47.94.208.177',
             'host'   => '172.17.51.51',
             'port'  => 21,
             'username' => 'xmr',

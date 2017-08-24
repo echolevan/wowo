@@ -209,7 +209,7 @@ class PlugController extends Controller
      */
     public function download ($id)
     {
-        $plug = Plug::select('type', 'is_free', 'title', 'content', 'wwb', 'plug_id')->find($id);
+        $plug = Plug::select('type', 'is_free', 'title', 'content', 'gold', 'plug_id')->find($id);
         // 是否是免费的
         if ($plug->is_free == 0) {
             Plug::where('plug_id',$plug->plug_id)->increment('download_num');
@@ -273,9 +273,9 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '插件不存在'];
         }
 
-        //check user wwb
+        //check user gold
         $user = Auth::user();
-        if ($user->wwb < $plug->wwb) {
+        if ($user->gold < $plug->gold) {
             return ['sta' => 0, 'msg' => '窝窝币不足，请先充值'];
         }
 
@@ -286,13 +286,13 @@ class PlugController extends Controller
                 'plug_id' => $plug->id,
                 'plug_only_id' => $plug->plug_id,
                 'user_id' => $user->id,
-                'wwb' => $plug->wwb,
+                'gold' => $plug->gold,
                 'status' => 1,
                 'type' => $plug->type
             ]);
 
             User::where('id', $user->id)->update([
-                'wwb' => $user->wwb - $plug->wwb
+                'gold' => $user->gold - $plug->gold
             ]);
 
             DB::commit();
@@ -379,7 +379,7 @@ class PlugController extends Controller
         }
         $Plug->user_id = Auth::id();
         $Plug->plug_id = ($plug_id === 0 || $plug_id === 'undefined') ? get_only_one_plug_id() : $plug_id;
-        $Plug->wwb = is_null($req['wwb']) ? 0 : $req['wwb'];
+        $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->version = date('Ymd');
@@ -435,7 +435,7 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
-        $Plug->wwb = is_null($req['wwb']) ? 0 : $req['wwb'];
+        $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
@@ -634,11 +634,11 @@ class PlugController extends Controller
             ->when($request->search['user_name'] != null, function ($query) use ($request) {
                 return $query->join('users' , 'users.id', '=' ,'plugs.user_id')->where('users.name', 'like' , '%'.$request->search['user_name'].'%')->select('users.id','users.name');
             })
-            ->when($request->search['wwb'] == '1', function ($query) use ($request) {
-                return $query->where('plugs.wwb',0);
+            ->when($request->search['gold'] == '1', function ($query) use ($request) {
+                return $query->where('plugs.gold',0);
             })
-            ->when($request->search['wwb'] == '2', function ($query) use ($request) {
-                return $query->where('plugs.wwb', '>' ,0);
+            ->when($request->search['gold'] == '2', function ($query) use ($request) {
+                return $query->where('plugs.gold', '>' ,0);
             })
             ->when($request->search['status'] != null, function ($query) use ($request) {
                 return $query->where('plugs.status', $request->search['status']);

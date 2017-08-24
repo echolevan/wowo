@@ -16,8 +16,8 @@
 
                 {{v.created_at}}</span> <span class="pull-right">{{v.user.name}}</span>
                 <br>
-                <span v-if="v.wwb === 0" class="pull-right">免费</span>
-                <span class="pull-right" v-else>售价：{{v.wwb}}</span>
+                <span v-if="v.gold === 0" class="pull-right">免费</span>
+                <span class="pull-right" v-else>售价：{{v.gold}}</span>
                 <div style="clear:both"></div>
             </li>
         </ul>
