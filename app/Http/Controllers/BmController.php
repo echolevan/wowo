@@ -38,7 +38,7 @@ class BmController extends Controller
     {
         $bm = Bm::create([
             'title' => $request->data['title'],
-            'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
+            'url' => $request->data['url'],
             'user_id' => Auth::id(),
             'type' => $request->data['type'],
             'zy_type' => $request->data['zy_type'],
@@ -54,7 +54,7 @@ class BmController extends Controller
     {
         $bm = Bm::where('id', $id)->update([
             'title' => $request->data['title'],
-            'url' => $request->data['type'] == 1 ? $request->data['bm_url'] : $request->data['url'],
+            'url' => $request->data['url'],
             'type' => $request->data['type'],
             'zy_type' => $request->data['zy_type'],
             'gold' => !$request->data['is_free'] ? 0 : $request->data['gold'],

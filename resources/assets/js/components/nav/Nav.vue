@@ -22,7 +22,7 @@
                             <router-link to="/userInfo" class="my_a_style">{{userInfo.nickname}}</router-link>
                         </span>
                         <span>|</span>
-                        <span><a href="javascript:void(0);" class="my_a_style" @click="logout">退出登录</a></span>
+                        <span style="margin-right: 5px"><a href="javascript:void(0);" class="my_a_style" @click="logout">退出登录</a></span>
                     </div>
                 </div>
             </div>

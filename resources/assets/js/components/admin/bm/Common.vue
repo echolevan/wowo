@@ -12,21 +12,18 @@
                         <Option v-for="(v, k) in configBmDownloadType" :value="k" :key="k">{{ v }}</Option>
                     </Select>
                 </Form-item>
-                <Form-item label="云盘地址" prop="url" v-show="formItem.type === '2'">
-                    <Input v-model="formItem.url" placeholder="请输入"></Input>
-                </Form-item>
-                <Form-item label="上传插件" v-show="formItem.type === '1'" prop="bm_url">
+                <Form-item label="上传"  prop="url">
                     <Upload action="/admin/upload_bm_plug"
                             :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                             :on-success="handlePlugSuccess"
                             :before-upload="handlePlugUpload"
                             :on-remove="removePlug"
                             :show-upload-list="false"
-                            v-show="formItem.bm_url === ''"
+                            v-show="formItem.url === ''"
                     >
                         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                     </Upload>
-                    <p v-show="formItem.bm_url !== ''" @click="removePlug" class="hover_hand">需要重新上传BT点我删除</p>
+                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">需要重新上传,点我删除</p>
                 </Form-item>
 
                 <Form-item label="资源类型" prop="zy_type">
@@ -61,24 +58,9 @@
     export default {
         data() {
             const validateUrl = (rule, value, callback) => {
-                if(this.formItem.type === '2'){
-                    if(this.formItem.url === ''){
-                        callback(new Error('请填写云盘地址'));
-                    }else{
-                        callback();
-                    }
-                }else{
-                    callback();
-                }
-            };
-            const validateBmUrl = (rule, value, callback) => {
                setTimeout(() => {
-                   if(this.formItem.type === '1'){
-                       if(this.formItem.bm_url === ''){
-                           callback(new Error('请先上传BT文件'));
-                       }else{
-                           callback();
-                       }
+                   if(this.formItem.url === ''){
+                       callback(new Error('请先上传文件'));
                    }else{
                        callback();
                    }
@@ -101,13 +83,12 @@
                 csrfToken: window.Laravel.csrfToken,
                 loading_edit: false,
                 modal_edit: false,
-                model_title: '新增插件',
+                model_title: '新增资源',
                 formItem: {
                     id: '',
                     title: '',
                     type: '',
                     url: '',
-                    bm_url: '',
                     zy_type: '',
                     gold: 0,
                     is_free: false,
@@ -118,16 +99,13 @@
                         {max: 60, message: '插件标题最长60', trigger: 'change'}
                     ],
                     type: [
-                        {required: true, message: '下载方式不能为空', trigger: 'change'}
+                        {required: true, message: '下载方式不能为空'}
                     ],
                     zy_type: [
-                        {required: true, message: '资源分类不能为空', trigger: 'change'}
+                        {required: true, message: '资源分类不能为空'}
                     ],
                     url: [
-                        {validator: validateUrl, trigger: 'change'}
-                    ],
-                    bm_url: [
-                        {validator: validateBmUrl, trigger: 'change'}
+                        {required: true,validator: validateUrl}
                     ],
                     gold: [
                         {validator: validategold, trigger: 'change'}
@@ -145,13 +123,13 @@
                     this.$Message.error(res.msg)
                 } else {
                     this.$Loading.finish()
-                    this.formItem.bm_url = res.url
+                    this.formItem.url = res.url
                     this.$Message.success('开始完成')
                 }
 
             },
             handlePlugUpload() {
-                if (this.formItem.bm_url !== '') {
+                if (this.formItem.url !== '') {
                     this.$Message.error('您已经上传了文件，请先删除')
                     return false;
                 }
@@ -159,7 +137,7 @@
                 this.$Message.success('开始上传')
             },
             removePlug() {
-                this.formItem.bm_url = ''
+                this.formItem.url = ''
             },
             sub_ok(name){
                 this.loading_edit = true

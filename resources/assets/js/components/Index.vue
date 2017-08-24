@@ -56,11 +56,20 @@
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo', res.data.info)
                         if (res.data.info.is_active === 0) {
-                            this.$Notice.open({
-                                title: '您的帐号还未激活',
-                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
-                                duration: 0
-                            });
+                            if(res.data.info.camp === 1){
+                                this.$Notice.info({
+                                    title: '您的帐号还未激活',
+                                    desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                    duration: 0
+                                });
+                            }else{
+                                this.$Notice.error({
+                                    title: '您的帐号还未激活',
+                                    desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                    duration: 0
+                                });
+                            }
+
                         }
                     } else {
                         this.userInfo = '';

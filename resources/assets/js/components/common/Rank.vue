@@ -29,7 +29,7 @@
                         <span style="color: #333 !important;background-color: #fff !important;"  class="tit my_a_style">{{v.title}}</span>
                     </router-link>
                     <span class="dig" v-html="v.info"></span>
-                    <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.rank}}</span>
+                    <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.like_num}}</span>
                 </li>
             </ul>
         </div>

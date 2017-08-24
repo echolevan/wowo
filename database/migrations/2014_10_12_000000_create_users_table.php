@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_active')->default(0)->comment('是否邮箱激活，0没有，1激活');
             $table->tinyInteger('camp')->comment('1是 联盟 2是部落');
             $table->tinyInteger('is_admin')->default(0)->comment('1是管理员');
-            $table->integer('wwb')->default(0)->comment('窝窝币');
+            $table->integer('wwb')->default(0)->comment('金币');
             $table->string('token',60)->comment('邮箱验证token');
             $table->string('update_camp_at',20)->default('')->comment('修改阵营的时间');
             $table->rememberToken();

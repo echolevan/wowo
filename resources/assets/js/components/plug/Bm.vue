@@ -57,13 +57,21 @@
         computed: mapState([
             'userInfo', 'choice_cmap'
         ]),
+        watch: {
+            userInfo() {
+                if (!this.userInfo) {
+                    myDialog('请先登录')
+                    this.$router.push('/home')
+                }
+            }
+        },
         mounted() {
             setTimeout(() => {
                 if (!this.userInfo) {
                     myDialog('请先登录')
                     this.$router.push('/home')
                 }
-            }, 500)
+            }, 300)
             this.get_plugs()
         },
         methods: {

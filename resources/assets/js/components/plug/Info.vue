@@ -25,8 +25,8 @@
                     </div>
                 </iCol>
                 <iCol span="8" class="score_down">
-                    <strong>当前评分： <span
-                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{plug.score}}</span></strong>
+                    <strong>下载次数： <span
+                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{plug.download_num}}</span></strong>
                     <div class="my_btn_wrapper" @click="download(plug.id)"
                          :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                         <svg height="45" width="150">
@@ -40,7 +40,7 @@
             <div class="thumb_view">
                 <div class="title"
                      :class="{'bl_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                    软件截图
+                    截图预览
                 </div>
                 <div style="clear:both"></div>
                 <img class="preview-img" v-for="(item, index) in list" :src="item.src" width="100" height="100"
@@ -53,7 +53,7 @@
                     <iCol span="18">
                         <Tabs value="1"
                               :class="{'bl_tab_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <Tab-pane label="详情说明" name="1" class="plug_info_div" v-html="plug.info"></Tab-pane>
+                            <Tab-pane label="功能简介" name="1" class="plug_info_div" v-html="plug.info"></Tab-pane>
                             <Tab-pane label="更新日志" name="2" style="padding: 15px">
                                 <ul>
                                     <li v-for="v in updated_infos">
@@ -69,7 +69,7 @@
                                     <tr class="table_tr" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                         <th>版本链接</th>
                                         <th>版本号</th>
-                                        <th>对应游戏版本</th>
+                                        <th>游戏版本</th>
                                         <th>更新日期</th>
                                     </tr>
                                     </thead>
@@ -96,8 +96,8 @@
                                       v-if="plug.collect_plug === 0">收藏： {{plug.collect_num}}</span>
                                 <span v-else>已收藏： {{plug.collect_num}}</span>
                                 <span @click="like_this(plug.plug_id)"
-                                      v-if="plug.like_plug === 0">点赞： {{plug.like_num}}</span>
-                                <span v-else>已点赞： {{plug.like_num}}</span>
+                                      v-if="plug.like_plug === 0">推荐： {{plug.like_num}}</span>
+                                <span v-else>已推荐： {{plug.like_num}}</span>
                             </div>
                         </div>
 

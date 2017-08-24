@@ -146,7 +146,6 @@
                                 <Radio label="2">
                                     <a href="javascript:void(0);" @click="choice_type(2)">
                                         <i class="wx"></i>
-                                        <span class="wx_font">微信</span>
                                     </a>
                                 </Radio>
                             </Radio-group>
@@ -286,27 +285,21 @@
             a
                 padding: 0 40px 0 105px;
                 position relative
-                border 1px solid #ddd
                 height 50px
                 vertical-align: middle;
                 display: inline-block;
                 .zfb
-                    width: 72px;
-                    height: 24px;
-                    margin-top: -12px;
+                    width: 100%;
+                    height: 100%;
                     position: absolute;
-                    background: url('/images/bank.png');
-                    left: 35px;
-                    top: 50%;
+                    background: url('/images/pay/001.jpg');
+                    left: 0;
                 .wx
-                    width: 29px;
-                    height: 24px;
-                    margin-top: -12px;
+                    width: 100%;
+                    height: 100%;
                     position: absolute;
-                    background: url('/images/bank.png');
-                    left: 35px;
-                    top: 50%;
-                    background-position: -165px 0;
+                    background: url('/images/pay/002.jpg');
+                    left: 0;
                 .wx_font
                     color #5D6A70
                     font-size 16px

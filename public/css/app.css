@@ -36254,6 +36254,26 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   border-color: #d13030 !important;
 }
 
+.ivu-notice-with-info:after {
+  background: #266ec1;
+}
+
+.ivu-notice-with-error:after {
+  background: #d13030;
+}
+
+.ivu-notice-notice-content .ivu-icon {
+  display: none;
+}
+
+.ivu-notice-notice-content .ivu-notice-title {
+  margin-left: 0 !important;
+}
+
+.ivu-notice-notice-content .ivu-notice-desc {
+  margin-left: 0 !important;
+}
+
 .bl_hover_line_color.active {
   color: #d13030 !important;
   border-color: #d13030 !important;

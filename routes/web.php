@@ -23,13 +23,6 @@ Route::get('/', 'HomeController@index')->name('index');
 //    ]);
 //});
 
-Route::get('/test', function () {
-    $ftp = \Anchu\Ftp\Facades\Ftp::connection('xmr');
-    $addons = $ftp->getDirListing('down.iwowcn.com/addons');
-    dd($addons);
-});
-
-
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

@@ -2,20 +2,20 @@
     <div>
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px" v-show="$route.name === 'admin.plug.update'">
             <Breadcrumb-item>主页</Breadcrumb-item>
-            <Breadcrumb-item>插件管理</Breadcrumb-item>
-            <Breadcrumb-item>编辑插件</Breadcrumb-item>
+            <Breadcrumb-item>管理</Breadcrumb-item>
+            <Breadcrumb-item>编辑</Breadcrumb-item>
         </Breadcrumb>
 
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
-            <Form-item label="插件标题" prop="title">
+            <Form-item label="标题" prop="title">
                 <Input v-model="formItem.title" placeholder="请输入"></Input>
             </Form-item>
 
-            <Form-item label="插件分类" prop="type">
+            <Form-item label="分类" prop="type">
                 <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"  @on-change="on_sel"></Cascader>
             </Form-item>
 
-            <Form-item label="插件字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
                 <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..." v-on:input="keyUp"></Input>
             </Form-item>
 
@@ -31,7 +31,7 @@
                 <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">删除上传的文件重新上传</span>
             </Form-item>
 
-            <Form-item label="更新说明" prop="updated_info">
+            <Form-item label="更新日志" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
             </Form-item>
 
@@ -105,7 +105,7 @@
             const validateUploadList = (rule, value, callback) => {
                 setTimeout(() =>  {
                     if (value.length === 0) {
-                        callback(new Error('请上传插件截图'));
+                        callback(new Error('请上传截图'));
                     } else {
                         callback();
                     }
@@ -113,7 +113,7 @@
             };
             const validateType = (rule, value, callback) => {
                 if (value.length === 0) {
-                    callback(new Error('插件分类不能为空'));
+                    callback(new Error('分类不能为空'));
                 } else {
                     callback();
                 }
@@ -121,7 +121,7 @@
             const validategold = (rule, value, callback) => {
                 if (value.length === 0) {
                     if(this.formItem.is_free === true){
-                        callback(new Error('插件收费不能为空'));
+                        callback(new Error('收费不能为空'));
                     }else{
                         callback();
                     }
@@ -132,7 +132,7 @@
             const validateContent = (rule, value, callback) => {
                 if (value === '') {
                     if(this.formItem.type[0] === 1 || this.formItem.type[0] === 2){
-                        callback(new Error('插件内容不能为空'));
+                        callback(new Error('内容不能为空'));
                     }else{
                         callback();
                     }
@@ -144,7 +144,7 @@
                 setTimeout(() =>  {
                     if (this.formItem.plug_url === '') {
                         if(this.formItem.type[0] === 3){
-                            callback(new Error('插件内容不能为空'));
+                            callback(new Error('内容不能为空'));
                         }else{
                             callback();
                         }
@@ -174,8 +174,8 @@
                 csrfToken : window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
-                        {required: true, message: '插件标题不能为空', trigger: 'blur'},
-                        {max: 120, message: '插件标题最长120', trigger: 'change'}
+                        {required: true, message: '标题不能为空', trigger: 'blur'},
+                        {max: 120, message: '标题最长120', trigger: 'change'}
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
@@ -187,18 +187,18 @@
                         {validator: validateContentUrl, trigger: 'change'}
                     ],
                     info: [
-                        {required: true, message: '插件详情不能为空'}
+                        {required: true, message: '详情不能为空'}
                     ],
                     updated_info: [
-                        {required: true, message: '插件更新详情不能为空', trigger: 'blur'},
-                        {max: 150, message: '插件更新详情最长150', trigger: 'change'},
-                        {max: 150, message: '插件更新详情最长150', trigger: 'blur'},
+                        {required: true, message: '更新日志不能为空', trigger: 'blur'},
+                        {max: 150, message: '更新日志最长150', trigger: 'change'},
+                        {max: 150, message: '更新日志最长150', trigger: 'blur'},
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
                     ],
                     game_version: [
-                        {required: true, message: '插件对应游戏版本号不能为空', trigger: 'blur'}
+                        {required: true, message: '对应游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
                         {validator: validategold, trigger: 'change'}

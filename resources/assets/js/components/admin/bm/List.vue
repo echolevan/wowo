@@ -3,7 +3,7 @@
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px">
             <Breadcrumb-item>主页</Breadcrumb-item>
             <Breadcrumb-item>插件管理</Breadcrumb-item>
-            <Breadcrumb-item>嘿市列表</Breadcrumb-item>
+            <Breadcrumb-item>黑市资源列表</Breadcrumb-item>
         </Breadcrumb>
 
         <Form :model="formS" inline>
@@ -178,7 +178,7 @@
             },
             edit(v , k) {
                 this.$refs.bmCreate.clear_from('formItem')
-                this.$refs.bmCreate.model_title = '编辑插件'
+                this.$refs.bmCreate.model_title = '编辑资源'
                 this.$refs.bmCreate.modal_edit = true
                 this.$refs.bmCreate.formItem.id = v.id
                 this.$refs.bmCreate.formItem.title = v.title
@@ -186,8 +186,7 @@
                 this.$refs.bmCreate.formItem.gold = v.gold
                 this.$refs.bmCreate.formItem.is_free = v.gold === 0 ? false : true
                 this.$refs.bmCreate.formItem.type = v.type + ''
-                this.$refs.bmCreate.formItem.url = v.type === 1 ? '' : v.url
-                this.$refs.bmCreate.formItem.bm_url = v.type === 2 ? '' : v.url
+                this.$refs.bmCreate.formItem.url = v.url
             },
             edit_success() {
                 axios.put(`/admin/bm/update/${this.$refs.bmCreate.formItem.id}`,{data: this.$refs.bmCreate.formItem}).then(res => {

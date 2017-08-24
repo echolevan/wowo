@@ -9,7 +9,7 @@
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.id" placeholder="搜索嘿市号"></Input>
+                <Input v-model.trim="formS.id" placeholder="搜索嘿市ID"></Input>
             </Form-item>
             <Form-item>
                 <Input v-model.trim="formS.name" placeholder="搜索用户名"></Input>
@@ -70,11 +70,11 @@
         <table class="table table-bordered my_admin_table">
             <thead>
             <tr>
-                <th style="width: 5%">嘿市号</th>
+                <th style="width: 5%">嘿市ID</th>
                 <th style="width: 5%">用户名</th>
                 <th style="width: 5%">头像</th>
                 <th style="width: 10%" v-show="show_info">签名</th>
-                <th style="width: 7%">手机号</th>
+                <th style="width: 7%">手机号码</th>
                 <th style="width: 8%" v-show="show_email">邮箱</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>

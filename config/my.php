@@ -9,9 +9,9 @@ return [
     ],
 
     'plug_name' => [
-        '1' => 'wa',
-        '2' => 'twm',
-        '3' => 'plug'
+        '1' => 'WA',
+        '2' => 'TWM',
+        '3' => '游戏插件'
     ],
 
     'tag_type' => [
@@ -34,7 +34,10 @@ return [
     ],
 
     'upload_bm_type' => [
-        '1' => 'torrent'
+        '1' => 'torrent',
+        '2' => 'zip',
+        '3' => 'rar',
+        '4' => '7z',
     ],
 
     'down_url' => 'https://down.iwowcn.com/'

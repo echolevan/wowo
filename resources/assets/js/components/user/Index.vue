@@ -8,7 +8,7 @@
             <div class="member-info">
                 <p class="nickname">{{userInfo.nickname}}</p>
                 <p class="camp" v-if="userInfo.camp === 1">阵营：联盟</p>
-                <p class="camp" v-else>阵营：联盟</p>
+                <p class="camp" v-else>阵营：部落</p>
                 <p v-if="userInfo.info">{{userInfo.info}}</p>
                 <div v-else>
                     <p v-if="userInfo.camp === 1">为了联盟</p>

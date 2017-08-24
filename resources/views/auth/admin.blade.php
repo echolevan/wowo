@@ -22,14 +22,12 @@
     </script>
     <link rel="stylesheet" href="{{ asset('/js/admin/style.css') }}">
     <style>
-        body{height:100%;background:#16a085;overflow:hidden;}
         canvas{z-index:-1;position:absolute;}
     </style>
 </head>
 <body>
-<div>
-    <canvas class="pg-canvas"></canvas>
-    <form action="/admin/login" method="post">
+<div class="main">
+    <form action="/admin/login" class="login_admin" method="post">
         {{csrf_field()}}
         <dl class="admin_login">
             <dt>
@@ -64,26 +62,111 @@
                 <input type="submit" value="立即登陆" class="submit_btn">
             </dd>
             <dd>
-                <p>© 2015-2017 熊猫人 版权所有</p>
+                <p>Copyright © 2017 陕西熊猫人网络科技有限公司 版权所有</p>
             </dd>
         </dl>
     </form>
 </div>
-<script src="{{ asset('/js/jq.js') }}"></script>
-<script src="{{ asset('/js/admin/Particleground.js') }}"></script>
+<script src="{{ asset('/js/admin/three.js') }}"></script>
+<script src="{{ asset('/js/admin/Projector.js') }}"></script>
+<script src="{{ asset('/js/admin/CanvasRenderer.js') }}"></script>
+<script src="{{ asset('/js/admin/stats.min.js') }}"></script>
 <script>
-    $(document).ready(function() {
-        //粒子背景特效
-        $('body').particleground({
-            dotColor: '#5cbdaa',
-            lineColor: '#5cbdaa'
-        });
-
-        $(".captcha").click(function(){
-            let url = '{{captcha_src()}}' + Math.random();
-            $('.captcha').attr('src',url)
-        })
-    });
+    var SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
+    var container, stats;
+    var camera, scene, renderer;
+    var particles, particle, count = 0;
+    var mouseX = 0, mouseY = 0;
+    var windowHalfX = window.innerWidth / 2;
+    var windowHalfY = window.innerHeight / 2;
+    init();
+    animate();
+    function init() {
+        container = document.createElement( 'div' );
+        document.body.appendChild( container );
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+        camera.position.z = 1000;
+        scene = new THREE.Scene();
+        particles = new Array();
+        var PI2 = Math.PI * 2;
+        var material = new THREE.SpriteCanvasMaterial( {
+            color: 0xffffff,
+            program: function ( context ) {
+                context.beginPath();
+                context.arc( 0, 0, 0.5, 0, PI2, true );
+                context.fill();
+            }
+        } );
+        var i = 0;
+        for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
+            for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
+                particle = particles[ i ++ ] = new THREE.Sprite( material );
+                particle.position.x = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 );
+                particle.position.z = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 );
+                scene.add( particle );
+            }
+        }
+        renderer = new THREE.CanvasRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+        stats = new Stats();
+        container.appendChild( stats.dom );
+        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+        document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+        document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+        //
+        window.addEventListener( 'resize', onWindowResize, false );
+    }
+    function onWindowResize() {
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    }
+    //
+    function onDocumentMouseMove( event ) {
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+    }
+    function onDocumentTouchStart( event ) {
+        if ( event.touches.length === 1 ) {
+            event.preventDefault();
+            mouseX = event.touches[ 0 ].pageX - windowHalfX;
+            mouseY = event.touches[ 0 ].pageY - windowHalfY;
+        }
+    }
+    function onDocumentTouchMove( event ) {
+        if ( event.touches.length === 1 ) {
+            event.preventDefault();
+            mouseX = event.touches[ 0 ].pageX - windowHalfX;
+            mouseY = event.touches[ 0 ].pageY - windowHalfY;
+        }
+    }
+    //
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+        stats.update();
+    }
+    function render() {
+        camera.position.x += ( mouseX - camera.position.x ) * .05;
+        camera.position.y += ( - mouseY - camera.position.y ) * .05;
+        camera.lookAt( scene.position );
+        var i = 0;
+        for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
+            for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
+                particle = particles[ i++ ];
+                particle.position.y = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
+                    ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+                particle.scale.x = particle.scale.y = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 4 +
+                    ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 4;
+            }
+        }
+        renderer.render( scene, camera );
+        count += 0.1;
+    }
 </script>
 </body>
 </html>

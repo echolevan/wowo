@@ -22,7 +22,7 @@ class CreatePlugsTable extends Migration
             $table->text('info')->comment('插件详情');
             $table->tinyInteger('is_free')->default(0)->comment('是否免费 0为免费 1为收费');
             $table->tinyInteger('rank')->default(0)->comment('排序');
-            $table->integer('wwb')->default(0)->comment('如果收费需要消费的窝窝币');
+            $table->integer('wwb')->default(0)->comment('如果收费需要消费的金币');
             $table->tinyInteger('type')->comment('插件分类 1是wa 2是twm 3是插件');
             $table->integer('type_one')->comment('插件标签的1级分类');
             $table->integer('type_two')->default(0)->comment('插件标签的2级分类');

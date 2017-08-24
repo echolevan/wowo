@@ -23,6 +23,7 @@ import AdminPlugCreate from './components/admin/plug/Upload.vue'
 import AdminBmList from './components/admin/bm/List.vue'
 
 import AdminToolSetting from './components/admin/tool/Setting.vue'
+import AdminNoticeSetting from './components/admin/tool/Notice.vue'
 
 export default [
     { path: '/',name:'index' , component:Index},
@@ -55,6 +56,7 @@ export default [
 
     { path: '/admin/bm/list',name:'admin.bm.list' , component:AdminBmList},
 
-    { path: '/admin/tool/setting',name:'admin.tool.setting' , component:AdminToolSetting}
+    { path: '/admin/tool/setting',name:'admin.tool.setting' , component:AdminToolSetting},
+    { path: '/admin/notice/setting',name:'admin.notice.setting' , component:AdminNoticeSetting}
 
 ]

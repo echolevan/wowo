@@ -25,13 +25,13 @@
                     资源管理
                 </template>
                 <router-link to="/admin/plug/list">
-                    <Menu-item name="admin.plug.list">插件列表</Menu-item>
+                    <Menu-item name="admin.plug.list">资源列表</Menu-item>
                 </router-link>
                 <router-link to="/admin/plug/create">
-                    <Menu-item name="admin.plug.create">添加插件</Menu-item>
+                    <Menu-item name="admin.plug.create">添加资源</Menu-item>
                 </router-link>
                 <router-link to="/admin/bm/list">
-                    <Menu-item name="admin.bm.list">嘿市</Menu-item>
+                    <Menu-item name="admin.bm.list">黑市</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="3">
@@ -49,10 +49,13 @@
             <Submenu name="4">
                 <template slot="title">
                     <Icon type="ios-people"></Icon>
-                    网站配置
+                    网站管理
                 </template>
                 <router-link to="/admin/tool/setting">
-                    <Menu-item name="admin.tool.setting">网站配置</Menu-item>
+                    <Menu-item name="admin.tool.setting">页面管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/notice/setting">
+                    <Menu-item name="admin.notice.setting">公告管理</Menu-item>
                 </router-link>
             </Submenu>
             <!--<Submenu name="3">-->

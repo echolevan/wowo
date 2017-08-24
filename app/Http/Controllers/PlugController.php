@@ -29,7 +29,7 @@ class PlugController extends Controller
         } else if ($request->orderBy == 2) {
             $orderBy = 'download_num';
         } else {
-            $orderBy = 'rank';
+            $orderBy = 'like_num';
         }
 
         // search 条件
@@ -88,7 +88,7 @@ class PlugController extends Controller
 
         $rank_score = Plug::when($type > 0, function ($query) use ($type) {
             $query->where('type', $type);
-        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('rank', 'desc')->get();
+        })->where([['status', 1], ['is_check', 1]])->skip(0)->take(5)->where('is_new',1)->orderBy('like_num', 'desc')->get();
 
         return ['rank_download' => $rank_download, 'rank_score' => $rank_score];
     }
@@ -173,7 +173,7 @@ class PlugController extends Controller
     /**
      * @param $id
      * @return array
-     * 点赞
+     * 推荐
      */
     public function like_this ($id)
     {
@@ -182,7 +182,7 @@ class PlugController extends Controller
         $like_plug = DB::table('like_plugs')->where('user_id',Auth::id())->where('plug_id',$id)->count();
 
         if ($like_plug > 0) {
-            return ['sta' => 0, 'msg' => '你已经点赞过了'];
+            return ['sta' => 0, 'msg' => '你已经推荐过了'];
         }
 
         DB::beginTransaction();
@@ -192,14 +192,14 @@ class PlugController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return ['sta' => 0, 'msg' => '点赞失败'];
+            return ['sta' => 0, 'msg' => '推荐失败'];
         }
 
 
         if ($collect) {
-            return ['sta' => 1, 'msg' => '点赞成功'];
+            return ['sta' => 1, 'msg' => '推荐成功'];
         }
-        return ['sta' => 0, 'msg' => '点赞失败'];
+        return ['sta' => 0, 'msg' => '推荐失败'];
     }
 
 
@@ -382,7 +382,7 @@ class PlugController extends Controller
         $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
-        $Plug->version = date('Ymd');
+        $Plug->version = date('YmdHi');
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
         DB::beginTransaction();
@@ -392,7 +392,7 @@ class PlugController extends Controller
                 Plug::where('plug_id', $plug_id)->update(['is_new' => 0]);
                 $num = Plug::where('plug_id', $plug_id)->select('download_num','like_num','collect_num','score','version')->first();
                 if($Plug->version === $num->version){
-                    $Plug->version = $Plug->version ."_".date('His');
+                    $Plug->version = $Plug->version ."_".date('s');
                 }
                 $Plug->download_num = $num->download_num;
                 $Plug->like_num = $num->like_num;
@@ -532,21 +532,21 @@ class PlugController extends Controller
         if(Cache::has('plug_index_wa')){
             $wa = Cache::get('plug_index_wa');
         }else{
-            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_wa',$wa,60);
         }
 
         if(Cache::has('plug_index_twm')){
             $twm = Cache::get('plug_index_twm');
         }else{
-            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_twm',$twm,60);
         }
 
         if(Cache::has('plug_index_plug')){
             $plug = Cache::get('plug_index_plug');
         }else{
-            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_plug',$plug,60);
         }
 
@@ -569,7 +569,7 @@ class PlugController extends Controller
         }else{
              try{
                  $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
-                 $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]);
+                 $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]) ? $total_person['info']['body']['data'][0]['result']['sum']['0'][1]: 0;
              }catch(\Exception $e){
                  $total_person = 0;
              }
@@ -605,7 +605,7 @@ class PlugController extends Controller
             $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
             $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at');
             if($census['last_time']){
-                $census['last_time'] = $census['last_time']->toDateTimeString();
+                $census['last_time'] = $census['last_time'];
             }else{
                 $census['last_time'] = '暂无';
             }

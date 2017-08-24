@@ -102,7 +102,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="div_block zf_div" style="margin-left: 0">
+                <div class="div_block zf_div" @click="modal_zj = true" style="margin-left: 0">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
             </iCol>
@@ -242,6 +242,18 @@
             </iCol>
             <div style="clear: both"></div>
         </Row>
+
+        <Modal v-model="modal_zj" width="900">
+            <p slot="header" >
+                <span>捐赠</span>
+            </p>
+            <div style="text-align:center">
+                <img src="/images/pay/juanzeng.jpg" alt="">
+            </div>
+            <div slot="footer">
+                <Button type="primary" @click="modal_zj = false">关闭</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -252,6 +264,7 @@
         data() {
             return {
                 was: [],
+                modal_zj: false,
                 census: {},
                 twms: [],
                 plugs: [],
