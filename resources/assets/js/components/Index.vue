@@ -7,7 +7,7 @@
                 <router-view></router-view>
             </transition>
         </div>
-        <div class="footer">
+        <div class="footer" v-if="$route.name !== 'index'">
             <div class="foot">
                 <ul>
                     <li>关于我们</li>

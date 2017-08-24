@@ -75260,13 +75260,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [(_vm.$route.name !== 'index') ? _c('v-nav') : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "main content",
     style: (_vm.$route.name !== 'index' ? 'background-color: #fff' : '')
-  }, [_c('transition', [_c('router-view')], 1)], 1), _vm._v(" "), _vm._m(0)], 1)
+  }, [_c('transition', [_c('router-view')], 1)], 1), _vm._v(" "), (_vm.$route.name !== 'index') ? _c('div', {
+    staticClass: "footer"
+  }, [_vm._m(0)]) : _vm._e()], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "footer"
-  }, [_c('div', {
     staticClass: "foot"
-  }, [_c('ul', [_c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("加入我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("商务合作")])]), _vm._v("\n            Copyright © 2017 陕西熊猫人网络科技有限公司 嘿市网 版权所有\n            "), _c('br'), _vm._v("\n            陕ICP备17015228号-1\n        ")])])
+  }, [_c('ul', [_c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("加入我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("商务合作")])]), _vm._v("\n            Copyright © 2017 陕西熊猫人网络科技有限公司 嘿市网 版权所有\n            "), _c('br'), _vm._v("\n            陕ICP备17015228号-1\n        ")])
 }]}
 module.exports.render._withStripped = true
 if (false) {
