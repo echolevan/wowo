@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <title>嘿市</title>
     <script>
         window.Laravel = {!! json_encode([
@@ -58,6 +59,12 @@
                         <p>{{ $errors->first('password') }}</p>
                     @endif
                     <br>
+                    <input type="text"  name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
+                    <div style="margin: 15px 0 15px 15px; float: left;" class="captcha">{!! captcha_img() !!}</div>
+                    <div style="clear: both"></div>
+                    @if ($errors->has('captcha'))
+                        <p>{{ $errors->first('captcha') }}</p>
+                    @endif
                     <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
                 </form>
                 <span>没有帐号？
@@ -84,8 +91,12 @@
             delay: 20
         });
 
+        $(".captcha").click(function(){
+            let url = '{{captcha_src()}}' + Math.random();
+            $(this).find('img').attr('src',url)
+        })
+
         $(".input_e").focus(function () {
-            console.log(this_camp)
             if(this_camp === 1 || this_camp === 2 || this_camp === 0){
 
             }else{
@@ -96,7 +107,6 @@
         })
 
         $(".input_p").focus(function () {
-            console.log(this_camp)
             if(this_camp === 1 || this_camp === 2 || this_camp === 3){
 
             }else{

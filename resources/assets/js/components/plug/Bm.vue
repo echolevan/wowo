@@ -60,7 +60,7 @@
         mounted() {
             setTimeout(() => {
                 if (!this.userInfo) {
-                    this.$Message.error('请先登录')
+                    myDialog('请先登录')
                     this.$router.push('/home')
                 }
             }, 500)
@@ -85,7 +85,7 @@
                     if(res.data.sta === 1){
                         window.open(res.data.url);
                     }else{
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     }
                 })
             }

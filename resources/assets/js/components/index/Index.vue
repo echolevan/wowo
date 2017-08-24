@@ -82,5 +82,4 @@
                     width 300px
                     &:hover
                         cursor pointer
-
 </style>

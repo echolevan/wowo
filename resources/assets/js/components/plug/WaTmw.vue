@@ -22,7 +22,7 @@
                                 <a href="javascript:void(0)" >整合界面分享</a>
                             </li>
                             <li @click="upload_plug">
-                                <a href="javascript:void(0)" >原创界面分享</a>
+                                <a href="javascript:void(0)" >原创插件分享</a>
                             </li>
                         </div>
                     </ul>
@@ -159,7 +159,7 @@
                 if(this.$store.state.userInfo){
                     this.$router.push("/upload")
                 }else{
-                    this.$Message.error('请先登录')
+                    myDialog('请先登录')
                 }
             }
         },

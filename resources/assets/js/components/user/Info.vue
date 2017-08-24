@@ -111,7 +111,7 @@
                 this.sub_time()
                 axios.get('user/send_mail').then(res=>{
                     if(res.data.sta === 0){
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                         if(res.data.timeOut){
                             this.rest_time = res.data.timeOut
                         }

@@ -70,9 +70,9 @@
             rate_score(id , k){
                 axios.post(`rate_score/${id}`,{score:this.score[k]}).then(res=>{
                     if(res.data.sta === 0){
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     }else{
-                        this.$Message.success(res.data.msg)
+                        myDialog(res.data.msg)
                         this.orders[k].score.push({score:this.score[k] * 2})
                     }
                 })

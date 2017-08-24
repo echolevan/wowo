@@ -46,6 +46,15 @@
                     <Menu-item name="admin.tag.create">添加分类</Menu-item>
                 </router-link>
             </Submenu>
+            <Submenu name="4">
+                <template slot="title">
+                    <Icon type="ios-people"></Icon>
+                    网站配置
+                </template>
+                <router-link to="/admin/tool/setting">
+                    <Menu-item name="admin.tool.setting">网站配置</Menu-item>
+                </router-link>
+            </Submenu>
             <!--<Submenu name="3">-->
                 <!--<template slot="title">-->
                     <!--<Icon type="stats-bars"></Icon>-->

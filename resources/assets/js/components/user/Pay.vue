@@ -242,9 +242,9 @@
             },
             pay(money, recharge_amount_other = 1) {
                 if (!isNaN(money) && !(/^\d+$/.test(this.pay_amount_other))) {
-                    this.$Message.error('请选择充值金额')
+                    myDialog('请选择充值金额')
                 } else if (!this.type) {
-                    this.$Message.error('请选择充值方式')
+                    myDialog('请选择充值方式')
                 } else {
                     axios.post('user/recharge', {
                         recharge_type: this.type,
@@ -252,10 +252,10 @@
                         recharge_amount_other: recharge_amount_other
                     }).then(res => {
                         if (res.data.sta === 0) {
-                            this.$Message.error(res.data.msg)
+                            myDialog(res.data.msg)
                         } else {
                             this.$store.commit('change_userInfo', res.data.info)
-                            this.$Message.success(res.data.msg)
+                            myDialog(res.data.msg)
                         }
                     })
                 }

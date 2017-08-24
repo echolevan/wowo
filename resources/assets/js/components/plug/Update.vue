@@ -220,9 +220,9 @@
                     if (valid) {
                         axios.put(`update_plug/${this.$route.params.id}` , {data:this.formItem}).then(res=>{
                             if(res.data.sta === 0){
-                                this.$Message.error(res.data.msg)
+                                myDialog(res.data.msg)
                             }else{
-                                this.$Message.success(res.data.msg)
+                                myDialog(res.data.msg)
                                 if(this.$route.name === 'admin.plug.create'){
                                     this.$router.push('/admin/plug/list')
                                 }else{
@@ -231,7 +231,7 @@
                             }
                         })
                     } else {
-                        this.$Message.error('表单验证失败!');
+                        myDialog('表单验证失败!')
                     }
                     this.loading = false;
                 })
@@ -281,7 +281,7 @@
                 })
                 .then((result) => {
                     if(result.data.sta === 0){
-                        this.$Message.error(result.data.msg)
+                        myDialog(result.data.msg)
                     }else{
                         let url = result.data.url
                         Editor.insertEmbed(cursorLocation, 'image', url);
@@ -302,7 +302,7 @@
             },
             handleSuccess (res, file) {
                 if(res.sta === 0){
-                    this.$Message.error(res.msg)
+                    myDialog(res.msg)
                 }else{
                     this.formItem.uploadList.push({
                         url: res.url,
@@ -313,14 +313,14 @@
             },
             handlePlugSuccess(res, file) {
                 if(res.sta === 0){
-                    this.$Message.error(res.msg)
+                    myDialog(res.msg)
                 }else{
                    this.formItem.plug_url = res.url
                 }
             },
             handlePlugUpload(){
                 if(this.formItem.plug_url !== ''){
-                    this.$Message.error('您已经上传了文件，请先删除')
+                    myDialog('您已经上传了文件，请先删除')
                     return false;
                 }
             },

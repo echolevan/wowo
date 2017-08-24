@@ -50,13 +50,13 @@
                     <li>
                         <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
                     </li>
-                    <li>
+                    <li v-if="tools.bm === '1'">
                         <router-link to="/bm" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span class="no_active">黑市</span>
                         </router-link>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>
+                        <a href="https://bbs.iwowcn.com" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@
             }
         },
         computed: mapState([
-            'userInfo' , 'choice_cmap'
+            'userInfo' , 'choice_cmap' , 'tools'
         ]),
         mounted() {
             $(".modern-menu").modernMenu();

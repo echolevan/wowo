@@ -567,8 +567,12 @@ class PlugController extends Controller
         if(Cache::has('plug_index_total_person')){
             $total_person = Cache::get('plug_index_total_person');
         }else{
-            $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
-            $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]) ? $total_person['info']['body']['data'][0]['result']['sum']['0'][1] : 0;
+             try{
+                 $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
+                 $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]);
+             }catch(\Exception $e){
+                 $total_person = 0;
+             }
             Cache::put('plug_index_total_person',$total_person,60);
         }
 

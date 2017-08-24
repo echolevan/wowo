@@ -298,7 +298,7 @@
             collect_this(id) {
                 axios.get(`collect_this/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     } else {
                         this.plug.collect_plug = 1
                         this.plug.collect_num++
@@ -308,7 +308,7 @@
             like_this(id) {
                 axios.get(`like_this/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     } else {
                         this.plug.like_plug = 1
                         this.plug.like_num++
@@ -318,7 +318,7 @@
             download(id) {
                 axios.get(`download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     } else {
                         if (res.data.type === 1) {
                             // 弹出model
@@ -339,7 +339,7 @@
                 const clipboard = new Clipboard('.clipboard')
                 clipboard.on('success', function (e) {
                 })
-                this.$Message.success('复制成功')
+                myDialog('复制成功')
             },
             login() {
                 localStorage.setItem('redirect', this.$route.path)
@@ -349,7 +349,7 @@
                 this.loading = true
                 axios.post('to_pay_plug',{id:id}).then(res=>{
                     if (res.data.sta === 0) {
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     } else {
                         this.download_pay_model = false
                         this.plug.is_pay = 1
@@ -367,10 +367,10 @@
                     recharge_amount_other: this.pay_amount_other
                 }).then(res => {
                     if (res.data.sta === 0) {
-                        this.$Message.error(res.data.msg)
+                        myDialog(res.data.msg)
                     } else {
                         this.$store.commit('change_userInfo', res.data.info)
-                        this.$Message.success(res.data.msg)
+                        myDialog(res.data.msg)
                     }
                 })
                 this.pay_loding = false

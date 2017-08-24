@@ -22,6 +22,8 @@ import AdminPlugUpdate from './components/admin/plug/Update.vue'
 import AdminPlugCreate from './components/admin/plug/Upload.vue'
 import AdminBmList from './components/admin/bm/List.vue'
 
+import AdminToolSetting from './components/admin/tool/Setting.vue'
+
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
@@ -51,6 +53,8 @@ export default [
     { path: '/admin/plug/create',name:'admin.plug.create' , component:AdminPlugCreate},
 
 
-    { path: '/admin/bm/list',name:'admin.bm.list' , component:AdminBmList}
+    { path: '/admin/bm/list',name:'admin.bm.list' , component:AdminBmList},
+
+    { path: '/admin/tool/setting',name:'admin.tool.setting' , component:AdminToolSetting}
 
 ]

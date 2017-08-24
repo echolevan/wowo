@@ -80,9 +80,9 @@
                     if (valid) {
                         axios.post('user/update_password', {password: this.formPassword.password}).then((res) => {
                             if (res.data.sta === 0) {
-                                this.$Message.error(res.data.msg);
+                                myDialog(res.data.msg)
                             } else {
-                                this.$Message.success(res.data.msg);
+                                myDialog(res.data.msg)
                                 this.formPassword.old_password = ''
                                 this.formPassword.password = ''
                                 this.formPassword.passwordCheck = ''
@@ -90,11 +90,11 @@
                             this.loading = false;
                         }).catch((err) => {
                             this.loading = false;
-                            this.$Message.error('好像什么东西错了，请联系管理员');
+                            myDialog('好像什么东西错了，请联系管理员')
                         });
                     } else {
                         this.loading = false;
-                        this.$Message.error('表单验证失败!');
+                        myDialog('表单验证失败!')
                     }
                 })
             }

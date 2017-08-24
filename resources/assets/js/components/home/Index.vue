@@ -63,7 +63,7 @@
                         >网站统计</strong>
                     </div>
                     <div class="tool_user_child child" style="height: 100px">
-                        <span v-if="is_title_hover === 1">23232</span>
+                        <span v-if="is_title_hover === 1">{{tools.notice}}</span>
                         <ul v-else>
                             <div class="col-md-6">
                                 <li>资源总数：{{census.plugs_count}}</li>
@@ -248,7 +248,6 @@
 <script>
     import Rank from '../common/Rank.vue'
     import {mapState} from 'vuex'
-
     export default {
         data() {
             return {
@@ -270,7 +269,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap'
+            'userInfo', 'choice_cmap' , 'tools'
         ]),
         watch: {
             content(){
@@ -291,7 +290,7 @@
             },
             quick_share() {
                 if (this.content === '' || this.type.length === 0) {
-                    this.$Message.error('请先填写字符串并选择分类')
+                    myDialog('请先填写字符串并选择分类')
                 } else {
                     localStorage.setItem('quick_share_content', this.content)
                     localStorage.setItem('quick_share_type', this.type)

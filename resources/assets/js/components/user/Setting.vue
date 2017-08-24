@@ -154,11 +154,11 @@
             },
             updateUserAvatar(res) {
                 if(res.sta === 1){
-                    this.$Message.success('头像更新成功')
+                    myDialog('头像更新成功')
                     this.formItem.avatar = res.info.avatar
                     this.$store.commit('change_userInfo',res.info)
                 }else {
-                    this.$Message.error(res.msg)
+                    myDialog(res.msg)
                 }
             },
             handleSubmit (name) {
@@ -175,14 +175,14 @@
                         }).then(res=>{
                             if(res.data.sta === 1){
                                 this.check_is_camp()
-                                this.$Message.success('信息更新成功')
+                                myDialog('信息更新成功')
                                 this.$store.commit('change_userInfo',res.data.info)
                             }else{
-                                this.$Message.error(res.data.msg)
+                                myDialog(res.data.msg)
                             }
                         })
                     } else {
-                        this.$Message.error('表单验证失败!');
+                        myDialog('表单验证失败!');
                     }
                 })
             },

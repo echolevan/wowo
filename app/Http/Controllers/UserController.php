@@ -7,6 +7,7 @@ use App\Lv;
 use App\Order;
 use App\Plug;
 use App\Recharge;
+use App\Tool;
 use App\User;
 use Carbon\Carbon;
 use function GuzzleHttp\Psr7\str;
@@ -23,13 +24,20 @@ class UserController extends Controller
     public function index()
     {
 
+        $tools = Tool::get();
+
+        $tool = [];
+        foreach ($tools as $k=>$v){
+            $tool[$v->name] = $v;
+        }
 
         if (Auth::check()){
             $arr = explode('@',Auth::user()->email);
             $domain = $arr[1];
-            return ['sta' =>'1' , 'info' => Auth::user() , 'email'=>'http://mail.'.$domain];
+            return ['sta' =>'1' , 'info' => Auth::user() , 'email'=>'http://mail.'.$domain , 'tools'=>$tool];
         }
-        return ['sta' => 0];
+
+        return ['sta' => 0, 'tools'=>$tool];
     }
 
 
@@ -225,12 +233,12 @@ class UserController extends Controller
      */
     public function orders_pay($page, $size)
     {
-        $count = Order::where('user_id',Auth::id())->count();
+        $count = Order::where('user_id',Auth::id())->where('type','<','4')->count();
         $res = Order::where('user_id',Auth::id())->with(['plug'=>function($query){
             $query->select('plugs.id','plugs.title','plugs.wwb','plugs.version','plugs.game_version','plugs.plug_id');
         }])->with(['score'=>function($query){
             $query->where('scores.user_id',Auth::id());
-        }])->skip(($page-1)*$size)->take($size)->get();
+        }])->where('type','<','4')->skip(($page-1)*$size)->take($size)->get();
 
         return ['count'=>$count , 'res'=>$res];
     }

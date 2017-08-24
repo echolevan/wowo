@@ -16,6 +16,7 @@ import VuePreview from 'vue-preview'
 import Vuex from 'vuex'
 
 import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType} from './components/common/config'
+import {my_dialog} from '../common/dialog.js'
 global.configTagType = tagType;
 global.configStatusType = statusType;
 global.configIsForUser = isForUser;
@@ -26,6 +27,7 @@ global.configPlugType = plugType;
 global.configCheckType = checkType;
 global.configBmDownloadType = bmDownloadType;
 global.configBmType = bmType;
+global.myDialog = my_dialog;
 
 Vue.use(Vuex)
 Vue.use(VueRouter);
@@ -40,7 +42,11 @@ const RouterConfig = new VueRouter({
 const store = new Vuex.Store({
     state: {
         userInfo: '',
-        choice_cmap: ''
+        choice_cmap: '',
+        tools: {
+            'bm': 0,
+            'notice': '',
+        }
     },
     mutations: {
         change_userInfo (state , user) {
@@ -48,6 +54,10 @@ const store = new Vuex.Store({
         },
         choice_camp (state , camp) {
             state.choice_cmap = camp
+        },
+        change_tools (state, tools) {
+            state.tools.bm = tools['bm'].value
+            state.tools.notice = tools['notice'].value
         }
     }
 })

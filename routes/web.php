@@ -120,4 +120,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put("bm/update/{id}",'BmController@update')->name('admin.bm.update'); // 编辑黑市BT
     Route::get("bm/change_rank/{id}/{rank}",'BmController@change_rank')->name('admin.bm.change_rank'); // 更换bm排序
     Route::get("bm/change_status/{id}/{v}",'BmController@change_status')->name('admin.bm.change.status'); // 更改bm的status
+
+    Route::get('tool/index','ToolController@index')->name('admin.tool.index'); // 获取配置信息
+    Route::put('tool/create','ToolController@create')->name('admin.tool.create'); // 更新配置信息
 });
