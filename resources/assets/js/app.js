@@ -56,8 +56,8 @@ const store = new Vuex.Store({
             state.choice_cmap = camp
         },
         change_tools (state, tools) {
-            state.tools.bm = tools['bm'].value
-            state.tools.notice = tools['notice'].value
+            state.tools.bm = tools['bm'] ? tools['bm'].value : 1
+            state.tools.notice = tools['notice'] ? tools['notice'].value : ''
         }
     }
 })

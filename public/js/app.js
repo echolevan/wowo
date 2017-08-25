@@ -93623,8 +93623,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
             state.choice_cmap = camp;
         },
         change_tools: function change_tools(state, tools) {
-            state.tools.bm = tools['bm'].value;
-            state.tools.notice = tools['notice'].value;
+            state.tools.bm = tools['bm'] ? tools['bm'].value : 1;
+            state.tools.notice = tools['notice'] ? tools['notice'].value : '';
         }
     }
 });
