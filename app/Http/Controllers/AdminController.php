@@ -62,6 +62,7 @@ class AdminController extends Controller
                 return back()->withErrors(['login'=>'密码错误']);
             }else{
                 if($user->is_admin === 1){
+                    Cache::forget($cache_name);
                     // login
                     Auth::login($user);
                     return redirect('/admin#/admin');
