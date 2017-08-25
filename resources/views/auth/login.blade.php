@@ -65,7 +65,11 @@
                     @if ($errors->has('captcha'))
                         <p>{{ $errors->first('captcha') }}</p>
                     @endif
-                    <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
+                    @if ($errors->has('login_error'))
+                        <button class="btn_login my-button">{{ $errors->first('login_error') }}</button>
+                    @else
+                        <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
+                    @endif
                 </form>
                 <span>没有帐号？
         <a href="{{route('register')}}" style="color: #fff">点击注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>

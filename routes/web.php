@@ -22,9 +22,9 @@ Route::get('/', 'HomeController@index')->name('index');
 //        'is_admin' => 1
 //    ]);
 //});
-Route::get('/abc', function () {
-    dd(request()->getClientIp());
-});
+//Route::get('/abc', function () {
+//    dd();
+//});
 
 Auth::routes();
 

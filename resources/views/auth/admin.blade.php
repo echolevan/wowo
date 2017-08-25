@@ -59,7 +59,11 @@
                 <p>{{ $errors->first('captcha') }}</p>
             @endif
             <dd>
-                <input type="submit" value="立即登陆" class="submit_btn">
+                @if ($errors->has('login_error'))
+                    <input type="submit" value="{{ $errors->first('login_error') }}" disabled="disabled" class="submit_btn">
+                @else
+                    <input type="submit" value="立即登陆" class="submit_btn">
+                @endif
             </dd>
             <dd>
                 <p>Copyright © 2017 陕西熊猫人网络科技有限公司 版权所有</p>

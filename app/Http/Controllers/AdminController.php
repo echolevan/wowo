@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -30,6 +31,17 @@ class AdminController extends Controller
 
     public function do_loign(Request $request)
     {
+        // put cache login
+        $cache_name = 'login_'.request()->getClientIp();
+        $num = 1;
+        if(Cache::has($cache_name)){
+            $num = Cache::get($cache_name);
+            if($num > 3){
+                return back()->withErrors(['login_error' => '失败次数太多，请1分钟之后再试']);
+            }
+        }
+        Cache::put($cache_name , $num+1 , 1);
+
         $message = [
           'captcha.required' => '验证码不能为空',
           'captcha.captcha' => '验证码错误',
