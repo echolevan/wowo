@@ -55,7 +55,13 @@
                     <Menu-item name="admin.tool.setting">页面管理</Menu-item>
                 </router-link>
                 <router-link to="/admin/notice/setting">
-                    <Menu-item name="admin.notice.setting">公告管理</Menu-item>
+                <Menu-item name="admin.notice.setting">公告管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/lv/setting">
+                    <Menu-item name="admin.lv.setting">等级管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/nickname/setting/">
+                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
                 </router-link>
             </Submenu>
             <!--<Submenu name="3">-->

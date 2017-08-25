@@ -331,9 +331,12 @@ class UserController extends Controller
     {
         $recharge = Recharge::where('user_id',Auth::id())->where('status',9)->sum('recharge_amount');
         $type = Lv::get();
+        if(count($type) === 0){
+            $type = ['name'=>'新手','money'=>0,'giving'=>0];
+        }
         $lv = [];
         foreach ($type as $k => $v){
-            if( $recharge >= json_decode($v->money , true)[0]){
+            if( $recharge >= $v->money){
                 $lv = $type[$k];
             }
         }

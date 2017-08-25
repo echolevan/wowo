@@ -36258,6 +36258,10 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   background: #266ec1;
 }
 
+.ivu-poptip-confirm .ivu-poptip-body .ivu-icon {
+  left: 15px;
+}
+
 .ivu-notice-with-error:after {
   background: #d13030;
 }

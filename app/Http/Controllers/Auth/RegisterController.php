@@ -60,12 +60,14 @@ class RegisterController extends Controller
             'nickname.max' => '昵称最长为10',
             'nickname.unique' => '昵称已经存在',
             'nickname.alpha_num' => '昵称不能含有符号',
+            'name.is_admin_name' => '用户名违规',
+            'nickname.is_admin_name' => '昵称违规',
         ];
 
         return Validator::make($data, [
-            'name' => 'required|string|max:255|unique:users|alpha_num|is_num',
+            'name' => 'required|string|max:255|unique:users|alpha_num|is_num|is_admin_name',
             'email' => 'required|string|email|max:255|unique:users',
-            'nickname' => 'required|string|max:10|unique:users|alpha_num',
+            'nickname' => 'required|string|max:10|unique:users|alpha_num|is_admin_name',
             'password' => 'required|string|min:8|is_pass|confirmed',
             'captcha' => 'required|captcha',
             'camp' => 'required'

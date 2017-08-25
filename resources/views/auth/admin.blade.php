@@ -67,6 +67,7 @@
         </dl>
     </form>
 </div>
+<script src="{{ asset('/js/jq.js') }}"></script>
 <script src="{{ asset('/js/admin/three.js') }}"></script>
 <script src="{{ asset('/js/admin/Projector.js') }}"></script>
 <script src="{{ asset('/js/admin/CanvasRenderer.js') }}"></script>
@@ -90,7 +91,7 @@
         particles = new Array();
         var PI2 = Math.PI * 2;
         var material = new THREE.SpriteCanvasMaterial( {
-            color: 0xffffff,
+            color: 0x1E90FF,
             program: function ( context ) {
                 context.beginPath();
                 context.arc( 0, 0, 0.5, 0, PI2, true );
@@ -167,6 +168,12 @@
         renderer.render( scene, camera );
         count += 0.1;
     }
+</script>
+<script>
+    $(".captcha").click(function(){
+        let url = '{{captcha_src()}}' + Math.random();
+        $('.captcha').attr('src',url)
+    })
 </script>
 </body>
 </html>

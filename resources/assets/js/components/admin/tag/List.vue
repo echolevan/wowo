@@ -288,7 +288,6 @@
             },
             on_sel(v) {
                 this.formItem.type = v
-                console.log(this.formItem.type)
             },
             ok(name) {
                 this.loading_edit = true

@@ -22,10 +22,13 @@ Route::get('/', 'HomeController@index')->name('index');
 //        'is_admin' => 1
 //    ]);
 //});
+Route::get('/abc', function () {
+    dd(request()->getClientIp());
+});
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('user/check_email/{token}' , 'UserController@check_email')->name('user.check_email');
@@ -116,4 +119,13 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('tool/index','ToolController@index')->name('admin.tool.index'); // 获取配置信息
     Route::put('tool/create','ToolController@create')->name('admin.tool.create'); // 更新配置信息
+    Route::post('tool/lv/list/{page}/{size}','ToolController@lv_list')->name('admin.lv.list'); // 等级配置
+    Route::put('tool/lv/create','ToolController@lv_create')->name('admin.lv.create'); // 添加等级
+    Route::put('tool/lv/update/{id}','ToolController@lv_update')->name('admin.lv.update'); // 更新等级
+    Route::get('/tool/lv/check_name/{name}/{id}','ToolController@check_name')->name('admin.lv.check_name'); // 验证等级名称
+    Route::get('/tool/lv/check_money/{money}/{id}','ToolController@check_money')->name('admin.lv.check_money'); // 验证等级金额
+    Route::delete('/tool/lv/del_lv/{id}','ToolController@del_lv')->name('admin.lv.del_lv'); // 删除等级
+    Route::get('/tool/nickname/list','ToolController@nickname')->name('admin.nickname.list'); // 昵称管理
+    Route::get('/tool/nickname/create_nickname/{name}','ToolController@create_nickname')->name('admin.nickname.create'); // 添加违规昵称
+    Route::delete('/tool/nickname/del_nickname/{id}','ToolController@del_nickname')->name('admin.nickname.del_nickname'); //删除违规昵称
 });

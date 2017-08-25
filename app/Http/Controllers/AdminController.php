@@ -33,6 +33,8 @@ class AdminController extends Controller
         $message = [
           'captcha.required' => '验证码不能为空',
           'captcha.captcha' => '验证码错误',
+          'email.required' => '帐号不能为空',
+          'email.string' => '帐号错误',
         ];
         $this->validate($request, [
             'email' => 'required|string',
@@ -40,7 +42,7 @@ class AdminController extends Controller
             'captcha' => 'required|captcha'
         ],$message);
 
-        $user = User::where('email',$request->email)->first();
+        $user = User::where('id',$request->email)->orWhere('name',$request->name)->first();
         if(!$user) {
             return back()->withErrors(['login'=>'用户名不存在']);
         }else{

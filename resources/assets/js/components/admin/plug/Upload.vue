@@ -257,7 +257,6 @@
                 this.formItem.type = v
                 this.formItem.content = ''
                 this.formItem.is_free = false
-                console.log(this.formItem)
             },
             _init() {
                 if(this.$route.params.id){

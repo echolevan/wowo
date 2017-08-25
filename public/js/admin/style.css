@@ -310,7 +310,7 @@ small, weak {
 }
 
 .admin_login dd .login_txtbx:focus {
-    background: #55b7a4;
+    background: #d13030;
 }
 
 .admin_login dd:before {
@@ -321,7 +321,7 @@ small, weak {
     height: 42px;
     line-height: 42px;
     font-size: 20px;
-    color: #0c9076;
+    color: #fff;
 }
 
 .admin_login dd.user_icon:before {
@@ -384,8 +384,8 @@ small, weak {
 }
 
 .admin_login dd .submit_btn:hover {
-    background: #0c9076;
-    color: #f4f4f4;
+    background: #d13030;
+    color: #fff;
 }
 
 .admin_login dd p {

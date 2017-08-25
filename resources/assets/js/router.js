@@ -24,6 +24,8 @@ import AdminBmList from './components/admin/bm/List.vue'
 
 import AdminToolSetting from './components/admin/tool/Setting.vue'
 import AdminNoticeSetting from './components/admin/tool/Notice.vue'
+import AdminLvSetting from './components/admin/tool/Lv.vue'
+import AdminNicknameSetting from './components/admin/tool/Nickname.vue'
 
 export default [
     { path: '/',name:'index' , component:Index},
@@ -57,6 +59,8 @@ export default [
     { path: '/admin/bm/list',name:'admin.bm.list' , component:AdminBmList},
 
     { path: '/admin/tool/setting',name:'admin.tool.setting' , component:AdminToolSetting},
-    { path: '/admin/notice/setting',name:'admin.notice.setting' , component:AdminNoticeSetting}
+    { path: '/admin/notice/setting',name:'admin.notice.setting' , component:AdminNoticeSetting},
+    { path: '/admin/lv/setting',name:'admin.lv.setting' , component:AdminLvSetting},
+    { path: '/admin/nickname/setting',name:'admin.nickname.setting' , component:AdminNicknameSetting},
 
 ]
