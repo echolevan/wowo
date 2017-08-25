@@ -19,7 +19,7 @@
             <div class="user_tool">
                 <ul>
                     <li>
-                        <router-link to="/userInfo/info" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">我的信息</router-link>
+                        <router-link to="/userInfo/info" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">个人信息</router-link>
                     </li>
                     <li>
                         <router-link to="/userInfo/setting" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">修改资料</router-link>
@@ -28,14 +28,14 @@
                         <router-link to="/userInfo/orders" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">购买记录</router-link>
                     </li>
                     <li>
+                        <router-link to="/userInfo/pay" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">充值中心</router-link>
+                    </li>
+                    <li>
                         <router-link to="/userInfo/collect" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">收藏的资源</router-link>
 
                     </li>
                     <li>
                         <router-link to="/userInfo/upload" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">分享的资源</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/userInfo/pay" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">充值金币&记录</router-link>
                     </li>
                     <li>
                         <a href="/admin/#/admin" class="r-l my_a_style"

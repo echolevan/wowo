@@ -36299,6 +36299,10 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   white-space: nowrap;
 }
 
+.pswp__bg {
+  background: rgba(255, 255, 255, 0) !important;
+}
+
 .my_address select {
   width: 100px;
   height: 30px !important;
@@ -36306,6 +36310,12 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
 
 .normal_font {
   color: #266ec1;
+}
+
+.my_tag_font {
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .normal_font_hover:hover {

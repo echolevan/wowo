@@ -110,7 +110,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="div_block zf_div" @click="modal_zj = true" style="margin-left: 0">
+                <div class="div_block zf_div hover_hand" @click="modal_zj = true" style="margin-left: 0">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
             </iCol>

@@ -3574,8 +3574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         axios.get('/admin/plug_all_info').then(function (res) {
-            console.log(res);
-            _this.plug_tags = res.data;
+            _this.plug_tags = res.data.res;
         });
     },
 
@@ -4889,7 +4888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (_this.formItem.name !== '') {
                 axios.post('/check/user_name', { name: _this.formItem.name, id: _this.formItem.id }).then(function (res) {
                     if (res.data.sta === 0) {
-                        callback(new Error('用户名已经存在'));
+                        callback(new Error('昵称已经存在或者违规'));
                     } else {
                         callback();
                     }
@@ -7808,6 +7807,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -7983,6 +7984,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
+        var validateName = function validateName(rule, value, callback) {
+            if (value !== '') {
+                axios.get('/user/check_nickname/' + value).then(function (res) {
+                    if (res.data === 0) {
+                        callback(new Error('昵称已经存在或者违规'));
+                    } else {
+                        callback();
+                    }
+                });
+            } else {
+                callback();
+            }
+        };
         return {
             formItem: {
                 avatar: '',
@@ -8004,7 +8018,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             is_camp: false,
             ruleValidate: {
-                nickname: [{ required: true, message: '昵称不能为空', trigger: 'blur' }],
+                nickname: [{ required: true, message: '昵称不能为空', trigger: 'blur' }, { validator: validateName, trigger: 'blur' }],
                 info: [{ type: 'string', max: 255, message: '介绍不能多于255个字', trigger: 'change' }]
             },
             csrfToken: window.Laravel.csrfToken
@@ -71485,7 +71499,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "clear": "both"
     }
   })])])]), _vm._v(" "), _c('div', {
-    staticClass: "div_block zf_div",
+    staticClass: "div_block zf_div hover_hand",
     staticStyle: {
       "margin-left": "0"
     },
@@ -72149,7 +72163,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.gold))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.gold))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("（您已经购买过）")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
+  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.gold))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.gold))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("(您已经购买过)")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
     staticClass: "score_down",
     attrs: {
       "span": "8"
@@ -72381,7 +72395,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "title"
-  }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("此插件售价\n                    "), _c('span', {
+  }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("此资源售价\n                    "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -72449,14 +72463,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "pay_type"
     }
   }, [_c('Radio', {
+    staticStyle: {
+      "height": "56px"
+    },
     attrs: {
       "label": "1"
     }
-  }, [_vm._v("支付宝")]), _vm._v(" "), _c('Radio', {
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/pay/002.jpg",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('Radio', {
+    staticStyle: {
+      "height": "56px"
+    },
     attrs: {
       "label": "2"
     }
-  }, [_vm._v("微信")])], 1), _vm._v(" "), _c('p'), _vm._v(" "), _c('Radio-group', {
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/pay/001.jpg",
+      "alt": ""
+    }
+  })])], 1), _vm._v(" "), _c('p'), _vm._v(" "), _c('Radio-group', {
     class: {
       'bl_radio_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -72475,14 +72505,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Radio', {
     attrs: {
-      "label": "10"
-    }
-  }, [_vm._v("￥10 --- 100金币")]), _vm._v(" "), _c('Radio', {
-    attrs: {
-      "label": "20"
-    }
-  }, [_vm._v("￥20 --- 200金币")]), _vm._v(" "), _c('Radio', {
-    attrs: {
       "label": "30"
     }
   }, [_vm._v("￥30 --- 300金币")]), _vm._v(" "), _c('Radio', {
@@ -72494,6 +72516,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "100"
     }
   }, [_vm._v("￥100 --- 1000金币")]), _vm._v(" "), _c('Radio', {
+    attrs: {
+      "label": "200"
+    }
+  }, [_vm._v("￥200 --- 2000金币")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Radio', {
     staticStyle: {
       "border-left": "1px solid #dddee1",
       "margin": "15px 15px 0 0"
@@ -72556,7 +72582,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toPay
     }
-  }, [_c('span', [_vm._v("点我充值")])])], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("点击充值")])])], 1)]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -72898,7 +72924,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("赠送比例（%）")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("赠送比例(%)")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
@@ -73873,7 +73899,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "用户能否使用"
+      "label": "用户可维护"
     }
   }, [_c('i-Switch', {
     attrs: {
@@ -74542,6 +74568,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "16px"
     }
   }, [_vm._v(_vm._s(_vm.userInfo.gold))])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', {
+    staticClass: "choice_type"
+  }, [_c('Radio-group', {
+    model: {
+      value: (_vm.type),
+      callback: function($$v) {
+        _vm.type = $$v
+      },
+      expression: "type"
+    }
+  }, [_c('Radio', {
+    attrs: {
+      "label": "1"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "javascript:void(0);"
+    },
+    on: {
+      "click": function($event) {
+        _vm.choice_type(1)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "zfb"
+  })])]), _vm._v(" "), _c('Radio', {
+    attrs: {
+      "label": "2"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "javascript:void(0);"
+    },
+    on: {
+      "click": function($event) {
+        _vm.choice_type(2)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "wx"
+  })])])], 1)], 1)])]), _vm._v(" "), _c('div', {
     staticClass: "panel panel-default choice_money"
   }, [_c('div', {
     staticClass: "panel-body",
@@ -74767,51 +74837,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "choice_type"
-  }, [_c('Radio-group', {
-    model: {
-      value: (_vm.type),
-      callback: function($$v) {
-        _vm.type = $$v
-      },
-      expression: "type"
-    }
-  }, [_c('Radio', {
-    attrs: {
-      "label": "1"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "javascript:void(0);"
-    },
-    on: {
-      "click": function($event) {
-        _vm.choice_type(1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "zfb"
-  })])]), _vm._v(" "), _c('Radio', {
-    attrs: {
-      "label": "2"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "javascript:void(0);"
-    },
-    on: {
-      "click": function($event) {
-        _vm.choice_type(2)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "wx"
-  })])])], 1)], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    充值比例为：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制\n                    "), _c('br'), _vm._v("\n                    充值获得的金币可用于提现（满金币等同于200人名币即可提现）\n                    "), _c('br'), _vm._v("\n                    达到Lv2(随机)充值可获赠金币（起充10元）\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
+  }, [_vm._v("\n                    充值比例为：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制\n                    "), _c('br'), _vm._v("\n                    充值获得的金币可用于提现(满金币等同于200人名币即可提现)\n                    "), _c('br'), _vm._v("\n                    达到Lv2(随机)充值可获赠金币(起充10元)\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
     staticClass: "pay_his",
     staticStyle: {
       "padding": "0 15px"
@@ -76088,7 +76114,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格（金币）",
+      "label": "价格(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -76276,6 +76302,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display": "inline-block"
       }
     }, [_c('Tag', {
+      staticClass: "my_tag_font",
       attrs: {
         "closable": ""
       },
@@ -76509,7 +76536,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格（金币）",
+      "label": "价格(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -76676,7 +76703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', {
     attrs: {
-      "label": "名称",
+      "label": "昵称",
       "prop": "name"
     }
   }, [_c('Input', {
@@ -77746,7 +77773,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("收费金币")]), _vm._v(" "), _c('th', [_vm._v("分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("点赞次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', {
     staticStyle: {
@@ -77810,6 +77837,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display": "inline-block"
       }
     }, [_c('Tag', {
+      staticClass: "my_tag_font",
       attrs: {
         "closable": ""
       },
@@ -78184,17 +78212,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Tab-pane', {
     attrs: {
-      "label": "密码修改",
+      "label": "修改密码",
       "name": "2"
     }
   }, [_c('rest-password')], 1), _vm._v(" "), _c('Tab-pane', {
     attrs: {
-      "label": "邮箱修改",
+      "label": "修改邮箱",
       "name": "3"
     }
   }, [_vm._v("标签三的内容")]), _vm._v(" "), _c('Tab-pane', {
     attrs: {
-      "label": "手机修改",
+      "label": "修改手机",
       "name": "4"
     }
   }, [_vm._v("标签三的内容")])], 1)], 1)
@@ -78709,7 +78737,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/userInfo/info"
     }
-  }, [_vm._v("我的信息")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+  }, [_vm._v("个人信息")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
     class: {
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -78731,6 +78759,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     attrs: {
+      "to": "/userInfo/pay"
+    }
+  }, [_vm._v("充值中心")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+    staticClass: "r-l my_a_style",
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
       "to": "/userInfo/collect"
     }
   }, [_vm._v("收藏的资源")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
@@ -78741,15 +78777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/userInfo/upload"
     }
-  }, [_vm._v("分享的资源")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
-    staticClass: "r-l my_a_style",
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "to": "/userInfo/pay"
-    }
-  }, [_vm._v("充值金币&记录")])], 1), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("分享的资源")])], 1), _vm._v(" "), _c('li', [_c('a', {
     directives: [{
       name: "show",
       rawName: "v-show",

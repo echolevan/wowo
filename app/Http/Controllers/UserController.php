@@ -394,9 +394,10 @@ class UserController extends Controller
 
     public function user_name(Request $request)
     {
-        $username = User::where('id','!=',$request->id)->where('name',$request->name)->count();
-        if($username > 0)
-            return ['sta'=>0,'msg'=>'用户名重复了'];
+        $username = User::where('id','!=',$request->id)->where('nickname',$request->name)->count();
+        $is_wg = Tool::where('name','nickname')->where('value',$request->name)->first();
+        if($username > 0 || $is_wg)
+            return ['sta'=>0,'msg'=>'用户名已经存在或者违规'];
         return ['sta'=>1];
     }
 
@@ -428,6 +429,20 @@ class UserController extends Controller
         if($user)
             return ['sta'=>1 , 'msg'=>'信息更新成功'];
         return ['sta'=>0 , 'msg'=>'信息更新失败'];
+    }
+
+    public function check_nickname($name , $user_id = 0)
+    {
+        $user_id = $user_id === 0 ? Auth::id() : $user_id;
+        $count = User::where('id','!=',$user_id)->where('nickname',$name)->count();
+        if($count > 0){
+            return 0;
+        }
+        $is_wg = Tool::where('name','nickname')->where('value',$name)->first();
+        if($is_wg){
+            return 0;
+        }
+        return 1;
     }
 
 }

@@ -10,6 +10,25 @@
                     </div>
                 </div>
 
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="choice_type">
+                            <Radio-group v-model="type">
+                                <Radio label="1">
+                                    <a href="javascript:void(0);" @click="choice_type(1)">
+                                        <i class="zfb"></i>
+                                    </a>
+                                </Radio>
+                                <Radio label="2">
+                                    <a href="javascript:void(0);" @click="choice_type(2)">
+                                        <i class="wx"></i>
+                                    </a>
+                                </Radio>
+                            </Radio-group>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="panel panel-default choice_money">
                     <div class="panel-body" style="padding: 30px 0 0 0">
 
@@ -134,24 +153,7 @@
 
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="choice_type">
-                            <Radio-group v-model="type">
-                                <Radio label="1">
-                                    <a href="javascript:void(0);" @click="choice_type(1)">
-                                        <i class="zfb"></i>
-                                    </a>
-                                </Radio>
-                                <Radio label="2">
-                                    <a href="javascript:void(0);" @click="choice_type(2)">
-                                        <i class="wx"></i>
-                                    </a>
-                                </Radio>
-                            </Radio-group>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -159,9 +161,9 @@
                         <br>
                         在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制
                         <br>
-                        充值获得的金币可用于提现（满金币等同于200人名币即可提现）
+                        充值获得的金币可用于提现(满金币等同于200人名币即可提现)
                         <br>
-                        达到Lv2(随机)充值可获赠金币（起充10元）
+                        达到Lv2(随机)充值可获赠金币(起充10元)
                     </div>
                 </div>
             </Tab-pane>

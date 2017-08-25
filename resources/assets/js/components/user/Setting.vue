@@ -54,11 +54,11 @@
                         :uploaded="updateUserAvatar"
                 ></avatar-cropper>
             </Tab-pane>
-            <Tab-pane label="密码修改" name="2">
+            <Tab-pane label="修改密码" name="2">
                 <rest-password></rest-password>
             </Tab-pane>
-            <Tab-pane label="邮箱修改" name="3">标签三的内容</Tab-pane>
-            <Tab-pane label="手机修改" name="4">标签三的内容</Tab-pane>
+            <Tab-pane label="修改邮箱" name="3">标签三的内容</Tab-pane>
+            <Tab-pane label="修改手机" name="4">标签三的内容</Tab-pane>
         </Tabs>
 
     </div>
@@ -72,6 +72,19 @@
 
     export default {
         data() {
+            const validateName = (rule, value, callback) => {
+                if (value !== '') {
+                    axios.get(`/user/check_nickname/${value}`).then(res => {
+                        if(res.data === 0){
+                            callback(new Error('昵称已经存在或者违规'));
+                        }else{
+                            callback();
+                        }
+                    })
+                } else {
+                    callback();
+                }
+            };
             return {
                 formItem: {
                     avatar: '',
@@ -94,7 +107,8 @@
                 is_camp: false,
                 ruleValidate: {
                     nickname: [
-                        { required: true, message: '昵称不能为空', trigger: 'blur' }
+                        { required: true, message: '昵称不能为空', trigger: 'blur' },
+                        {validator: validateName, trigger: 'blur'}
                     ],
                     info: [
                         { type: 'string', max: 255, message: '介绍不能多于255个字', trigger: 'change' }

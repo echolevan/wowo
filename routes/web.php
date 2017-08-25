@@ -76,6 +76,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::get("check_plug_id/{id}",'PlugController@check_plug_id'); //升级插件 检查ID 是否正确
     Route::post("check_version/{plug_id?}",'PlugController@check_version'); //检查版本号是否正确
     Route::post("rate_score/{plug_id?}",'PlugController@rate_score'); //插件评分
+    Route::get("user/check_nickname/{name}/{user_id?}",'UserController@check_nickname'); //检查昵称是否存在
 
 
     Route::post("check/user_name",'UserController@user_name'); //检查用户名是否重复

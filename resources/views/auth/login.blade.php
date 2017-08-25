@@ -30,6 +30,9 @@
         .bl_button{
             background: #d13030;
         }
+        body{
+            font-family: inherit !important;
+        }
     </style>
 </head>
 <body>

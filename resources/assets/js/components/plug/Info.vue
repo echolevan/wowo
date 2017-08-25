@@ -20,7 +20,7 @@
                                 <span v-else>{{plug.gold}}</span>
                             </span>
                             金币</span>
-                            <span v-if="plug.is_pay">（您已经购买过）</span>
+                            <span v-if="plug.is_pay">(您已经购买过)</span>
                         </p>
                     </div>
                 </iCol>
@@ -147,7 +147,7 @@
             <div style="text-align:left">
                 <div class="title">资源购买</div>
                 <ul>
-                    <li>此插件售价
+                    <li>此资源售价
                         <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
@@ -177,19 +177,19 @@
                 <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
                     <Radio-group v-model="pay_type" type="button"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                        <Radio label="1">支付宝</Radio>
-                        <Radio label="2">微信</Radio>
+                        <Radio label="1" style="height:56px"><img src="/images/pay/002.jpg" alt=""></Radio>
+                        <Radio label="2" style="height:56px"><img src="/images/pay/001.jpg" alt=""></Radio>
                     </Radio-group>
 
                     <p></p>
 
                     <Radio-group v-model="pay_amount" type="button" style="margin-top: 15px"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                        <Radio label="10">￥10 --- 100金币</Radio>
-                        <Radio label="20">￥20 --- 200金币</Radio>
                         <Radio label="30">￥30 --- 300金币</Radio>
                         <Radio label="50">￥50 --- 500金币</Radio>
                         <Radio label="100">￥100 --- 1000金币</Radio>
+                        <Radio label="200">￥200 --- 2000金币</Radio>
+                        <br>
                         <Radio label="0" style="border-left: 1px solid #dddee1;margin: 15px 15px 0 0">其他
                             <!--<span v-show="pay_amount <= 0">：请在旁边的框，输入其他金额</span>-->
                         </Radio>
@@ -218,7 +218,7 @@
                     <Button type="primary" :loading="pay_loding"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                             @click="toPay">
-                        <span>点我充值</span>
+                        <span>点击充值</span>
                     </Button>
                 </div>
 

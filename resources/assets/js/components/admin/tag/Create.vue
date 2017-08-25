@@ -37,7 +37,7 @@
             </Form-item>
 
 
-            <Form-item label="用户能否使用">
+            <Form-item label="用户可维护">
                 <i-Switch v-model="formItem.is_for_user" size="large">
                     <span slot="open">是</span>
                     <span slot="close">否</span>
@@ -92,8 +92,7 @@
         },
         mounted() {
             axios.get('/admin/plug_all_info').then(res=>{
-                console.log(res)
-                this.plug_tags = res.data
+                this.plug_tags = res.data.res
             })
         },
         methods:{

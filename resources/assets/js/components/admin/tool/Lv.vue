@@ -27,7 +27,7 @@
             <tr>
                 <th style="width: 10%">等级名称</th>
                 <th style="width: 10%">充值金额范围</th>
-                <th style="width: 10%">赠送比例（%）</th>
+                <th style="width: 10%">赠送比例(%)</th>
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>

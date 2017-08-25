@@ -49,7 +49,7 @@
                 </i-Switch>
             </Form-item>
 
-            <Form-item label="价格（金币）" v-show="formItem.is_free" prop="gold">
+            <Form-item label="价格(金币)" v-show="formItem.is_free" prop="gold">
                 <Input-number
                         :min="1"
                         v-model="formItem.gold"

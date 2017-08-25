@@ -4,7 +4,7 @@
                 v-model="model_edit"
                 title="编辑用户">
             <Form :model="formItem" :label-width="80" class="div_center from_main" ref="formItem" :rules="ruleValidate">
-                <Form-item label="名称" prop="name">
+                <Form-item label="昵称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"  :disabled="is_disabled"></Input>
                 </Form-item>
                 <Form-item label="手机" prop="tel">
@@ -73,7 +73,7 @@
                 if(this.formItem.name !== ''){
                     axios.post('/check/user_name',{name: this.formItem.name, id: this.formItem.id}).then(res => {
                         if(res.data.sta === 0){
-                            callback(new Error('用户名已经存在'));
+                            callback(new Error('昵称已经存在或者违规'));
                         }else{
                             callback();
                         }

@@ -9,7 +9,7 @@
             </div>
         </Form>
         <div v-for="(v, k) in list" style="display: inline-block">
-            <Tag closable @on-close="handleClose(v.id)">{{v.value}}</Tag>
+            <Tag class="my_tag_font" closable @on-close="handleClose(v.id)">{{v.value}}</Tag>
         </div>
     </div>
 </template>
