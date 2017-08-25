@@ -260,13 +260,17 @@ small, weak {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    color: #266ec1;
+    color: #333;
     /*text-shadow: 0 0 1px #0e947a;*/
     margin-bottom: 15px;
 }
 
 .admin_login dt strong {
     display: block;
+}
+
+.error_l{
+    color: #d13030;
 }
 
 .admin_login dt em {
@@ -290,27 +294,27 @@ small, weak {
     width: 90%;
     text-indent: 2em;
     border: none;
-    background: #266ec1;
-    color: #333;
+    border-radius: 5px;
+    background: rgba(0,0,0,0.7);
 }
 
 .admin_login dd .login_txtbx::-webkit-input-placeholder {
-    color: #f4f4f4;
+    color: #fff;
     line-height: inherit;
 }
 
 .admin_login dd .login_txtbx:-moz-placeholder {
-    color: #f4f4f4;
+    color: #fff;
     line-height: inherit;
 }
 
 .admin_login dd .login_txtbx::-moz-placeholder {
-    color: #f4f4f4;
+    color: #fff;
     line-height: inherit;
 }
 
 .admin_login dd .login_txtbx:focus {
-    background: #d13030;
+    /*background: #d13030;*/
 }
 
 .admin_login dd:before {
@@ -360,7 +364,6 @@ small, weak {
     height: 36px;
     line-height: 36px;
     padding: 3px;
-    color: #333;
     outline: none;
     border: none;
     text-indent: 2.8em;
@@ -379,12 +382,13 @@ small, weak {
     height: 42px;
     border: none;
     font-size: 16px;
-    background: #266ec1;
+    background: rgba(0,0,0,0.7);
     color: #f8f8f8;
+    border-radius: 5px;
 }
 
 .admin_login dd .submit_btn:hover {
-    background: #d13030;
+    /*background: #d13030;*/
     color: #fff;
 }
 

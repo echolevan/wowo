@@ -89,8 +89,7 @@
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <Dropdown-menu slot="list">
-                            <Dropdown-item>修改信息</Dropdown-item>
-                            <Dropdown-item>退出登陆</Dropdown-item>
+                            <Dropdown-item ><span @click="logout">退出登陆</span></Dropdown-item>
                         </Dropdown-menu>
                     </Dropdown>
                 </div>
@@ -131,6 +130,14 @@
                         }
                     }else{
                         this.userInfo = '';
+                    }
+                })
+            },
+            logout() {
+                axios.get('user/logout').then(res=>{
+                    if (res.data.sta === '1') {
+                        this.$store.commit('change_userInfo','')
+                        window.location.href='/'
                     }
                 })
             },

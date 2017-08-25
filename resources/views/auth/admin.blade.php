@@ -35,28 +35,28 @@
                 <em>Management System</em>
             </dt>
             @if ($errors->has('login'))
-                <p>{{ $errors->first('login') }}</p>
+                <p class="error_l">{{ $errors->first('login') }}</p>
             @endif
             <dd class="user_icon">
-                <input type="text" placeholder="邮箱" name="email" class="login_txtbx">
+                <input type="text" placeholder="用户名或者嘿市ID号" name="email" class="login_txtbx" style="color: #fff">
             </dd>
             @if ($errors->has('email'))
-                <p>{{ $errors->first('email') }}</p>
+                <p class="error_l">{{ $errors->first('email') }}</p>
             @endif
             <dd class="pwd_icon">
-                <input type="password" placeholder="密码" name="password" class="login_txtbx">
+                <input type="password" placeholder="密码" name="password" class="login_txtbx"  style="color: #fff">
             </dd>
             @if ($errors->has('password'))
-                <p>{{ $errors->first('password') }}</p>
+                <p class="error_l">{{ $errors->first('password') }}</p>
             @endif
             <dd class="val_icon">
                 <div class="checkcode">
-                    <input type="text" name="captcha" id="J_codetext" style="width: 50%" placeholder="验证码" maxlength="4" class="login_txtbx">
+                    <input type="text" name="captcha" id="J_codetext" style="width: 50%;color: #fff" placeholder="验证码" maxlength="4" class="login_txtbx">
                     <img style="width: 45%;height: 45px" class="captcha" src="{{captcha_src()}}" alt="">
                 </div>
             </dd>
             @if ($errors->has('captcha'))
-                <p>{{ $errors->first('captcha') }}</p>
+                <p class="error_l">{{ $errors->first('captcha') }}</p>
             @endif
             <dd>
                 @if ($errors->has('login_error'))
@@ -66,7 +66,7 @@
                 @endif
             </dd>
             <dd>
-                <p>Copyright © 2017 陕西熊猫人网络科技有限公司 版权所有</p>
+                <p style="color: #333">Copyright © 2017 陕西熊猫人网络科技有限公司 版权所有</p>
             </dd>
         </dl>
     </form>

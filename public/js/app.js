@@ -1931,7 +1931,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1962,6 +1961,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 } else {
                     _this.userInfo = '';
+                }
+            });
+        },
+        logout: function logout() {
+            var _this2 = this;
+
+            axios.get('user/logout').then(function (res) {
+                if (res.data.sta === '1') {
+                    _this2.$store.commit('change_userInfo', '');
+                    window.location.href = '/';
                 }
             });
         }
@@ -73375,7 +73384,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Dropdown-menu', {
     slot: "list"
-  }, [_c('Dropdown-item', [_vm._v("修改信息")]), _vm._v(" "), _c('Dropdown-item', [_vm._v("退出登陆")])], 1)], 1)], 1)]), _vm._v(" "), _c('transition', {
+  }, [_c('Dropdown-item', [_c('span', {
+    on: {
+      "click": _vm.logout
+    }
+  }, [_vm._v("退出登陆")])])], 1)], 1)], 1)]), _vm._v(" "), _c('transition', {
     attrs: {
       "mode": "out-in",
       "enter-active-class": "animated fadeInLeft",
