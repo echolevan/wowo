@@ -6,7 +6,6 @@
 @if ($level == 'error')
 # Whoops!
 @else
-# 您好!
 @endif
 @endif
 

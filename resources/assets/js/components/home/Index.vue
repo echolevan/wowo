@@ -20,6 +20,14 @@
                                 </svg>
                                 <div class="button_one_text">快速分享</div>
                             </div>
+                            <Button type="text"
+                                    @click="quick_share_plug(1)"
+                                    style="margin:15px 0 0 0;float:left;width:50%"
+                            >整合界面分享</Button>
+                            <Button type="text"
+                                    @click="quick_share_plug(2)"
+                                    style="margin:15px 0 0 0;float:left;width:50%"
+                            >原创界面分享</Button>
                         </div>
 
                     </iCol>
@@ -42,7 +50,7 @@
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style"
                                             style="padding-left: 10px;">{{v.title.substring(0, 60)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <span class="pull-right">{{v.user.nickname}} - {{v.download_num}}次下载 - <span style="color:#d13030">{{v.created_at}}</span></span>
                                 </router-link>
                             </li>
                         </ul>
@@ -243,17 +251,9 @@
             <div style="clear: both"></div>
         </Row>
 
-        <Modal v-model="modal_zj" width="900">
-            <p slot="header" >
-                <span>捐赠</span>
-            </p>
-            <div style="text-align:center">
-                <img src="/images/pay/juanzeng.jpg" alt="">
-            </div>
-            <div slot="footer">
-                <Button type="primary" @click="modal_zj = false">关闭</Button>
-            </div>
-        </Modal>
+        <div class="jz_div" v-show="modal_zj" @click="modal_zj = false">
+            <img src="/images/pay/juanzeng.jpg"   class="jz_img" alt="">
+        </div>
     </div>
 </template>
 
@@ -302,13 +302,25 @@
                 this.content = this.content.replace(/[^\w\.\/]/ig,'')
             },
             quick_share() {
-                if (this.content === '' || this.type.length === 0) {
-                    myDialog('请先填写字符串并选择分类')
-                } else {
-                    localStorage.setItem('quick_share_content', this.content)
-                    localStorage.setItem('quick_share_type', this.type)
-                    this.$router.push('/upload')
+                if(!this.userInfo){
+                    myDialog('请先登录')
+                    return false
                 }
+                if (this.content === '') {
+                    myDialog('请先填写字符串(不能包含中文)')
+                    return false
+                }
+
+                if (this.type.length === 0) {
+                    myDialog('请选择分类')
+                    return false
+                }
+                localStorage.setItem('quick_share_content', this.content)
+                localStorage.setItem('quick_share_type', this.type)
+                this.$router.push('/upload')
+            },
+            quick_share_plug(k){
+                this.$router.push('/upload')
             },
             on_sel(v) {
                 this.type = v
@@ -384,4 +396,20 @@
             .title_hover
                 border-bottom: 1px solid #266ec1
                 padding-bottom: 8px
+
+    .jz_div
+        width 100%
+        height 100%
+        background rgba(255,255,255,0.6)
+        position fixed
+        left 0
+        top 0
+        z-index 9999
+        display flex
+        justify-content center
+        align-items center
+        .jz_img
+            position fixed
+            z-index 99999
+
 </style>

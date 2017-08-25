@@ -7,7 +7,7 @@
                 <Form-item label="名称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"  :disabled="is_disabled"></Input>
                 </Form-item>
-                <Form-item label="手机号" prop="tel">
+                <Form-item label="手机" prop="tel">
                     <Input v-model="formItem.tel" placeholder="请输入" :maxlength="maxlength" :disabled="is_disabled"></Input>
                 </Form-item>
                 <Form-item label="邮箱" prop="email">
@@ -46,7 +46,7 @@
             <div slot="footer">
                 <Button type="ghost" @click="is_disabled = !is_disabled">{{is_disabled ? '允许' : '禁止'}}编辑</Button>
                 <Button type="primary"  :disabled="is_disabled" :loading="modal_loading" @click="edit_ok('formItem')">
-                    <span>提交</span>
+                    <span>确定</span>
                 </Button>
             </div>
         </Modal>
@@ -159,8 +159,6 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         this.$emit('subEdit');
-                    } else {
-                        this.$Message.error('表单验证失败!');
                     }
                     this.modal_loading = false;
                 })

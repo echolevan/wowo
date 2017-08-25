@@ -23,7 +23,8 @@ Route::get('/', 'HomeController@index')->name('index');
 //    ]);
 //});
 //Route::get('/abc', function () {
-//    dd();
+//    $user = \App\User::find(1008);
+//    $user->notify(new \App\Notifications\UserCreated($user));
 //});
 
 Auth::routes();
@@ -128,4 +129,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/tool/nickname/list','ToolController@nickname')->name('admin.nickname.list'); // 昵称管理
     Route::get('/tool/nickname/create_nickname/{name}','ToolController@create_nickname')->name('admin.nickname.create'); // 添加违规昵称
     Route::delete('/tool/nickname/del_nickname/{id}','ToolController@del_nickname')->name('admin.nickname.del_nickname'); //删除违规昵称
+
+    Route::get('/tool/game_version/list','ToolController@game_version')->name('admin.game_version.list'); // 游戏版本号管理
+    Route::get('/tool/game_version/create_game_version/{name}','ToolController@create_game_version')->name('admin.game_version.create'); // 添加游戏版本号
+    Route::delete('/tool/game_version/del_game_version/{id}','ToolController@del_game_version')->name('admin.game_version.del'); //删除游戏版本号
 });

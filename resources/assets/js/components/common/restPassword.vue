@@ -94,7 +94,6 @@
                         });
                     } else {
                         this.loading = false;
-                        myDialog('表单验证失败!')
                     }
                 })
             }

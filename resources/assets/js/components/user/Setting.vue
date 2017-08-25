@@ -58,7 +58,7 @@
                 <rest-password></rest-password>
             </Tab-pane>
             <Tab-pane label="邮箱修改" name="3">标签三的内容</Tab-pane>
-            <Tab-pane label="手机号修改" name="4">标签三的内容</Tab-pane>
+            <Tab-pane label="手机修改" name="4">标签三的内容</Tab-pane>
         </Tabs>
 
     </div>
@@ -181,8 +181,6 @@
                                 myDialog(res.data.msg)
                             }
                         })
-                    } else {
-                        myDialog('表单验证失败!');
                     }
                 })
             },

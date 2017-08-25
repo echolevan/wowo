@@ -8,17 +8,17 @@
         <div>
             <Form ref="formItem" :model="formItem" :label-width="100" style="width:800px">
 
-                <Form-item label="闲聊么开关">
+                <Form-item label="闲聊么">
                     <i-Switch v-model="formItem.xlm" size="large">
-                        <span slot="open">是</span>
-                        <span slot="close">否</span>
+                        <span slot="open">启用</span>
+                        <span slot="close">关闭</span>
                     </i-Switch>
                 </Form-item>
 
-                <Form-item label="嘿市开关">
+                <Form-item label="黑市">
                     <i-Switch v-model="formItem.bm" size="large">
-                        <span slot="open">是</span>
-                        <span slot="close">否</span>
+                        <span slot="open">启用</span>
+                        <span slot="close">关闭</span>
                     </i-Switch>
                 </Form-item>
 

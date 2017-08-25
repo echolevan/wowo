@@ -111,11 +111,11 @@ class ToolController extends Controller
     }
 
     public function nickname()
-    {
-        $nickname = Tool::where('name','nickname')->get();
-        return $nickname;
-    }
-    
+{
+    $nickname = Tool::where('name','nickname')->get();
+    return $nickname;
+}
+
     public function create_nickname($name)
     {
         $count = Tool::where('name','nickname')->where('value',$name)->count();
@@ -133,6 +133,37 @@ class ToolController extends Controller
     }
 
     public function del_nickname($id)
+    {
+        $lv = Tool::where('id',$id)->delete();
+        if($lv)
+            return ['sta'=>1 , 'msg'=>'删除成功'];
+        return ['sta'=>0 , 'msg'=>'删除失败'];
+
+    }
+
+    public function game_version()
+    {
+        $nickname = Tool::where('name','game_version')->get();
+        return $nickname;
+    }
+
+    public function create_game_version($name)
+    {
+        $count = Tool::where('name','game_version')->where('value',$name)->count();
+        if($count > 0){
+            return ['sta'=>1 , 'msg'=>'游戏版本号已经存在'];
+        }
+        $nick = Tool::create([
+            'name'=> 'game_version',
+            'value' => $name
+        ]);
+
+        if($nick)
+            return ['sta'=>1 , 'msg'=>'添加成功'];
+        return ['sta'=>0 , 'msg'=>'添加失败'];
+    }
+
+    public function del_game_version($id)
     {
         $lv = Tool::where('id',$id)->delete();
         if($lv)

@@ -9,6 +9,7 @@ use App\Recharge;
 use App\Score;
 use App\Tag;
 use App\Thumb;
+use App\Tool;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -326,7 +327,10 @@ class PlugController extends Controller
                 ->get();
         }
 
-        return $res;
+        $game_version = Tool::where('name','game_version')->get();
+
+
+        return ['res'=>$res , 'game_versions' =>$game_version];
     }
 
     public function plug_all_info_for_admin()
@@ -342,7 +346,10 @@ class PlugController extends Controller
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])->get();
         }
 
-        return $res;
+        $game_version = Tool::where('name','game_version')->get();
+
+        return ['res'=>$res , 'game_versions' =>$game_version];
+
     }
 
     public function plug_all_info_no_login()
@@ -358,7 +365,9 @@ class PlugController extends Controller
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])->get();
         }
 
-        return $res;
+        $game_version = Tool::where('name','game_version')->get();
+
+        return ['res'=>$res , 'game_versions' =>$game_version];
     }
     /**
      * @param Request $request
@@ -560,7 +569,7 @@ class PlugController extends Controller
         if(Cache::has('plug_index_recent_plugs')){
             $recent_plugs = Cache::get('plug_index_recent_plugs');
         }else{
-            $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            $recent_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num','user_id')->with('user')->where([['status', 1], ['is_check', 1]])->latest()->get();
             Cache::put('plug_index_recent_plugs',$recent_plugs,60);
         }
 

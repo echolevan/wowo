@@ -10,7 +10,7 @@ canvas{
     z-index: 999;
     left: 50%;
     right: 50%;
-    margin: 200px 0 0 -200px;
+    margin: 100px 0 0 -200px;
     padding: 40px;
     /*box-shadow: 0 -15px 30px #0d957a;*/
 }
@@ -19,7 +19,7 @@ html {
 }
 
 body {
-    background-color: #2a88bd;
+    /*background-color: #2a88bd;*/
     margin: 0;
     height: 100%;
 }

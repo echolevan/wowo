@@ -144,7 +144,7 @@
                         <router-link :to="{name: 'admin.plug.update' , params:{id: v.id}}">编辑</router-link>
                     </Button>
                     <Button type="ghost" size="small" @click="search_his(v.plug_id)">历史版本</Button>
-                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '提交':'推荐' }}</Button>
+                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
                 </td>
             </tr>
             </tbody>
@@ -226,7 +226,7 @@
             },
             c_rank(id, k){
                 if(this.is_disabled === k){
-                    // 提交
+                    // 确定
                     if(this.list[k].rank === 0){
                         this.$Message.error('请输入大于0小于99的数字')
                         return false

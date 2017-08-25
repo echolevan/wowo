@@ -44,9 +44,10 @@ class UserCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->line('亲爱的'.$this->user->nickname)
                     ->subject('请您激活您的帐号')
-                    ->line('这是一封激活邮件')
-                    ->action('点我激活', url(route('user.check_email',array('token'=>$this->user->token))))
+                    ->line('请激活您的嘿市网帐号')
+                    ->action('点击激活', url(route('user.check_email',array('token'=>$this->user->token))))
                     ->line('Thanks a lot!');
     }
 

@@ -37,7 +37,9 @@
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
-                <Input v-model="formItem.game_version" placeholder="请输入游戏版本号"></Input>
+                <Select v-model="formItem.game_version" style="width:200px" placeholder="请选择游戏版本号">
+                    <Option v-for="item in game_versions" :value="item.value" :key="item.id">{{ item.value }}</Option>
+                </Select>
             </Form-item>
 
             <Form-item label="是否收费" v-show="formItem.type[0] < 3">
@@ -72,9 +74,13 @@
                         type="drag"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         action="/upload_plug_screen_img"
-                        style="display: inline-block;width:58px;">
-                    <div style="width: 58px;height:58px;line-height: 58px;">
-                        <Icon type="camera" size="20"></Icon>
+                        style="display: inline-block;width:150px;">
+                    <div style="width: 150px;height:150px;padding-top:25px">
+                        <i class="ivu-icon ivu-icon-ios-cloud-upload" style="font-size: 52px">
+                        </i>
+                        <p style="font-size:16px">
+                            点击或将文件拖拽到这里上传
+                        </p>
                     </div>
                 </Upload>
             </Form-item>
@@ -85,7 +91,7 @@
 
 
             <Button type="primary" :loading="loading" @click="toLoading('formItem')" class="pull-right">
-                <span v-if="!loading">提交</span>
+                <span v-if="!loading">确定</span>
                 <span v-else>Loading...</span>
             </Button>
             <div style="clear: both"></div>
@@ -157,6 +163,7 @@
                 }, 10);
             };
             return {
+                game_versions:[],
                 plug_tags: [],
                 formItem: {
                     title: '',
@@ -244,8 +251,6 @@
                                 this.$router.push('/admin/plug/list')
                             }
                         })
-                    } else {
-                        this.$Message.error('表单验证失败!');
                     }
                     this.loading = false;
                 })
@@ -269,7 +274,8 @@
                     })
                 }
                 axios.get('/plug_all_info').then(res => {
-                    this.plug_tags = res.data
+                    this.plug_tags = res.data.res
+                    this.game_versions = res.data.game_versions
                 })
                 let quick_content = localStorage.getItem('quick_share_content')
 
@@ -366,10 +372,10 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
     .demo-upload-list {
         display: inline-block;
-        width: 60px;
-        height: 60px;
+        width: 150px;
+        height: 150px;
         text-align: center;
-        line-height: 60px;
+        line-height: 150px;
         border: 1px solid transparent;
         border-radius: 4px;
         overflow: hidden;

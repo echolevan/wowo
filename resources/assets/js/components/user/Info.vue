@@ -47,7 +47,7 @@
                 </span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">手机号</span>
+            <li><span class="title">手机</span>
                 <span class="val" v-if="userInfo.tel === '0'">还没有绑定手机号，点击立即绑定</span>
                 <span class="val" v-else>{{userInfo.tel}}</span>
                 <div style="clear: both"></div>

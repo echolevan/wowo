@@ -4,7 +4,7 @@
                 v-model="modal_edit"
                 :title="model_title">
             <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
-                <Form-item label="名称" prop="title">
+                <Form-item label="标题" prop="title">
                     <Input v-model="formItem.title" placeholder="请输入"></Input>
                 </Form-item>
                 <Form-item label="下载方式" prop="type">
@@ -37,7 +37,7 @@
                         <span slot="close">否</span>
                     </i-Switch>
                 </Form-item>
-                <Form-item label="价格（金币）" v-show="formItem.is_free" prop="gold">
+                <Form-item label="价格(金币)" v-show="formItem.is_free" prop="gold">
                     <Input-number
                             :min="1"
                             v-model="formItem.gold"
@@ -46,7 +46,7 @@
             </Form>
             <div slot="footer">
                 <Button type="primary" class="pull-right" :loading="loading_edit" @click="sub_ok('formItem')" >
-                    <span>提交</span>
+                    <span>确定</span>
                 </Button>
                 <div style="clear: both"></div>
             </div>
@@ -95,8 +95,8 @@
                 },
                 ruleValidate: {
                     title: [
-                        {required: true, message: '插件标题不能为空', trigger: 'blur'},
-                        {max: 60, message: '插件标题最长60', trigger: 'change'}
+                        {required: true, message: '标题不能为空', trigger: 'blur'},
+                        {max: 60, message: '标题最长60', trigger: 'change'}
                     ],
                     type: [
                         {required: true, message: '下载方式不能为空'}
@@ -148,8 +148,6 @@
                         }else{
                             this.$emit('edit_success')
                         }
-                    } else {
-                        this.$Message.error('表单验证失败!')
                     }
                 })
                 this.loading_edit = false

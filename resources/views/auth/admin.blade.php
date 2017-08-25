@@ -52,7 +52,7 @@
             <dd class="val_icon">
                 <div class="checkcode">
                     <input type="text" name="captcha" id="J_codetext" style="width: 50%;color: #fff" placeholder="验证码" maxlength="4" class="login_txtbx">
-                    <img style="width: 45%;height: 45px" class="captcha" src="{{captcha_src()}}" alt="">
+                    <img style="width: 45%;height: 45px;border-radius: 5px;" class="captcha" src="{{captcha_src()}}" alt="">
                 </div>
             </dd>
             @if ($errors->has('captcha'))
@@ -88,6 +88,8 @@
     animate();
     function init() {
         container = document.createElement( 'div' );
+        container.style.position = 'relative';
+        container.style.top = '100px';
         document.body.appendChild( container );
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
         camera.position.z = 1000;
@@ -157,8 +159,10 @@
     }
     function render() {
         camera.position.x += ( mouseX - camera.position.x ) * .05;
-        camera.position.y += ( - mouseY - camera.position.y ) * .05;
+//        camera.position.y += ( - mouseY - camera.position.y ) * .05;
         camera.lookAt( scene.position );
+        camera.position.y = 364;
+
         var i = 0;
         for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
             for ( var iy = 0; iy < AMOUNTY; iy ++ ) {

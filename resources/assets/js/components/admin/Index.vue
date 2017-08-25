@@ -63,6 +63,9 @@
                 <router-link to="/admin/nickname/setting/">
                     <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
                 </router-link>
+                <router-link to="/admin/game_version/setting/">
+                    <Menu-item name="admin.game_version.setting">游戏版本管理</Menu-item>
+                </router-link>
             </Submenu>
             <!--<Submenu name="3">-->
                 <!--<template slot="title">-->

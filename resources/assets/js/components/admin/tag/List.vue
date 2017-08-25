@@ -115,7 +115,7 @@
 
             <div slot="footer">
                 <Button type="primary" :loading="loading_edit" @click="ok('formItem')" class="pull-right">
-                    <span>提交</span>
+                    <span>确定</span>
                 </Button>
                 <div style="clear: both"></div>
             </div>
@@ -304,8 +304,6 @@
                                 this.list[this.edit_k] = res.data.info
                             }
                         })
-                    } else {
-                        this.$Message.error('表单验证失败!');
                     }
                 })
                 this.loading_edit = false

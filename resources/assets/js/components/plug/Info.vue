@@ -67,7 +67,7 @@
                                 <table class="table">
                                     <thead>
                                     <tr class="table_tr" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                        <th>版本链接</th>
+                                        <th>历史版本</th>
                                         <th>版本号</th>
                                         <th>游戏版本</th>
                                         <th>更新日期</th>

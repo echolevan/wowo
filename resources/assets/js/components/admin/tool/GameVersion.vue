@@ -3,9 +3,9 @@
         <Form :model="formS" inline>
             <div class="pull-right">
                 <Form-item>
-                    <Input v-model.trim="formS.name" placeholder="禁用的昵称" @keyup.13.native="create_nickname"></Input>
+                    <Input v-model.trim="formS.name" placeholder="游戏版本号"  @keyup.13.native="create_nickname"></Input>
                 </Form-item>
-                <Button type="primary" class="pull-right" @click="create_nickname">确定</Button>
+                <Button type="primary" class="pull-right"  @click="create_nickname">确定</Button>
             </div>
         </Form>
         <div v-for="(v, k) in list" style="display: inline-block">
@@ -29,16 +29,16 @@
         },
         methods: {
             _init() {
-                axios.get('/admin/tool/nickname/list').then(res => {
+                axios.get('/admin/tool/game_version/list').then(res => {
                     this.list = res.data
                 })
             },
             create_nickname() {
                 if(this.formS.name === ''){
-                    this.$Message.error('请先填写名称')
+                    this.$Message.error('请先填写游戏版本号')
                     return false
                 }
-                axios.get(`/admin/tool/nickname/create_nickname/${this.formS.name}`).then(res => {
+                axios.get(`/admin/tool/game_version/create_game_version/${this.formS.name}`).then(res => {
                     if(res.data.sta === 1){
                         this._init()
                         this.formS.name = ''
@@ -49,7 +49,7 @@
                 })
             },
             handleClose(id) {
-                axios.delete(`/admin/tool/nickname/del_nickname/${id}`).then(res => {
+                axios.delete(`/admin/tool/game_version/del_game_version/${id}`).then(res => {
                     if(res.data.sta === 1){
                         this._init()
                         this.$Message.success(res.data.msg)

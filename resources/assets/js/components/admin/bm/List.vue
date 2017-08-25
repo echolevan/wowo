@@ -46,7 +46,7 @@
             <Button type="primary" :loading="loading_s" @click="toS">
                 <span>搜索</span>
             </Button>
-            <Button type="primary" class="pull-right" @click="create_bm">添加插件</Button>
+            <Button type="primary" class="pull-right" @click="create_bm">添加资源</Button>
         </Form>
 
         <table class="table table-bordered my_admin_table">
@@ -86,7 +86,7 @@
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
-                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '提交':'推荐' }}</Button>
+                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
                 </td>
             </tr>
             </tbody>
@@ -154,7 +154,7 @@
             },
             c_rank(id, k){
                 if(this.is_disabled === k){
-                    // 提交
+                    // 确定
                     if(this.list[k].rank === 0){
                         this.$Message.error('请输入大于0小于99的数字')
                         return false
@@ -207,7 +207,7 @@
                 this.$refs.bmCreate.formItem.bm_url = ''
 
                 this.$refs.bmCreate.clear_from('formItem')
-                this.$refs.bmCreate.model_title = '新增插件'
+                this.$refs.bmCreate.model_title = '新增资源'
                 this.$refs.bmCreate.modal_edit = true
             },
             success() {

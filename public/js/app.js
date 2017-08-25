@@ -1931,6 +1931,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2082,7 +2085,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false
             },
             ruleValidate: {
-                title: [{ required: true, message: '插件标题不能为空', trigger: 'blur' }, { max: 60, message: '插件标题最长60', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 60, message: '标题最长60', trigger: 'change' }],
                 type: [{ required: true, message: '下载方式不能为空' }],
                 zy_type: [{ required: true, message: '资源分类不能为空' }],
                 url: [{ required: true, validator: validateUrl }],
@@ -2127,8 +2130,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else {
                         _this2.$emit('edit_success');
                     }
-                } else {
-                    _this2.$Message.error('表单验证失败!');
                 }
             });
             this.loading_edit = false;
@@ -2312,7 +2313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.is_disabled === k) {
-                // 提交
+                // 确定
                 if (this.list[k].rank === 0) {
                     this.$Message.error('请输入大于0小于99的数字');
                     return false;
@@ -2367,7 +2368,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.bmCreate.formItem.bm_url = '';
 
             this.$refs.bmCreate.clear_from('formItem');
-            this.$refs.bmCreate.model_title = '新增插件';
+            this.$refs.bmCreate.model_title = '新增资源';
             this.$refs.bmCreate.modal_edit = true;
         },
         success: function success() {
@@ -2683,7 +2684,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.is_disabled === k) {
-                // 提交
+                // 确定
                 if (this.list[k].rank === 0) {
                     this.$Message.error('请输入大于0小于99的数字');
                     return false;
@@ -2867,6 +2868,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2926,6 +2935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 10);
         };
         return {
+            game_versions: [],
             plug_tags: [],
             formItem: {
                 title: '',
@@ -2987,8 +2997,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             _this2.$router.push('/admin/plug/list');
                         }
                     });
-                } else {
-                    _this2.$Message.error('表单验证失败!');
                 }
                 _this2.loading = false;
             });
@@ -3000,6 +3008,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
+        },
+        handleBeforeUpload: function handleBeforeUpload() {
+            this.$Message.info('正在上传');
+            this.$Loading.start();
         },
         _init: function _init() {
             var _this3 = this;
@@ -3022,7 +3034,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 history.go(-1);
             });
             axios.get('/plug_all_info').then(function (res) {
-                _this3.plug_tags = res.data;
+                _this3.plug_tags = res.data.res;
+                _this3.game_versions = res.data.game_versions;
             });
         },
         del_plug: function del_plug() {
@@ -3208,6 +3221,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3268,6 +3287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 10);
         };
         return {
+            game_versions: [],
             plug_tags: [],
             formItem: {
                 title: '',
@@ -3338,8 +3358,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             _this3.$router.push('/admin/plug/list');
                         }
                     });
-                } else {
-                    _this3.$Message.error('表单验证失败!');
                 }
                 _this3.loading = false;
             });
@@ -3365,7 +3383,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
             axios.get('/plug_all_info').then(function (res) {
-                _this4.plug_tags = res.data;
+                _this4.plug_tags = res.data.res;
+                _this4.game_versions = res.data.game_versions;
             });
             var quick_content = localStorage.getItem('quick_share_content');
 
@@ -3588,8 +3607,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this2.formItem.thumb = '';
                         _this2.formItem.is_for_user = true;
                     });
-                } else {
-                    _this2.$Message.error('表单验证失败!');
                 }
                 _this2.loading = false;
             });
@@ -3918,8 +3935,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             _this6.list[_this6.edit_k] = res.data.info;
                         }
                     });
-                } else {
-                    _this6.$Message.error('表单验证失败!');
                 }
             });
             this.loading_edit = false;
@@ -3927,6 +3942,83 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     components: {
         'img-view': __WEBPACK_IMPORTED_MODULE_0__common_imgView_vue___default.a
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            list: [],
+            formS: {
+                name: ''
+            }
+        };
+    },
+    mounted: function mounted() {
+        this._init();
+    },
+
+    methods: {
+        _init: function _init() {
+            var _this = this;
+
+            axios.get('/admin/tool/game_version/list').then(function (res) {
+                _this.list = res.data;
+            });
+        },
+        create_nickname: function create_nickname() {
+            var _this2 = this;
+
+            if (this.formS.name === '') {
+                this.$Message.error('请先填写游戏版本号');
+                return false;
+            }
+            axios.get('/admin/tool/game_version/create_game_version/' + this.formS.name).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this2._init();
+                    _this2.formS.name = '';
+                    _this2.$Message.success(res.data.msg);
+                } else {
+                    _this2.$Message.error(res.data.msg);
+                }
+            });
+        },
+        handleClose: function handleClose(id) {
+            var _this3 = this;
+
+            axios.delete('/admin/tool/game_version/del_game_version/' + id).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this3._init();
+                    _this3.$Message.success(res.data.msg);
+                } else {
+                    _this3.$Message.error(res.data.msg);
+                }
+            });
+        }
     }
 });
 
@@ -4872,8 +4964,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs[name].validate(function (valid) {
                 if (valid) {
                     _this2.$emit('subEdit');
-                } else {
-                    _this2.$Message.error('表单验证失败!');
                 }
                 _this2.modal_loading = false;
             });
@@ -5102,7 +5192,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 } else {
                     _this2.loading = false;
-                    myDialog('表单验证失败!');
                 }
             });
         }
@@ -5423,13 +5512,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.content = this.content.replace(/[^\w\.\/]/ig, '');
         },
         quick_share: function quick_share() {
-            if (this.content === '' || this.type.length === 0) {
-                myDialog('请先填写字符串并选择分类');
-            } else {
-                localStorage.setItem('quick_share_content', this.content);
-                localStorage.setItem('quick_share_type', this.type);
-                this.$router.push('/upload');
+            if (!this.userInfo) {
+                myDialog('请先登录');
+                return false;
             }
+            if (this.content === '') {
+                myDialog('请先填写字符串(不能包含中文)');
+                return false;
+            }
+
+            if (this.type.length === 0) {
+                myDialog('请选择分类');
+                return false;
+            }
+            localStorage.setItem('quick_share_content', this.content);
+            localStorage.setItem('quick_share_type', this.type);
+            this.$router.push('/upload');
+        },
+        quick_share_plug: function quick_share_plug(k) {
+            this.$router.push('/upload');
         },
         on_sel: function on_sel(v) {
             this.type = v;
@@ -6298,6 +6399,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6359,6 +6466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         return {
             plug_tags: [],
+            game_versions: [],
             formItem: {
                 title: '',
                 type: [],
@@ -6432,8 +6540,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             }
                         }
                     });
-                } else {
-                    myDialog('表单验证失败!');
                 }
                 _this3.loading = false;
             });
@@ -6460,7 +6566,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
             axios.get('plug_all_info').then(function (res) {
-                _this4.plug_tags = res.data;
+                _this4.plug_tags = res.data.res;
+                _this4.game_versions = res.data.game_versions;
             });
             var quick_content = localStorage.getItem('quick_share_content');
 
@@ -6832,6 +6939,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6892,6 +7007,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         return {
             plug_tags: [],
+            game_versions: [],
             formItem: {
                 title: '',
                 type: [],
@@ -6956,8 +7072,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             }
                         }
                     });
-                } else {
-                    myDialog('表单验证失败!');
                 }
                 _this2.loading = false;
             });
@@ -6991,7 +7105,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 history.go(-1);
             });
             axios.get('plug_all_info').then(function (res) {
-                _this3.plug_tags = res.data;
+                _this3.plug_tags = res.data.res;
+                _this3.game_versions = res.data.game_versions;
             });
         },
         del_plug: function del_plug() {
@@ -7018,7 +7133,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(err);
             });
         },
-
+        handleBeforeUpload: function handleBeforeUpload() {
+            this.$Message.info('正在上传');
+            this.$Loading.start();
+        },
         handleView: function handleView(name) {
             this.imgName = name;
             this.visible = true;
@@ -7971,8 +8089,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             myDialog(res.data.msg);
                         }
                     });
-                } else {
-                    myDialog('表单验证失败!');
                 }
             });
         }
@@ -10988,7 +11104,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.div_block[data-v-00364a66] {\n  margin-left: 15px;\n  margin-bottom: 15px;\n  background-color: #fff;\n}\n.div_block.zf_div[data-v-00364a66] {\n  text-align: center;\n}\n.div_block.zf_div img[data-v-00364a66] {\n  margin: 0 auto;\n}\n.div_block .title[data-v-00364a66] {\n  background-color: #f5f5f5;\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  font-size: 14px;\n}\n.div_block .title.tool_zz[data-v-00364a66] {\n  background: #266ec1;\n  color: #fff;\n}\n.div_block .child[data-v-00364a66] {\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  border-top: none;\n}\n.div_block .child ul li[data-v-00364a66] {\n  padding: 5px 0;\n}\n.div_block .tool_title .title_hover[data-v-00364a66] {\n  border-bottom: 1px solid #266ec1;\n  padding-bottom: 8px;\n}\n", ""]);
+exports.push([module.i, "\n.div_block[data-v-00364a66] {\n  margin-left: 15px;\n  margin-bottom: 15px;\n  background-color: #fff;\n}\n.div_block.zf_div[data-v-00364a66] {\n  text-align: center;\n}\n.div_block.zf_div img[data-v-00364a66] {\n  margin: 0 auto;\n}\n.div_block .title[data-v-00364a66] {\n  background-color: #f5f5f5;\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  font-size: 14px;\n}\n.div_block .title.tool_zz[data-v-00364a66] {\n  background: #266ec1;\n  color: #fff;\n}\n.div_block .child[data-v-00364a66] {\n  padding: 5px 10px;\n  width: 100%;\n  border: 1px solid #ddd;\n  border-top: none;\n}\n.div_block .child ul li[data-v-00364a66] {\n  padding: 5px 0;\n}\n.div_block .tool_title .title_hover[data-v-00364a66] {\n  border-bottom: 1px solid #266ec1;\n  padding-bottom: 8px;\n}\n.jz_div[data-v-00364a66] {\n  width: 100%;\n  height: 100%;\n  background: rgba(255,255,255,0.6);\n  position: fixed;\n  left: 0;\n  top: 0;\n  z-index: 9999;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.jz_div .jz_img[data-v-00364a66] {\n  position: fixed;\n  z-index: 99999;\n}\n", ""]);
 
 // exports
 
@@ -11003,7 +11119,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.demo-upload-list[data-v-00f2ce36] {\n  display: inline-block;\n  width: 60px;\n  height: 60px;\n  text-align: center;\n  line-height: 60px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-00f2ce36] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-00f2ce36] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-00f2ce36] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-00f2ce36] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+exports.push([module.i, "\n.demo-upload-list[data-v-00f2ce36] {\n  display: inline-block;\n  width: 150px;\n  height: 150px;\n  text-align: center;\n  line-height: 150px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-00f2ce36] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-00f2ce36] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-00f2ce36] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-00f2ce36] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
 
 // exports
 
@@ -11319,7 +11435,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.demo-upload-list[data-v-71eff496] {\n  display: inline-block;\n  width: 60px;\n  height: 60px;\n  text-align: center;\n  line-height: 60px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-71eff496] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-71eff496] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-71eff496] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-71eff496] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+exports.push([module.i, "\n.demo-upload-list[data-v-71eff496] {\n  display: inline-block;\n  width: 150px;\n  height: 150px;\n  text-align: center;\n  line-height: 150px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-71eff496] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-71eff496] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-71eff496] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-71eff496] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
 
 // exports
 
@@ -11334,7 +11450,22 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.demo-upload-list[data-v-75166dce] {\n  display: inline-block;\n  width: 60px;\n  height: 60px;\n  text-align: center;\n  line-height: 60px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-75166dce] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-75166dce] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-75166dce] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-75166dce] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+exports.push([module.i, "\n.demo-upload-list[data-v-75166dce] {\n  display: inline-block;\n  width: 150px;\n  height: 150px;\n  text-align: center;\n  line-height: 150px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-75166dce] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-75166dce] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-75166dce] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-75166dce] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -11364,7 +11495,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.demo-upload-list[data-v-7aeb238e] {\n  display: inline-block;\n  width: 60px;\n  height: 60px;\n  text-align: center;\n  line-height: 60px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-7aeb238e] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-7aeb238e] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-7aeb238e] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-7aeb238e] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
+exports.push([module.i, "\n.demo-upload-list[data-v-7aeb238e] {\n  display: inline-block;\n  width: 150px;\n  height: 150px;\n  text-align: center;\n  line-height: 150px;\n  border: 1px solid transparent;\n  border-radius: 4px;\n  overflow: hidden;\n  background: #fff;\n  position: relative;\n  box-shadow: 0 1px 1px rgba(0,0,0,0.2);\n  margin-right: 4px;\n}\n.demo-upload-list img[data-v-7aeb238e] {\n  width: 100%;\n  height: 100%;\n}\n.demo-upload-list-cover[data-v-7aeb238e] {\n  display: none;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background: rgba(0,0,0,0.6);\n}\n.demo-upload-list:hover .demo-upload-list-cover[data-v-7aeb238e] {\n  display: block;\n}\n.demo-upload-list-cover i[data-v-7aeb238e] {\n  color: #fff;\n  font-size: 20px;\n  cursor: pointer;\n  margin: 0 2px;\n}\n", ""]);
 
 // exports
 
@@ -71214,7 +71345,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "button_one_text"
-  }, [_vm._v("快速分享")])])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("快速分享")])]), _vm._v(" "), _c('Button', {
+    staticStyle: {
+      "margin": "15px 0 0 0",
+      "float": "left",
+      "width": "50%"
+    },
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.quick_share_plug(1)
+      }
+    }
+  }, [_vm._v("整合界面分享")]), _vm._v(" "), _c('Button', {
+    staticStyle: {
+      "margin": "15px 0 0 0",
+      "float": "left",
+      "width": "50%"
+    },
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.quick_share_plug(2)
+      }
+    }
+  }, [_vm._v("原创界面分享")])], 1)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -71253,7 +71412,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(v.title.substring(0, 60)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
+    }, [_vm._v(_vm._s(v.user.nickname) + " - " + _vm._s(v.download_num) + "次下载 - "), _c('span', {
+      staticStyle: {
+        "color": "#d13030"
+      }
+    }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
@@ -71582,40 +71745,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "clear": "both"
     }
-  })], 1), _vm._v(" "), _c('Modal', {
-    attrs: {
-      "width": "900"
-    },
-    model: {
+  })], 1), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
       value: (_vm.modal_zj),
-      callback: function($$v) {
-        _vm.modal_zj = $$v
-      },
       expression: "modal_zj"
-    }
-  }, [_c('p', {
-    slot: "header"
-  }, [_c('span', [_vm._v("捐赠")])]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "text-align": "center"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": "/images/pay/juanzeng.jpg",
-      "alt": ""
-    }
-  })]), _vm._v(" "), _c('div', {
-    slot: "footer"
-  }, [_c('Button', {
-    attrs: {
-      "type": "primary"
-    },
+    }],
+    staticClass: "jz_div",
     on: {
       "click": function($event) {
         _vm.modal_zj = false
       }
     }
-  }, [_vm._v("关闭")])], 1)])], 1)
+  }, [_c('img', {
+    staticClass: "jz_img",
+    attrs: {
+      "src": "/images/pay/juanzeng.jpg",
+      "alt": ""
+    }
+  })])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -71764,9 +71913,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "游戏版本号",
       "prop": "game_version"
     }
-  }, [_c('Input', {
+  }, [_c('Select', {
+    staticStyle: {
+      "width": "200px"
+    },
     attrs: {
-      "placeholder": "请输入"
+      "placeholder": "请选择游戏版本号"
     },
     model: {
       value: (_vm.formItem.game_version),
@@ -71775,7 +71927,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.game_version"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }, _vm._l((_vm.game_versions), function(item) {
+    return _c('Option', {
+      key: item.id,
+      attrs: {
+        "value": item.value
+      }
+    }, [_vm._v(_vm._s(item.value))])
+  }))], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -71866,10 +72025,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "upload",
     staticStyle: {
       "display": "inline-block",
-      "width": "58px"
+      "width": "150px"
     },
     attrs: {
       "show-upload-list": false,
+      "before-upload": _vm.handleBeforeUpload,
       "on-success": _vm.handleSuccess,
       "multiple": "",
       "type": "drag",
@@ -71880,16 +72040,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "width": "58px",
-      "height": "58px",
-      "line-height": "58px"
+      "width": "150px",
+      "height": "150px",
+      "padding-top": "25px"
     }
-  }, [_c('Icon', {
-    attrs: {
-      "type": "camera",
-      "size": "20"
+  }, [_c('i', {
+    staticClass: "ivu-icon ivu-icon-ios-cloud-upload",
+    staticStyle: {
+      "font-size": "52px"
     }
-  })], 1)])], 2), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v("\n                        点击或将文件拖拽到这里上传\n                    ")])])])], 2), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "功能简介",
       "prop": "info"
@@ -72092,7 +72256,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_nav_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_c('th', [_vm._v("版本链接")]), _vm._v(" "), _c('th', [_vm._v("版本号")]), _vm._v(" "), _c('th', [_vm._v("游戏版本")]), _vm._v(" "), _c('th', [_vm._v("更新日期")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.plug.historys), function(v) {
+  }, [_c('th', [_vm._v("历史版本")]), _vm._v(" "), _c('th', [_vm._v("版本号")]), _vm._v(" "), _c('th', [_vm._v("游戏版本")]), _vm._v(" "), _c('th', [_vm._v("更新日期")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.plug.historys), function(v) {
     return _c('tr', [_c('td', [_c('router-link', {
       attrs: {
         "to": {
@@ -72716,7 +72880,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.ok('formItem')
       }
     }
-  }, [_c('span', [_vm._v("提交")])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("确定")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -73054,7 +73218,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
-  }, [_vm._v("手机号")]), _vm._v(" "), (_vm.userInfo.tel === '0') ? _c('span', {
+  }, [_vm._v("手机")]), _vm._v(" "), (_vm.userInfo.tel === '0') ? _c('span', {
     staticClass: "val"
   }, [_vm._v("还没有绑定手机号，点击立即绑定")]) : _c('span', {
     staticClass: "val"
@@ -73367,7 +73531,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "admin.nickname.setting"
     }
-  }, [_vm._v("昵称管理")])], 1)], 2)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("昵称管理")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/game_version/setting/"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.game_version.setting"
+    }
+  }, [_vm._v("游戏版本管理")])], 1)], 2)], 1), _vm._v(" "), _c('div', {
     staticClass: "main content"
   }, [_c('div', {
     staticClass: "head_title"
@@ -73462,7 +73634,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.userInfo.nickname))])], 1), _vm._v(" "), _c('span', [_vm._v("|")]), _vm._v(" "), _c('span', {
     staticStyle: {
-      "margin-right": "5px"
+      "margin-right": "15px"
     }
   }, [_c('a', {
     staticClass: "my_a_style",
@@ -73729,7 +73901,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add_to('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "查看图片"
     },
@@ -74183,7 +74355,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.create_bm
     }
-  }, [_vm._v("添加插件")])], 1), _vm._v(" "), _c('table', {
+  }, [_vm._v("添加资源")])], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
   }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', [_vm._v(_vm._s(_vm.configBmDownloadType[v.type]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configBmType[v.zy_type]))]), _vm._v(" "), _c('td', [_c('Tooltip', {
@@ -74254,7 +74426,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.c_rank(v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '提交' : '推荐'))])], 1)])
+    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))])], 1)])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -74731,7 +74903,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', {
     attrs: {
-      "label": "闲聊么开关"
+      "label": "闲聊么"
     }
   }, [_c('i-Switch', {
     attrs: {
@@ -74746,11 +74918,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     slot: "open"
-  }, [_vm._v("是")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("启用")]), _vm._v(" "), _c('span', {
     slot: "close"
-  }, [_vm._v("否")])])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("关闭")])])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "嘿市开关"
+      "label": "黑市"
     }
   }, [_c('i-Switch', {
     attrs: {
@@ -74765,9 +74937,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     slot: "open"
-  }, [_vm._v("是")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("启用")]), _vm._v(" "), _c('span', {
     slot: "close"
-  }, [_vm._v("否")])])], 1), _vm._v(" "), _c('Button', {
+  }, [_vm._v("关闭")])])], 1), _vm._v(" "), _c('Button', {
     staticClass: "pull-right",
     attrs: {
       "type": "primary",
@@ -75095,7 +75267,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', {
     attrs: {
-      "label": "名称",
+      "label": "标题",
       "prop": "title"
     }
   }, [_c('Input', {
@@ -75229,7 +75401,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格（金币）",
+      "label": "价格(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -75259,7 +75431,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.sub_ok('formItem')
       }
     }
-  }, [_c('span', [_vm._v("提交")])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("确定")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -75518,9 +75690,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "游戏版本号",
       "prop": "game_version"
     }
-  }, [_c('Input', {
+  }, [_c('Select', {
+    staticStyle: {
+      "width": "200px"
+    },
     attrs: {
-      "placeholder": "请输入"
+      "placeholder": "请选择游戏版本号"
     },
     model: {
       value: (_vm.formItem.game_version),
@@ -75529,7 +75704,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.game_version"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }, _vm._l((_vm.game_versions), function(item) {
+    return _c('Option', {
+      key: item.id,
+      attrs: {
+        "value": item.value
+      }
+    }, [_vm._v(_vm._s(item.value))])
+  }))], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -75620,10 +75802,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "upload",
     staticStyle: {
       "display": "inline-block",
-      "width": "58px"
+      "width": "150px"
     },
     attrs: {
       "show-upload-list": false,
+      "before-upload": _vm.handleBeforeUpload,
       "on-success": _vm.handleSuccess,
       "multiple": "",
       "type": "drag",
@@ -75634,16 +75817,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "width": "58px",
-      "height": "58px",
-      "line-height": "58px"
+      "width": "150px",
+      "height": "150px",
+      "padding-top": "25px"
     }
-  }, [_c('Icon', {
-    attrs: {
-      "type": "camera",
-      "size": "20"
+  }, [_c('i', {
+    staticClass: "ivu-icon ivu-icon-ios-cloud-upload",
+    staticStyle: {
+      "font-size": "52px"
     }
-  })], 1)])], 2), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v("\n                        点击或将文件拖拽到这里上传\n                    ")])])])], 2), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "功能简介",
       "prop": "info"
@@ -75673,7 +75860,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -75844,9 +76031,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "游戏版本号",
       "prop": "game_version"
     }
-  }, [_c('Input', {
+  }, [_c('Select', {
+    staticStyle: {
+      "width": "200px"
+    },
     attrs: {
-      "placeholder": "请输入游戏版本号"
+      "placeholder": "请选择游戏版本号"
     },
     model: {
       value: (_vm.formItem.game_version),
@@ -75855,7 +76045,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.game_version"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }, _vm._l((_vm.game_versions), function(item) {
+    return _c('Option', {
+      key: item.id,
+      attrs: {
+        "value": item.value
+      }
+    }, [_vm._v(_vm._s(item.value))])
+  }))], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -75945,7 +76142,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "upload",
     staticStyle: {
       "display": "inline-block",
-      "width": "58px"
+      "width": "150px"
     },
     attrs: {
       "show-upload-list": false,
@@ -75960,16 +76157,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "width": "58px",
-      "height": "58px",
-      "line-height": "58px"
+      "width": "150px",
+      "height": "150px",
+      "padding-top": "25px"
     }
-  }, [_c('Icon', {
-    attrs: {
-      "type": "camera",
-      "size": "20"
+  }, [_c('i', {
+    staticClass: "ivu-icon ivu-icon-ios-cloud-upload",
+    staticStyle: {
+      "font-size": "52px"
     }
-  })], 1)])], 2), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v("\n                        点击或将文件拖拽到这里上传\n                    ")])])])], 2), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "功能简介",
       "prop": "info"
@@ -75999,7 +76200,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -76028,6 +76229,69 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-75166dce", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-78d6af93\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Form', {
+    attrs: {
+      "model": _vm.formS,
+      "inline": ""
+    }
+  }, [_c('div', {
+    staticClass: "pull-right"
+  }, [_c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "游戏版本号"
+    },
+    nativeOn: {
+      "keyup": function($event) {
+        if (!('button' in $event) && $event.keyCode !== 13) { return null; }
+        _vm.create_nickname($event)
+      }
+    },
+    model: {
+      value: (_vm.formS.name),
+      callback: function($$v) {
+        _vm.formS.name = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.name"
+    }
+  })], 1), _vm._v(" "), _c('Button', {
+    staticClass: "pull-right",
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.create_nickname
+    }
+  }, [_vm._v("确定")])], 1)]), _vm._v(" "), _vm._l((_vm.list), function(v, k) {
+    return _c('div', {
+      staticStyle: {
+        "display": "inline-block"
+      }
+    }, [_c('Tag', {
+      attrs: {
+        "closable": ""
+      },
+      on: {
+        "on-close": function($event) {
+          _vm.handleClose(v.id)
+        }
+      }
+    }, [_vm._v(_vm._s(v.value))])], 1)
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-78d6af93", module.exports)
   }
 }
 
@@ -76188,9 +76452,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "游戏版本号",
       "prop": "game_version"
     }
-  }, [_c('Input', {
+  }, [_c('Select', {
+    staticStyle: {
+      "width": "200px"
+    },
     attrs: {
-      "placeholder": "请输入游戏版本号"
+      "placeholder": "请选择游戏版本号"
     },
     model: {
       value: (_vm.formItem.game_version),
@@ -76199,7 +76466,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.game_version"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }, _vm._l((_vm.game_versions), function(item) {
+    return _c('Option', {
+      key: item.id,
+      attrs: {
+        "value": item.value
+      }
+    }, [_vm._v(_vm._s(item.value))])
+  }))], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -76289,7 +76563,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "upload",
     staticStyle: {
       "display": "inline-block",
-      "width": "58px"
+      "width": "150px"
     },
     attrs: {
       "show-upload-list": false,
@@ -76304,16 +76578,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "width": "58px",
-      "height": "58px",
-      "line-height": "58px"
+      "width": "150px",
+      "height": "150px",
+      "padding-top": "25px"
     }
-  }, [_c('Icon', {
-    attrs: {
-      "type": "camera",
-      "size": "20"
+  }, [_c('i', {
+    staticClass: "ivu-icon ivu-icon-ios-cloud-upload",
+    staticStyle: {
+      "font-size": "52px"
     }
-  })], 1)])], 2), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v("\n                        点击或将文件拖拽到这里上传\n                    ")])])])], 2), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "功能简介",
       "prop": "info"
@@ -76415,7 +76693,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "手机号",
+      "label": "手机",
       "prop": "tel"
     }
   }, [_c('Input', {
@@ -76563,7 +76841,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.edit_ok('formItem')
       }
     }
-  }, [_c('span', [_vm._v("提交")])])], 1)], 1), _vm._v(" "), _c('Modal', {
+  }, [_c('span', [_vm._v("确定")])])], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "查看图片"
     },
@@ -76836,7 +77114,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "7%"
     }
-  }, [_vm._v("手机号码")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("手机")]), _vm._v(" "), _c('th', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -77450,7 +77728,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.c_rank(v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '提交' : '推荐'))])], 1)])
+    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))])], 1)])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -77504,6 +77782,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Form-item', [_c('Input', {
     attrs: {
       "placeholder": "禁用的昵称"
+    },
+    nativeOn: {
+      "keyup": function($event) {
+        if (!('button' in $event) && $event.keyCode !== 13) { return null; }
+        _vm.create_nickname($event)
+      }
     },
     model: {
       value: (_vm.formS.name),
@@ -77910,7 +78194,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("标签三的内容")]), _vm._v(" "), _c('Tab-pane', {
     attrs: {
-      "label": "手机号修改",
+      "label": "手机修改",
       "name": "4"
     }
   }, [_vm._v("标签三的内容")])], 1)], 1)
@@ -78315,7 +78599,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.ok('formItem')
       }
     }
-  }, [_c('span', [_vm._v("提交")])]), _vm._v(" "), _c('div', {
+  }, [_c('span', [_vm._v("确定")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -81728,6 +82012,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-75166dce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Upload.vue", function() {
      var newContent = require("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-75166dce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Upload.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("674cad3a", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./GameVersion.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./GameVersion.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -93272,7 +93583,7 @@ module.exports = function(module) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = my_dialog;
 function my_dialog(msg) {
     console.log(1);
-    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated bounce">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog">\u5173\u95ED</button>\n                    </div>\n                </div>\n            </div>';
+    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated fadeIn">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog">\u786E\u8BA4</button>\n                    </div>\n                </div>\n            </div>';
 
     $('#app').append(html);
     $(".dialog").addClass('dialog--open');
@@ -94167,6 +94478,51 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-f6739d92", Component.options)
   } else {
     hotAPI.reload("data-v-f6739d92", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/admin/tool/GameVersion.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78d6af93\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-78d6af93\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/tool/GameVersion.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-78d6af93",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\admin\\tool\\GameVersion.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] GameVersion.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-78d6af93", Component.options)
+  } else {
+    hotAPI.reload("data-v-78d6af93", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -95381,6 +95737,9 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue__ = __webpack_require__("./resources/assets/js/components/admin/tool/Nickname.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue__ = __webpack_require__("./resources/assets/js/components/admin/tool/GameVersion.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue__);
+
 
 
 
@@ -95413,7 +95772,7 @@ module.exports = Component.exports
 /* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
 
 //admin
-{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }]);
+{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }]);
 
 /***/ }),
 

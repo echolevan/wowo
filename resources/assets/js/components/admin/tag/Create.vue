@@ -45,7 +45,7 @@
             </Form-item>
 
             <Button type="primary" :loading="loading" @click="add_to('formItem')" class="pull-right">
-                <span v-if="!loading">提交</span>
+                <span v-if="!loading">确定</span>
                 <span v-else>Loading...</span>
             </Button>
         </Form>
@@ -122,8 +122,6 @@
                             this.formItem.thumb = ''
                             this.formItem.is_for_user = true
                         })
-                    } else {
-                        this.$Message.error('表单验证失败!');
                     }
                     this.loading = false;
                 })

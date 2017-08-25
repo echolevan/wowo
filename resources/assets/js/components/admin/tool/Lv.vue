@@ -80,7 +80,7 @@
 
             <div slot="footer">
                 <Button type="primary" :loading="loading_edit" @click="ok('formItem')" class="pull-right">
-                    <span>提交</span>
+                    <span>确定</span>
                 </Button>
                 <div style="clear: both"></div>
             </div>
