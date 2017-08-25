@@ -327,7 +327,7 @@
             },
             _init() {
                 axios.get('plug_all_info_no_login').then(res => {
-                    this.plug_tags = res.data
+                    this.plug_tags = res.data.res
                 })
                 this.get_plugs()
             },

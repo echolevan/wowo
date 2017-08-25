@@ -5539,7 +5539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.get('plug_all_info_no_login').then(function (res) {
-                _this.plug_tags = res.data;
+                _this.plug_tags = res.data.res;
             });
             this.get_plugs();
         },
