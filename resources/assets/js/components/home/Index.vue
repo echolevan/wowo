@@ -45,12 +45,12 @@
                         <ul>
                             <li v-for="v in recent_plugs">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 60)}}</strong>
-                                    <span class="pull-right">{{v.user.nickname}} - {{v.download_num}}次下载 - <span style="color:#d13030">{{v.created_at}}</span></span>
+                                    <span class="pull-right">{{v.user.nickname}} - {{v.download_num}}次下载 - <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                                 </router-link>
                             </li>
                         </ul>
@@ -128,10 +128,10 @@
                         <ul>
                             <li v-for="v in was">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
                                     <span class="pull-right">{{v.created_at}}</span>
                                 </router-link>
@@ -153,10 +153,10 @@
                         <ul>
                             <li v-for="v in twms">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
                                     <span class="pull-right">{{v.created_at}}</span>
                                 </router-link>
@@ -175,10 +175,10 @@
                         <ul>
                             <li v-for="v in download_plugs">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
@@ -201,10 +201,10 @@
                         <ul>
                             <li v-for="v in plugs">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
                                     <span class="pull-right">{{v.created_at}}</span>
                                 </router-link>
@@ -236,10 +236,10 @@
                         <ul>
                             <li v-for="v in download_plugs_this_mouth">
                                 <router-link :title="v.title"
-                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style"
+                                    <strong class="my_a_style normal_font_hover"
+                                            :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
@@ -278,7 +278,8 @@
                 content: '',
                 plug_tags: [],
                 type: [],
-                is_title_hover: 1
+                is_title_hover: 1,
+                todd_time: ''
             }
         },
         computed: mapState([
@@ -352,6 +353,7 @@
                     this.census = res.data.census
                     this.total_person = res.data.total_person
                     this.new_user = res.data.new_user
+                    this.todd_time = res.data.today_time
                 })
             },
 

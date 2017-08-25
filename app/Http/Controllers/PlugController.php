@@ -623,7 +623,9 @@ class PlugController extends Controller
             $census['bl_count'] = User::where('camp',2)->count();
             Cache::put('plug_index_census',$census,60);
         }
-        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
+
+        $today_time = Date('Y-m-d');
+        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
     }
 
     public function plug_list(Request $request , $page , $size)

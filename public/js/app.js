@@ -5488,7 +5488,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             content: '',
             plug_tags: [],
             type: [],
-            is_title_hover: 1
+            is_title_hover: 1,
+            todd_time: ''
         };
     },
 
@@ -5567,6 +5568,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.census = res.data.census;
                 _this2.total_person = res.data.total_person;
                 _this2.new_user = res.data.new_user;
+                _this2.todd_time = res.data.today_time;
             });
         },
         login: function login() {
@@ -71389,9 +71391,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.recent_plugs), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71406,16 +71405,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
     }, [_vm._v(_vm._s(v.title.substring(0, 60)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
     }, [_vm._v(_vm._s(v.user.nickname) + " - " + _vm._s(v.download_num) + "次下载 - "), _c('span', {
-      staticStyle: {
-        "color": "#d13030"
-      }
+      style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
     }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
@@ -71525,9 +71525,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.was), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71542,7 +71539,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
@@ -71571,9 +71571,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.twms), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71588,7 +71585,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
@@ -71611,9 +71611,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.download_plugs), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71628,7 +71625,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
@@ -71659,9 +71659,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.plugs), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71676,7 +71673,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
@@ -71719,9 +71719,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', _vm._l((_vm.download_plugs_this_mouth), function(v) {
     return _c('li', [_c('router-link', {
-      class: {
-        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
       attrs: {
         "title": v.title,
         "to": {
@@ -71736,7 +71733,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "type": "arrow-right-b"
       }
     }), _vm._v(" "), _c('strong', {
-      staticClass: "my_a_style",
+      staticClass: "my_a_style normal_font_hover",
+      class: {
+        'bl_hover_line_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
       staticStyle: {
         "padding-left": "10px"
       }
