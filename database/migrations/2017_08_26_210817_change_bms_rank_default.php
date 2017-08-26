@@ -15,7 +15,7 @@ class ChangeBmsRankDefault extends Migration
     {
         Schema::table('bms', function (Blueprint $table) {
             //
-            $table->integer('rank')->index()->default(0)->comment('排序 最大99')->change();
+            $table->integer('rank')->default(0)->comment('排序 最大99')->change();
         });
     }
 
