@@ -41,8 +41,9 @@
                 <h2>确认购买吗</h2>
                 <div>
                     <button type="button" class="close_dialog" style="border-radius: 5px;background:#fff;color:#333;" @click="download_model = false">取消</button>
-                    <button type="button" class="close_dialog ivu-btn-primary" style="border-radius: 5px" @click="go_download(down_id, down_k)">确认</button>
-
+                    <button type="button" class="close_dialog ivu-btn-primary"
+                            :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                            style="border-radius: 5px" @click="go_download(down_id, down_k)">确认</button>
                 </div>
             </div>
         </div>

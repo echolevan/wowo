@@ -6117,6 +6117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -73973,6 +73974,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("取消")]), _vm._v(" "), _c('button', {
     staticClass: "close_dialog ivu-btn-primary",
+    class: {
+      'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
     staticStyle: {
       "border-radius": "5px"
     },
