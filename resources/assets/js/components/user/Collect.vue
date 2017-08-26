@@ -2,23 +2,23 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 60%">插件名称</div>
-                <div style="width: 10%">收费</div>
-                <div style="width: 10%">插件版本</div>
-                <div style="width: 10%">游戏版本</div>
-                <div style="width: 10%">操作</div>
+                <div style="width: 60%">资源名称</div>
+                <div style="width: 10%" class="tt_center">售价</div>
+                <div style="width: 10%" class="tt_center">版本</div>
+                <div style="width: 10%" class="tt_center">游戏版本</div>
+                <div style="width: 10%" class="tt_center">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
-                <div class="td_child title" style="width: 60%">
+                <div class="td_child hidden_div title" style="width: 60%">
                     <Poptip :content="v.title" trigger="hover"  placement="bottom">
                         {{v.title}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%" v-if="v.gold === 0">免费</div>
-                <div class="td_child" style="width: 10%" v-else>{{v.gold}} 金币</div>
-                <div class="td_child" style="width: 10%">{{v.version}}</div>
-                <div class="td_child" style="width: 10%">{{v.game_version}}</div>
-                <div class="td_child tool" style="width: 10%">
+                <div class="td_child hidden_div tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
+                <div class="td_child tt_center" style="width: 10%" v-else>{{v.gold}} 金币</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.version}}</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
+                <div class="td_child tool tt_center" style="width: 10%">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.id}}">
                         查看详情
                     </router-link>
@@ -90,9 +90,10 @@
                 float left
                 border-right: 1px solid #ddd;
                 border-bottom: 1px solid #ddd;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
+                &.hidden_div
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
                 &.title:hover
                     cursor pointer
             .tool

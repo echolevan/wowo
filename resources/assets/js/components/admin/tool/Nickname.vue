@@ -3,7 +3,7 @@
         <Form :model="formS" inline>
             <div class="pull-right">
                 <Form-item>
-                    <Input v-model.trim="formS.name" placeholder="禁用的昵称" @keyup.13.native="create_nickname"></Input>
+                    <Input v-model.trim="formS.name" placeholder="禁止使用的昵称" @keyup.13.native="create_nickname"></Input>
                 </Form-item>
                 <Button type="primary" class="pull-right" @click="create_nickname">确定</Button>
             </div>

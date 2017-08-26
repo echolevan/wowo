@@ -34,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
             return !Tool::where('name','nickname')->where('value',$value)->first();
         });
 
+        Validator::extend('is_name_zw', function ($attribute, $value, $parameters, $validator) {
+            return !preg_match('/[\x{4e00}-\x{9fa5}]/u', $value);
+        });
     }
 
     /**

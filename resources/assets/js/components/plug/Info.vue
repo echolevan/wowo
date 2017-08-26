@@ -100,11 +100,11 @@
                                 <span v-else>已推荐： {{plug.like_num}}</span>
                             </div>
                         </div>
-
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
                             <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
                             <p>插件作者：<span>{{plug.user.nickname}}</span></p>
+                            <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
                         </div>
                         <v-rank></v-rank>
                     </iCol>

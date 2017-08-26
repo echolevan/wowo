@@ -38,7 +38,7 @@
                 <p class="error_l">{{ $errors->first('login') }}</p>
             @endif
             <dd class="user_icon">
-                <input type="text" placeholder="用户名或者嘿市ID号" name="email" class="login_txtbx" style="color: #fff">
+                <input type="text" placeholder="用户名/嘿市ID" name="email" class="login_txtbx" style="color: #fff">
             </dd>
             @if ($errors->has('email'))
                 <p class="error_l">{{ $errors->first('email') }}</p>

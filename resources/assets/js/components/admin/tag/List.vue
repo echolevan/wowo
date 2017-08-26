@@ -3,12 +3,17 @@
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px">
             <Breadcrumb-item>主页</Breadcrumb-item>
             <Breadcrumb-item>分类管理</Breadcrumb-item>
-            <Breadcrumb-item>标签列表</Breadcrumb-item>
+            <Breadcrumb-item>分类列表</Breadcrumb-item>
         </Breadcrumb>
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="搜索分类"></Input>
+                <Input v-model.trim="formS.name" placeholder="分类"></Input>
+            </Form-item>
+            <Form-item>
+                <Select v-model="formS.type" clearable  placeholder="分类" style="width: 100px;">
+                    <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
+                </Select>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.status" clearable  placeholder="状态" style="width: 100px;">
@@ -44,6 +49,7 @@
                 <th style="width: 10%">分类</th>
                 <th style="width: 10%">状态</th>
                 <th style="width: 10%">用户是否能使用</th>
+                <th style="width: 10%">排序</th>
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>
@@ -60,13 +66,17 @@
                     <Tag type="dot" :color="v.is_for_user === 1 ? 'blue' : 'red'" @click.native="change_is_for_user(v.is_for_user === 1 ? 0 : 1 , v.id, k)">{{is_for_user(v.is_for_user)}}</Tag>
                 </td>
                 <td>
+                    <Input-number style="width: 50px" :max="99" :min="0" v-model="v.rank" @on-change="change_other(k)" :disabled="is_disabled === k ? false : true"></Input-number>
+                </td>
+                <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
+                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'排序' }}</Button>
                 </td>
             </tr>
             </tbody>
             <tbody  v-else>
             <tr>
-                <td style="text-align: center;font-size: 16px" colspan="7">
+                <td style="text-align: center;font-size: 16px" colspan="8">
                     暂无数据
                 </td>
             </tr>
@@ -159,16 +169,19 @@
                 list: [],
                 formS: {
                     name: '',
+                    type: '',
                     status: '',
                     is_for_user: '',
                 },
                 config_status_type: configStatusType,
                 config_is_for_user: configIsForUser,
+                configTagType: configTagType,
                 loading_s: false,
                 loading_edit: false,
                 modal_edit: false,
                 visible: false,
                 csrfToken : window.Laravel.csrfToken,
+                is_disabled: '',
                 imgName: '',
                 formItem: {
                     name: '',
@@ -195,6 +208,30 @@
             this.search()
         },
         methods: {
+            c_rank(id, k){
+                if(this.is_disabled === k){
+                    // 确定
+                    if(this.list[k].rank === 0){
+                        this.$Message.error('请输入大于0小于99的数字')
+                        return false
+                    }
+                    axios.get(`/admin/tag/change_rank/${id}/${this.list[k].rank}`).then(res => {
+                        if(res.data.sta === 1){
+                            this.$Message.success(res.data.msg)
+                            this.is_disabled = ''
+                        }else{
+                            this.$Message.error(res.data.msg)
+                        }
+                    })
+                } else {
+                    this.is_disabled = k
+                }
+            },
+            change_other(k) {
+                if (!(/^\d+$/.test(this.list[k].rank))) {
+                    this.list[k].rank = Math.round(this.list[k].rank)
+                }
+            },
             toS() {
                 this.page = 1
                 this.loading_s = true
@@ -202,6 +239,7 @@
             },
             rest() {
                 this.formS.name = ''
+                this.formS.type = ''
                 this.formS.status = ''
                 this.formS.is_for_user = ''
             },

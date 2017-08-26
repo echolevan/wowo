@@ -9,10 +9,10 @@
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.id" placeholder="搜索嘿市ID"></Input>
+                <Input v-model.trim="formS.id" placeholder="嘿市ID"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="搜索用户名"></Input>
+                <Input v-model.trim="formS.name" placeholder="用户名"></Input>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.camp" clearable  placeholder="阵营" style="width: 100px;">
@@ -102,7 +102,7 @@
                         </div>
                     </Tooltip>
                 </td>
-                <td>{{v.tel === 0 ? '暂无手机号' : v.tel}}</td>
+                <td>{{v.tel === '0' ? '暂无手机号' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
                 <td>{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
@@ -124,9 +124,9 @@
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
-                    <Button type="ghost" size="small">充值记录</Button>
+                    <Button type="ghost" size="small" @click="cz_jl(v.id)">充值记录</Button>
                     <Button type="ghost" size="small">提现记录</Button>
-                    <Button type="ghost" size="small">资源记录</Button>
+                    <Button type="ghost" size="small" @click="zy_jl(v.id)">资源记录</Button>
                 </td>
             </tr>
             </tbody>
@@ -182,6 +182,14 @@
             this.search()
         },
         methods: {
+            zy_jl(id){
+                localStorage.setItem('zy_jl_id', id)
+                this.$router.push('/admin/plug/list')
+            },
+            cz_jl(id){
+                localStorage.setItem('cz_jl_id', id)
+                this.$router.push('/admin/recharge/list')
+            },
             toS() {
                 this.page = 1
                 this.loading_s = true

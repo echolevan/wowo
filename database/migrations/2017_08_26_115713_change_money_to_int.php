@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToOrders extends Migration
+class ChangeMoneyToInt extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddTypeToOrders extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::table('lvs', function (Blueprint $table) {
             //
-            $table->tinyInteger('type')->default(1)->comment('1是wa 2是tmw 3是游戏插件 4是黑市');
+            $table->integer('money')->change();
         });
     }
 
@@ -26,7 +26,7 @@ class AddTypeToOrders extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::table('lvs', function (Blueprint $table) {
             //
         });
     }

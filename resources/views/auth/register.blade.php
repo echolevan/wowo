@@ -47,7 +47,6 @@
     </div>
     <div class="right">
         <div class="right_div">
-
             {{--<h2>注册</h2>--}}
            <div>
                <form method="POST" action="{{ route('register') }}" class="cont_form_login">
@@ -60,7 +59,7 @@
                    @if ($errors->has('camp'))
                        <p>{{ $errors->first('camp') }}</p>
                    @endif
-                   <input type="text"  name="name" value="{{ old('name') }}" placeholder="用户名(不能纯数字)">
+                   <input type="text"  name="name" value="{{ old('name') }}" placeholder="用户名(不能包含中文或纯数字)">
                    @if ($errors->has('name'))
                        <p>{{ $errors->first('name') }}</p>
                    @endif

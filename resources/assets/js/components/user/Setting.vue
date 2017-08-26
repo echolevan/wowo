@@ -4,7 +4,7 @@
             <Tab-pane label="基本信息" name="1">
                 <Form :model="formItem" :label-width="80" ref="formValidate" :rules="ruleValidate" style="width: 500px">
                     <Form-item label="头像">
-                        <img :src="formItem.avatar"  class="img-circle" id="set-avatar">
+                        <img :src="formItem.avatar"  class="img-circle hover_hand" id="set-avatar">
                     </Form-item>
                     <Form-item label="昵称" prop="nickname">
                         <Input v-model="formItem.nickname" placeholder="请输入"></Input>
@@ -14,7 +14,7 @@
                             <Option value="1">联盟</Option>
                             <Option value="2">部落</Option>
                         </Select>
-                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">30天内不能再次修改阵营</p>
+                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">阵营修改间隔时间为30天</p>
                     </Form-item>
                     <Form-item label="性别" >
                         <Select v-model="formItem.sex"  placeholder="请选择阵营">

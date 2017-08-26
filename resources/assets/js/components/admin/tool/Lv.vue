@@ -26,7 +26,8 @@
             <thead>
             <tr>
                 <th style="width: 10%">等级名称</th>
-                <th style="width: 10%">充值金额范围</th>
+                <th style="width: 10%">等级</th>
+                <th style="width: 10%">最低充值金额</th>
                 <th style="width: 10%">赠送比例(%)</th>
                 <th style="width: 10%">操作</th>
             </tr>
@@ -34,6 +35,7 @@
             <tbody v-if="list.length > 0">
             <tr v-for="(v , k) in list" :key="k">
                 <td>{{v.name}}</td>
+                <td>{{arr_list[v.money]}}</td>
                 <td>{{v.money}}</td>
                 <td>{{v.giving}}</td>
                 <td>
@@ -49,7 +51,7 @@
             </tbody>
             <tbody v-else>
             <tr>
-                <td style="text-align: center;font-size: 16px" colspan="4">
+                <td style="text-align: center;font-size: 16px" colspan="5">
                     暂无数据
                 </td>
             </tr>
@@ -123,6 +125,7 @@
                 page_size: 10,
                 total: 0,
                 list: [],
+                arr_list: [],
                 formS: {
                     name: ''
                 },
@@ -230,9 +233,11 @@
             },
             search() {
                 axios.post(`/admin/tool/lv/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
+                    console.log(res)
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.list
+                        this.arr_list = res.data.arr
                     }
                     this.$Loading.finish();
                     this.loading_s = false

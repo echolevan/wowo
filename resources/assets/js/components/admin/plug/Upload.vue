@@ -2,8 +2,8 @@
     <div>
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px" v-show="$route.name === 'admin.plug.create'">
             <Breadcrumb-item>主页</Breadcrumb-item>
-            <Breadcrumb-item>管理</Breadcrumb-item>
-            <Breadcrumb-item>添加</Breadcrumb-item>
+            <Breadcrumb-item>资源管理</Breadcrumb-item>
+            <Breadcrumb-item>资源添加</Breadcrumb-item>
         </Breadcrumb>
 
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
@@ -256,7 +256,7 @@
                 })
             },
             swi() {
-                this.formItem.gold = 0
+                this.formItem.gold = 1
             },
             on_sel(v) {
                 this.formItem.type = v

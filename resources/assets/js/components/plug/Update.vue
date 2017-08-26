@@ -244,7 +244,7 @@
                 })
             },
             swi() {
-              this.formItem.gold = 0
+              this.formItem.gold = 1
             },
             on_sel(v) {
               this.formItem.type = v

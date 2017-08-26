@@ -2,8 +2,8 @@
     <div>
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px">
             <Breadcrumb-item>主页</Breadcrumb-item>
-            <Breadcrumb-item>插件管理</Breadcrumb-item>
-            <Breadcrumb-item>插件列表</Breadcrumb-item>
+            <Breadcrumb-item>资源管理</Breadcrumb-item>
+            <Breadcrumb-item>资源列表</Breadcrumb-item>
         </Breadcrumb>
 
         <Form :model="formS" inline>
@@ -11,13 +11,13 @@
                 <Input v-model.trim="formS.plug_id" placeholder="插件唯一ID"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="搜索插件名称"></Input>
+                <Input v-model.trim="formS.name" placeholder="插件名称"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.user_name" placeholder="用户名称"></Input>
+                <Input v-model.trim="formS.user_name" placeholder="用户名"></Input>
             </Form-item>
             <Form-item>
-                <Input v-model.trim="formS.user_id" placeholder="嘿市号"></Input>
+                <Input v-model.trim="formS.user_id" placeholder="嘿市ID"></Input>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.gold" clearable  placeholder="是否免费"  style="width: 100px;">
@@ -197,7 +197,12 @@
             }
         },
         mounted() {
-          this.search()
+            let zy_jl_id = localStorage.getItem('zy_jl_id')
+            if(zy_jl_id){
+                this.formS.user_id = zy_jl_id
+            }
+            localStorage.removeItem('zy_jl_id')
+            this.search()
         },
         methods: {
             toS() {

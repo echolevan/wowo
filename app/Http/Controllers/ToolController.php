@@ -48,8 +48,15 @@ class ToolController extends Controller
             return $query->where('name', 'like' , '%'.$request->search['name'].'%');
         });
         $count = $where->count();
-        $list = $where->skip(($page - 1) * $size)->take($size)->latest()->get();
-        return ['sta'=>1 , 'count' => $count , 'list'=>$list];
+        $list = $where->skip(($page - 1) * $size)->take($size)->orderBy('money')->get();
+
+        $money = Lv::pluck('money')->toArray();
+        sort($money);
+        $arr = [];
+        foreach ($money as $k => $v){
+            $arr[$v] = 'Lv' . ($k+1);
+        }
+        return ['sta'=>1 , 'count' => $count , 'list'=>$list , 'arr'=>$arr];
     }
 
 

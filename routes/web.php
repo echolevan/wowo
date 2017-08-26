@@ -101,6 +101,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("plug_all_info",'PlugController@plug_all_info_for_admin')->name('admin.tag.plug_all_info_for_admin'); //上传界面 获取 所有的type
     Route::put("tag/create",'TagController@create')->name('admin.tag.create');
     Route::post("upload_tag_img",'UploadController@upload_plug_screen_img')->name('admin.tag.upload_plug_screen_img'); //上传插件详情图片
+    Route::get("tag/change_rank/{id}/{rank}",'TagController@change_rank')->name('admin.tag.change_rank'); // 更换分类排序
 
     Route::post("user/list/{page}/{size}",'UserController@user_list')->name('admin.user.list'); // 获取用户列表
     Route::get("user/change_status/{id}/{v}",'UserController@change_status')->name('admin.user.change.status'); // 禁止或者允许用户登录
@@ -134,4 +135,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/tool/game_version/list','ToolController@game_version')->name('admin.game_version.list'); // 游戏版本号管理
     Route::get('/tool/game_version/create_game_version/{name}','ToolController@create_game_version')->name('admin.game_version.create'); // 添加游戏版本号
     Route::delete('/tool/game_version/del_game_version/{id}','ToolController@del_game_version')->name('admin.game_version.del'); //删除游戏版本号
+
+    Route::post('recharge/list/{page}/{size}','RechargeController@r_list')->name('admin.recharge.list'); // 充值列表
+
 });

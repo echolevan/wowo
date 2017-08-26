@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '验证码输入错误',
             'name.is_num' => '用户名不能为纯数字',
+            'name.is_name_zw' => '用户名不能为汉字',
             'password.is_pass' => '密码必须有大小写字母+数字',
             'nickname.required' => '昵称不能为空',
             'nickname.max' => '昵称最长为10',
@@ -65,7 +66,7 @@ class RegisterController extends Controller
         ];
 
         return Validator::make($data, [
-            'name' => 'required|string|max:255|unique:users|alpha_num|is_num|is_admin_name',
+            'name' => 'required|string|max:255|unique:users|alpha_num|is_num|is_admin_name|is_name_zw',
             'email' => 'required|string|email|max:255|unique:users',
             'nickname' => 'required|string|max:10|unique:users|alpha_num|is_admin_name',
             'password' => 'required|string|min:8|is_pass|confirmed',

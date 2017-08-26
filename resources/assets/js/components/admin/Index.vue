@@ -19,6 +19,15 @@
                     <Menu-item name="admin.user.list">用户管理</Menu-item>
                 </router-link>
             </Submenu>
+            <Submenu name="5">
+                <template slot="title">
+                    <Icon type="ios-paper"></Icon>
+                    消费管理
+                </template>
+                <router-link to="/admin/recharge/list">
+                    <Menu-item name="admin.recharge.list">充值列表</Menu-item>
+                </router-link>
+            </Submenu>
             <Submenu name="2">
                 <template slot="title">
                     <Icon type="ios-people"></Icon>

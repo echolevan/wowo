@@ -52,7 +52,7 @@
             <div>
                 <form method="POST" action="{{ route('login') }}" class="cont_form_login">
                     {{ csrf_field() }}
-                    <input type="text" name="email" class="input_e" placeholder="输入用户名/数字ID">
+                    <input type="text" name="email" class="input_e" placeholder="用户名/嘿市ID">
                     @if ($errors->has('email'))
                         <p>{{ $errors->first('email') }}</p>
                     @endif

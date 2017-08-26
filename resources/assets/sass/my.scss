@@ -57,7 +57,7 @@
   white-space: nowrap;
 }
 .pswp__bg{
-  background: rgba(255,255,255,0) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
 }
 .my_address select
 {
@@ -74,6 +74,11 @@
   height: 50px;
   line-height: 50px;
 }
+
+.ivu-message , .ivu-message .ivu-icon{
+  font-size: 30px;
+}
+
 
 .normal_font_hover:hover{
   color: #266ec1
@@ -202,7 +207,7 @@
   cursor: pointer;
 }
 .button_one {
-  stroke-width: 6px;
+  stroke-width: 3px;
   fill: transparent;
   stroke: #266ec1;
   stroke-dasharray: 85 400;
@@ -214,6 +219,9 @@
   stroke-width: 3px;
   stroke-dashoffset: 0;
   stroke: #266ec1;
+}
+.tt_center{
+  text-align: center;
 }
 
 .button_one_text {

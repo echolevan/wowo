@@ -141,9 +141,9 @@
                             <div class="my_btn_wrapper">
                                 <span v-if="is_money === 0" class="normal_big_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">= {{pay_amount_other * 10}} 金币 <span
-                                        v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}} 金币</span></span>
+                                        v-if="lv && pay_amount_other >= 0">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}} 金币</span></span>
                                 <span v-else>= {{pay_amount_other * 10}} 金币 <span
-                                        v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}} 金币</span></span>
+                                        v-if="lv && pay_amount_other >= 0">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}} 金币</span></span>
                             </div>
                         </div>
 
@@ -157,13 +157,13 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        充值比例为：1元 = 10金币
+                        充值比例：1元 = 10金币
                         <br>
-                        在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制
+                        金币充值即时到帐，永久有效
                         <br>
-                        充值获得的金币可用于提现(满金币等同于200人名币即可提现)
+                        当用户等级达到Lv2(随机)充值可获赠金币
                         <br>
-                        达到Lv2(随机)充值可获赠金币(起充10元)
+                        当金币数量等同于200人民币时即可申请提现(新注册用户30日内不能申请提现)
                     </div>
                 </div>
             </Tab-pane>
@@ -180,6 +180,9 @@
                                 </span> +
                             <span class="normal_font"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.giving_gold}}
+                                </span>,
+                            充值方式 <span class="normal_font"
+                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.recharge_type === 1 ? '支付宝' : '微信'}}
                                 </span>
 
                         </strong>
@@ -294,13 +297,13 @@
                     width: 100%;
                     height: 100%;
                     position: absolute;
-                    background: url('/images/pay/001.jpg');
+                    background: url('/images/pay/002.jpg');
                     left: 0;
                 .wx
                     width: 100%;
                     height: 100%;
                     position: absolute;
-                    background: url('/images/pay/002.jpg');
+                    background: url('/images/pay/001.jpg');
                     left: 0;
                 .wx_font
                     color #5D6A70

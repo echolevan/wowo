@@ -15,7 +15,7 @@ import iView from 'iview';
 import VuePreview from 'vue-preview'
 import Vuex from 'vuex'
 
-import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType} from './components/common/config'
+import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType, payType, payStatus} from './components/common/config'
 import {my_dialog} from '../common/dialog.js'
 global.configTagType = tagType;
 global.configStatusType = statusType;
@@ -28,6 +28,8 @@ global.configCheckType = checkType;
 global.configBmDownloadType = bmDownloadType;
 global.configBmType = bmType;
 global.myDialog = my_dialog;
+global.configPayType = payType;
+global.configPayStatus = payStatus;
 
 Vue.use(Vuex)
 Vue.use(VueRouter);

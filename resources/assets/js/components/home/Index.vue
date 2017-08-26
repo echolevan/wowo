@@ -8,26 +8,37 @@
                         <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
                     </iCol>
                     <iCol span="6">
-                        <div  style="width: 250px;margin:0 auto">
+                        <div  style="width: 250px;margin:0 auto;height: 178px;position: relative">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                       @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
                             <div class="my_btn_wrapper pull-right"
                                  @click="quick_share"
-                                 style="margin:15px 0 0 0"
+                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7)"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
                                     <rect class="button_one" height="45" width="150"></rect>
                                 </svg>
-                                <div class="button_one_text">快速分享</div>
+                                <div class="button_one_text" style="font-size:18px">快速分享</div>
                             </div>
-                            <Button type="text"
-                                    @click="quick_share_plug(1)"
-                                    style="margin:15px 0 0 0;float:left;width:50%"
-                            >整合界面分享</Button>
-                            <Button type="text"
-                                    @click="quick_share_plug(2)"
-                                    style="margin:15px 0 0 0;float:left;width:50%"
-                            >原创界面分享</Button>
+                            <div style="clear: both"></div>
+                            <div class="my_btn_wrapper"
+                                 @click="quick_share_plug(1)"
+                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7);position: absolute;left: 0;bottom:0"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"  style="position: absolute"></rect>
+                                </svg>
+                                <div class="button_one_text"  style="font-size:18px">整合界面分享</div>
+                            </div>
+                            <div class="my_btn_wrapper"
+                                 @click="quick_share_plug(1)"
+                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7);position: absolute;right: 0;bottom:0"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"  style="position: absolute"></rect>
+                                </svg>
+                                <div class="button_one_text"  style="font-size:18px">原创插件分享</div>
+                            </div>
                         </div>
 
                     </iCol>
@@ -133,7 +144,7 @@
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <span class="pull-right">{{v.download_num}}次下载 -  <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                                 </router-link>
                             </li>
                         </ul>
@@ -145,20 +156,20 @@
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>TellMeWhen</strong>
-                        <router-link to="/waTmw/twm" class="pull-right my_a_style"
+                        <router-link to="/waTmw/tmw" class="pull-right my_a_style"
                                      style="padding-right: 10px;font-size: 12px;width: 40px">更多
                         </router-link>
                     </div>
                     <div class="tool_user_child child">
                         <ul>
-                            <li v-for="v in twms">
+                            <li v-for="v in tmws">
                                 <router-link :title="v.title"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <span class="pull-right">{{v.download_num}}次下载 -  <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                                 </router-link>
                             </li>
                         </ul>
@@ -206,7 +217,7 @@
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
-                                    <span class="pull-right">{{v.created_at}}</span>
+                                    <span class="pull-right">{{v.download_num}}次下载 -  <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                                 </router-link>
                             </li>
                         </ul>
@@ -266,7 +277,7 @@
                 was: [],
                 modal_zj: false,
                 census: {},
-                twms: [],
+                tmws: [],
                 plugs: [],
                 total_person: '',
                 new_user: '',
@@ -304,7 +315,7 @@
             },
             quick_share() {
                 if(!this.userInfo){
-                    myDialog('请先登录')
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
                     return false
                 }
                 if (this.content === '') {
@@ -346,7 +357,7 @@
                 axios.get(`plug_index`).then(res => {
                     this.plugs = res.data.plugs
                     this.was = res.data.was
-                    this.twms = res.data.twms
+                    this.tmws = res.data.tmws
                     this.recent_plugs = res.data.recent_plugs
                     this.download_plugs = res.data.download_plugs
                     this.download_plugs_this_mouth = res.data.download_plugs_this_mouth

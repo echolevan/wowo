@@ -1934,6 +1934,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2652,6 +2661,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        var zy_jl_id = localStorage.getItem('zy_jl_id');
+        if (zy_jl_id) {
+            this.formS.user_id = zy_jl_id;
+        }
+        localStorage.removeItem('zy_jl_id');
         this.search();
     },
 
@@ -3002,7 +3016,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.gold = 0;
+            this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -3363,7 +3377,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.gold = 0;
+            this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -3473,6 +3487,146 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     components: {
         VueEditor: __WEBPACK_IMPORTED_MODULE_0_vue2_editor__["VueEditor"]
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/recharge/List.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            page: 1,
+            page_size: 10,
+            total: 0,
+            formS: {
+                name: '',
+                user_id: '',
+                status: ''
+            },
+            list: [],
+            configPayType: configPayType,
+            configPayStatus: configPayStatus,
+            loading_s: false
+        };
+    },
+    mounted: function mounted() {
+        var cz_jl_id = localStorage.getItem('cz_jl_id');
+        if (cz_jl_id) {
+            this.formS.user_id = cz_jl_id;
+        }
+        localStorage.removeItem('cz_jl_id');
+        this.search();
+    },
+
+    methods: {
+        toS: function toS() {
+            this.page = 1;
+            this.loading_s = true;
+            this.search();
+        },
+        rest: function rest() {
+            this.formS.name = '';
+            this.formS.user_id = '';
+            this.formS.status = '';
+        },
+        page_c: function page_c(p) {
+            this.page = p;
+            this.search();
+            this.$Loading.start();
+        },
+        size_c: function size_c(s) {
+            this.page_size = s;
+            this.search();
+            this.$Loading.start();
+        },
+        search: function search() {
+            var _this = this;
+
+            axios.post('/admin/recharge/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this.total = res.data.count;
+                    _this.list = res.data.list;
+                }
+                _this.$Loading.finish();
+                _this.loading_s = false;
+            });
+        }
     }
 });
 
@@ -3751,6 +3905,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3785,16 +3949,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             list: [],
             formS: {
                 name: '',
+                type: '',
                 status: '',
                 is_for_user: ''
             },
             config_status_type: configStatusType,
             config_is_for_user: configIsForUser,
+            configTagType: configTagType,
             loading_s: false,
             loading_edit: false,
             modal_edit: false,
             visible: false,
             csrfToken: window.Laravel.csrfToken,
+            is_disabled: '',
             imgName: '',
             formItem: {
                 name: '',
@@ -3815,6 +3982,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        c_rank: function c_rank(id, k) {
+            var _this2 = this;
+
+            if (this.is_disabled === k) {
+                // 确定
+                if (this.list[k].rank === 0) {
+                    this.$Message.error('请输入大于0小于99的数字');
+                    return false;
+                }
+                axios.get('/admin/tag/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
+                    if (res.data.sta === 1) {
+                        _this2.$Message.success(res.data.msg);
+                        _this2.is_disabled = '';
+                    } else {
+                        _this2.$Message.error(res.data.msg);
+                    }
+                });
+            } else {
+                this.is_disabled = k;
+            }
+        },
+        change_other: function change_other(k) {
+            if (!/^\d+$/.test(this.list[k].rank)) {
+                this.list[k].rank = Math.round(this.list[k].rank);
+            }
+        },
         toS: function toS() {
             this.page = 1;
             this.loading_s = true;
@@ -3822,6 +4015,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         rest: function rest() {
             this.formS.name = '';
+            this.formS.type = '';
             this.formS.status = '';
             this.formS.is_for_user = '';
         },
@@ -3835,26 +4029,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return configIsForUser[v];
         },
         change_status: function change_status(v, id, k) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/admin/tag/change_status/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
-                    _this2.list[k].status = v;
-                    _this2.$Message.success(res.data.msg);
+                    _this3.list[k].status = v;
+                    _this3.$Message.success(res.data.msg);
                 } else {
-                    _this2.$Message.error(res.data.msg);
+                    _this3.$Message.error(res.data.msg);
                 }
             });
         },
         change_is_for_user: function change_is_for_user(v, id, k) {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('/admin/tag/change_is_for_user/' + id + '/' + v).then(function (res) {
                 if (res.data.sta === 1) {
-                    _this3.list[k].is_for_user = v;
-                    _this3.$Message.success(res.data.msg);
+                    _this4.list[k].is_for_user = v;
+                    _this4.$Message.success(res.data.msg);
                 } else {
-                    _this3.$Message.error(res.data.msg);
+                    _this4.$Message.error(res.data.msg);
                 }
             });
         },
@@ -3869,23 +4063,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$Loading.start();
         },
         search: function search() {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.post('/admin/tag/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 if (res.data.sta === 1) {
-                    _this4.total = res.data.count;
-                    _this4.list = res.data.list;
+                    _this5.total = res.data.count;
+                    _this5.list = res.data.list;
                 }
-                _this4.$Loading.finish();
-                _this4.loading_s = false;
+                _this5.$Loading.finish();
+                _this5.loading_s = false;
             });
         },
         edit: function edit(info, k) {
-            var _this5 = this;
+            var _this6 = this;
 
             this.edit_k = k;
             axios.get('/admin/plug_all_info').then(function (res) {
-                _this5.plug_tags = res.data;
+                _this6.plug_tags = res.data;
             });
             this.formItem.name = info.name;
             this.formItem.thumb = info.thumb;
@@ -3918,20 +4112,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.type = v;
         },
         ok: function ok(name) {
-            var _this6 = this;
+            var _this7 = this;
 
             this.loading_edit = true;
             this.$refs[name].validate(function (valid) {
                 if (valid) {
-                    axios.put('/admin/tag/update/' + _this6.formItem.id, { data: _this6.formItem }).then(function (res) {
+                    axios.put('/admin/tag/update/' + _this7.formItem.id, { data: _this7.formItem }).then(function (res) {
                         if (res.data.sta === 1) {
-                            _this6.$Message.success('编辑成功!');
-                            _this6.formItem.name = '';
-                            _this6.formItem.type = [];
-                            _this6.formItem.thumb = '';
-                            _this6.formItem.id = '';
-                            _this6.modal_edit = false;
-                            _this6.list[_this6.edit_k] = res.data.info;
+                            _this7.$Message.success('编辑成功!');
+                            _this7.formItem.name = '';
+                            _this7.formItem.type = [];
+                            _this7.formItem.thumb = '';
+                            _this7.formItem.id = '';
+                            _this7.modal_edit = false;
+                            _this7.list[_this7.edit_k] = res.data.info;
                         }
                     });
                 }
@@ -4119,6 +4313,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -4155,6 +4351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             page_size: 10,
             total: 0,
             list: [],
+            arr_list: [],
             formS: {
                 name: ''
             },
@@ -4262,9 +4459,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this4 = this;
 
             axios.post('/admin/tool/lv/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+                console.log(res);
                 if (res.data.sta === 1) {
                     _this4.total = res.data.count;
                     _this4.list = res.data.list;
+                    _this4.arr_list = res.data.arr;
                 }
                 _this4.$Loading.finish();
                 _this4.loading_s = false;
@@ -4710,6 +4909,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        zy_jl: function zy_jl(id) {
+            localStorage.setItem('zy_jl_id', id);
+            this.$router.push('/admin/plug/list');
+        },
+        cz_jl: function cz_jl(id) {
+            localStorage.setItem('cz_jl_id', id);
+            this.$router.push('/admin/recharge/list');
+        },
         toS: function toS() {
             this.page = 1;
             this.loading_s = true;
@@ -5466,6 +5673,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5475,7 +5693,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             was: [],
             modal_zj: false,
             census: {},
-            twms: [],
+            tmws: [],
             plugs: [],
             total_person: '',
             new_user: '',
@@ -5513,7 +5731,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         quick_share: function quick_share() {
             if (!this.userInfo) {
-                myDialog('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
                 return false;
             }
             if (this.content === '') {
@@ -5560,7 +5778,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('plug_index').then(function (res) {
                 _this2.plugs = res.data.plugs;
                 _this2.was = res.data.was;
-                _this2.twms = res.data.twms;
+                _this2.tmws = res.data.tmws;
                 _this2.recent_plugs = res.data.recent_plugs;
                 _this2.download_plugs = res.data.download_plugs;
                 _this2.download_plugs_this_mouth = res.data.download_plugs_this_mouth;
@@ -6506,6 +6724,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!_this2.userInfo) {
                 myDialog('请先登录');
                 _this2.$router.push('/home');
+            } else {
+                if (_this2.userInfo.is_active === 0) {
+                    myDialog("您还未激活邮箱，请先<a href='/#/userInfo/info' class='close_other_dialog'>点击激活</a>");
+                }
             }
         }, 500);
         this._init();
@@ -6517,6 +6739,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         '$route': function $route(to, from) {
             this.$router.go(-1);
+        },
+        userInfo: function userInfo() {
+            if (!this.userInfo) {
+                this.$router.push('/');
+            }
         }
     },
     methods: {
@@ -6546,13 +6773,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.gold = 0;
+            this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
-            console.log(this.formItem);
         },
         _init: function _init() {
             var _this4 = this;
@@ -7078,7 +7304,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         swi: function swi() {
-            this.formItem.gold = 0;
+            this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
             this.formItem.type = v;
@@ -7467,6 +7693,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
     methods: {
+        to_setting: function to_setting() {
+            this.$router.push('/userInfo/setting');
+        },
         send_mail: function send_mail() {
             var _this = this;
 
@@ -7607,6 +7836,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
 //
 //
 //
@@ -8137,6 +8369,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11142,6 +11380,21 @@ exports.push([module.i, "\n.demo-upload-list[data-v-00f2ce36] {\n  display: inli
 
 /***/ }),
 
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/recharge/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0959b4fb\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/plug/Info.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11226,7 +11479,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.user_orders .td_head_div[data-v-12b37caa] {\n  width: 100%;\n}\n.user_orders .td_head_div div[data-v-12b37caa] {\n  font-size: 14px;\n  font-weight: bold;\n  float: left;\n  padding: 8px;\n  line-height: 1.42857143;\n  vertical-align: top;\n  border-right: 1px solid #ddd;\n  border-bottom: 2px solid #ddd;\n}\n.user_orders .td_div[data-v-12b37caa] {\n  width: 100%;\n  vertical-align: inherit;\n  border-color: inherit;\n}\n.user_orders .td_div .td_child[data-v-12b37caa] {\n  padding: 8px;\n  line-height: 1.42857143;\n  vertical-align: top;\n  float: left;\n  border-right: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.user_orders .td_div .td_child.title[data-v-12b37caa]:hover {\n  cursor: pointer;\n}\n.user_orders .td_div .tool a[data-v-12b37caa] {\n  padding: 0 15px;\n}\n", ""]);
+exports.push([module.i, "\n.user_orders .td_head_div[data-v-12b37caa] {\n  width: 100%;\n}\n.user_orders .td_head_div div[data-v-12b37caa] {\n  font-size: 14px;\n  font-weight: bold;\n  float: left;\n  padding: 8px;\n  line-height: 1.42857143;\n  vertical-align: top;\n  border-right: 1px solid #ddd;\n  border-bottom: 2px solid #ddd;\n}\n.user_orders .td_div[data-v-12b37caa] {\n  width: 100%;\n  vertical-align: inherit;\n  border-color: inherit;\n}\n.user_orders .td_div .td_child[data-v-12b37caa] {\n  padding: 8px;\n  line-height: 1.42857143;\n  vertical-align: top;\n  float: left;\n  border-right: 1px solid #ddd;\n  border-bottom: 1px solid #ddd;\n}\n.user_orders .td_div .td_child.hidden_div[data-v-12b37caa] {\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.user_orders .td_div .td_child.title[data-v-12b37caa]:hover {\n  cursor: pointer;\n}\n.user_orders .td_div .tool a[data-v-12b37caa] {\n  padding: 0 15px;\n}\n", ""]);
 
 // exports
 
@@ -11361,7 +11614,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.user_pay .choice_type a[data-v-45111128] {\n  padding: 0 40px 0 105px;\n  position: relative;\n  height: 50px;\n  vertical-align: middle;\n  display: inline-block;\n}\n.user_pay .choice_type a .zfb[data-v-45111128] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  background: url(\"/images/pay/001.jpg\");\n  left: 0;\n}\n.user_pay .choice_type a .wx[data-v-45111128] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  background: url(\"/images/pay/002.jpg\");\n  left: 0;\n}\n.user_pay .choice_type a .wx_font[data-v-45111128] {\n  color: #5d6a70;\n  font-size: 16px;\n  position: absolute;\n  top: 50%;\n  left: 70px;\n  margin-top: -12px;\n}\n.user_pay .choice_money .panel-body[data-v-45111128] {\n  padding: 0;\n  display: flex;\n  justify-content: center;\n}\n.user_pay .choice_money .panel-body[data-v-45111128]:nth-child(2n+1) {\n  padding: 0;\n}\n.user_pay .choice_money .panel-body .my_btn_wrapper[data-v-45111128] {\n  width: 300px;\n}\n.user_pay .pay_his .list[data-v-45111128] {\n  min-height: 320px;\n}\n.user_pay .pay_his .list li[data-v-45111128] {\n  padding: 5px 0;\n  width: 100%;\n  font-size: 14px;\n  border-bottom: 1px solid #f2f2f2;\n}\n.user_pay .pay_his .list li .time[data-v-45111128] {\n  float: right;\n  font-size: 14px;\n}\n", ""]);
+exports.push([module.i, "\n.user_pay .choice_type a[data-v-45111128] {\n  padding: 0 40px 0 105px;\n  position: relative;\n  height: 50px;\n  vertical-align: middle;\n  display: inline-block;\n}\n.user_pay .choice_type a .zfb[data-v-45111128] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  background: url(\"/images/pay/002.jpg\");\n  left: 0;\n}\n.user_pay .choice_type a .wx[data-v-45111128] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  background: url(\"/images/pay/001.jpg\");\n  left: 0;\n}\n.user_pay .choice_type a .wx_font[data-v-45111128] {\n  color: #5d6a70;\n  font-size: 16px;\n  position: absolute;\n  top: 50%;\n  left: 70px;\n  margin-top: -12px;\n}\n.user_pay .choice_money .panel-body[data-v-45111128] {\n  padding: 0;\n  display: flex;\n  justify-content: center;\n}\n.user_pay .choice_money .panel-body[data-v-45111128]:nth-child(2n+1) {\n  padding: 0;\n}\n.user_pay .choice_money .panel-body .my_btn_wrapper[data-v-45111128] {\n  width: 300px;\n}\n.user_pay .pay_his .list[data-v-45111128] {\n  min-height: 320px;\n}\n.user_pay .pay_his .list li[data-v-45111128] {\n  padding: 5px 0;\n  width: 100%;\n  font-size: 14px;\n  border-bottom: 1px solid #f2f2f2;\n}\n.user_pay .pay_his .list li .time[data-v-45111128] {\n  float: right;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -71319,7 +71572,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticStyle: {
       "width": "250px",
-      "margin": "0 auto"
+      "margin": "0 auto",
+      "height": "178px",
+      "position": "relative"
     }
   }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
     staticClass: "w_input",
@@ -71343,7 +71598,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
-      "margin": "15px 0 0 0"
+      "margin": "15px 0 0 0",
+      "transform": "scale(0.7,0.7)"
     },
     on: {
       "click": _vm.quick_share
@@ -71360,36 +71616,87 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "150"
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text"
-  }, [_vm._v("快速分享")])]), _vm._v(" "), _c('Button', {
+    staticClass: "button_one_text",
+    staticStyle: {
+      "font-size": "18px"
+    }
+  }, [_vm._v("快速分享")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "my_btn_wrapper",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
     staticStyle: {
       "margin": "15px 0 0 0",
-      "float": "left",
-      "width": "50%"
-    },
-    attrs: {
-      "type": "text"
+      "transform": "scale(0.7,0.7)",
+      "position": "absolute",
+      "left": "0",
+      "bottom": "0"
     },
     on: {
       "click": function($event) {
         _vm.quick_share_plug(1)
       }
     }
-  }, [_vm._v("整合界面分享")]), _vm._v(" "), _c('Button', {
+  }, [_c('svg', {
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  }, [_c('rect', {
+    staticClass: "button_one",
     staticStyle: {
-      "margin": "15px 0 0 0",
-      "float": "left",
-      "width": "50%"
+      "position": "absolute"
     },
     attrs: {
-      "type": "text"
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text",
+    staticStyle: {
+      "font-size": "18px"
+    }
+  }, [_vm._v("整合界面分享")])]), _vm._v(" "), _c('div', {
+    staticClass: "my_btn_wrapper",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "margin": "15px 0 0 0",
+      "transform": "scale(0.7,0.7)",
+      "position": "absolute",
+      "right": "0",
+      "bottom": "0"
     },
     on: {
       "click": function($event) {
-        _vm.quick_share_plug(2)
+        _vm.quick_share_plug(1)
       }
     }
-  }, [_vm._v("原创界面分享")])], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('svg', {
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  }, [_c('rect', {
+    staticClass: "button_one",
+    staticStyle: {
+      "position": "absolute"
+    },
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text",
+    staticStyle: {
+      "font-size": "18px"
+    }
+  }, [_vm._v("原创插件分享")])])], 1)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -71562,7 +71869,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
+    }, [_vm._v(_vm._s(v.download_num) + "次下载 -  "), _c('span', {
+      style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
+    }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "9"
@@ -71579,11 +71888,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "40px"
     },
     attrs: {
-      "to": "/waTmw/twm"
+      "to": "/waTmw/tmw"
     }
   }, [_vm._v("更多\n                    ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "tool_user_child child"
-  }, [_c('ul', _vm._l((_vm.twms), function(v) {
+  }, [_c('ul', _vm._l((_vm.tmws), function(v) {
     return _c('li', [_c('router-link', {
       attrs: {
         "title": v.title,
@@ -71608,7 +71917,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
+    }, [_vm._v(_vm._s(v.download_num) + "次下载 -  "), _c('span', {
+      style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
+    }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
@@ -71696,7 +72007,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(v.title.substring(0, 20)))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.created_at))])], 1)], 1)
+    }, [_vm._v(_vm._s(v.download_num) + "次下载 -  "), _c('span', {
+      style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
+    }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "9"
@@ -72131,6 +72444,154 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0210c432\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/recharge/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Breadcrumb', {
+    staticStyle: {
+      "margin-bottom": "15px",
+      "font-size": "12px"
+    }
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("消费管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("充值列表")])], 1), _vm._v(" "), _c('Form', {
+    attrs: {
+      "model": _vm.formS,
+      "inline": ""
+    }
+  }, [_c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "用户名"
+    },
+    model: {
+      value: (_vm.formS.name),
+      callback: function($$v) {
+        _vm.formS.name = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.name"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "嘿市ID"
+    },
+    model: {
+      value: (_vm.formS.user_id),
+      callback: function($$v) {
+        _vm.formS.user_id = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.user_id"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "状态"
+    },
+    model: {
+      value: (_vm.formS.status),
+      callback: function($$v) {
+        _vm.formS.status = $$v
+      },
+      expression: "formS.status"
+    }
+  }, _vm._l((_vm.configPayStatus), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "ghost"
+    },
+    on: {
+      "click": _vm.rest
+    }
+  }, [_c('span', [_vm._v("重置")])]), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading_s
+    },
+    on: {
+      "click": _vm.toS
+    }
+  }, [_c('span', [_vm._v("搜索")])])], 1), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered my_admin_table"
+  }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(v.user.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayType[v.recharge_type]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_gold + v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayStatus[v.status]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
+  })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
+    staticClass: "page pull-right"
+  }, [_c('Page', {
+    key: _vm.total,
+    attrs: {
+      "total": _vm.total,
+      "size": "small",
+      "show-elevator": "",
+      "show-sizer": "",
+      "show-total": ""
+    },
+    on: {
+      "on-change": _vm.page_c,
+      "on-page-size-change": _vm.size_c
+    }
+  })], 1)], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("嘿市ID")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("用户名")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("充值类型")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("充值金额")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("赠送的金币")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("总共获得的金币")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("状态")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("充值时间")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "8"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-0210c432", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0959b4fb\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/plug/Info.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -72308,7 +72769,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("推荐： " + _vm._s(_vm.plug.like_num))]) : _c('span', [_vm._v("已推荐： " + _vm._s(_vm.plug.like_num))])])]), _vm._v(" "), _c('div', {
     staticClass: "plug_sim_info"
-  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), _c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]), _vm._v(" "), _c('v-rank')], 1)], 1)], 1)], 1), _vm._v(" "), _c('Modal', {
+  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), _c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
+    attrs: {
+      "href": 'mailto:' + _vm.plug.user.email
+    }
+  }, [_vm._v(_vm._s(_vm.plug.user.email))])])])]), _vm._v(" "), _c('v-rank')], 1)], 1)], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "width": "720"
     },
@@ -72773,7 +73238,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', {
       key: k
-    }, [_c('td', [_vm._v(_vm._s(v.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.money))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.giving))]), _vm._v(" "), _c('td', [_c('Button', {
+    }, [_c('td', [_vm._v(_vm._s(v.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.arr_list[v.money]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.money))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.giving))]), _vm._v(" "), _c('td', [_c('Button', {
       attrs: {
         "type": "ghost",
         "size": "small"
@@ -72920,7 +73385,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("充值金额范围")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("等级")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("最低充值金额")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
@@ -72936,7 +73405,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "16px"
     },
     attrs: {
-      "colspan": "4"
+      "colspan": "5"
     }
   }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
@@ -73020,7 +73489,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       staticClass: "td_div"
     }, [_c('div', {
-      staticClass: "td_child title",
+      staticClass: "td_child hidden_div title",
       staticStyle: {
         "width": "60%"
       }
@@ -73031,27 +73500,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "placement": "bottom"
       }
     }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.gold === 0) ? _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child hidden_div tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v("免费")]) : _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child tool",
+      staticClass: "td_child tool tt_center",
       staticStyle: {
         "width": "10%"
       }
@@ -73102,19 +73571,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "60%"
     }
-  }, [_vm._v("插件名称")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("资源名称")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("收费")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("插件版本")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
@@ -73245,7 +73718,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("手机")]), _vm._v(" "), (_vm.userInfo.tel === '0') ? _c('span', {
-    staticClass: "val"
+    staticClass: "val hover_hand",
+    on: {
+      "click": _vm.to_setting
+    }
   }, [_vm._v("还没有绑定手机号，点击立即绑定")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s(_vm.userInfo.tel))]), _vm._v(" "), _c('div', {
@@ -73255,7 +73731,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("生日")]), _vm._v(" "), (!_vm.userInfo.birthday) ? _c('span', {
-    staticClass: "val"
+    staticClass: "val hover_hand",
+    on: {
+      "click": _vm.to_setting
+    }
   }, [_vm._v("还不知道你的生日，点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s(_vm.userInfo.birthday))]), _vm._v(" "), _c('div', {
@@ -73265,7 +73744,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("出生地")]), _vm._v(" "), (!_vm.userInfo.birthplace || _vm.userInfo.birthplace.province === '') ? _c('span', {
-    staticClass: "val"
+    staticClass: "val hover_hand",
+    on: {
+      "click": _vm.to_setting
+    }
   }, [_vm._v("还不知道你的出生地，点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s((_vm.userInfo.birthplace.province ? _vm.userInfo.birthplace.province : '未知省') + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
@@ -73275,7 +73757,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("居住地")]), _vm._v(" "), (!_vm.userInfo.habitably || _vm.userInfo.habitably.province === '') ? _c('span', {
-    staticClass: "val"
+    staticClass: "val hover_hand",
+    on: {
+      "click": _vm.to_setting
+    }
   }, [_vm._v("还不知道你的居住地，点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s((_vm.userInfo.habitably.province ? _vm.userInfo.habitably.province : '未知省') + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
@@ -73456,6 +73941,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "admin.user.list"
     }
   }, [_vm._v("用户管理")])], 1)], 2), _vm._v(" "), _c('Submenu', {
+    attrs: {
+      "name": "5"
+    }
+  }, [_c('template', {
+    slot: "title"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-paper"
+    }
+  }), _vm._v("\n                消费管理\n            ")], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/recharge/list"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.recharge.list"
+    }
+  }, [_vm._v("充值列表")])], 1)], 2), _vm._v(" "), _c('Submenu', {
     attrs: {
       "name": "2"
     }
@@ -73707,7 +74210,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "to": {
         name: 'waTmw.index',
         params: {
-          'type': 'twm'
+          'type': 'tmw'
         }
       }
     }
@@ -73775,7 +74278,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("新增标签")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("新增分类")])], 1), _vm._v(" "), _c('Form', {
     ref: "formItem",
     staticClass: "div_center from_main",
     staticStyle: {
@@ -74237,7 +74740,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "搜索标题"
+      "placeholder": "标题"
     },
     model: {
       value: (_vm.formS.title),
@@ -74831,13 +75334,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 10) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 10) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 0) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()]) : _c('span', [_vm._v("= " + _vm._s(_vm.pay_amount_other * 10) + " 金币 "), (_vm.lv && _vm.pay_amount_other >= 0) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)) + " 金币")]) : _vm._e()])])]), _vm._v(" "), _c('div', {
     staticClass: "my_btn_wrapper"
   })])]), _vm._v(" "), _c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                    充值比例为：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    在线充值后金币一秒到账，马上就能使用，余额永久有效，用完为止，没有时间限制\n                    "), _c('br'), _vm._v("\n                    充值获得的金币可用于提现(满金币等同于200人名币即可提现)\n                    "), _c('br'), _vm._v("\n                    达到Lv2(随机)充值可获赠金币(起充10元)\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
+  }, [_vm._v("\n                    充值比例：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    金币充值即时到帐，永久有效\n                    "), _c('br'), _vm._v("\n                    当用户等级达到Lv2(随机)充值可获赠金币\n                    "), _c('br'), _vm._v("\n                    当金币数量等同于200人民币时即可申请提现(新注册用户30日内不能申请提现)\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
     staticClass: "pay_his",
     staticStyle: {
       "padding": "0 15px"
@@ -74866,7 +75369,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.giving_gold) + "\n                            ")])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.giving_gold) + "\n                            ")]), _vm._v(",\n                        充值方式 "), _c('span', {
+      staticClass: "normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v(_vm._s(v.recharge_type === 1 ? '支付宝' : '微信') + "\n                            ")])]), _vm._v(" "), _c('span', {
       staticClass: "time"
     }, [_vm._v(_vm._s(v.created_at))])])
   })) : _c('p', {
@@ -75002,7 +75510,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "td_child title",
       staticStyle: {
-        "width": "30%"
+        "width": "20%"
       }
     }, [_c('Poptip', {
       attrs: {
@@ -75025,7 +75533,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(v.is_check === 1 ? '已审核' : '待审核'))]), _vm._v(" "), _c('div', {
+      staticClass: "td_child hover_hand",
+      staticStyle: {
+        "width": "10%"
+      }
+    }, [_c('Poptip', {
+      attrs: {
+        "content": v.version,
+        "trigger": "hover",
+        "placement": "bottom"
+      }
+    }, [_vm._v("\n                    " + _vm._s(v.version) + "\n                ")])], 1), _vm._v(" "), _c('div', {
       staticClass: "td_child",
       staticStyle: {
         "width": "10%"
@@ -75181,13 +75700,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "td_head_div"
   }, [_c('div', {
     staticStyle: {
-      "width": "30%"
+      "width": "20%"
     }
   }, [_vm._v("插件名称")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("收费")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("状态")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
@@ -75583,7 +76106,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("编辑")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源编辑")])], 1), _vm._v(" "), _c('Form', {
     ref: "formItem",
     attrs: {
       "model": _vm.formItem,
@@ -75935,7 +76458,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("添加")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源添加")])], 1), _vm._v(" "), _c('Form', {
     ref: "formItem",
     attrs: {
       "model": _vm.formItem,
@@ -76385,7 +76908,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "分类",
       "prop": "type"
     }
-  }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
+  }, [(_vm.plug_tags && _vm.plug_tags.length > 0) ? _c('Cascader', {
     attrs: {
       "data": _vm.plug_tags
     },
@@ -76914,7 +77437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "搜索嘿市ID"
+      "placeholder": "嘿市ID"
     },
     model: {
       value: (_vm.formS.id),
@@ -76925,7 +77448,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "搜索用户名"
+      "placeholder": "用户名"
     },
     model: {
       value: (_vm.formS.name),
@@ -77232,7 +77755,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.info)
       }
-    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === 0 ? '暂无手机号' : v.tel))]), _vm._v(" "), _c('td', {
+    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '暂无手机号' : v.tel))]), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -77292,6 +77815,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "ghost",
         "size": "small"
+      },
+      on: {
+        "click": function($event) {
+          _vm.cz_jl(v.id)
+        }
       }
     }, [_vm._v("充值记录")]), _vm._v(" "), _c('Button', {
       attrs: {
@@ -77302,6 +77830,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "ghost",
         "size": "small"
+      },
+      on: {
+        "click": function($event) {
+          _vm.zy_jl(v.id)
+        }
       }
     }, [_vm._v("资源记录")])], 1)])
   })) : _c('tbody', [_vm._m(0)])]), _vm._v(" "), _c('v-user-edit', {
@@ -77355,7 +77888,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("插件列表")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("资源列表")])], 1), _vm._v(" "), _c('Form', {
     attrs: {
       "model": _vm.formS,
       "inline": ""
@@ -77380,7 +77913,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "搜索插件名称"
+      "placeholder": "插件名称"
     },
     model: {
       value: (_vm.formS.name),
@@ -77391,7 +77924,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "用户名称"
+      "placeholder": "用户名"
     },
     model: {
       value: (_vm.formS.user_name),
@@ -77402,7 +77935,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "嘿市号"
+      "placeholder": "嘿市ID"
     },
     model: {
       value: (_vm.formS.user_id),
@@ -77808,7 +78341,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pull-right"
   }, [_c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "禁用的昵称"
+      "placeholder": "禁止使用的昵称"
     },
     nativeOn: {
       "keyup": function($event) {
@@ -78039,7 +78572,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "头像"
     }
   }, [_c('img', {
-    staticClass: "img-circle",
+    staticClass: "img-circle hover_hand",
     attrs: {
       "src": _vm.formItem.avatar,
       "id": "set-avatar"
@@ -78089,7 +78622,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_vm._v("30天内不能再次修改阵营")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("阵营修改间隔时间为30天")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "性别"
     }
@@ -78342,14 +78875,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("标签列表")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类列表")])], 1), _vm._v(" "), _c('Form', {
     attrs: {
       "model": _vm.formS,
       "inline": ""
     }
   }, [_c('Form-item', [_c('Input', {
     attrs: {
-      "placeholder": "搜索分类"
+      "placeholder": "分类"
     },
     model: {
       value: (_vm.formS.name),
@@ -78359,6 +78892,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formS.name"
     }
   })], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "分类"
+    },
+    model: {
+      value: (_vm.formS.type),
+      callback: function($$v) {
+        _vm.formS.type = $$v
+      },
+      expression: "formS.type"
+    }
+  }, _vm._l((_vm.configTagType), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
     staticStyle: {
       "width": "100px"
     },
@@ -78453,7 +79008,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.change_is_for_user(v.is_for_user === 1 ? 0 : 1, v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.is_for_user(v.is_for_user)))])], 1), _vm._v(" "), _c('td', [_c('Button', {
+    }, [_vm._v(_vm._s(_vm.is_for_user(v.is_for_user)))])], 1), _vm._v(" "), _c('td', [_c('Input-number', {
+      staticStyle: {
+        "width": "50px"
+      },
+      attrs: {
+        "max": 99,
+        "min": 0,
+        "disabled": _vm.is_disabled === k ? false : true
+      },
+      on: {
+        "on-change": function($event) {
+          _vm.change_other(k)
+        }
+      },
+      model: {
+        value: (v.rank),
+        callback: function($$v) {
+          v.rank = $$v
+        },
+        expression: "v.rank"
+      }
+    })], 1), _vm._v(" "), _c('td', [_c('Button', {
       attrs: {
         "type": "ghost",
         "size": "small"
@@ -78463,7 +79039,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.edit(v, k)
         }
       }
-    }, [_vm._v("编辑")])], 1)])
+    }, [_vm._v("编辑")]), _vm._v(" "), _c('Button', {
+      attrs: {
+        "type": _vm.is_disabled === k ? 'success' : 'ghost',
+        "size": "small"
+      },
+      on: {
+        "click": function($event) {
+          _vm.c_rank(v.id, k)
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '排序'))])], 1)])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -78679,6 +79265,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
+  }, [_vm._v("排序")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
   }, [_vm._v("操作")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', {
@@ -78687,7 +79277,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "16px"
     },
     attrs: {
-      "colspan": "7"
+      "colspan": "8"
     }
   }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
@@ -81446,6 +82036,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-00f2ce36\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./update.vue", function() {
      var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-00f2ce36\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./update.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/recharge/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/recharge/List.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("3de43c75", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -93611,11 +94228,11 @@ module.exports = function(module) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = my_dialog;
 function my_dialog(msg) {
     console.log(1);
-    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated fadeIn">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog">\u786E\u8BA4</button>\n                    </div>\n                </div>\n            </div>';
+    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog" style="border-radius: 5px">\u786E\u8BA4</button>\n                    </div>\n                </div>\n            </div>';
 
     $('#app').append(html);
     $(".dialog").addClass('dialog--open');
-    $(document).on("click", ".close_dialog", function () {
+    $(document).on("click", ".close_dialog , .close_other_dialog", function () {
         $('.dialog').remove();
     });
 }
@@ -93936,17 +94553,19 @@ window.Vue = __webpack_require__("./node_modules/_vue@2.4.2@vue/dist/vue.common.
 
 
 
-global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["i" /* tagType */];
-global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["h" /* statusType */];
+global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["k" /* tagType */];
+global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["j" /* statusType */];
 global.configIsForUser = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["e" /* isForUser */];
-global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["j" /* yesOrNo */];
+global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["l" /* yesOrNo */];
 global.configCamp = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["c" /* camp */];
 global.configIsLogin = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["f" /* isLogin */];
-global.configPlugType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["g" /* plugType */];
+global.configPlugType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["i" /* plugType */];
 global.configCheckType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["d" /* checkType */];
 global.configBmDownloadType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["a" /* bmDownloadType */];
 global.configBmType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["b" /* bmType */];
 global.myDialog = __WEBPACK_IMPORTED_MODULE_6__common_dialog_js__["a" /* my_dialog */];
+global.configPayType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["h" /* payType */];
+global.configPayStatus = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["g" /* payStatus */];
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
@@ -94427,6 +95046,51 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/admin/recharge/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0210c432\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/recharge/List.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/recharge/List.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0210c432\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/recharge/List.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-0210c432",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\admin\\recharge\\List.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] List.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0210c432", Component.options)
+  } else {
+    hotAPI.reload("data-v-0210c432", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/admin/tag/Create.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -94881,18 +95545,20 @@ module.exports = Component.exports
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return tagType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return statusType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return tagType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return statusType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isForUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return yesOrNo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return yesOrNo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return camp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return isLogin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return plugType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return plugType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return checkType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bmDownloadType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return bmType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return payStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return payType; });
 var tagType = {
-    1: 'wa/twm',
+    1: 'WA/TMW',
     2: '游戏插件'
 };
 var statusType = {
@@ -94921,7 +95587,7 @@ var isLogin = {
 
 var plugType = {
     1: 'WA',
-    2: 'TWM',
+    2: 'TMW',
     3: '魔兽插件'
 };
 
@@ -94940,6 +95606,17 @@ var bmType = {
     2: '剧集',
     3: '软件',
     4: '其他'
+};
+
+var payStatus = {
+    0: '初始状态',
+    1: '用户未支付',
+    9: '支付成功'
+};
+
+var payType = {
+    1: '支付宝',
+    2: '微信'
 };
 
 /***/ }),
@@ -95767,6 +96444,10 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue__ = __webpack_require__("./resources/assets/js/components/admin/tool/GameVersion.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue__ = __webpack_require__("./resources/assets/js/components/admin/recharge/List.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue__);
+
+
 
 
 
@@ -95800,7 +96481,7 @@ module.exports = Component.exports
 /* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
 
 //admin
-{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }]);
+{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }, { path: '/admin/recharge/list', name: 'admin.recharge.list', component: __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default.a }]);
 
 /***/ }),
 

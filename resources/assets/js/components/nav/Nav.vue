@@ -39,7 +39,7 @@
                             <span class="no_active">WA</span></router-link>
                     </li>
                     <li>
-                        <router-link :to="{name:'waTmw.index' , params:{'type':'twm'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <router-link :to="{name:'waTmw.index' , params:{'type':'tmw'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span class="no_active">TMW</span></router-link>
                     </li>
                     <li>

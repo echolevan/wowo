@@ -4,19 +4,19 @@ return [
 
     'plug_type' => [
         'wa' => 1,
-        'twm' => 2,
+        'tmw' => 2,
         'plug' => 3
     ],
 
     'plug_name' => [
         '1' => 'WA',
-        '2' => 'TWM',
+        '2' => 'TMW',
         '3' => '游戏插件'
     ],
 
     'tag_type' => [
         'wa' => 1,
-        'twm' => 1,
+        'tmw' => 1,
         'plug' => 2
     ],
 

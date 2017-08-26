@@ -264,8 +264,8 @@ class UserController extends Controller
     {
         $count = Plug::where('user_id',Auth::id())->where('is_new',1)->count();
         $res = Plug::where('user_id',Auth::id())->with(['historys'=>function($query){
-            $query->where('is_new',0)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id')->latest();
-        }])->where('is_new',1)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id')->orderBy('created_at','desc')->skip(($page-1)*$size)->take($size)->get();
+            $query->where('is_new',0)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id','plugs.is_check')->latest();
+        }])->where('is_new',1)->select('plugs.id','plugs.title','plugs.gold','plugs.version','plugs.game_version','plugs.plug_id','plugs.is_check')->orderBy('created_at','desc')->skip(($page-1)*$size)->take($size)->get();
         return ['count'=>$count , 'res'=>$res];
     }
 

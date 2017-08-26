@@ -28,6 +28,8 @@ import AdminLvSetting from './components/admin/tool/Lv.vue'
 import AdminNicknameSetting from './components/admin/tool/Nickname.vue'
 import AdminGameVersionSetting from './components/admin/tool/GameVersion.vue'
 
+import AdminRechargeList from './components/admin/recharge/List.vue'
+
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
@@ -64,5 +66,7 @@ export default [
     { path: '/admin/lv/setting',name:'admin.lv.setting' , component:AdminLvSetting},
     { path: '/admin/nickname/setting',name:'admin.nickname.setting' , component:AdminNicknameSetting},
     { path: '/admin/game_version/setting',name:'admin.game_version.setting' , component:AdminGameVersionSetting},
+
+    { path: '/admin/recharge/list',name:'admin.recharge.list' , component:AdminRechargeList},
 
 ]

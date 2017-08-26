@@ -6,7 +6,7 @@
             </Form-item>
 
             <Form-item label="分类" prop="type">
-                <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
+                <Cascader v-if="plug_tags && plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
                           @on-change="on_sel"></Cascader>
             </Form-item>
 
@@ -216,6 +216,10 @@
                 if(!this.userInfo){
                     myDialog('请先登录')
                     this.$router.push('/home')
+                }else{
+                    if(this.userInfo.is_active === 0){
+                        myDialog("您还未激活邮箱，请先<a href='/#/userInfo/info' class='close_other_dialog'>点击激活</a>")
+                    }
                 }
             },500)
             this._init()
@@ -226,6 +230,11 @@
             },
             '$route'(to, from) {
                 this.$router.go(-1)
+            },
+            userInfo() {
+                if(!this.userInfo){
+                    this.$router.push('/')
+                }
             }
         },
         methods: {
@@ -253,13 +262,12 @@
                 })
             },
             swi() {
-                this.formItem.gold = 0
+                this.formItem.gold = 1
             },
             on_sel(v) {
                 this.formItem.type = v
                 this.formItem.content = ''
                 this.formItem.is_free = false
-                console.log(this.formItem)
             },
             _init() {
                 if(this.$route.params.id){

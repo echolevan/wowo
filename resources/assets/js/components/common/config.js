@@ -1,5 +1,5 @@
 export const tagType = {
-    1 : 'wa/twm',
+    1 : 'WA/TMW',
     2: '游戏插件'
 }
 export const statusType = {
@@ -28,7 +28,7 @@ export const isLogin = {
 
 export const plugType = {
     1: 'WA',
-    2: 'TWM',
+    2: 'TMW',
     3: '魔兽插件'
 }
 
@@ -47,4 +47,15 @@ export const bmType = {
     2: '剧集',
     3: '软件',
     4: '其他'
+}
+
+export const payStatus = {
+    0: '初始状态',
+    1: '用户未支付',
+    9: '支付成功'
+}
+
+export const payType = {
+    1: '支付宝',
+    2: '微信'
 }

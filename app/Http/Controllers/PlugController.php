@@ -217,7 +217,7 @@ class PlugController extends Controller
             // 是否是免费的
             $this->download_num($plug->plug_id);
             if ($plug->type == 1 || $plug->type == 2) {
-                // wa twm  model
+                // wa tmw  model
                 return ['sta' => 1, 'type' => 1, 'info' => $plug];
             } else {
                 // download
@@ -231,7 +231,7 @@ class PlugController extends Controller
                 Plug::where('plug_id',$plug->plug_id)->increment('download_num');
                 $this->download_num($plug->plug_id);
                 if ($plug->type == 1 || $plug->type == 2) {
-                    // wa twm  model
+                    // wa tmw  model
                     return ['sta' => 1, 'type' => 1, 'info' => $plug];
                 } else {
                     // download
@@ -312,7 +312,7 @@ class PlugController extends Controller
      */
     public function plug_all_info ()
     {
-        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '插件']];
+        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '游戏插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -324,6 +324,7 @@ class PlugController extends Controller
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);
                 })
+                ->orderBy('rank','desc')->latest()
                 ->get();
         }
 
@@ -335,7 +336,7 @@ class PlugController extends Controller
 
     public function plug_all_info_for_admin()
     {
-        $tag = [[1, 1, 'WA/TMW'], [2, 3, '插件']];
+        $tag = [[1, 1, 'WA/TMW'], [2, 3, '游戏插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -343,7 +344,8 @@ class PlugController extends Controller
             $res[$k]['label'] = $v[2];
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
-            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])->get();
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
+                ->orderBy('rank','desc')->latest()->get();
         }
 
         $game_version = Tool::where('name','game_version')->get();
@@ -362,7 +364,8 @@ class PlugController extends Controller
             $res[$k]['label'] = $v[2];
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
-            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])->get();
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])
+                ->orderBy('rank','desc')->latest()->get();
         }
 
         $game_version = Tool::where('name','game_version')->get();
@@ -376,6 +379,10 @@ class PlugController extends Controller
      */
     public function upload_plug (Request $request, $plug_id = 0)
     {
+        //check email
+        if(Auth::user()->is_active === 0){
+            return ['sta' => 0, 'msg' => '上传失败,请先激活邮箱'];
+        }
         $req = collect($request->data);
         $plug = $req->except('uploadList', 'type', 'content', 'plug_url');
         $type = $req->only('type');
@@ -388,9 +395,10 @@ class PlugController extends Controller
         }
         $Plug->user_id = Auth::id();
         $Plug->plug_id = ($plug_id === 0 || $plug_id === 'undefined') ? get_only_one_plug_id() : $plug_id;
-        $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
+        $Plug->gold = !$req['is_free'] ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
+        $Plug->is_check = !$req['is_free'] ? 1 : 0;
         $Plug->version = date('YmdHi');
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
@@ -424,7 +432,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '上传失败'];
         }
 
-        return ['sta' => 1, 'msg' => '上传成功'];
+        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '上传成功' : '上传成功,请等待审核'];
     }
 
     public function update_plug (Request $request, $id)
@@ -537,25 +545,24 @@ class PlugController extends Controller
 
     public function plug_index()
     {
-
         if(Cache::has('plug_index_wa')){
             $wa = Cache::get('plug_index_wa');
         }else{
-            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_wa',$wa,60);
         }
 
-        if(Cache::has('plug_index_twm')){
-            $twm = Cache::get('plug_index_twm');
+        if(Cache::has('plug_index_tmw')){
+            $tmw = Cache::get('plug_index_tmw');
         }else{
-            $twm = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
-            Cache::put('plug_index_twm',$twm,60);
+            $tmw = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            Cache::put('plug_index_tmw',$tmw,60);
         }
 
         if(Cache::has('plug_index_plug')){
             $plug = Cache::get('plug_index_plug');
         }else{
-            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
             Cache::put('plug_index_plug',$plug,60);
         }
 
@@ -588,7 +595,7 @@ class PlugController extends Controller
         if(Cache::has('plug_index_download_plugs')){
             $download_plugs = Cache::get('plug_index_download_plugs');
         }else{
-            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
             Cache::put('plug_index_download_plugs',$download_plugs,60);
         }
 
@@ -625,7 +632,7 @@ class PlugController extends Controller
         }
 
         $today_time = Date('Y-m-d');
-        return ['was'=>$wa,'twms'=>$twm,'plugs'=>$plug,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
+        return ['was'=>$wa,'tmws'=>$tmw,'plugs'=>$plug,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
     }
 
     public function plug_list(Request $request , $page , $size)
