@@ -21,7 +21,7 @@ class CreateBmTable extends Migration
             $table->tinyInteger('type')->index()->default(1)->commnet('类型 1是本站BT 2是百度云');
             $table->integer('download_num')->default(0)->comment('下载次数');
             $table->tinyInteger('status')->default(1)->comment('0回收站 1正常');
-            $table->tinyInteger('rank')->index()->dedalut(0)->comment('排序 最大99');
+            $table->tinyInteger('rank')->index()->default(0)->comment('排序 最大99');
             $table->timestamps();
         });
     }
