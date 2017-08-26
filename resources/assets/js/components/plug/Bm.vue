@@ -6,18 +6,22 @@
         </div>
         <div style="clear: both"></div>
         <ul>
-            <li v-for="v in list"><strong>
-                <a href="javascript:void(0)" @click="down_bm(v.id)"
+            <li v-for="(v, k) in list"><strong>
+                <a href="javascript:void(0)" @click="down_bm(v.id, k)"
                 ><span style="padding-right: 2px">[{{configBmDownloadType[v.type]}}]</span>
                     <span style="padding-right: 2px">[{{configBmType[v.zy_type]}}]</span>
                     {{v.title}}</a>
             </strong>
                 <span class="pull-right" style="padding-left: 5px">
 
-                {{v.created_at}}</span> <span class="pull-right">{{v.user.name}}</span>
+                {{v.created_at}}</span> <span class="pull-right">{{v.user.name}} - {{v.download_num}}次下载 - </span>
                 <br>
-                <span v-if="v.gold === 0" class="pull-right">免费</span>
-                <span class="pull-right" v-else>售价：{{v.gold}}</span>
+                <span v-if="v.gold === 0" class="pull-right" style="font-size: 14px;font-weight: 600">免费</span>
+                <span class="pull-right" v-else style="font-size: 14px;font-weight: 600">售价：
+                      <span v-if="v.order"><s>{{v.gold}}</s></span>
+                                <span v-else>{{v.gold}}</span>
+                                <span v-if="v.order">(您已经购买过)</span>
+                </span>
                 <div style="clear:both"></div>
             </li>
         </ul>
@@ -29,6 +33,19 @@
                   :key="plugs_count"></Page>
         </div>
         <div style="clear:both"></div>
+
+
+        <div class="dialog dialog--open" v-show="download_model">
+            <div class="dialog__overlay"></div>
+            <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">
+                <h2>确认购买吗</h2>
+                <div>
+                    <button type="button" class="close_dialog" style="border-radius: 5px;background:#fff;color:#333;" @click="download_model = false">取消</button>
+                    <button type="button" class="close_dialog ivu-btn-primary" style="border-radius: 5px" @click="go_download(down_id, down_k)">确认</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -52,6 +69,9 @@
                     orderBySome: 'created_at',
                     orderByF: 'desc'
                 },
+                download_model: false,
+                down_id: 0,
+                down_k: 0,
             }
         },
         computed: mapState([
@@ -60,7 +80,9 @@
         watch: {
             userInfo() {
                 if (!this.userInfo) {
-                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
+                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.$router.push('/home')
                 }
             }
@@ -68,10 +90,12 @@
         mounted() {
             setTimeout(() => {
                 if (!this.userInfo) {
-                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
+                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.$router.push('/home')
                 }
-            }, 300)
+            }, 500)
             this.get_plugs()
         },
         methods: {
@@ -88,13 +112,34 @@
             to_search() {
                 this.get_plugs();
             },
-            down_bm(id) {
-                axios.get(`bm/download/${id}`).then(res => {
+            down_bm(id,k) {
+                axios.get(`bm/check_download/${id}`).then(res => {
                     if(res.data.sta === 1){
-                        window.open(res.data.url);
+                        this.go_download(id, k)
+                    }else if(res.data.sta === 9){
+                        myDialog(`您的金币不足，请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
+                            , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    }else if(res.data.sta === 2){
+                        this.down_id = id
+                        this.down_k = k
+                        this.download_model = true
                     }else{
                         myDialog(res.data.msg)
                     }
+                })
+            },
+            go_download(id, k){
+                axios.get(`bm/download/${id}`).then(res => {
+                    if(res.data.sta === 1){
+                        this.list[k].order = 1
+                        window.open(res.data.url);
+                    }else if(res.data.sta === 9){
+                        myDialog(`您的金币不足，请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
+                            , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    }else{
+                        myDialog(res.data.msg)
+                    }
+                    this.download_model = false
                 })
             }
         }

@@ -21,6 +21,36 @@
                 陕ICP备17015228号-1
             </div>
         </div>
+        <div class="tool_bottom">
+            <div class="feedback hover_hand" @click="feedback_model = true">
+                意见<br>反馈
+            </div>
+            <div class="goTop hover_hand">
+                返回<br>顶部
+            </div>
+        </div>
+
+        <Modal v-model="feedback_model">
+            <p slot="header" class="model_title">
+             意见反馈
+            </p>
+            <div>
+                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
+                    <Form-item label="建议" prop="feedback">
+                        <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="您的建议"></Input>
+                    </Form-item>
+                    <Form-item label="姓名" prop="name">
+                        <Input type="text" v-model="formCustom.name"></Input>
+                    </Form-item>
+                    <Form-item label="手机号" prop="tel">
+                        <Input type="text" v-model="formCustom.tel"></Input>
+                    </Form-item>
+                </Form>
+            </div>
+            <div slot="footer">
+                <Button @click="go_feedback('formCustom')">确定</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -29,7 +59,21 @@
 
     export default {
         data() {
-            return {}
+            return {
+                feedback_model: false,
+                formCustom: {
+                    feedback: '',
+                    name: '',
+                    tel: '',
+                },
+                ruleCustom: {
+                    feedback: [
+                        {required: true, message: '建议不能为空', trigger: 'blur'},
+                        {max: 180, message: '建议最长180', trigger: 'blur'},
+                        {max: 180, message: '建议最长180', trigger: 'blur'},
+                    ]
+                }
+            }
         },
         mounted() {
             let redirect = localStorage.getItem('redirect');
@@ -39,6 +83,20 @@
             }
             this._init()
             this.choice_camp()
+
+            $('.goTop').css('opacity',0);
+            $(window).on('scroll', function() {
+                if ($('body').scrollTop() > 100) { /* 返回顶部按钮将在用户向下滚动100像素后出现 */
+                    $('.goTop').css('opacity',1);
+                } else {
+                    $('.goTop').css('opacity',0);
+                }
+            });
+
+            $('.goTop').click(function() {
+                $("html, body").animate({scrollTop: 0}, 500);
+            })
+
         },
         watch: {
             '$route'(to, from) {
@@ -46,6 +104,31 @@
             }
         },
         methods: {
+            go_feedback(name) {
+                console.log(name)
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        axios.put('/feedback',{data: this.formCustom}).then(res => {
+                            if(res.data.sta === 1){
+                                myDialog(res.data.msg)
+                            }else{
+                                myDialog('感谢您的建议')
+                            }
+                            this.feedback_model = false
+                            this.formCustom.feedback = ''
+                            this.formCustom.name = ''
+                            this.formCustom.tel = ''
+                        }).catch(err => {
+                            myDialog('感谢您的建议')
+                            this.feedback_model = false
+                            this.formCustom.feedback = ''
+                            this.formCustom.name = ''
+                            this.formCustom.tel = ''
+                        })
+                    }
+                })
+
+            },
             choice_camp() {
                 let choice_camp = window.localStorage.getItem('choice_camp')
                 this.$store.commit('choice_camp', choice_camp)
@@ -104,4 +187,15 @@
                 li
                     padding 0 5px
                     display inline-block
+
+    .tool_bottom
+        position fixed
+        bottom 30px
+        right 0
+        div
+            background rgba(0,0,0,0.5)
+            color #fff
+            text-align center
+            margin-bottom 2px
+            padding 5px
 </style>

@@ -1,17 +1,21 @@
-*{
+* {
     padding: 0;
     margin: 0;
 }
-body{
+
+body {
     max-height: 100%;
     overflow: hidden;
-    font-size: 13px !important;
+    font-size: 14px !important;
+    color: #333;
+    font-family: Small Head !important;
 }
+
 .right_div span {
     color: #5e5d5d;
 }
 
-.filter{
+.filter {
     position: absolute;
     left: 0;
     top: 0;
@@ -23,7 +27,7 @@ body{
     z-index: 500;
 }
 
-.right{
+.right {
     text-align: center;
     position: absolute;
     right: 0;
@@ -44,48 +48,57 @@ body{
 .cont_form_login input {
     padding: 12px 5px;
     border-radius: 5px;
-    margin: 15px 0 ;
+    margin: 15px 0;
     width: 100%;
     border: 1px solid #333;
     text-align: left;
-    color: #757575;
-
+    color: #333333;
 }
+
+::-webkit-input-placeholder { /*Chrome/Safari*/
+    font-weight: bold;
+}
+
+::-moz-placeholder { /*Firefox*/
+    font-weight: bold;
+}
+
 
 .btn_login {
     background-color: #FF9800;
     border: none;
     width: 100%;
     padding: 10px;
-    border-radius:3px;
-    box-shadow: 1px 5px 20px -5px rgba(0,0,0,0.4);
+    border-radius: 3px;
+    box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.4);
     color: #fff;
     margin: 10px 0;
     cursor: pointer;
 }
 
-.my-button{
-    background:#44844a;
-    border-color:#44844a;
+.my-button {
+    background: #44844a;
+    border-color: #44844a;
     border-radius: 5px;
 }
 
-.cont_form_login p , .cont_form_sign_up p{
+.cont_form_login p, .cont_form_sign_up p {
     margin-bottom: 0;
     color: #a94442;
     text-align: left;
     padding-left: 15px;
 }
 
-.right_div{
+.right_div {
     padding: 30px;
     height: 100%;
     display: flex;
     align-items: center;
     background-color: #333;
 }
+
 .nice-select {
-    margin: 15px 0 ;
+    margin: 15px 0;
     -webkit-tap-highlight-color: transparent;
     background-color: #fff;
     border-radius: 5px;
@@ -95,7 +108,6 @@ body{
     cursor: pointer;
     display: block;
     /*float: left;*/
-    font-family: inherit;
     font-size: 13px;
     font-weight: normal;
     height: 42px;
@@ -112,11 +124,16 @@ body{
     -ms-user-select: none;
     user-select: none;
     white-space: nowrap;
-    }
+}
+
 .nice-select:hover {
-    border-color: #dbdbdb; }
+    border-color: #dbdbdb;
+}
+
 .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: #999; }
+    border-color: #999;
+}
+
 .nice-select:after {
     border-bottom: 2px solid #999;
     border-right: 2px solid #999;
@@ -136,43 +153,70 @@ body{
     transform: rotate(45deg);
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
-    width: 5px; }
+    width: 5px;
+}
+.nice-select .current{
+    font-weight: bold;
+}
+
 .nice-select.open:after {
     -webkit-transform: rotate(-135deg);
     -ms-transform: rotate(-135deg);
-    transform: rotate(-135deg); }
+    transform: rotate(-135deg);
+}
+
 .nice-select.open .list {
     opacity: 1;
     pointer-events: auto;
     -webkit-transform: scale(1) translateY(0);
     -ms-transform: scale(1) translateY(0);
-    transform: scale(1) translateY(0); }
+    transform: scale(1) translateY(0);
+}
+
 .nice-select.disabled {
     border-color: #ededed;
     color: #999;
-    pointer-events: none; }
+    pointer-events: none;
+}
+
 .nice-select.disabled:after {
-    border-color: #cccccc; }
+    border-color: #cccccc;
+}
+
 .nice-select.wide {
-    width: 100%; }
+    width: 100%;
+}
+
 .nice-select.wide .list {
     left: 0 !important;
-    right: 0 !important; }
+    right: 0 !important;
+}
+
 .nice-select.right {
-    float: right; }
+    float: right;
+}
+
 .nice-select.right .list {
     left: auto;
-    right: 0; }
+    right: 0;
+}
+
 .nice-select.small {
     font-size: 12px;
     height: 36px;
-    line-height: 34px; }
+    line-height: 34px;
+}
+
 .nice-select.small:after {
     height: 4px;
-    width: 4px; }
+    width: 4px;
+}
+
 .nice-select.small .option {
     line-height: 34px;
-    min-height: 34px; }
+    min-height: 34px;
+}
+
 .nice-select .list {
     width: 100% !important;
     background-color: #fff;
@@ -194,9 +238,13 @@ body{
     transform: scale(0.75) translateY(-21px);
     -webkit-transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
     transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
-    z-index: 9; }
+    z-index: 9;
+}
+
 .nice-select .list:hover .option:not(:hover) {
-    background-color: transparent !important; }
+    background-color: transparent !important;
+}
+
 .nice-select .option {
     cursor: pointer;
     width: 100% !important;
@@ -209,24 +257,32 @@ body{
     padding-right: 29px;
     text-align: left;
     -webkit-transition: all 0.2s;
-    transition: all 0.2s; }
+    transition: all 0.2s;
+}
+
 .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
-    background-color: #f6f6f6; }
+    background-color: #f6f6f6;
+}
+
 .nice-select .option.selected {
-    font-weight: bold; }
+    font-weight: bold;
+}
+
 .nice-select .option.disabled {
     background-color: transparent;
     color: #999;
-    cursor: default; }
+    cursor: default;
+}
 
 .no-csspointerevents .nice-select .list {
-    display: none; }
+    display: none;
+}
 
 .no-csspointerevents .nice-select.open .list {
-    display: block; }
+    display: block;
+}
 
-
-.captcha img{
+.captcha img {
     width: 100%;
     height: 44px;
     border-radius: 5px;

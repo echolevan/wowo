@@ -30,7 +30,9 @@ class BmController extends Controller
                 return $query->orderBy($request->search['orderBySome'], $request->search['orderByF']);
             });
         $count = $where->count();
-        $list = $where->with(['user'])->skip(($page - 1) * $size)->take($size)->get();
+        $list = $where->with(['user'])->with(['order'=>function($query){
+            $query->where('orders.type',4);
+        }])->skip(($page - 1) * $size)->take($size)->get();
         return ['sta' => 1, 'count' => $count, 'list' => $list];
     }
 
@@ -84,6 +86,28 @@ class BmController extends Controller
         return ['sta' => 0, 'msg' => '更新失败'];
     }
 
+    public function check_download($id)
+    {
+        $bm = Bm::find($id);
+
+        if ($bm->gold === 0) {
+            $bm->increment('download_num');
+            return ['sta' => 1];
+        } else {
+            // check has order
+            $order = Order::where([['plug_id', $bm->id], ['user_id', Auth::id()], ['type', 4]])->count();
+            if ($order > 0) {
+                $bm->increment('download_num');
+                return ['sta' => 1];
+            }
+            if ($bm->gold > Auth::user()->gold) {
+                return ['sta' => 9 , 'msg'=>'金币不够'];
+            } else {
+                return ['sta' => 2 , 'msg'=>'金币够，请求确认'];
+            }
+        }
+    }
+
     public function download ($id)
     {
         $bm = Bm::find($id);
@@ -99,7 +123,7 @@ class BmController extends Controller
                 return ['sta' => 1, 'msg' => '下载成功', 'url' => $bm->url];
             }
             if($bm->gold > Auth::user()->gold){
-                return ['sta'=>0 ,'msg'=>'您的金币不足，请先充值'];
+                return ['sta'=>9 ,'msg'=>'您的金币不足，请先充值'];
             }else{
                  DB::beginTransaction();
                  try{

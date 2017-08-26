@@ -181,7 +181,7 @@
                             <span class="normal_font"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.giving_gold}}
                                 </span>,
-                            充值方式 <span class="normal_font"
+                            支付方式 <span class="normal_font"
                                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.recharge_type === 1 ? '支付宝' : '微信'}}
                                 </span>
 

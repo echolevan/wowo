@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Feedback;
 use App\Lv;
 use App\Tool;
 use Illuminate\Http\Request;
@@ -177,6 +178,18 @@ class ToolController extends Controller
             return ['sta'=>1 , 'msg'=>'删除成功'];
         return ['sta'=>0 , 'msg'=>'删除失败'];
 
+    }
+
+    public function feedback(Request $request)
+    {
+        $fed = Feedback::create([
+            'feedback' => $request->data['feedback'],
+            'name' => $request->data['name'],
+            'tel' => $request->data['tel'],
+        ]);
+        if($fed)
+            return ['sta'=>1 , 'msg'=>'感谢您的建议'];
+        return ['sta'=>0 , 'msg'=>'提交失败'];
     }
 
 }

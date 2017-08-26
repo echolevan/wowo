@@ -37,6 +37,7 @@ Route::post('check_login_email' , 'UserController@check_login_email')->name('use
 
 Route::get('user/info' , 'UserController@index')->name('user.info');
 Route::get('user/logout' , 'UserController@logout')->name('user.logout');
+Route::put('feedback' , 'ToolController@feedback')->name('tool.feedback');
 
 Route::get('tag/{type}' , 'TagController@index')->name('tag.index');
 Route::get('plug/{type}' , 'PlugController@index')->name('plug.index');
@@ -84,6 +85,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("check/user_tel",'UserController@user_tel'); //检查tel是否重复
 
     Route::post("bm/list/{page}/{size}",'BmController@bm_list'); //bm列表
+    Route::get("bm/check_download/{id}",'BmController@check_download'); //下载bm
     Route::get("bm/download/{id}",'BmController@download'); //下载bm
 
 });

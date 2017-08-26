@@ -25,7 +25,9 @@
             <li><span class="title">简介</span><span class="val" v-if="userInfo.info">{{userInfo.info}}</span><span class="val" v-else-if="userInfo.camp === 1">为了联盟</span><span class="val" v-else>为了部落</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">金币</span><span class="val">{{userInfo.gold}}</span>
+            <li><span class="title">金币</span><span style="font-size: 14px;font-weight: bold" class="val normal_font normal_font_hover"
+               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+            >{{userInfo.gold}}</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">邮箱</span><span class="val">
@@ -48,12 +50,12 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">手机</span>
-                <span class="val hover_hand" v-if="userInfo.tel === '0'" @click="to_setting">还没有绑定手机号，点击立即绑定</span>
+                <span class="val hover_hand" v-if="userInfo.tel === '0'" @click="to_setting">点击立即绑定</span>
                 <span class="val" v-else>{{userInfo.tel}}</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">生日</span>
-                <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting">还不知道你的生日，点击立即设置</span>
+                <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{userInfo.birthday}}</span>
                 <div style="clear: both"></div>
             </li>

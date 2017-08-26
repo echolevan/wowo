@@ -31,7 +31,10 @@
             background: #d13030;
         }
         body{
-            font-family: inherit !important;
+            font-family: Small Head !important;
+        }
+        button, input, select, textarea{
+            font-family: Small Head !important;
         }
     </style>
 </head>
@@ -78,7 +81,7 @@
                    @endif
 
                    <input type="text"  name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
-                   <div style="margin: 15px 0 15px 15px; float: left;" class="captcha">{!! captcha_img() !!}</div>
+                   <div style="margin: 15px 0 15px 20px; float: left;" class="captcha">{!! captcha_img() !!}</div>
                    <div style="clear: both"></div>
                    @if ($errors->has('captcha'))
                        <p>{{ $errors->first('captcha') }}</p>

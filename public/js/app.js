@@ -1759,12 +1759,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            feedback_model: false,
+            formCustom: {
+                feedback: '',
+                name: '',
+                tel: ''
+            },
+            ruleCustom: {
+                feedback: [{ required: true, message: '建议不能为空', trigger: 'blur' }, { max: 180, message: '建议最长180', trigger: 'blur' }, { max: 180, message: '建议最长180', trigger: 'blur' }]
+            }
+        };
     },
     mounted: function mounted() {
         var redirect = localStorage.getItem('redirect');
@@ -1774,6 +1814,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
         this._init();
         this.choice_camp();
+
+        $('.goTop').css('opacity', 0);
+        $(window).on('scroll', function () {
+            if ($('body').scrollTop() > 100) {
+                /* 返回顶部按钮将在用户向下滚动100像素后出现 */
+                $('.goTop').css('opacity', 1);
+            } else {
+                $('.goTop').css('opacity', 0);
+            }
+        });
+
+        $('.goTop').click(function () {
+            $("html, body").animate({ scrollTop: 0 }, 500);
+        });
     },
 
     watch: {
@@ -1782,26 +1836,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        go_feedback: function go_feedback(name) {
+            var _this = this;
+
+            console.log(name);
+            this.$refs[name].validate(function (valid) {
+                if (valid) {
+                    axios.put('/feedback', { data: _this.formCustom }).then(function (res) {
+                        if (res.data.sta === 1) {
+                            myDialog(res.data.msg);
+                        } else {
+                            myDialog('感谢您的建议');
+                        }
+                        _this.feedback_model = false;
+                        _this.formCustom.feedback = '';
+                        _this.formCustom.name = '';
+                        _this.formCustom.tel = '';
+                    }).catch(function (err) {
+                        myDialog('感谢您的建议');
+                        _this.feedback_model = false;
+                        _this.formCustom.feedback = '';
+                        _this.formCustom.name = '';
+                        _this.formCustom.tel = '';
+                    });
+                }
+            });
+        },
         choice_camp: function choice_camp() {
             var choice_camp = window.localStorage.getItem('choice_camp');
             this.$store.commit('choice_camp', choice_camp);
         },
         _init: function _init() {
-            var _this = this;
+            var _this2 = this;
 
             axios.get('user/info').then(function (res) {
-                _this.$store.commit('change_tools', res.data.tools);
+                _this2.$store.commit('change_tools', res.data.tools);
                 if (res.data.sta === '1') {
-                    _this.$store.commit('change_userInfo', res.data.info);
+                    _this2.$store.commit('change_userInfo', res.data.info);
                     if (res.data.info.is_active === 0) {
                         if (res.data.info.camp === 1) {
-                            _this.$Notice.info({
+                            _this2.$Notice.info({
                                 title: '您的帐号还未激活',
                                 desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
                                 duration: 0
                             });
                         } else {
-                            _this.$Notice.error({
+                            _this2.$Notice.error({
                                 title: '您的帐号还未激活',
                                 desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
                                 duration: 0
@@ -1809,7 +1889,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }
                 } else {
-                    _this.userInfo = '';
+                    _this2.userInfo = '';
                 }
             });
         }
@@ -1979,7 +2059,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         logout: function logout() {
             var _this2 = this;
 
-            axios.get('user/logout').then(function (res) {
+            axios.get('/user/logout').then(function (res) {
                 if (res.data.sta === '1') {
                     _this2.$store.commit('change_userInfo', '');
                     window.location.href = '/';
@@ -3339,7 +3419,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this2.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 _this2.$router.push('/home');
             }
         }, 500);
@@ -5670,20 +5750,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -5731,7 +5797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         quick_share: function quick_share() {
             if (!this.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
                 return false;
             }
             if (this.content === '') {
@@ -5749,7 +5815,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         quick_share_plug: function quick_share_plug(k) {
             if (!this.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
                 return false;
             }
             this.$router.push('/upload');
@@ -6034,6 +6100,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6053,7 +6136,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 zy_type: '',
                 orderBySome: 'created_at',
                 orderByF: 'desc'
-            }
+            },
+            download_model: false,
+            down_id: 0,
+            down_k: 0
         };
     },
 
@@ -6061,7 +6147,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         userInfo: function userInfo() {
             if (!this.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
                 this.$router.push('/home');
             }
         }
@@ -6071,10 +6157,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (_this.userInfo && _this.userInfo.camp && _this.userInfo.camp === 2 || !_this.userInfo && _this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (_this.userInfo && _this.userInfo.camp && _this.userInfo.camp === 2 || !_this.userInfo && _this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', _this.userInfo && _this.userInfo.camp && _this.userInfo.camp === 2 || !_this.userInfo && _this.choice_cmap === '2' ? 'bl_button_color' : '');
                 _this.$router.push('/home');
             }
-        }, 300);
+        }, 500);
         this.get_plugs();
     },
 
@@ -6094,13 +6180,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         to_search: function to_search() {
             this.get_plugs();
         },
-        down_bm: function down_bm(id) {
-            axios.get('bm/download/' + id).then(function (res) {
+        down_bm: function down_bm(id, k) {
+            var _this3 = this;
+
+            axios.get('bm/check_download/' + id).then(function (res) {
                 if (res.data.sta === 1) {
-                    window.open(res.data.url);
+                    _this3.go_download(id, k);
+                } else if (res.data.sta === 9) {
+                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_button_color' : '');
+                } else if (res.data.sta === 2) {
+                    _this3.down_id = id;
+                    _this3.down_k = k;
+                    _this3.download_model = true;
                 } else {
                     myDialog(res.data.msg);
                 }
+            });
+        },
+        go_download: function go_download(id, k) {
+            var _this4 = this;
+
+            axios.get('bm/download/' + id).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this4.list[k].order = 1;
+                    window.open(res.data.url);
+                } else if (res.data.sta === 9) {
+                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_button_color' : '');
+                } else {
+                    myDialog(res.data.msg);
+                }
+                _this4.download_model = false;
             });
         }
     }
@@ -6726,11 +6835,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this2.userInfo) {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 _this2.$router.push('/home');
             } else {
                 if (_this2.userInfo.is_active === 0) {
-                    myDialog("您还未激活邮箱，请先<a href='/#/userInfo/info' class='close_other_dialog'>点击激活</a>");
+                    myDialog('\u60A8\u8FD8\u672A\u6FC0\u6D3B\u90AE\u7BB1\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/info\' class=\'close_other_dialog ' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u70B9\u51FB\u6FC0\u6D3B</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 }
             }
         }, 500);
@@ -7060,7 +7169,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$store.state.userInfo) {
                 this.$router.push("/upload");
             } else {
-                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
             }
         }
     },
@@ -7591,6 +7700,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -11753,7 +11864,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.main.content[data-v-7a2c097e] {\n  width: 1240px;\n  padding: 15px;\n  margin: 0 auto;\n}\n.footer[data-v-7a2c097e] {\n  border-top: 1px solid #f5f5f5;\n  width: 1240px;\n  padding: 15px;\n  margin: 0 auto;\n  background-color: #fff;\n  text-align: center;\n  display: flex;\n  justify-content: center;\n}\n.footer .foot ul[data-v-7a2c097e] {\n  margin: 0 auto;\n}\n.footer .foot ul li[data-v-7a2c097e] {\n  padding: 0 5px;\n  display: inline-block;\n}\n", ""]);
+exports.push([module.i, "\n.main.content[data-v-7a2c097e] {\n  width: 1240px;\n  padding: 15px;\n  margin: 0 auto;\n}\n.footer[data-v-7a2c097e] {\n  border-top: 1px solid #f5f5f5;\n  width: 1240px;\n  padding: 15px;\n  margin: 0 auto;\n  background-color: #fff;\n  text-align: center;\n  display: flex;\n  justify-content: center;\n}\n.footer .foot ul[data-v-7a2c097e] {\n  margin: 0 auto;\n}\n.footer .foot ul li[data-v-7a2c097e] {\n  padding: 0 5px;\n  display: inline-block;\n}\n.tool_bottom[data-v-7a2c097e] {\n  position: fixed;\n  bottom: 30px;\n  right: 0;\n}\n.tool_bottom div[data-v-7a2c097e] {\n  background: rgba(0,0,0,0.5);\n  color: #fff;\n  text-align: center;\n  margin-bottom: 2px;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -71596,111 +71707,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "type"
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper pull-right",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
+  }) : _vm._e(), _vm._v(" "), _c('Button', {
+    staticClass: "pull-right",
     staticStyle: {
-      "margin": "15px 0 0 0",
-      "transform": "scale(0.7,0.7)"
+      "margin-top": "15px"
+    },
+    attrs: {
+      "type": "ghost"
     },
     on: {
       "click": _vm.quick_share
     }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text",
-    staticStyle: {
-      "font-size": "18px"
-    }
-  }, [_vm._v("快速分享")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("快速分享")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
+  }), _vm._v(" "), _c('Button', {
     staticStyle: {
-      "margin": "15px 0 0 0",
-      "transform": "scale(0.7,0.7)",
       "position": "absolute",
       "left": "0",
       "bottom": "0"
     },
+    attrs: {
+      "type": "ghost"
+    },
     on: {
       "click": function($event) {
         _vm.quick_share_plug(1)
       }
     }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
+  }, [_vm._v("整合界面分享")]), _vm._v(" "), _c('Button', {
     staticStyle: {
-      "position": "absolute"
-    },
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text",
-    staticStyle: {
-      "font-size": "18px"
-    }
-  }, [_vm._v("整合界面分享")])]), _vm._v(" "), _c('div', {
-    staticClass: "my_btn_wrapper",
-    class: {
-      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    staticStyle: {
-      "margin": "15px 0 0 0",
-      "transform": "scale(0.7,0.7)",
       "position": "absolute",
       "right": "0",
       "bottom": "0"
     },
+    attrs: {
+      "type": "ghost"
+    },
     on: {
       "click": function($event) {
-        _vm.quick_share_plug(1)
+        _vm.quick_share_plug(2)
       }
     }
-  }, [_c('svg', {
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  }, [_c('rect', {
-    staticClass: "button_one",
-    staticStyle: {
-      "position": "absolute"
-    },
-    attrs: {
-      "height": "45",
-      "width": "150"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "button_one_text",
-    staticStyle: {
-      "font-size": "18px"
-    }
-  }, [_vm._v("原创插件分享")])])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("原创插件分享")])], 1)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -71783,7 +71833,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-6"
   }, [_c('li', [_vm._v("资源总数：" + _vm._s(_vm.census.plugs_count))]), _vm._v(" "), _c('li', [_vm._v("WA资源：" + _vm._s(_vm.census.was_count))])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"
-  }, [_c('li', [_vm._v("今日更新：" + _vm._s(_vm.census.today_count))]), _vm._v(" "), _c('li', [_vm._v("TMW资源：" + _vm._s(_vm.census.tmws_count))])]), _vm._v(" "), _c('div', {
+  }, [_c('li', [_vm._v("游戏插件：" + _vm._s(_vm.census.youxi_count))]), _vm._v(" "), _c('li', [_vm._v("TMW资源：" + _vm._s(_vm.census.tmws_count))])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
   }, [_c('li', [_vm._v("最近更新：" + _vm._s(_vm.census.last_time))])]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -72490,7 +72540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
-      "placeholder": "状态"
+      "placeholder": "支付状态"
     },
     model: {
       value: (_vm.formS.status),
@@ -72524,7 +72574,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', [_vm._v("搜索")])])], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
   }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(v.user.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayType[v.recharge_type]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_gold + v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayStatus[v.status]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
+    return _c('tr', [_c('td', [_vm._v(_vm._s(v.user.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.recharge_gold + v.giving_gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayType[v.recharge_type]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configPayStatus[v.status]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -72554,23 +72604,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("充值类型")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "width": "10%"
-    }
   }, [_vm._v("充值金额")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("赠送的金币")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("赠送金币")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("总共获得的金币")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("获得金币(充值+赠送)")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("状态")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("支付方式")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("支付状态")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
@@ -73686,7 +73736,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("金币")]), _c('span', {
-    staticClass: "val"
+    staticClass: "val normal_font normal_font_hover",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "14px",
+      "font-weight": "bold"
+    }
   }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
@@ -73726,7 +73783,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.to_setting
     }
-  }, [_vm._v("还没有绑定手机号，点击立即绑定")]) : _c('span', {
+  }, [_vm._v("点击立即绑定")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s(_vm.userInfo.tel))]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -73739,7 +73796,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.to_setting
     }
-  }, [_vm._v("还不知道你的生日，点击立即设置")]) : _c('span', {
+  }, [_vm._v("点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s(_vm.userInfo.birthday))]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -73816,14 +73873,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "clear": "both"
     }
-  }), _vm._v(" "), _c('ul', _vm._l((_vm.list), function(v) {
+  }), _vm._v(" "), _c('ul', _vm._l((_vm.list), function(v, k) {
     return _c('li', [_c('strong', [_c('a', {
       attrs: {
         "href": "javascript:void(0)"
       },
       on: {
         "click": function($event) {
-          _vm.down_bm(v.id)
+          _vm.down_bm(v.id, k)
         }
       }
     }, [_c('span', {
@@ -73841,11 +73898,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n\n            " + _vm._s(v.created_at))]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('br'), _vm._v(" "), (v.gold === 0) ? _c('span', {
-      staticClass: "pull-right"
+    }, [_vm._v(_vm._s(v.user.name) + " - " + _vm._s(v.download_num) + "次下载 - ")]), _vm._v(" "), _c('br'), _vm._v(" "), (v.gold === 0) ? _c('span', {
+      staticClass: "pull-right",
+      staticStyle: {
+        "font-size": "14px",
+        "font-weight": "600"
+      }
     }, [_vm._v("免费")]) : _c('span', {
-      staticClass: "pull-right"
-    }, [_vm._v("售价：" + _vm._s(v.gold))]), _vm._v(" "), _c('div', {
+      staticClass: "pull-right",
+      staticStyle: {
+        "font-size": "14px",
+        "font-weight": "600"
+      }
+    }, [_vm._v("售价：\n                  "), (v.order) ? _c('span', [_c('s', [_vm._v(_vm._s(v.gold))])]) : _c('span', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(您已经购买过)")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticStyle: {
         "clear": "both"
       }
@@ -73876,7 +73941,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "clear": "both"
     }
-  })])
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.download_model),
+      expression: "download_model"
+    }],
+    staticClass: "dialog dialog--open"
+  }, [_c('div', {
+    staticClass: "dialog__overlay"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "dialog__content  animated fadeIn",
+    staticStyle: {
+      "border-radius": "5px"
+    }
+  }, [_c('h2', [_vm._v("确认购买吗")]), _vm._v(" "), _c('div', [_c('button', {
+    staticClass: "close_dialog",
+    staticStyle: {
+      "border-radius": "5px",
+      "background": "#fff",
+      "color": "#333"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.download_model = false
+      }
+    }
+  }, [_vm._v("取消")]), _vm._v(" "), _c('button', {
+    staticClass: "close_dialog ivu-btn-primary",
+    staticStyle: {
+      "border-radius": "5px"
+    },
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.go_download(_vm.down_id, _vm.down_k)
+      }
+    }
+  }, [_vm._v("确认")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -73928,6 +74036,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v("\n                主页\n            ")], 1)], 1), _vm._v(" "), _c('Submenu', {
     attrs: {
+      "name": "4"
+    }
+  }, [_c('template', {
+    slot: "title"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-people"
+    }
+  }), _vm._v("\n                网站管理\n            ")], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/tool/setting"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.tool.setting"
+    }
+  }, [_vm._v("页面管理")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/notice/setting"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.notice.setting"
+    }
+  }, [_vm._v("公告管理")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/lv/setting"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.lv.setting"
+    }
+  }, [_vm._v("等级管理")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/nickname/setting/"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.nickname.setting"
+    }
+  }, [_vm._v("昵称管理")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/game_version/setting/"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.game_version.setting"
+    }
+  }, [_vm._v("游戏版本管理")])], 1)], 2), _vm._v(" "), _c('Submenu', {
+    attrs: {
       "name": "1"
     }
   }, [_c('template', {
@@ -73954,7 +74112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "ios-paper"
     }
-  }), _vm._v("\n                消费管理\n            ")], 1), _vm._v(" "), _c('router-link', {
+  }), _vm._v("\n                充值管理\n            ")], 1), _vm._v(" "), _c('router-link', {
     attrs: {
       "to": "/admin/recharge/list"
     }
@@ -74022,57 +74180,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "admin.tag.create"
     }
-  }, [_vm._v("添加分类")])], 1)], 2), _vm._v(" "), _c('Submenu', {
-    attrs: {
-      "name": "4"
-    }
-  }, [_c('template', {
-    slot: "title"
-  }, [_c('Icon', {
-    attrs: {
-      "type": "ios-people"
-    }
-  }), _vm._v("\n                网站管理\n            ")], 1), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/tool/setting"
-    }
-  }, [_c('Menu-item', {
-    attrs: {
-      "name": "admin.tool.setting"
-    }
-  }, [_vm._v("页面管理")])], 1), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/notice/setting"
-    }
-  }, [_c('Menu-item', {
-    attrs: {
-      "name": "admin.notice.setting"
-    }
-  }, [_vm._v("公告管理")])], 1), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/lv/setting"
-    }
-  }, [_c('Menu-item', {
-    attrs: {
-      "name": "admin.lv.setting"
-    }
-  }, [_vm._v("等级管理")])], 1), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/nickname/setting/"
-    }
-  }, [_c('Menu-item', {
-    attrs: {
-      "name": "admin.nickname.setting"
-    }
-  }, [_vm._v("昵称管理")])], 1), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": "/admin/game_version/setting/"
-    }
-  }, [_c('Menu-item', {
-    attrs: {
-      "name": "admin.game_version.setting"
-    }
-  }, [_vm._v("游戏版本管理")])], 1)], 2)], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("添加分类")])], 1)], 2)], 1), _vm._v(" "), _c('div', {
     staticClass: "main content"
   }, [_c('div', {
     staticClass: "head_title"
@@ -75373,7 +75481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.giving_gold) + "\n                            ")]), _vm._v(",\n                        充值方式 "), _c('span', {
+    }, [_vm._v(_vm._s(v.giving_gold) + "\n                            ")]), _vm._v(",\n                        支付方式 "), _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -76860,11 +76968,103 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     style: (_vm.$route.name !== 'index' ? 'background-color: #fff' : '')
   }, [_c('transition', [_c('router-view')], 1)], 1), _vm._v(" "), (_vm.$route.name !== 'index') ? _c('div', {
     staticClass: "footer"
-  }, [_vm._m(0)]) : _vm._e()], 1)
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "tool_bottom"
+  }, [_c('div', {
+    staticClass: "feedback hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.feedback_model = true
+      }
+    }
+  }, [_vm._v("\n            意见"), _c('br'), _vm._v("反馈\n        ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('Modal', {
+    model: {
+      value: (_vm.feedback_model),
+      callback: function($$v) {
+        _vm.feedback_model = $$v
+      },
+      expression: "feedback_model"
+    }
+  }, [_c('p', {
+    staticClass: "model_title",
+    slot: "header"
+  }, [_vm._v("\n         意见反馈\n        ")]), _vm._v(" "), _c('div', [_c('Form', {
+    ref: "formCustom",
+    attrs: {
+      "model": _vm.formCustom,
+      "rules": _vm.ruleCustom,
+      "label-width": 80
+    }
+  }, [_c('Form-item', {
+    attrs: {
+      "label": "建议",
+      "prop": "feedback"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "textarea",
+      "autosize": {
+        minRows: 2,
+        maxRows: 5
+      },
+      "placeholder": "您的建议"
+    },
+    model: {
+      value: (_vm.formCustom.feedback),
+      callback: function($$v) {
+        _vm.formCustom.feedback = $$v
+      },
+      expression: "formCustom.feedback"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    attrs: {
+      "label": "姓名",
+      "prop": "name"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text"
+    },
+    model: {
+      value: (_vm.formCustom.name),
+      callback: function($$v) {
+        _vm.formCustom.name = $$v
+      },
+      expression: "formCustom.name"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    attrs: {
+      "label": "手机号",
+      "prop": "tel"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text"
+    },
+    model: {
+      value: (_vm.formCustom.tel),
+      callback: function($$v) {
+        _vm.formCustom.tel = $$v
+      },
+      expression: "formCustom.tel"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    on: {
+      "click": function($event) {
+        _vm.go_feedback('formCustom')
+      }
+    }
+  }, [_vm._v("确定")])], 1)])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "foot"
   }, [_c('ul', [_c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("加入我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("商务合作")])]), _vm._v("\n            Copyright © 2017 陕西熊猫人网络科技有限公司 嘿市网 版权所有\n            "), _c('br'), _vm._v("\n            陕ICP备17015228号-1\n        ")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "goTop hover_hand"
+  }, [_vm._v("\n            返回"), _c('br'), _vm._v("顶部\n        ")])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -94231,8 +94431,10 @@ module.exports = function(module) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = my_dialog;
 function my_dialog(msg) {
-    console.log(1);
-    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog" style="border-radius: 5px">\u786E\u8BA4</button>\n                    </div>\n                </div>\n            </div>';
+    var button_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+    console.log(button_class);
+    var html = '  <div class="dialog">\n                <div class="dialog__overlay"></div>\n                <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">\n                    <h2>' + msg + '</h2>\n                    <div>\n                        <button type="button" class="close_dialog ivu-btn-primary ' + button_class + '" style="border-radius: 5px">\u786E\u8BA4</button>\n                    </div>\n                </div>\n            </div>';
 
     $('#app').append(html);
     $(".dialog").addClass('dialog--open');
@@ -95613,8 +95815,8 @@ var bmType = {
 };
 
 var payStatus = {
-    0: '初始状态',
-    1: '用户未支付',
+    0: '未支付',
+    1: '支付失败',
     9: '支付成功'
 };
 

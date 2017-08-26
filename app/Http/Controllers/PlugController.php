@@ -548,21 +548,21 @@ class PlugController extends Controller
         if(Cache::has('plug_index_wa')){
             $wa = Cache::get('plug_index_wa');
         }else{
-            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            $wa = Plug::where('is_new',1)->where('type',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->latest()->get();
             Cache::put('plug_index_wa',$wa,60);
         }
 
         if(Cache::has('plug_index_tmw')){
             $tmw = Cache::get('plug_index_tmw');
         }else{
-            $tmw = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            $tmw = Plug::where('is_new',1)->where('type',2)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->latest()->get();
             Cache::put('plug_index_tmw',$tmw,60);
         }
 
         if(Cache::has('plug_index_plug')){
             $plug = Cache::get('plug_index_plug');
         }else{
-            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->orderBy('rank','desc')->latest()->get();
+            $plug = Plug::where('is_new',1)->where('type',3)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->latest()->get();
             Cache::put('plug_index_plug',$plug,60);
         }
 
@@ -595,7 +595,7 @@ class PlugController extends Controller
         if(Cache::has('plug_index_download_plugs')){
             $download_plugs = Cache::get('plug_index_download_plugs');
         }else{
-            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->orderBy('download_num')->where([['status', 1], ['is_check', 1]])->get();
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->orderBy('download_num','desc')->where([['status', 1], ['is_check', 1]])->get();
             Cache::put('plug_index_download_plugs',$download_plugs,60);
         }
 
@@ -618,6 +618,7 @@ class PlugController extends Controller
             $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1]])->count();
             $census['was_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',1)->count();
             $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',2)->count();
+            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',3)->count();
             $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
             $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at');
             if($census['last_time']){

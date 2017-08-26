@@ -36245,6 +36245,14 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   color: #d13030 !important;
 }
 
+.lm_font_color {
+  color: #266ec1 !important;
+}
+
+.lm_font_color:hover {
+  color: #266ec1 !important;
+}
+
 .bl_hover_line_color:hover {
   color: #d13030 !important;
 }

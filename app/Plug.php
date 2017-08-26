@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\CreatePlug;
+use App\Events\UpdatePlug;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +12,10 @@ class Plug extends Model
     //
     protected $guarded = [];
     protected $appends = ['type_name'];
-
+    protected $events = [
+        'created' => CreatePlug::class,
+        'updated' => UpdatePlug::class,
+    ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      * // 截图

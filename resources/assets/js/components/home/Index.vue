@@ -11,34 +11,20 @@
                         <div  style="width: 250px;margin:0 auto;height: 178px;position: relative">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                       @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
-                            <div class="my_btn_wrapper pull-right"
-                                 @click="quick_share"
-                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7)"
-                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                <svg height="45" width="150">
-                                    <rect class="button_one" height="45" width="150"></rect>
-                                </svg>
-                                <div class="button_one_text" style="font-size:18px">快速分享</div>
-                            </div>
+
+                            <Button type="ghost" class="pull-right"
+                                    style="margin-top:15px"
+                                    @click="quick_share"
+                            >快速分享</Button>
                             <div style="clear: both"></div>
-                            <div class="my_btn_wrapper"
-                                 @click="quick_share_plug(1)"
-                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7);position: absolute;left: 0;bottom:0"
-                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                <svg height="45" width="150">
-                                    <rect class="button_one" height="45" width="150"  style="position: absolute"></rect>
-                                </svg>
-                                <div class="button_one_text"  style="font-size:18px">整合界面分享</div>
-                            </div>
-                            <div class="my_btn_wrapper"
-                                 @click="quick_share_plug(1)"
-                                 style="margin:15px 0 0 0;transform:scale(0.7,0.7);position: absolute;right: 0;bottom:0"
-                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                <svg height="45" width="150">
-                                    <rect class="button_one" height="45" width="150"  style="position: absolute"></rect>
-                                </svg>
-                                <div class="button_one_text"  style="font-size:18px">原创插件分享</div>
-                            </div>
+                            <Button type="ghost"
+                                    style="position:absolute;left: 0;bottom: 0"
+                                    @click="quick_share_plug(1)"
+                            >整合界面分享</Button>
+                            <Button type="ghost"
+                                    style="position:absolute;right: 0;bottom: 0"
+                                    @click="quick_share_plug(2)"
+                            >原创插件分享</Button>
                         </div>
 
                     </iCol>
@@ -89,7 +75,7 @@
                                 <li>WA资源：{{census.was_count}}</li>
                             </div>
                             <div class="col-md-6">
-                                <li>今日更新：{{census.today_count}}</li>
+                                <li>游戏插件：{{census.youxi_count}}</li>
                                 <li>TMW资源：{{census.tmws_count}}</li>
                             </div>
                             <div class="col-md-12">
@@ -315,7 +301,9 @@
             },
             quick_share() {
                 if(!this.userInfo){
-                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
+                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
                 if (this.content === '') {
@@ -333,7 +321,9 @@
             },
             quick_share_plug(k){
                 if(!this.userInfo){
-                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
+                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
                 this.$router.push('/upload')

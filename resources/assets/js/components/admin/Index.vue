@@ -10,6 +10,27 @@
                     主页
                 </Menu-item>
             </router-link>
+            <Submenu name="4">
+                <template slot="title">
+                    <Icon type="ios-people"></Icon>
+                    网站管理
+                </template>
+                <router-link to="/admin/tool/setting">
+                    <Menu-item name="admin.tool.setting">页面管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/notice/setting">
+                    <Menu-item name="admin.notice.setting">公告管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/lv/setting">
+                    <Menu-item name="admin.lv.setting">等级管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/nickname/setting/">
+                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/game_version/setting/">
+                    <Menu-item name="admin.game_version.setting">游戏版本管理</Menu-item>
+                </router-link>
+            </Submenu>
             <Submenu name="1">
                 <template slot="title">
                     <Icon type="ios-paper"></Icon>
@@ -22,7 +43,7 @@
             <Submenu name="5">
                 <template slot="title">
                     <Icon type="ios-paper"></Icon>
-                    消费管理
+                    充值管理
                 </template>
                 <router-link to="/admin/recharge/list">
                     <Menu-item name="admin.recharge.list">充值列表</Menu-item>
@@ -53,27 +74,6 @@
                 </router-link>
                 <router-link to="/admin/tag/create">
                     <Menu-item name="admin.tag.create">添加分类</Menu-item>
-                </router-link>
-            </Submenu>
-            <Submenu name="4">
-                <template slot="title">
-                    <Icon type="ios-people"></Icon>
-                    网站管理
-                </template>
-                <router-link to="/admin/tool/setting">
-                    <Menu-item name="admin.tool.setting">页面管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/notice/setting">
-                <Menu-item name="admin.notice.setting">公告管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/lv/setting">
-                    <Menu-item name="admin.lv.setting">等级管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/nickname/setting/">
-                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/game_version/setting/">
-                    <Menu-item name="admin.game_version.setting">游戏版本管理</Menu-item>
                 </router-link>
             </Submenu>
             <!--<Submenu name="3">-->
@@ -146,7 +146,7 @@
                 })
             },
             logout() {
-                axios.get('user/logout').then(res=>{
+                axios.get('/user/logout').then(res=>{
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo','')
                         window.location.href='/'

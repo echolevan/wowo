@@ -50,8 +50,8 @@ export const bmType = {
 }
 
 export const payStatus = {
-    0: '初始状态',
-    1: '用户未支付',
+    0: '未支付',
+    1: '支付失败',
     9: '支付成功'
 }
 

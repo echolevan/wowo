@@ -14,7 +14,7 @@
                 <Input v-model.trim="formS.user_id" placeholder="嘿市ID"></Input>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.status" clearable  placeholder="状态" style="width: 100px;">
+                <Select v-model="formS.status" clearable  placeholder="支付状态" style="width: 100px;">
                     <Option v-for="(v , k) in configPayStatus" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -32,11 +32,11 @@
             <tr>
                 <th style="width: 10%">嘿市ID</th>
                 <th style="width: 10%">用户名</th>
-                <th style="width: 10%">充值类型</th>
                 <th style="width: 10%">充值金额</th>
-                <th style="width: 10%">赠送的金币</th>
-                <th style="width: 10%">总共获得的金币</th>
-                <th style="width: 10%">状态</th>
+                <th style="width: 10%">赠送金币</th>
+                <th style="width: 10%">获得金币(充值+赠送)</th>
+                <th style="width: 10%">支付方式</th>
+                <th style="width: 10%">支付状态</th>
                 <th style="width: 10%">充值时间</th>
             </tr>
             </thead>
@@ -44,10 +44,10 @@
             <tr v-for="v in list">
                 <td>{{v.user.id}}</td>
                 <td>{{v.user.name}}</td>
-                <td>{{configPayType[v.recharge_type]}}</td>
                 <td>{{v.recharge_amount}}</td>
                 <td>{{v.giving_gold}}</td>
                 <td>{{v.recharge_gold + v.giving_gold}}</td>
+                <td>{{configPayType[v.recharge_type]}}</td>
                 <td>{{configPayStatus[v.status]}}</td>
                 <td>{{v.created_at}}</td>
             </tr>
