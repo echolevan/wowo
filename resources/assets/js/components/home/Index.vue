@@ -332,6 +332,10 @@
                 this.$router.push('/upload')
             },
             quick_share_plug(k){
+                if(!this.userInfo){
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
+                    return false
+                }
                 this.$router.push('/upload')
             },
             on_sel(v) {

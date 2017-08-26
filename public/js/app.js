@@ -3339,7 +3339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this2.userInfo) {
-                _this2.$Message.error('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
                 _this2.$router.push('/home');
             }
         }, 500);
@@ -5748,6 +5748,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$router.push('/upload');
         },
         quick_share_plug: function quick_share_plug(k) {
+            if (!this.userInfo) {
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
+                return false;
+            }
             this.$router.push('/upload');
         },
         on_sel: function on_sel(v) {
@@ -6057,7 +6061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     watch: {
         userInfo: function userInfo() {
             if (!this.userInfo) {
-                myDialog('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
                 this.$router.push('/home');
             }
         }
@@ -6067,7 +6071,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this.userInfo) {
-                myDialog('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
                 _this.$router.push('/home');
             }
         }, 300);
@@ -6722,7 +6726,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this2.userInfo) {
-                myDialog('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
                 _this2.$router.push('/home');
             } else {
                 if (_this2.userInfo.is_active === 0) {
@@ -7056,7 +7060,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$store.state.userInfo) {
                 this.$router.push("/upload");
             } else {
-                myDialog('请先登录');
+                myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ');
             }
         }
     },

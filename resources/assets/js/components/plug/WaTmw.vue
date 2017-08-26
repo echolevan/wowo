@@ -159,7 +159,7 @@
                 if(this.$store.state.userInfo){
                     this.$router.push("/upload")
                 }else{
-                    myDialog('请先登录')
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
                 }
             }
         },

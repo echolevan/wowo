@@ -60,7 +60,7 @@
         watch: {
             userInfo() {
                 if (!this.userInfo) {
-                    myDialog('请先登录')
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
                     this.$router.push('/home')
                 }
             }
@@ -68,7 +68,7 @@
         mounted() {
             setTimeout(() => {
                 if (!this.userInfo) {
-                    myDialog('请先登录')
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
                     this.$router.push('/home')
                 }
             }, 300)

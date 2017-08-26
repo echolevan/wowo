@@ -221,7 +221,7 @@
         mounted() {
             setTimeout(()=>{
                 if(!this.userInfo){
-                    this.$Message.error('请先登录')
+                    myDialog('请先 <a href="/register">注册</a> <a href="/login">登录</a> ')
                     this.$router.push('/home')
                 }
             },500)
