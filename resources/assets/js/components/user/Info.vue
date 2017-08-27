@@ -32,7 +32,7 @@
             </li>
             <li><span class="title">邮箱</span><span class="val">
                 <Button type="success"  size="small" v-if="userInfo.is_active === 1">
-                    <Tooltip content="邮箱已激活">
+                    <Tooltip content="邮箱已经激活">
                         {{userInfo.email}}
                     </Tooltip>
                 </Button>
