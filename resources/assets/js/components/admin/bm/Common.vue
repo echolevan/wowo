@@ -5,7 +5,7 @@
                 :title="model_title">
             <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
                 <Form-item label="标题" prop="title">
-                    <Input v-model="formItem.title" placeholder="请输入..."></Input>
+                    <Input v-model="formItem.title" placeholder="请输入"></Input>
                 </Form-item>
                 <Form-item label="下载方式" prop="type">
                     <Select v-model="formItem.type" style="width:200px">
