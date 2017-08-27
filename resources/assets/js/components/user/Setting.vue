@@ -40,7 +40,7 @@
                                       @area="onAreaHabitably"
                                       class="my_address"></v-distpicker>
                     </Form-item>
-                    <Form-item label="介绍" prop="info">
+                    <Form-item label="个人简介" prop="info">
                         <Input v-model="formItem.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
                     </Form-item>
                     <Form-item>
@@ -111,7 +111,7 @@
                         {validator: validateName, trigger: 'blur'}
                     ],
                     info: [
-                        { type: 'string', max: 255, message: '介绍内容最多255个字', trigger: 'change' }
+                        { type: 'string', max: 255, message: '简介内容不能超过255个字', trigger: 'change' }
                     ]
                 },
                 csrfToken : window.Laravel.csrfToken,
