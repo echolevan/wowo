@@ -5,7 +5,7 @@
                 :title="model_title">
             <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
                 <Form-item label="标题" prop="title">
-                    <Input v-model="formItem.title" placeholder="请输入"></Input>
+                    <Input v-model="formItem.title" placeholder="请输入..."></Input>
                 </Form-item>
                 <Form-item label="下载方式" prop="type">
                     <Select v-model="formItem.type" style="width:200px">
@@ -23,7 +23,7 @@
                     >
                         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                     </Upload>
-                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">点击删除,重新上传</p>
+                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">重新上传</p>
                 </Form-item>
 
                 <Form-item label="资源类型" prop="zy_type">
@@ -69,7 +69,7 @@
             const validategold = (rule, value, callback) => {
                 if (value === 0) {
                     if (this.formItem.is_free === true) {
-                        callback(new Error('插件收费不能为空'));
+                        callback(new Error('金币不能为空'));
                     } else {
                         callback();
                     }
@@ -96,7 +96,7 @@
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {max: 60, message: '标题最长60', trigger: 'change'}
+                        {max: 60, message: '标题最长60字符', trigger: 'change'}
                     ],
                     type: [
                         {required: true, message: '下载方式不能为空'}
@@ -124,13 +124,13 @@
                 } else {
                     this.$Loading.finish()
                     this.formItem.url = res.url
-                    this.$Message.success('开始完成')
+                    this.$Message.success('开始上传')
                 }
 
             },
             handlePlugUpload() {
                 if (this.formItem.url !== '') {
-                    this.$Message.error('您已经上传了文件，请先删除')
+                    this.$Message.error('您已上传过文件，请先删除')
                     return false;
                 }
                 this.$Loading.start()
