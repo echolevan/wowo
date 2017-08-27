@@ -6,7 +6,7 @@
                     <ul>
                         <li :class="{'active':tag_active === 0 , 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" @click="change_tag(0, 0)">全部插件</li>
                         <div  v-if="tags.length > 0"  v-for="tag in tags">
-                            <li class="down" :class="{'active':tag_active === tag.id , 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(tag.id , tag.pid)">
+                            <li class='down'  :class="{'active':tag_active === tag.id,  'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(tag.id , tag.pid)">
                                 <img :src="tag.thumb" alt="">
                                 {{tag.name}}
                             </li>
@@ -33,6 +33,7 @@
                             </div>
                             <div class="my_btn_wrapper"
                                  @click="upload_plug"
+                                 style="margin-top:5px"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
                                     <rect class="button_one" height="45" width="150"></rect>
@@ -60,6 +61,7 @@
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
+                            <span class="pull-right hover_hand"  @click="download(plug.id)" v-show="$route.params.type === 'plug'">下载</span>
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
@@ -128,10 +130,24 @@
             }
         },
         mounted () {
+            let  watmw_tag_id = localStorage.getItem('watmw_tag_id')
+            let  watmw_tag_pid = localStorage.getItem('watmw_tag_pid')
+
+            if(watmw_tag_id){
+                this.tag_active = parseInt(watmw_tag_id)
+                localStorage.removeItem('watmw_tag_id')
+            }
+            if(watmw_tag_pid){
+                this.tag_active_pid = parseInt(watmw_tag_pid)
+                localStorage.removeItem('watmw_tag_pid')
+            }
             $(document).on("click" , ".down" , function () {
                 $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
             })
-          this._init()
+            setTimeout(()=>{
+                $('li.active').parent('.child').show('300')
+            },600)
+            this._init()
         },
         methods: {
             to_search(){
@@ -179,7 +195,23 @@
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
                         , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
-            }
+            },
+            download(id) {
+                axios.get(`download/plug/${id}`).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg)
+                    } else {
+                        if (res.data.type === 1) {
+
+                        } else if (res.data.type === 2) {
+                            // 跳转 下载
+                            window.open(res.data.info.content);
+                        } else {
+
+                        }
+                    }
+                })
+            },
         },
         components:{
             'v-rank': Rank

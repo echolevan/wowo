@@ -9,8 +9,13 @@
                     <div class="info">
                         <strong>{{plug.title}}</strong>
                         <p>
-                            <span>{{plug.type_name}}</span><span>{{plug.tag_one ? plug.tag_one.name : ''}}</span>
-                            <span v-if="plug.tag_two"> > </span><span>{{plug.tag_two ? plug.tag_two.name : ''}}</span>
+                            <span>
+                                <router-link :to="{name: 'waTmw.index' , params:{type: configUrl[plug.type_name]}}">
+                                    {{plug.type_name}}
+                                </router-link>
+                            </span>
+                            <span class="hover_hand" @click="to_waTmw(plug.tag_one.id)">{{plug.tag_one ? plug.tag_one.name : ''}}</span>
+                            <span v-if="plug.tag_two"> > </span><span  class="hover_hand" @click="to_waTmw(plug.tag_two.id,plug.tag_one.id)">{{plug.tag_two ? plug.tag_two.name : ''}}</span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
                             <span class="gold_class"
@@ -66,7 +71,8 @@
                             <Tab-pane label="所有版本" name="3">
                                 <table class="table">
                                     <thead>
-                                    <tr class="table_tr" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                    <tr class="table_tr"
+                                        :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                         <th>历史版本</th>
                                         <th>版本号</th>
                                         <th>游戏版本</th>
@@ -105,8 +111,8 @@
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
                             <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
                             <div v-if="plug.author">
+                                <p>插件作者：<span>{{plug.author}}</span></p>
                                 <p>上传者：<span>{{plug.user.nickname}}</span></p>
-                                <p>作者信息：<span>{{plug.author}}</span></p>
                             </div>
                             <div v-else>
                                 <p>插件作者：<span>{{plug.user.nickname}}</span></p>
@@ -216,8 +222,10 @@
                         将会得到
                         <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
-                            <span v-else>{{pay_amount_other * 10}} <span v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other*10 / 100)}}</span></span>
+                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span
+                                    v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
+                            <span v-else>{{pay_amount_other * 10}} <span
+                                    v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}}</span></span>
                         </span>
                         金币
                     </p>
@@ -270,7 +278,12 @@
                 pay_type: 1,
                 pay_amount: 10,
                 pay_amount_other: 1,
-                lv: {}
+                lv: {},
+                configUrl: {
+                    'TMW': 'tmw',
+                    'WA': 'wa',
+                    '游戏插件': 'plug'
+                }
             }
         },
         computed: mapState([
@@ -364,7 +377,7 @@
             },
             toLoading(id) {
                 this.loading = true
-                axios.post('to_pay_plug',{id:id}).then(res=>{
+                axios.post('to_pay_plug', {id: id}).then(res => {
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
                     } else {
@@ -397,6 +410,11 @@
                 if (!(/^\d+$/.test(this.pay_amount_other))) {
                     this.pay_amount_other = Math.round(this.pay_amount_other)
                 }
+            },
+            to_waTmw(id ,pid=''){
+                localStorage.setItem('watmw_tag_id',id)
+                localStorage.setItem('watmw_tag_pid',pid)
+                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[this.plug.type_name]}})
             }
         },
         components: {

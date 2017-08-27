@@ -6554,6 +6554,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6581,7 +6589,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pay_type: 1,
             pay_amount: 10,
             pay_amount_other: 1,
-            lv: {}
+            lv: {},
+            configUrl: {
+                'TMW': 'tmw',
+                'WA': 'wa',
+                '游戏插件': 'plug'
+            }
         };
     },
 
@@ -6721,6 +6734,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!/^\d+$/.test(this.pay_amount_other)) {
                 this.pay_amount_other = Math.round(this.pay_amount_other);
             }
+        },
+        to_waTmw: function to_waTmw(id) {
+            var pid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+            localStorage.setItem('watmw_tag_id', id);
+            localStorage.setItem('watmw_tag_pid', pid);
+            this.$router.push({ name: 'waTmw.index', params: { type: this.configUrl[this.plug.type_name] } });
         }
     },
     components: {
@@ -7213,6 +7233,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -7249,9 +7271,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        var watmw_tag_id = localStorage.getItem('watmw_tag_id');
+        var watmw_tag_pid = localStorage.getItem('watmw_tag_pid');
+
+        if (watmw_tag_id) {
+            this.tag_active = parseInt(watmw_tag_id);
+            localStorage.removeItem('watmw_tag_id');
+        }
+        if (watmw_tag_pid) {
+            this.tag_active_pid = parseInt(watmw_tag_pid);
+            localStorage.removeItem('watmw_tag_pid');
+        }
         $(document).on("click", ".down", function () {
             $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
         });
+        setTimeout(function () {
+            $('li.active').parent('.child').show('300');
+        }, 600);
         this._init();
     },
 
@@ -7305,6 +7341,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
             }
+        },
+        download: function download(id) {
+            axios.get('download/plug/' + id).then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    if (res.data.type === 1) {} else if (res.data.type === 2) {
+                        // 跳转 下载
+                        window.open(res.data.info.content);
+                    } else {}
+                }
+            });
         }
     },
     components: {
@@ -11956,7 +12004,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: none !important;\n}\n.download_rank[data-v-5e862cbc],\n.start_rank[data-v-5e862cbc] {\n  border: 1px solid #ddd;\n}\n.download_rank div.title[data-v-5e862cbc],\n.start_rank div.title[data-v-5e862cbc] {\n  color: #333;\n  padding: 5px 15px;\n  font-size: 14px;\n  border-bottom: 1px solid #ddd;\n}\n.download_rank div.title span[data-v-5e862cbc],\n.start_rank div.title span[data-v-5e862cbc] {\n  float: right;\n  color: #999;\n}\n.download_rank ul li[data-v-5e862cbc],\n.start_rank ul li[data-v-5e862cbc] {\n  height: 56px;\n  position: relative;\n}\n.download_rank ul li a[data-v-5e862cbc],\n.start_rank ul li a[data-v-5e862cbc] {\n  color: #333;\n}\n.download_rank ul li a[data-v-5e862cbc]:hover,\n.start_rank ul li a[data-v-5e862cbc]:hover {\n  color: #266ec1;\n}\n.download_rank ul li[data-v-5e862cbc]:after,\n.start_rank ul li[data-v-5e862cbc]:after {\n  content: \"\";\n  height: 24px;\n  width: 2px;\n  position: absolute;\n  top: 16px;\n  left: 0;\n  display: none;\n}\n.download_rank ul li .num[data-v-5e862cbc],\n.start_rank ul li .num[data-v-5e862cbc] {\n  position: absolute;\n  top: 0;\n  left: 2px;\n  width: 30px;\n  text-align: center;\n  height: 100%;\n  line-height: 56px;\n  color: #266ec1;\n}\n.download_rank ul .tit[data-v-5e862cbc],\n.start_rank ul .tit[data-v-5e862cbc] {\n  display: block;\n  position: relative;\n  left: 30px;\n  top: 10px;\n  width: 250px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .dig[data-v-5e862cbc],\n.start_rank ul .dig[data-v-5e862cbc] {\n  color: #999;\n  display: block;\n  position: relative;\n  top: 10px;\n  height: 20px;\n  left: 30px;\n  width: 210px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .size[data-v-5e862cbc],\n.start_rank ul .size[data-v-5e862cbc] {\n  color: #808080;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.download_rank ul .score[data-v-5e862cbc],\n.start_rank ul .score[data-v-5e862cbc] {\n  font-size: 20px;\n  color: #266ec1;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  height: 100%;\n  display: block;\n  line-height: 56px;\n}\n", ""]);
+exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: none !important;\n}\n.download_rank[data-v-5e862cbc],\n.start_rank[data-v-5e862cbc] {\n  border: 1px solid #ddd;\n}\n.download_rank div.title[data-v-5e862cbc],\n.start_rank div.title[data-v-5e862cbc] {\n  color: #333;\n  padding: 5px 15px;\n  font-size: 14px;\n  border-bottom: 1px solid #ddd;\n}\n.download_rank div.title span[data-v-5e862cbc],\n.start_rank div.title span[data-v-5e862cbc] {\n  float: right;\n  color: #999;\n}\n.download_rank ul li[data-v-5e862cbc],\n.start_rank ul li[data-v-5e862cbc] {\n  height: 56px;\n  position: relative;\n}\n.download_rank ul li a[data-v-5e862cbc],\n.start_rank ul li a[data-v-5e862cbc] {\n  color: #333;\n}\n.download_rank ul li a[data-v-5e862cbc]:hover,\n.start_rank ul li a[data-v-5e862cbc]:hover {\n  color: #266ec1;\n}\n.download_rank ul li[data-v-5e862cbc]:after,\n.start_rank ul li[data-v-5e862cbc]:after {\n  content: \"\";\n  height: 24px;\n  width: 2px;\n  position: absolute;\n  top: 16px;\n  left: 0;\n  display: none;\n}\n.download_rank ul li .num[data-v-5e862cbc],\n.start_rank ul li .num[data-v-5e862cbc] {\n  position: absolute;\n  top: 0;\n  left: 2px;\n  width: 30px;\n  text-align: center;\n  height: 100%;\n  line-height: 56px;\n  color: #266ec1;\n}\n.download_rank ul .tit[data-v-5e862cbc],\n.start_rank ul .tit[data-v-5e862cbc] {\n  display: block;\n  position: relative;\n  left: 30px;\n  top: 10px;\n  width: 250px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.download_rank ul .dig[data-v-5e862cbc],\n.start_rank ul .dig[data-v-5e862cbc] {\n  color: #999;\n  display: block;\n  position: relative;\n  top: 10px;\n  height: 20px;\n  left: 30px;\n  width: 210px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .size[data-v-5e862cbc],\n.start_rank ul .size[data-v-5e862cbc] {\n  color: #808080;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.download_rank ul .score[data-v-5e862cbc],\n.start_rank ul .score[data-v-5e862cbc] {\n  font-size: 20px;\n  color: #266ec1;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  height: 100%;\n  display: block;\n  line-height: 56px;\n}\n", ""]);
 
 // exports
 
@@ -72856,7 +72904,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "info"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.plug.title))]), _vm._v(" "), _c('p', [_c('span', [_vm._v(_vm._s(_vm.plug.type_name))]), _c('span', [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.plug.title))]), _vm._v(" "), _c('p', [_c('span', [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'waTmw.index',
+        params: {
+          type: _vm.configUrl[_vm.plug.type_name]
+        }
+      }
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.plug.type_name) + "\n                            ")])], 1), _vm._v(" "), _c('span', {
+    staticClass: "hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_waTmw(_vm.plug.tag_one.id)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', {
+    staticClass: "hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_waTmw(_vm.plug.tag_two.id, _vm.plug.tag_one.id)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -73019,7 +73090,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("推荐： " + _vm._s(_vm.plug.like_num))]) : _c('span', [_vm._v("已推荐： " + _vm._s(_vm.plug.like_num))])])]), _vm._v(" "), _c('div', {
     staticClass: "plug_sim_info"
-  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("作者信息："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
+  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
     attrs: {
       "href": 'mailto:' + _vm.plug.user.email
     }
@@ -74985,6 +75056,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
+    staticStyle: {
+      "margin-top": "5px"
+    },
     on: {
       "click": _vm.upload_plug
     }
@@ -75062,7 +75136,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('strong', {
       staticClass: "my_a_style"
-    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
+    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.$route.params.type === 'plug'),
+        expression: "$route.params.type === 'plug'"
+      }],
+      staticClass: "pull-right hover_hand",
+      on: {
+        "click": function($event) {
+          _vm.download(plug.id)
+        }
+      }
+    }, [_vm._v("下载")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
       attrs: {
         "type": "ios-cloud-download-outline"
       }
@@ -76450,7 +76537,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "color": "#333 !important",
         "background-color": "#fff !important"
       }
-    }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.title.substring(0, 20)))])]), _vm._v(" "), _c('span', {
       staticClass: "dig",
       domProps: {
         "innerHTML": _vm._s(v.info)
@@ -76484,7 +76571,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "color": "#333 !important",
         "background-color": "#fff !important"
       }
-    }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.title.substring(0, 20)))])]), _vm._v(" "), _c('span', {
       staticClass: "dig",
       domProps: {
         "innerHTML": _vm._s(v.info)
