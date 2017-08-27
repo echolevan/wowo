@@ -115,7 +115,7 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         axios.put('/admin/tag/create',{data:this.formItem}).then(res=>{
-                            this.$Message.success('添加成功!');
+                            this.$Message.success('添加成功');
                             this.formItem.name = ''
                             this.formItem.type = []
                             this.formItem.thumb = ''

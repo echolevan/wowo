@@ -185,7 +185,7 @@
                 </div>
             </iCol>
             <div style="clear: both"></div>
-            <!--魔兽插件-->
+            <!--游戏插件-->
             <iCol span="9">
                 <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
@@ -307,7 +307,7 @@
                     return false
                 }
                 if (this.content === '') {
-                    myDialog('请先填写字符串(不能包含中文)')
+                    myDialog('请输入字符串(不能包含中文)')
                     return false
                 }
 
@@ -346,7 +346,7 @@
                     this.get_plugs();
                 }
             },
-            // 得到插件数据
+            // 获取插件数据
             get_plugs() {
                 axios.get(`plug_index`).then(res => {
                     this.plugs = res.data.plugs

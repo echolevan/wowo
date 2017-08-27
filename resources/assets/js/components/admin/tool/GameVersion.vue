@@ -35,7 +35,7 @@
             },
             create_nickname() {
                 if(this.formS.name === ''){
-                    this.$Message.error('请先填写游戏版本号')
+                    this.$Message.error('请输入游戏版本号')
                     return false
                 }
                 axios.get(`/admin/tool/game_version/create_game_version/${this.formS.name}`).then(res => {

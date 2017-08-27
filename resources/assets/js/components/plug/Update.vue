@@ -10,7 +10,7 @@
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..." v-on:input="keyUp"></Input>
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入" v-on:input="keyUp"></Input>
             </Form-item>
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
@@ -22,18 +22,18 @@
                 >
                     <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                 </Upload>
-                <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">删除上传的文件重新上传</span>
+                <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">重新上传</span>
             </Form-item>
 
             <Form-item label="更新日志" prop="updated_info">
-                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"></Input>
             </Form-item>
 
-            <Form-item label="插件版本号" prop="version" v-show="formItem.type[0] === 3">
+            <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
 
-            <Form-item label="游戏版本号" prop="game_version">
+            <Form-item label="游戏版本" prop="game_version">
                 <Select v-model="formItem.game_version" style="width:200px" placeholder="请选择游戏版本号">
                     <Option v-for="item in game_versions" :value="item.value" :key="item.id">{{ item.value }}</Option>
                 </Select>
@@ -46,7 +46,7 @@
                 </i-Switch>
             </Form-item>
 
-            <Form-item label="价格" v-show="formItem.is_free"  prop="gold">
+            <Form-item label="售价(金币)" v-show="formItem.is_free"  prop="gold">
                 <Input-number
                         :min="1"
                         v-model="formItem.gold"
@@ -89,13 +89,13 @@
 
 
             <Button type="primary" :loading="loading" @click="toLoading('formItem')" class="pull-right">
-                <span v-if="!loading">提交</span>
+                <span v-if="!loading">确定</span>
                 <span v-else>Loading...</span>
             </Button>
         <div style="clear: both"></div>
         </Form>
 
-        <Modal title="查看图片" v-model="visible">
+        <Modal title="查看截图" v-model="visible">
             <img :src="imgName" v-if="visible" style="width: 100%">
         </Modal>
 
@@ -126,7 +126,7 @@
             const validategold = (rule, value, callback) => {
                 if (value.length === 0) {
                     if(this.formItem.is_free === true){
-                        callback(new Error('收费不能为空'));
+                        callback(new Error('金币不能为空'));
                     }else{
                         callback();
                     }
@@ -193,7 +193,7 @@
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {max: 120, message: '标题最长120', trigger: 'change'}
+                        {max: 120, message: '标题最长120字符', trigger: 'change'}
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
@@ -205,18 +205,18 @@
                         {validator: validateContentUrl, trigger: 'change'}
                     ],
                     info: [
-                        {required: true, message: '详情不能为空'}
+                        {required: true, message: '简介不能为空'}
                     ],
                     updated_info: [
                         {required: true, message: '更新日志不能为空', trigger: 'blur'},
-                        {max: 150, message: '更新日志最长150', trigger: 'change'},
-                        {max: 150, message: '更新日志最长150', trigger: 'blur'},
+                        {max: 150, message: '更新日志最长150字符', trigger: 'change'},
+                        {max: 150, message: '更新日志最长150字符', trigger: 'blur'},
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
                     ],
                     game_version: [
-                        {required: true, message: '对应游戏版本号不能为空', trigger: 'blur'}
+                        {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
                         {validator: validategold, trigger: 'change'}
@@ -351,7 +351,7 @@
             },
             handlePlugUpload(){
                 if(this.formItem.plug_url !== ''){
-                    myDialog('您已经上传了文件，请先删除')
+                    myDialog('您已上传过文件，请先删除')
                     return false;
                 }
             },

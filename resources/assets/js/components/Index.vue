@@ -37,12 +37,12 @@
             <div>
                 <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
                     <Form-item label="建议" prop="feedback">
-                        <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="您的建议"></Input>
+                        <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入您的建议"></Input>
                     </Form-item>
-                    <Form-item label="姓名" prop="name">
+                    <Form-item label="昵称" prop="name">
                         <Input type="text" v-model="formCustom.name"></Input>
                     </Form-item>
-                    <Form-item label="手机号" prop="tel">
+                    <Form-item label="邮箱" prop="tel">
                         <Input type="text" v-model="formCustom.tel"></Input>
                     </Form-item>
                 </Form>
@@ -69,8 +69,8 @@
                 ruleCustom: {
                     feedback: [
                         {required: true, message: '建议不能为空', trigger: 'blur'},
-                        {max: 180, message: '建议最长180', trigger: 'blur'},
-                        {max: 180, message: '建议最长180', trigger: 'blur'},
+                        {max: 180, message: '建议最长180字符', trigger: 'blur'},
+                        {max: 180, message: '建议最长180字符', trigger: 'blur'},
                     ]
                 }
             }
@@ -142,13 +142,13 @@
                             if(res.data.info.camp === 1){
                                 this.$Notice.info({
                                     title: '您的帐号还未激活',
-                                    desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                    desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                                     duration: 0
                                 });
                             }else{
                                 this.$Notice.error({
                                     title: '您的帐号还未激活',
-                                    desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                    desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                                     duration: 0
                                 });
                             }

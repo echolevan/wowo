@@ -31,7 +31,7 @@
                 loading: false,
                 ruleValidate: {
                     notice: [
-                        {required: true, message: '网站公告不能为空', trigger: 'blur'}
+                        {required: true, message: '公告内容不能为空', trigger: 'blur'}
                     ]
                 }
             }
@@ -55,7 +55,7 @@
                             }
                         })
                     } else {
-                        this.$Message.error('更新失败!');
+                        this.$Message.error('更新失败');
                     }
                     this.loading = false;
                 })

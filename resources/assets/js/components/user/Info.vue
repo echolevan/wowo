@@ -14,7 +14,7 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">等级</span>
-                <Poptip v-if="lv" trigger="hover" :content="`充值金币将会赠送${lv.giving}%的金币`" placement="bottom">
+                <Poptip v-if="lv" trigger="hover" :content="`充值将获赠送${lv.giving}% 金币`" placement="bottom">
                     <span class="hover_hand">{{lv.name}}</span>
                 </Poptip>
                 <div style="clear: both"></div>
@@ -32,18 +32,18 @@
             </li>
             <li><span class="title">邮箱</span><span class="val">
                 <Button type="success"  size="small" v-if="userInfo.is_active === 1">
-                    <Tooltip content="邮箱已经激活">
+                    <Tooltip content="邮箱已激活">
                         {{userInfo.email}}
                     </Tooltip>
                 </Button>
                    <Button type="warning" :disabled="is_dis"  size="small" @click="send_mail" v-else>
                         <Tooltip>
                               <div slot="content">
-                                <p>邮箱还未激活</p>
+                                <p>邮箱未激活</p>
                                 <p><i>点击重新发送邮件</i></p>
                             </div>
                             <span v-if="!is_dis">{{userInfo.email}}</span>
-                            <span v-else>邮件已经发送，{{rest_time}} S后可以再次发送</span>
+                            <span v-else>邮件已经发送，{{rest_time}} s后可再次发送</span>
                         </Tooltip>
                     </Button>
                 </span>
@@ -60,12 +60,12 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">出生地</span>
-                <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''" @click="to_setting">还不知道你的出生地，点击立即设置</span>
+                <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">居住地</span>
-                <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''" @click="to_setting">还不知道你的居住地，点击立即设置</span>
+                <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{(userInfo.habitably.province ? userInfo.habitably.province : '未知省') + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>

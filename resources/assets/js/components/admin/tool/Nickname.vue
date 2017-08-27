@@ -35,7 +35,7 @@
             },
             create_nickname() {
                 if(this.formS.name === ''){
-                    this.$Message.error('请先填写名称')
+                    this.$Message.error('请输入禁止使用的昵称')
                     return false
                 }
                 axios.get(`/admin/tool/nickname/create_nickname/${this.formS.name}`).then(res => {
