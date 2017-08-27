@@ -23,7 +23,7 @@
                     >
                         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                     </Upload>
-                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">需要重新上传,点我删除</p>
+                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">点击删除,重新上传</p>
                 </Form-item>
 
                 <Form-item label="资源类型" prop="zy_type">
@@ -83,7 +83,7 @@
                 csrfToken: window.Laravel.csrfToken,
                 loading_edit: false,
                 modal_edit: false,
-                model_title: '新增资源',
+                model_title: '添加资源',
                 formItem: {
                     id: '',
                     title: '',

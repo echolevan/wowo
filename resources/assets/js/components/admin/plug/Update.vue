@@ -15,6 +15,10 @@
                 <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"  @on-change="on_sel"></Cascader>
             </Form-item>
 
+            <Form-item label="作者信息" prop="author" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.author" placeholder="作者信息"></Input>
+            </Form-item>
+
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
                 <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..." v-on:input="keyUp"></Input>
             </Form-item>
@@ -33,6 +37,10 @@
 
             <Form-item label="更新日志" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
+            </Form-item>
+
+            <Form-item label="插件版本号" prop="version" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
 
             <Form-item label="游戏版本号" prop="game_version">
@@ -161,6 +169,17 @@
                     }
                 }, 10);
             };
+            const validateversion = (rule, value, callback) => {
+                if (this.formItem.type[0] === 3) {
+                    if (value === '') {
+                        callback(new Error('插件版本'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
             return {
                 game_versions:[],
                 plug_tags:[],
@@ -169,7 +188,9 @@
                     type: [],
                     content: '',
                     info: '',
+                    author: '',
                     updated_info: '',
+                    version: '',
                     game_version: '',
                     is_free: false,
                     gold: 1,
@@ -211,6 +232,9 @@
                     ],
                     gold: [
                         {validator: validategold, trigger: 'change'}
+                    ],
+                    version: [
+                        {validator: validateversion, trigger: 'blur'}
                     ]
                 }
             }
@@ -267,7 +291,9 @@
                     this.formItem.type = res.data.plug.type
                     this.formItem.content = res.data.plug.content
                     this.formItem.info = res.data.plug.info
+                    this.formItem.author = res.data.plug.author
                     this.formItem.updated_info = res.data.plug.updated_info
+                    this.formItem.version = res.data.plug.version
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
                     this.formItem.gold = res.data.plug.gold

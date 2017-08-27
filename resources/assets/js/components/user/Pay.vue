@@ -121,7 +121,7 @@
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">充值自定义金额</div>
+                            <div class="button_one_text">充值其他金额</div>
                         </div>
                     </div>
 

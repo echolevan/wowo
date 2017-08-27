@@ -62,7 +62,7 @@ class UploadController extends Controller
         }
 
         $path = "addons/";
-        $url = upload_plug($request->file('file') , $path);
+        $url = upload_plug($request->file('file') , $path , $request->file('file')->getClientOriginalName());
         return ['sta'=> 1 ,'url'=>$url];
     }
 

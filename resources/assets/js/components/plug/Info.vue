@@ -59,7 +59,7 @@
                                     <li v-for="v in updated_infos">
                                         <p class="time" style="font-size:14px;color:#333">
                                             <strong>{{v.created_at}}</strong></p>
-                                        <p>{{v.updated_info}}</p>
+                                        <p v-html="v.updated_info"></p>
                                     </li>
                                 </ul>
                             </Tab-pane>
@@ -77,7 +77,7 @@
                                     <tr v-for="v in plug.historys">
                                         <td>
                                             <router-link :to="{name:'plug.info' , params:{id: v.id}}">
-                                                <a href="" class="link_a">{{ v.version }}</a>
+                                                <a href="" class="link_a">{{v.title}} - {{ v.version }}</a>
                                             </router-link>
                                         </td>
                                         <td>{{ v.version }}</td>
@@ -94,7 +94,8 @@
                             <div class="num">
                                 <span @click="collect_this(plug.plug_id)"
                                       v-if="plug.collect_plug === 0">收藏： {{plug.collect_num}}</span>
-                                <span v-else>已收藏： {{plug.collect_num}}</span>
+                                <span v-else @click="no_collect_this(plug.plug_id)">已收藏： {{plug.collect_num}}</span>
+
                                 <span @click="like_this(plug.plug_id)"
                                       v-if="plug.like_plug === 0">推荐： {{plug.like_num}}</span>
                                 <span v-else>已推荐： {{plug.like_num}}</span>
@@ -103,8 +104,14 @@
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
                             <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
-                            <p>插件作者：<span>{{plug.user.nickname}}</span></p>
-                            <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
+                            <div v-if="plug.author">
+                                <p>上传者：<span>{{plug.user.nickname}}</span></p>
+                                <p>作者信息：<span>{{plug.author}}</span></p>
+                            </div>
+                            <div v-else>
+                                <p>插件作者：<span>{{plug.user.nickname}}</span></p>
+                                <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
+                            </div>
                         </div>
                         <v-rank></v-rank>
                     </iCol>
@@ -302,6 +309,16 @@
                     } else {
                         this.plug.collect_plug = 1
                         this.plug.collect_num++
+                    }
+                })
+            },
+            no_collect_this(id) {
+                axios.get(`no_collect_this/${id}`).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg)
+                    } else {
+                        this.plug.collect_plug = 0
+                        this.plug.collect_num--
                     }
                 })
             },

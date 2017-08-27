@@ -14,16 +14,31 @@
                                 <li  v-for="child in tag.tags " :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(child.id , child.pid)" >{{child.name}}</li>
                             </div>
                         </div>
-                        <li @click="upload_plug" v-if="$route.params.type !== 'plug'">
-                            <a href="javascript:void(0)" >分享字符串</a>
-                        </li>
+                        <div class="my_btn_wrapper"
+                             @click="upload_plug" v-if="$route.params.type !== 'plug'"
+                             :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <svg height="45" width="150">
+                                <rect class="button_one" height="45" width="150"></rect>
+                            </svg>
+                            <div class="button_one_text">分享字符串</div>
+                        </div>
                         <div  v-else>
-                            <li @click="upload_plug">
-                                <a href="javascript:void(0)" >整合界面分享</a>
-                            </li>
-                            <li @click="upload_plug">
-                                <a href="javascript:void(0)" >原创插件分享</a>
-                            </li>
+                            <div class="my_btn_wrapper"
+                                 @click="upload_plug"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"></rect>
+                                </svg>
+                                <div class="button_one_text">整合界面分享</div>
+                            </div>
+                            <div class="my_btn_wrapper"
+                                 @click="upload_plug"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"></rect>
+                                </svg>
+                                <div class="button_one_text">原创插件分享</div>
+                            </div>
                         </div>
                     </ul>
                 </div>
@@ -48,13 +63,14 @@
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
-                            <Icon type="ios-star-outline"></Icon><span>{{plug.score}}</span>
-                            <Icon type="ios-heart-outline"></Icon><span>{{plug.collect_num}}</span>
+                            <Icon type="ios-star-outline"></Icon><span>{{plug.collect_num}}</span>
+                            <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
                             <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
                         </div>
                     </div>
                     <div class="sel sel_bottom">
-                        <Page :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
+                        <Page  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                              :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
                 </div>

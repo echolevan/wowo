@@ -95,6 +95,7 @@ class RegisterController extends Controller
             'login_at' => Carbon::now(),
             'avatar' => $data['camp'] == 1 ? '/images/avatar/1.jpg' : '/images/avatar/2.jpg',
             'password' => bcrypt($data['password']),
+            'update_camp_at' => time(),
         ]);
 
         $user->notify(new \App\Notifications\UserCreated($user));

@@ -100,7 +100,7 @@ class PlugController extends Controller
         $plug = Plug::with('thumbs')
             ->with('tag_one')->with('tag_two')->with('user')
             ->with(['historys' => function ($query) {
-                $query->select('id','plug_id','version','game_version','created_at')->latest();
+                $query->select('id','plug_id','version','game_version','created_at','title')->latest();
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->where('id',$id)->first();
@@ -156,7 +156,7 @@ class PlugController extends Controller
         DB::beginTransaction();
         try {
             $user->collect_plug()->attach($id);
-            $collect = Plug::where('plug_id',$id)->increment('like_num');
+            $collect = Plug::where('plug_id',$id)->increment('collect_num');
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -168,6 +168,33 @@ class PlugController extends Controller
             return ['sta' => 1, 'msg' => '收藏成功'];
         }
         return ['sta' => 0, 'msg' => '收藏失败'];
+
+    }
+
+    public function no_collect_this ($id)
+    {
+        $user = User::find(Auth::id());
+
+        $collect_plug = DB::table('collect_plugs')->where('user_id',Auth::id())->where('plug_id',$id)->count();
+
+        if ($collect_plug === 0) {
+            return ['sta' => 0, 'msg' => '你还没收藏'];
+        }
+        DB::beginTransaction();
+        try {
+            $user->collect_plug()->detach($id);
+            $collect = Plug::where('plug_id',$id)->decrement('collect_num');
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ['sta' => 0, 'msg' => '取消收藏失败'];
+        }
+
+
+        if ($collect) {
+            return ['sta' => 1, 'msg' => '取消收藏成功'];
+        }
+        return ['sta' => 0, 'msg' => '取消收藏失败'];
 
     }
 
@@ -189,7 +216,7 @@ class PlugController extends Controller
         DB::beginTransaction();
         try {
             $user->like_plug()->attach($id);
-            $collect = Plug::where('plug_id',$id)->increment('collect_num');
+            $collect = Plug::where('plug_id',$id)->increment('like_num');
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -394,12 +421,13 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
+        $plug->author = $req['author'];
         $Plug->plug_id = ($plug_id === 0 || $plug_id === 'undefined') ? get_only_one_plug_id() : $plug_id;
         $Plug->gold = !$req['is_free'] ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->is_check = !$req['is_free'] ? 1 : 0;
-        $Plug->version = date('YmdHi');
+        $Plug->version = $type['type'][0] === 3 ? $req['version'] : date('YmdHi');
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
         DB::beginTransaction();
@@ -408,7 +436,7 @@ class PlugController extends Controller
                 // 升级插件 历史插件 is_new  = 0
                 Plug::where('plug_id', $plug_id)->update(['is_new' => 0]);
                 $num = Plug::where('plug_id', $plug_id)->select('download_num','like_num','collect_num','score','version')->first();
-                if($Plug->version === $num->version){
+                if($Plug->version === $num->version && $type['type'][0] !== 3){
                     $Plug->version = $Plug->version ."_".date('s');
                 }
                 $Plug->download_num = $num->download_num;
@@ -452,10 +480,12 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
+        $plug->author = $req['author'];
         $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
+        $Plug->version = $type['type'][0] === 3 ? $req['version'] : $Plug->version;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
         DB::beginTransaction();
         try {

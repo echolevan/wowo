@@ -2,7 +2,7 @@
     <div>
         <Row>
             <!--快捷分享-->
-            <iCol span="24" style="padding:0 0 15px 15px">
+            <iCol span="24" style="padding:0 0 15px 0">
                 <div class="tool_user_child child">
                     <iCol span="18">
                         <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
@@ -13,16 +13,16 @@
                                       @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
 
                             <Button type="ghost" class="pull-right"
-                                    style="margin-top:15px"
+                                    style="margin-top:15px;font-size: 15px;"
                                     @click="quick_share"
                             >快速分享</Button>
                             <div style="clear: both"></div>
                             <Button type="ghost"
-                                    style="position:absolute;left: 0;bottom: 0"
+                                    style="position:absolute;left: 0;bottom: 0;font-size: 15px;"
                                     @click="quick_share_plug(1)"
                             >整合界面分享</Button>
                             <Button type="ghost"
-                                    style="position:absolute;right: 0;bottom: 0"
+                                    style="position:absolute;right: 0;bottom: 0;font-size: 15px;"
                                     @click="quick_share_plug(2)"
                             >原创插件分享</Button>
                         </div>
@@ -34,7 +34,7 @@
 
             <!--最新主题-->
             <iCol span="18">
-                <div class="div_block my_card_hover">
+                <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>最新主题</strong>
                     </div>
@@ -114,7 +114,7 @@
             <div style="clear: both"></div>
             <!--WeakAuras-->
             <iCol span="9">
-                <div class="div_block my_card_hover">
+                <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>WeakAuras</strong>
                         <router-link to="/waTmw/wa" class="pull-right my_a_style"
@@ -187,7 +187,7 @@
             <div style="clear: both"></div>
             <!--魔兽插件-->
             <iCol span="9">
-                <div class="div_block my_card_hover">
+                <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>游戏插件</strong>
                         <router-link to="/waTmw/plug" class="pull-right my_a_style"

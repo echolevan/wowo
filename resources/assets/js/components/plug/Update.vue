@@ -29,6 +29,10 @@
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入..."></Input>
             </Form-item>
 
+            <Form-item label="插件版本号" prop="version" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.version" placeholder="插件版本号"></Input>
+            </Form-item>
+
             <Form-item label="游戏版本号" prop="game_version">
                 <Select v-model="formItem.game_version" style="width:200px" placeholder="请选择游戏版本号">
                     <Option v-for="item in game_versions" :value="item.value" :key="item.id">{{ item.value }}</Option>
@@ -154,6 +158,17 @@
                     }
                 }, 10);
             };
+            const validateversion = (rule, value, callback) => {
+                if (this.formItem.type[0] === 3) {
+                    if (value === '') {
+                        callback(new Error('插件版本'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
             return {
                 plug_tags:[],
                 game_versions:[],
@@ -163,6 +178,7 @@
                     content: '',
                     info: '',
                     updated_info: '',
+                    version: '',
                     game_version: '',
                     is_free: false,
                     gold: 1,
@@ -204,6 +220,9 @@
                     ],
                     gold: [
                         {validator: validategold, trigger: 'change'}
+                    ],
+                    version: [
+                        {validator: validateversion, trigger: 'blur'}
                     ]
                 }
             }
@@ -261,6 +280,7 @@
                     this.formItem.content = res.data.plug.content
                     this.formItem.info = res.data.plug.info
                     this.formItem.updated_info = res.data.plug.updated_info
+                    this.formItem.version = res.data.plug.version
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
                     this.formItem.gold = res.data.plug.gold

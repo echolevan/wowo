@@ -207,7 +207,7 @@
                 this.$refs.bmCreate.formItem.bm_url = ''
 
                 this.$refs.bmCreate.clear_from('formItem')
-                this.$refs.bmCreate.model_title = '新增资源'
+                this.$refs.bmCreate.model_title = '添加资源'
                 this.$refs.bmCreate.modal_edit = true
             },
             success() {
