@@ -188,7 +188,6 @@
                 this.this_page = p
                 this.get_plugs();
             },
-
             // 得到插件数据
             get_plugs(){
                 axios.post(`plug/${this.$route.params.type}` , {orderBy:this.orderBy , tag_active:this.tag_active , tag_active_pid: this.tag_active_pid , page:this.this_page , keyword:this.keyword} ).then(res=>{
