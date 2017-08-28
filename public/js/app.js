@@ -8961,6 +8961,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -79582,7 +79587,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child tool tt_center",
+      staticClass: "td_child tool",
       staticStyle: {
         "width": "40%"
       }
@@ -79643,7 +79648,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }, [_c('div', {
         staticClass: "td_child title",
         staticStyle: {
-          "width": "30%"
+          "width": "20%"
         }
       }, [_c('Poptip', {
         attrs: {
@@ -79652,22 +79657,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "placement": "bottom"
         }
       }, [_vm._v("\n                            " + _vm._s(vv.title) + "\n                        ")])], 1), _vm._v(" "), (vv.gold === 0) ? _c('div', {
-        staticClass: "td_child",
+        staticClass: "td_child tt_center",
         staticStyle: {
           "width": "10%"
         }
       }, [_vm._v("免费")]) : _c('div', {
-        staticClass: "td_child",
+        staticClass: "td_child tt_center",
         staticStyle: {
           "width": "10%"
         }
       }, [_vm._v(_vm._s(vv.gold) + " 金币")]), _vm._v(" "), _c('div', {
-        staticClass: "td_child",
+        staticClass: "td_child tt_center",
         staticStyle: {
           "width": "10%"
         }
-      }, [_vm._v(_vm._s(vv.version))]), _vm._v(" "), _c('div', {
-        staticClass: "td_child",
+      }, [_vm._v(_vm._s(vv.is_check === 1 ? '已审核' : '待审核'))]), _vm._v(" "), _c('div', {
+        staticClass: "td_child hover_hand tt_center",
+        staticStyle: {
+          "width": "10%"
+        }
+      }, [_c('Poptip', {
+        attrs: {
+          "content": vv.version,
+          "trigger": "hover",
+          "placement": "bottom"
+        }
+      }, [_vm._v("\n                            " + _vm._s(vv.version) + "\n                        ")])], 1), _vm._v(" "), _c('div', {
+        staticClass: "td_child tt_center",
         staticStyle: {
           "width": "10%"
         }
