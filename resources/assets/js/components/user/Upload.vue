@@ -2,10 +2,10 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 20%">插件名称</div>
+                <div style="width: 20%">资源名称</div>
                 <div style="width: 10%">售价</div>
                 <div style="width: 10%">状态</div>
-                <div style="width: 10%">插件版本</div>
+                <div style="width: 10%">版本</div>
                 <div style="width: 10%">游戏版本</div>
                 <div style="width: 40%">操作</div>
             </div>

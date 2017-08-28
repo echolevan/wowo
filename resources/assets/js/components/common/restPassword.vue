@@ -15,7 +15,7 @@
         </Form>
         <Button type="primary" :loading="loading" class="pull-right" @click="rest_password('formPassword')"
                 :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-            <span v-if="!loading">确认</span>
+            <span v-if="!loading">确定</span>
             <span v-else>Loading...</span>
         </Button>
     </div>

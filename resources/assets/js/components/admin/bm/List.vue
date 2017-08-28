@@ -53,7 +53,7 @@
             <thead>
             <tr>
                 <th style="width: 10%">下载方式</th>
-                <th style="width: 10%">分类</th>
+                <th style="width: 10%">类型</th>
                 <th style="width: 10%">标题</th>
                 <th style="width: 10%">售价</th>
                 <th style="width: 10%">地址</th>
