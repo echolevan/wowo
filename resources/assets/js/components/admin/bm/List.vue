@@ -156,7 +156,7 @@
                 if(this.is_disabled === k){
                     // 确定
                     if(this.list[k].rank === 0){
-                        this.$Message.error('请输数字(1~99)')
+                        this.$Message.error('请输入数字(1~99)')
                         return false
                     }
                     axios.get(`/admin/bm/change_rank/${id}/${this.list[k].rank}`).then(res => {
