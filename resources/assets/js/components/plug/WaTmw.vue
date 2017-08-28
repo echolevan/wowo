@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="my_btn_wrapper"
-                             @click="upload_plug" v-if="$route.params.type !== 'plug'"
+                             @click="upload_plug($route.params.type)" v-if="$route.params.type !== 'plug'"
                              :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
@@ -24,7 +24,7 @@
                         </div>
                         <div  v-else>
                             <div class="my_btn_wrapper"
-                                 @click="upload_plug"
+                                 @click="upload_plug($route.params.type , '整合界面分享')"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
                                     <rect class="button_one" height="45" width="150"></rect>
@@ -32,7 +32,7 @@
                                 <div class="button_one_text">整合界面分享</div>
                             </div>
                             <div class="my_btn_wrapper"
-                                 @click="upload_plug"
+                                 @click="upload_plug($route.params.type ,'原创插件分享')"
                                  style="margin-top:5px"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
@@ -51,6 +51,8 @@
                         <Select v-model="orderBy" size="small" style="width:100px" @on-change="change_order" :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                         </Select>
+                        <Page ref="pageThis"  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                               :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
                     <div class="content"  v-if="plugs.length > 0" v-for="plug in plugs">
@@ -71,7 +73,7 @@
                         </div>
                     </div>
                     <div class="sel sel_bottom">
-                        <Page  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        <Page ref="pageTwo" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                               :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
@@ -120,33 +122,40 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap'
+            'userInfo', 'choice_cmap', 'change_s_tag'
         ]),
         watch: {
             '$route' (to, from) {
                 this._init()
                 this.tag_active = 0
                 this.tag_active_pid = 0
-            }
+            },
+            change_s_tag() {
+                let  watmw_tag_id = localStorage.getItem('watmw_tag_id')
+                let  watmw_tag_pid = localStorage.getItem('watmw_tag_pid')
+                if(watmw_tag_id){
+                    this.tag_active = parseInt(watmw_tag_id)
+                    localStorage.removeItem('watmw_tag_id')
+                }
+                if(watmw_tag_pid){
+                    this.tag_active_pid = parseInt(watmw_tag_pid)
+                    localStorage.removeItem('watmw_tag_pid')
+                }
+
+                setTimeout(()=>{
+                    $('li.active').parent('.child').show('300')
+                },600)
+
+                this.get_plugs()
+
+            },
         },
         mounted () {
-            let  watmw_tag_id = localStorage.getItem('watmw_tag_id')
-            let  watmw_tag_pid = localStorage.getItem('watmw_tag_pid')
 
-            if(watmw_tag_id){
-                this.tag_active = parseInt(watmw_tag_id)
-                localStorage.removeItem('watmw_tag_id')
-            }
-            if(watmw_tag_pid){
-                this.tag_active_pid = parseInt(watmw_tag_pid)
-                localStorage.removeItem('watmw_tag_pid')
-            }
             $(document).on("click" , ".down" , function () {
                 $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
             })
-            setTimeout(()=>{
-                $('li.active').parent('.child').show('300')
-            },600)
+
             this._init()
         },
         methods: {
@@ -174,6 +183,8 @@
             },
             // 更改分页
             change_page (p) {
+                this.$refs.pageThis.currentPage  = p
+                this.$refs.pageTwo.currentPage  = p
                 this.this_page = p
                 this.get_plugs();
             },
@@ -187,8 +198,12 @@
                 })
             },
 
-            upload_plug(){
+            upload_plug(type , tag_name = 0){
                 if(this.$store.state.userInfo){
+                    localStorage.setItem('upload_type',type)
+                    if(tag_name !== 0){
+                        localStorage.setItem('upload_type_name',tag_name)
+                    }
                     this.$router.push("/upload")
                 }else{
                     myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>

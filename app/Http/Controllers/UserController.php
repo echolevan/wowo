@@ -186,7 +186,7 @@ class UserController extends Controller
 
             $sta = $this->check_is_camp();
             if(!$sta['sta']){
-                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营'];
+                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营' , 'time'=>$sta['time']];
             }
 
             $arr = [
@@ -222,7 +222,7 @@ class UserController extends Controller
     {
         if( !Auth::user()->update_camp_at || time() - Auth::user()->update_camp_at > 30*60*60*24 )
             return ['sta'=> 1];
-        return ['sta'=> 0];
+        return ['sta'=> 0 , 'time'=> floor( (time()- Auth::user()->update_camp_at) / (60*60*24) )];
     }
 
 

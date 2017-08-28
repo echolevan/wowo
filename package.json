@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
-    "iview": "^2.0.0-rc.19",
+    "iview": "^2.2.0",
     "region-picker": "0.0.17",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",

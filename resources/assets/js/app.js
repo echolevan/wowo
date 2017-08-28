@@ -45,6 +45,7 @@ const store = new Vuex.Store({
     state: {
         userInfo: '',
         choice_cmap: '',
+        change_s_tag: '',
         tools: {
             'bm': 0,
             'notice': '',
@@ -60,6 +61,9 @@ const store = new Vuex.Store({
         change_tools (state, tools) {
             state.tools.bm = tools['bm'] ? tools['bm'].value : 1
             state.tools.notice = tools['notice'] ? tools['notice'].value : ''
+        },
+        change_tag (state, tools) {
+            state.change_s_tag = Math.random()
         }
     }
 })

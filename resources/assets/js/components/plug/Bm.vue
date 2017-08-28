@@ -38,13 +38,8 @@
                       ><s>[{{v.gold}}金币]</s></span>
                                 <span class="normal_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-<<<<<<< HEAD
-                                      v-else>[{{v.gold}}金币]</span>
-                                <span v-if="v.order">(已购买)</span>
-=======
                                       v-else>{{v.gold}}</span>
                                 <span v-if="v.order">[已购买]</span>
->>>>>>> iwowcn
                 </span>
             </strong>
                 <span class="pull-right" style="padding-left: 5px">

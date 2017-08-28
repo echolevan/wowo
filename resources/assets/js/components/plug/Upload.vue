@@ -2,7 +2,7 @@
     <div style="padding: 15px 0 100px 0">
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
             <Form-item label="标题" prop="title">
-                <Input v-model="formItem.title" placeholder="请输入"></Input>
+                <Input v-model="formItem.title" placeholder="标题"></Input>
             </Form-item>
 
             <Form-item label="分类" prop="type">
@@ -10,19 +10,8 @@
                           @on-change="on_sel"></Cascader>
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"  v-on:input="keyUp"></Input>
-            </Form-item>
-
-            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
-                <Upload action="/upload_plug_info_plug"
-                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
-                        :on-success="handlePlugSuccess"
-                        :before-upload="handlePlugUpload"
-                        :on-remove="removePlug"
-                >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                </Upload>
+            <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.name" placeholder="插件名称"></Input>
             </Form-item>
 
             <Form-item label="更新日志" prop="updated_info">
@@ -54,6 +43,20 @@
                         @on-change="change_other"></Input-number>
             </Form-item>
 
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"  v-on:input="keyUp"></Input>
+            </Form-item>
+
+            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
+                <Upload action="/upload_plug_info_plug"
+                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
+                        :on-success="handlePlugSuccess"
+                        :before-upload="handlePlugUpload"
+                        :on-remove="removePlug"
+                >
+                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                </Upload>
+            </Form-item>
 
             <Form-item label="上传截图" prop="uploadList">
                 <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList">
@@ -86,7 +89,6 @@
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
             </Form-item>
-
 
             <Button type="primary" :loading="loading" @click="toLoading('formItem')" class="pull-right">
                 <span v-if="!loading">确定</span>
@@ -150,7 +152,7 @@
                 setTimeout(() => {
                     if (this.formItem.plug_url === '') {
                         if (this.formItem.type[0] === 3) {
-                            callback(new Error('内容不能为空'));
+                            callback(new Error('请上传插件'));
                         } else {
                             callback();
                         }
@@ -163,6 +165,17 @@
                 if (this.formItem.type[0] === 3) {
                     if (value === '') {
                         callback(new Error('插件版本'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
+            const validatename = (rule, value, callback) => {
+                if (this.formItem.type[0] === 3) {
+                    if (value === '') {
+                        callback(new Error('插件名称不能为空'));
                     } else {
                         callback();
                     }
@@ -185,7 +198,9 @@
                     gold: 1,
                     uploadList: [],
                     plug_url: '',
+                    name: ''
                 },
+                upload_type: '',
                 imgName: '',
                 visible: false,
                 loading: false,
@@ -199,10 +214,10 @@
                         {validator: validateType, required: true, trigger: 'change'}
                     ],
                     content: [
-                        {validator: validateContent, trigger: 'blur'}
+                        {validator: validateContent, required: true, trigger: 'blur'}
                     ],
                     plug_url: [
-                        {validator: validateContentUrl, trigger: 'change'}
+                        {validator: validateContentUrl,required: true, trigger: 'change'}
                     ],
                     info: [
                         {required: true, message: '简介不能为空'}
@@ -219,11 +234,16 @@
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
-                        {validator: validategold, trigger: 'change'}
+                        {validator: validategold,required: true,  trigger: 'change'}
                     ],
                     version: [
-                        {validator: validateversion, trigger: 'blur'}
-                    ]
+                        {validator: validateversion,required: true,  trigger: 'blur'}
+                    ],
+                    name: [
+                        {validator: validatename,required: true,  trigger: 'blur'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'change'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'blur'},
+                    ],
                 }
             }
         },
@@ -301,12 +321,21 @@
                         history.go(-1)
                     })
                 }
-                axios.get('plug_all_info').then(res => {
+
+
+                let type = localStorage.getItem('upload_type')
+                let tag_name = localStorage.getItem('upload_type_name')
+                localStorage.removeItem('upload_type')
+                localStorage.removeItem('upload_type_name')
+                axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
                     this.plug_tags = res.data.res
+                    if(tag_name !== null){
+                        this.formItem.type = [res.data.res[0].value , res.data.res[0].children[0].value]
+                    }
                     this.game_versions = res.data.game_versions
                 })
-                let quick_content = localStorage.getItem('quick_share_content')
 
+                let quick_content = localStorage.getItem('quick_share_content')
                 let quick_type = localStorage.getItem('quick_share_type')
                 if(quick_content && quick_type){
                     let dataStrArr = quick_type.split(",")

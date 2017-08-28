@@ -2,31 +2,21 @@
     <div>
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
             <Form-item label="标题" prop="title">
-                <Input v-model="formItem.title" placeholder="请输入"></Input>
+                <Input v-model="formItem.title" placeholder="标题"></Input>
             </Form-item>
 
             <Form-item label="分类" prop="type">
-                <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"  @on-change="on_sel"></Cascader>
+                <Cascader v-if="plug_tags && plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
+                          @on-change="on_sel"></Cascader>
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入" v-on:input="keyUp"></Input>
-            </Form-item>
-
-            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
-                <Upload action="/upload_plug_info_plug"
-                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
-                        :on-success="handlePlugSuccess"
-                        :before-upload="handlePlugUpload"
-                        :on-remove="removePlug"
-                >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                </Upload>
-                <span @click="del_plug" class="hover_hand" v-show="del_plug_sta === 1 && this.formItem.plug_url">重新上传</span>
+            <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.name" placeholder="插件名称"></Input>
             </Form-item>
 
             <Form-item label="更新日志" prop="updated_info">
-                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"></Input>
+                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
+                       placeholder="请输入"></Input>
             </Form-item>
 
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
@@ -46,21 +36,35 @@
                 </i-Switch>
             </Form-item>
 
-            <Form-item label="售价(金币)" v-show="formItem.is_free"  prop="gold">
+            <Form-item label="售价(金币)" v-show="formItem.is_free" prop="gold">
                 <Input-number
                         :min="1"
                         v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
             </Form-item>
 
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"  v-on:input="keyUp"></Input>
+            </Form-item>
+
+            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
+                <Upload action="/upload_plug_info_plug"
+                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
+                        :on-success="handlePlugSuccess"
+                        :before-upload="handlePlugUpload"
+                        :on-remove="removePlug"
+                >
+                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                </Upload>
+            </Form-item>
 
             <Form-item label="上传截图" prop="uploadList">
-                <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList" :class="`img_viewer_${k}`">
-                        <img :src="item.url">
-                        <div class="demo-upload-list-cover">
-                            <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
-                            <Icon type="ios-trash-outline" @click.native="handleRemove(k)"></Icon>
-                        </div>
+                <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList">
+                    <img :src="item.url">
+                    <div class="demo-upload-list-cover">
+                        <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
+                        <Icon type="ios-trash-outline" @click.native="handleRemove(k)"></Icon>
+                    </div>
                 </div>
                 <Upload
                         ref="upload"
@@ -80,19 +84,17 @@
                         </p>
                     </div>
                 </Upload>
-
             </Form-item>
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
             </Form-item>
 
-
             <Button type="primary" :loading="loading" @click="toLoading('formItem')" class="pull-right">
                 <span v-if="!loading">确定</span>
                 <span v-else>Loading...</span>
             </Button>
-        <div style="clear: both"></div>
+
         </Form>
 
         <Modal title="查看截图" v-model="visible">
@@ -169,6 +171,17 @@
                     callback();
                 }
             };
+            const validatename = (rule, value, callback) => {
+                if (this.formItem.type[0] === 3) {
+                    if (value === '') {
+                        callback(new Error('插件名称不能为空'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
             return {
                 plug_tags:[],
                 game_versions:[],
@@ -184,6 +197,7 @@
                     gold: 1,
                     uploadList: [],
                     plug_url: '',
+                    name: ''
                 },
                 imgName: '',
                 visible: false,
@@ -199,10 +213,10 @@
                         {validator: validateType, required: true, trigger: 'change'}
                     ],
                     content: [
-                        {validator: validateContent, trigger: 'blur'}
+                        {validator: validateContent, required: true,trigger: 'blur'}
                     ],
                     plug_url: [
-                        {validator: validateContentUrl, trigger: 'change'}
+                        {validator: validateContentUrl,required: true, trigger: 'change'}
                     ],
                     info: [
                         {required: true, message: '简介不能为空'}
@@ -219,11 +233,16 @@
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
-                        {validator: validategold, trigger: 'change'}
+                        {validator: validategold,required: true, trigger: 'change'}
                     ],
                     version: [
-                        {validator: validateversion, trigger: 'blur'}
-                    ]
+                        {validator: validateversion,required: true, trigger: 'blur'}
+                    ],
+                    name: [
+                        {validator: validatename,required: true,  trigger: 'blur'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'change'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'blur'},
+                    ],
                 }
             }
         },
@@ -283,6 +302,7 @@
                     this.formItem.version = res.data.plug.version
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
+                    this.formItem.name = res.data.plug.name
                     this.formItem.gold = res.data.plug.gold
                     this.formItem.plug_url = res.data.plug.content
                     this.formItem.uploadList = res.data.plug.thumbs
