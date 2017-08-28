@@ -78536,7 +78536,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.upload_plug(_vm.$route.params.type, '整合界面分享')
+        _vm.upload_plug(_vm.$route.params.type, '整合界面')
       }
     }
   }, [_c('svg', {
@@ -78562,7 +78562,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.upload_plug(_vm.$route.params.type, '原创插件分享')
+        _vm.upload_plug(_vm.$route.params.type, '原创插件')
       }
     }
   }, [_c('svg', {

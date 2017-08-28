@@ -24,7 +24,7 @@
                         </div>
                         <div  v-else>
                             <div class="my_btn_wrapper"
-                                 @click="upload_plug($route.params.type , '整合界面分享')"
+                                 @click="upload_plug($route.params.type , '整合界面')"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
                                     <rect class="button_one" height="45" width="150"></rect>
@@ -32,7 +32,7 @@
                                 <div class="button_one_text">整合界面分享</div>
                             </div>
                             <div class="my_btn_wrapper"
-                                 @click="upload_plug($route.params.type ,'原创插件分享')"
+                                 @click="upload_plug($route.params.type ,'原创插件')"
                                  style="margin-top:5px"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 <svg height="45" width="150">
