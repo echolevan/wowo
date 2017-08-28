@@ -32,7 +32,7 @@
                 <span v-if="v.gold === 0" class="normal_font"
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >免费</span>
-                <span v-else>售价：
+                <span v-else>
                       <span v-if="v.order" class="normal_font"
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                       ><s>{{v.gold}}</s></span>
