@@ -11824,7 +11824,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.bm .search_list li[data-v-19bcef58] {\n  width: 100%;\n  padding: 10px 0;\n  border-bottom: 1px solid #f2f2f2;\n}\n", ""]);
+exports.push([module.i, "\n.bm .search_list li[data-v-19bcef58] {\n  width: 100%;\n  padding: 5px 0;\n  border-bottom: 1px solid #f2f2f2;\n}\n", ""]);
 
 // exports
 
@@ -74220,17 +74220,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v("免费")]) : _c('span', [_vm._v("售价：\n                  "), (v.order) ? _c('span', {
+    }, [_vm._v("[免费]")]) : _c('span', [_vm._v("售价：\n                  "), (v.order) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_c('s', [_vm._v(_vm._s(v.gold))])]) : _c('span', {
+    }, [_c('s', [_vm._v("[" + _vm._s(v.gold) + "金币]")])]) : _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(已购买)")]) : _vm._e()])]), _vm._v(" "), _c('span', {
+    }, [_vm._v("[" + _vm._s(v.gold) + "金币]")]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(已购买)")]) : _vm._e()])]), _vm._v(" "), _c('span', {
       staticClass: "pull-right",
       staticStyle: {
         "padding-left": "5px"
@@ -76030,22 +76030,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "placement": "bottom"
       }
     }, [_vm._v("\n                    " + _vm._s(v.title) + "\n                ")])], 1), _vm._v(" "), (v.gold === 0) ? _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v("免费")]) : _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.is_check === 1 ? '已审核' : '待审核'))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child hover_hand",
+      staticClass: "td_child hover_hand tt_center",
       staticStyle: {
         "width": "10%"
       }
@@ -76056,12 +76056,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "placement": "bottom"
       }
     }, [_vm._v("\n                    " + _vm._s(v.version) + "\n                ")])], 1), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child tool",
+      staticClass: "td_child tool tt_center",
       staticStyle: {
         "width": "40%"
       }
@@ -76214,22 +76214,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "20%"
     }
   }, [_vm._v("插件名称")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("状态")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("插件版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "40%"
     }

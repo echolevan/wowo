@@ -31,14 +31,14 @@
                 -
                 <span v-if="v.gold === 0" class="normal_font"
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                >免费</span>
+                >[免费]</span>
                 <span v-else>售价：
                       <span v-if="v.order" class="normal_font"
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                      ><s>{{v.gold}}</s></span>
+                      ><s>[{{v.gold}}金币]</s></span>
                                 <span class="normal_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                      v-else>{{v.gold}}</span>
+                                      v-else>[{{v.gold}}金币]</span>
                                 <span v-if="v.order">(已购买)</span>
                 </span>
             </strong>
@@ -184,6 +184,6 @@
         .search_list
             li
                 width 100%
-                padding 10px 0
+                padding 5px 0
                 border-bottom 1px solid #f2f2f2
 </style>
