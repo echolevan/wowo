@@ -2,10 +2,10 @@
     <div style="width: 500px" >
         <Form ref="formPassword" :model="formPassword" :rules="ruleFormPassword" label-position="left"
               :label-width="100">
-            <Form-item label="原始密码" prop="old_password">
+            <Form-item label="原密码" prop="old_password">
                 <Input type="password" v-model="formPassword.old_password"></Input>
             </Form-item>
-            <Form-item label="新的密码" prop="password">
+            <Form-item label="新密码" prop="password">
                 <Input type="password" v-model="formPassword.password"></Input>
             </Form-item>
             <Form-item label="确认密码" prop="passwordCheck">
@@ -15,7 +15,7 @@
         </Form>
         <Button type="primary" :loading="loading" class="pull-right" @click="rest_password('formPassword')"
                 :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-            <span v-if="!loading">提交</span>
+            <span v-if="!loading">确认</span>
             <span v-else>Loading...</span>
         </Button>
     </div>
@@ -30,7 +30,7 @@
             const validatePassword = (rule, value, callback) => {
                 if (value !== '') {
                     if (value !== this.formPassword.password) {
-                        callback(new Error("两次输入的密码不一致"));
+                        callback(new Error("密码不一致"));
                     } else {
                         callback();
                     }
@@ -56,12 +56,12 @@
                 },
                 ruleFormPassword: {
                     old_password: [
-                        {required: true, message: '请填写原始密码', trigger: 'blur'},
+                        {required: true, message: '请输入原密码', trigger: 'blur'},
                         {validator: validateCheckPassword, trigger: 'blur'}
                     ],
                     password: [
-                        {required: true, message: '请填写密码', trigger: 'blur'},
-                        {min: 6, max: 15, message: '密码长度6-15位', trigger: 'change'}
+                        {required: true, message: '请输入新密码', trigger: 'blur'},
+                        {min: 8, max: 15, message: '密码长度8-15位', trigger: 'change'}
                     ],
                     passwordCheck: [
                         {required: true, message: '请输入确认密码', trigger: 'blur'},
@@ -90,7 +90,7 @@
                             this.loading = false;
                         }).catch((err) => {
                             this.loading = false;
-                            myDialog('好像什么东西错了，请联系管理员')
+                            myDialog('出错了，请联系管理员')
                         });
                     } else {
                         this.loading = false;

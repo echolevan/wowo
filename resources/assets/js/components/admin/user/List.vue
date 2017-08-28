@@ -30,7 +30,7 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.is_admin" clearable placeholder="是否是管理员" style="width: 200px;">
+                <Select v-model="formS.is_admin" clearable placeholder="是否管理员" style="width: 200px;">
                     <Option v-for="(v , k) in configYesOrNo" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -45,22 +45,22 @@
         </Form>
 
         <div style="padding: 10px 0">
-            是否显示签名
+            显示签名
             <i-switch v-model="show_info">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
             </i-switch>
-            是否显示邮箱
+            显示邮箱
             <i-switch v-model="show_email">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
             </i-switch>
-            是否显示注册时间
+            显示注册时间
             <i-switch v-model="show_c_at">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
             </i-switch>
-            是否显示登陆时间
+            显示登陆时间
             <i-switch v-model="show_l_at">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
@@ -83,7 +83,7 @@
                 <th style="width: 10%" v-show="show_l_at">最近登陆</th>
                 <th style="width: 5%">帐号是否激活</th>
                 <th style="width: 5%">能否登陆</th>
-                <th style="width: 8%">是否是管理员</th>
+                <th style="width: 8%">是否管理员</th>
                 <th style="width: 12%">操作</th>
             </tr>
             </thead>
@@ -102,7 +102,7 @@
                         </div>
                     </Tooltip>
                 </td>
-                <td>{{v.tel === '0' ? '暂无手机号' : v.tel}}</td>
+                <td>{{v.tel === '0' ? '未绑定手机' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
                 <td>{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>

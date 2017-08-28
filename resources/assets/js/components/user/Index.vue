@@ -31,11 +31,11 @@
                         <router-link to="/userInfo/pay" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">充值中心</router-link>
                     </li>
                     <li>
-                        <router-link to="/userInfo/collect" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">收藏的资源</router-link>
+                        <router-link to="/userInfo/collect" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">已收藏资源</router-link>
 
                     </li>
                     <li>
-                        <router-link to="/userInfo/upload" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">分享的资源</router-link>
+                        <router-link to="/userInfo/upload" class="r-l my_a_style" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">已分享资源</router-link>
                     </li>
                     <li>
                         <a href="/admin/#/admin" class="r-l my_a_style"

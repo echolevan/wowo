@@ -51,7 +51,7 @@
             </div>
         </Modal>
 
-        <Modal title="查看图片" v-model="visible">
+        <Modal title="查看头像" v-model="visible">
             <img :src="imgName" v-if="visible" style="width: 100%">
         </Modal>
     </div>
@@ -73,7 +73,7 @@
                 if(this.formItem.name !== ''){
                     axios.post('/check/user_name',{name: this.formItem.name, id: this.formItem.id}).then(res => {
                         if(res.data.sta === 0){
-                            callback(new Error('昵称已经存在或者违规'));
+                            callback(new Error('昵称已存在或违规'));
                         }else{
                             callback();
                         }
@@ -86,7 +86,7 @@
                 if(this.formItem.name !== ''){
                     axios.post('/check/user_email',{email: this.formItem.email, id: this.formItem.id}).then(res => {
                         if(res.data.sta === 0){
-                            callback(new Error('邮箱已经存在'));
+                            callback(new Error('邮箱已存在'));
                         }else{
                             callback();
                         }
@@ -100,11 +100,11 @@
                     let tel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
                     if(!tel.test(value))
                     {
-                        callback(new Error('请输入正确的手机号'));
+                        callback(new Error('请输入正确的手机号码'));
                     }else{
                         axios.post('/check/user_tel',{tel: this.formItem.tel, id: this.formItem.id}).then(res => {
                             if(res.data.sta === 0){
-                                callback(new Error('手机号已经存在'));
+                                callback(new Error('手机号码已存在'));
                             }else{
                                 callback();
                             }
@@ -131,8 +131,8 @@
                 },
                 ruleValidate: {
                     name: [
-                        {required: true, message: '姓名不能为空', trigger: 'blur'},
-                        {max: 30, message: '姓名最长30', trigger: 'change'},
+                        {required: true, message: '昵称不能为空', trigger: 'blur'},
+                        {max: 30, message: '姓名最长30字符', trigger: 'change'},
                         {validator: validateUserName,trigger: 'blur'},
                     ],
                     email: [

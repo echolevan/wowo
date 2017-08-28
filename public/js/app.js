@@ -1802,7 +1802,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 tel: ''
             },
             ruleCustom: {
-                feedback: [{ required: true, message: '建议不能为空', trigger: 'blur' }, { max: 180, message: '建议最长180', trigger: 'blur' }, { max: 180, message: '建议最长180', trigger: 'blur' }]
+                feedback: [{ required: true, message: '建议不能为空', trigger: 'blur' }, { max: 180, message: '建议最长180字符', trigger: 'blur' }, { max: 180, message: '建议最长180字符', trigger: 'blur' }]
             }
         };
     },
@@ -1877,13 +1877,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         if (res.data.info.camp === 1) {
                             _this2.$Notice.info({
                                 title: '您的帐号还未激活',
-                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                                 duration: 0
                             });
                         } else {
                             _this2.$Notice.error({
                                 title: '您的帐号还未激活',
-                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                                 duration: 0
                             });
                         }
@@ -2048,7 +2048,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (res.data.info.is_active === 0) {
                         _this.$Notice.open({
                             title: '您的帐号还未激活',
-                            desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                            desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                             duration: 0
                         });
                     }
@@ -2150,7 +2150,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validategold = function validategold(rule, value, callback) {
             if (value === 0) {
                 if (_this.formItem.is_free === true) {
-                    callback(new Error('插件收费不能为空'));
+                    callback(new Error('金币不能为空'));
                 } else {
                     callback();
                 }
@@ -2175,7 +2175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false
             },
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 60, message: '标题最长60', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 60, message: '标题最长60字符', trigger: 'change' }],
                 type: [{ required: true, message: '下载方式不能为空' }],
                 zy_type: [{ required: true, message: '资源分类不能为空' }],
                 url: [{ required: true, validator: validateUrl }],
@@ -2195,12 +2195,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 this.$Loading.finish();
                 this.formItem.url = res.url;
-                this.$Message.success('开始完成');
+                this.$Message.success('开始上传');
             }
         },
         handlePlugUpload: function handlePlugUpload() {
             if (this.formItem.url !== '') {
-                this.$Message.error('您已经上传了文件，请先删除');
+                this.$Message.error('您已上传过文件，请先删除');
                 return false;
             }
             this.$Loading.start();
@@ -2405,7 +2405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.is_disabled === k) {
                 // 确定
                 if (this.list[k].rank === 0) {
-                    this.$Message.error('请输入大于0小于99的数字');
+                    this.$Message.error('请输数字(1~99)');
                     return false;
                 }
                 axios.get('/admin/bm/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
@@ -2781,7 +2781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.is_disabled === k) {
                 // 确定
                 if (this.list[k].rank === 0) {
-                    this.$Message.error('请输入大于0小于99的数字');
+                    this.$Message.error('请输入数字(1~99)');
                     return false;
                 }
                 axios.get('/admin/plug/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
@@ -3005,7 +3005,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
-                    callback(new Error('收费不能为空'));
+                    callback(new Error('金币不能为空'));
                 } else {
                     callback();
                 }
@@ -3071,14 +3071,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             csrfToken: window.Laravel.csrfToken,
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
-                info: [{ required: true, message: '详情不能为空' }],
-                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
+                info: [{ required: true, message: '简介不能为空' }],
+                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150字符', trigger: 'change' }, { max: 150, message: '更新日志最长150字符', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
-                game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
+                game_version: [{ required: true, message: '游戏版本号不能为空', trigger: 'blur' }],
                 gold: [{ validator: validategold, trigger: 'change' }],
                 version: [{ validator: validateversion, trigger: 'blur' }]
             }
@@ -3211,7 +3211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handlePlugUpload: function handlePlugUpload() {
             if (this.formItem.plug_url !== '') {
-                this.$Message.error('您已经上传了文件，请先删除');
+                this.$Message.error('您已上传过文件，请先删除');
                 return false;
             }
         },
@@ -3383,7 +3383,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
-                    callback(new Error('收费不能为空'));
+                    callback(new Error('金币不能为空'));
                 } else {
                     callback();
                 }
@@ -3448,14 +3448,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             csrfToken: window.Laravel.csrfToken,
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
-                info: [{ required: true, message: '详情不能为空' }],
-                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
+                info: [{ required: true, message: '简介不能为空' }],
+                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150字符', trigger: 'change' }, { max: 150, message: '更新日志最长150字符', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
-                game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
+                game_version: [{ required: true, message: '游戏版本号不能为空', trigger: 'blur' }],
                 gold: [{ validator: validategold, trigger: 'change' }],
                 version: [{ validator: validateversion, trigger: 'blur' }]
             }
@@ -3589,7 +3589,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     height: res.height
                 });
                 this.$Loading.finish();
-                this.$Message.success('正在完成');
+                this.$Message.success('上传完成');
             }
         },
         handlePlugSuccess: function handlePlugSuccess(res, file) {
@@ -3601,7 +3601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handlePlugUpload: function handlePlugUpload() {
             if (this.formItem.plug_url !== '') {
-                this.$Message.error('您已经上传了文件，请先删除');
+                this.$Message.error('您已上传过文件，请先删除');
                 return false;
             }
         },
@@ -3883,7 +3883,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs[name].validate(function (valid) {
                 if (valid) {
                     axios.put('/admin/tag/create', { data: _this2.formItem }).then(function (res) {
-                        _this2.$Message.success('添加成功!');
+                        _this2.$Message.success('添加成功');
                         _this2.formItem.name = '';
                         _this2.formItem.type = [];
                         _this2.formItem.thumb = '';
@@ -4100,7 +4100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             plug_tags: [],
             ruleValidate: {
-                name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30', trigger: 'change' }],
+                name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 thumb: [{ validator: validateUploadList, required: true, trigger: 'change' }]
             }
@@ -4117,7 +4117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.is_disabled === k) {
                 // 确定
                 if (this.list[k].rank === 0) {
-                    this.$Message.error('请输入大于0小于99的数字');
+                    this.$Message.error('请输入数字(1~99)');
                     return false;
                 }
                 axios.get('/admin/tag/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
@@ -4248,7 +4248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (valid) {
                     axios.put('/admin/tag/update/' + _this7.formItem.id, { data: _this7.formItem }).then(function (res) {
                         if (res.data.sta === 1) {
-                            _this7.$Message.success('编辑成功!');
+                            _this7.$Message.success('编辑成功');
                             _this7.formItem.name = '';
                             _this7.formItem.type = [];
                             _this7.formItem.thumb = '';
@@ -4316,7 +4316,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             if (this.formS.name === '') {
-                this.$Message.error('请先填写游戏版本号');
+                this.$Message.error('请输入游戏版本号');
                 return false;
             }
             axios.get('/admin/tool/game_version/create_game_version/' + this.formS.name).then(function (res) {
@@ -4495,7 +4495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 giving: 0
             },
             ruleValidate: {
-                name: [{ required: true, message: '名称不能为空', trigger: 'blur' }, { max: 30, message: '名称最长30', trigger: 'change' }, { validator: validateName, trigger: 'blur' }],
+                name: [{ required: true, message: '名称不能为空', trigger: 'blur' }, { max: 30, message: '名称最长30字符', trigger: 'change' }, { validator: validateName, trigger: 'blur' }],
                 money: [{ validator: validateMoney, trigger: 'blur' }]
             }
         };
@@ -4565,7 +4565,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         });
                     }
                 } else {
-                    _this3.$Message.error('操作失败!');
+                    _this3.$Message.error('操作失败');
                 }
             });
             this.loading_edit = false;
@@ -4663,7 +4663,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             if (this.formS.name === '') {
-                this.$Message.error('请先填写名称');
+                this.$Message.error('请输入禁止使用的昵称');
                 return false;
             }
             axios.get('/admin/tool/nickname/create_nickname/' + this.formS.name).then(function (res) {
@@ -4730,7 +4730,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             loading: false,
             ruleValidate: {
-                notice: [{ required: true, message: '网站公告不能为空', trigger: 'blur' }]
+                notice: [{ required: true, message: '公告内容不能为空', trigger: 'blur' }]
             }
         };
     },
@@ -4758,7 +4758,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     });
                 } else {
-                    _this2.$Message.error('更新失败!');
+                    _this2.$Message.error('更新失败');
                 }
                 _this2.loading = false;
             });
@@ -5224,7 +5224,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (_this.formItem.name !== '') {
                 axios.post('/check/user_name', { name: _this.formItem.name, id: _this.formItem.id }).then(function (res) {
                     if (res.data.sta === 0) {
-                        callback(new Error('昵称已经存在或者违规'));
+                        callback(new Error('昵称已存在或违规'));
                     } else {
                         callback();
                     }
@@ -5237,7 +5237,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (_this.formItem.name !== '') {
                 axios.post('/check/user_email', { email: _this.formItem.email, id: _this.formItem.id }).then(function (res) {
                     if (res.data.sta === 0) {
-                        callback(new Error('邮箱已经存在'));
+                        callback(new Error('邮箱已存在'));
                     } else {
                         callback();
                     }
@@ -5250,11 +5250,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (value !== '') {
                 var tel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
                 if (!tel.test(value)) {
-                    callback(new Error('请输入正确的手机号'));
+                    callback(new Error('请输入正确的手机号码'));
                 } else {
                     axios.post('/check/user_tel', { tel: _this.formItem.tel, id: _this.formItem.id }).then(function (res) {
                         if (res.data.sta === 0) {
-                            callback(new Error('手机号已经存在'));
+                            callback(new Error('手机号码已存在'));
                         } else {
                             callback();
                         }
@@ -5280,7 +5280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 avatar: ''
             },
             ruleValidate: {
-                name: [{ required: true, message: '姓名不能为空', trigger: 'blur' }, { max: 30, message: '姓名最长30', trigger: 'change' }, { validator: validateUserName, trigger: 'blur' }],
+                name: [{ required: true, message: '昵称不能为空', trigger: 'blur' }, { max: 30, message: '姓名最长30字符', trigger: 'change' }, { validator: validateUserName, trigger: 'blur' }],
                 email: [{ required: true, message: '邮箱不能为空', trigger: 'blur' }, { validator: validateEmail, trigger: 'blur' }],
                 camp: [{ required: true, message: '阵营不能为空', trigger: 'change' }],
                 avatar: [{ validator: validateAvatar, required: true, trigger: 'change' }],
@@ -5471,7 +5471,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validatePassword = function validatePassword(rule, value, callback) {
             if (value !== '') {
                 if (value !== _this.formPassword.password) {
-                    callback(new Error("两次输入的密码不一致"));
+                    callback(new Error("密码不一致"));
                 } else {
                     callback();
                 }
@@ -5496,8 +5496,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 passwordCheck: ''
             },
             ruleFormPassword: {
-                old_password: [{ required: true, message: '请填写原始密码', trigger: 'blur' }, { validator: validateCheckPassword, trigger: 'blur' }],
-                password: [{ required: true, message: '请填写密码', trigger: 'blur' }, { min: 6, max: 15, message: '密码长度6-15位', trigger: 'change' }],
+                old_password: [{ required: true, message: '请输入原密码', trigger: 'blur' }, { validator: validateCheckPassword, trigger: 'blur' }],
+                password: [{ required: true, message: '请输入新密码', trigger: 'blur' }, { min: 8, max: 15, message: '密码长度8-15位', trigger: 'change' }],
                 passwordCheck: [{ required: true, message: '请输入确认密码', trigger: 'blur' }, { validator: validatePassword, trigger: 'blur' }]
             }
         };
@@ -5523,7 +5523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this2.loading = false;
                     }).catch(function (err) {
                         _this2.loading = false;
-                        myDialog('好像什么东西错了，请联系管理员');
+                        myDialog('出错了，请联系管理员');
                     });
                 } else {
                     _this2.loading = false;
@@ -5850,7 +5850,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return false;
             }
             if (this.content === '') {
-                myDialog('请先填写字符串(不能包含中文)');
+                myDialog('请输入字符串(不能包含中文)');
                 return false;
             }
 
@@ -5890,7 +5890,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
 
-        // 得到插件数据
+        // 获取插件数据
         get_plugs: function get_plugs() {
             var _this2 = this;
 
@@ -6197,6 +6197,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -6269,7 +6274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (res.data.sta === 1) {
                     _this3.go_download(id, k);
                 } else if (res.data.sta === 9) {
-                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_button_color' : '');
+                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3,\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this3.userInfo && _this3.userInfo.camp && _this3.userInfo.camp === 2 || !_this3.userInfo && _this3.choice_cmap === '2' ? 'bl_button_color' : '');
                 } else if (res.data.sta === 2) {
                     _this3.down_id = id;
                     _this3.down_k = k;
@@ -6287,7 +6292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this4.list[k].order = 1;
                     window.open(res.data.url);
                 } else if (res.data.sta === 9) {
-                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_button_color' : '');
+                    myDialog('\u60A8\u7684\u91D1\u5E01\u4E0D\u8DB3,\u8BF7\u5148<a href=\'/#/userInfo/pay\' class=\'close_other_dialog ' + (_this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u5145\u503C</a>', _this4.userInfo && _this4.userInfo.camp && _this4.userInfo.camp === 2 || !_this4.userInfo && _this4.choice_cmap === '2' ? 'bl_button_color' : '');
                 } else {
                     myDialog(res.data.msg);
                 }
@@ -6889,7 +6894,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
-                    callback(new Error('收费不能为空'));
+                    callback(new Error('金币不能为空'));
                 } else {
                     callback();
                 }
@@ -6953,14 +6958,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             csrfToken: window.Laravel.csrfToken,
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
-                info: [{ required: true, message: '详情不能为空' }],
-                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
+                info: [{ required: true, message: '简介不能为空' }],
+                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150字符', trigger: 'change' }, { max: 150, message: '更新日志最长150字符', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
-                game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
+                game_version: [{ required: true, message: '游戏版本号不能为空', trigger: 'blur' }],
                 gold: [{ validator: validategold, trigger: 'change' }],
                 version: [{ validator: validateversion, trigger: 'blur' }]
             }
@@ -6977,7 +6982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.$router.push('/home');
             } else {
                 if (_this2.userInfo.is_active === 0) {
-                    myDialog('\u60A8\u8FD8\u672A\u6FC0\u6D3B\u90AE\u7BB1\uFF0C\u8BF7\u5148<a href=\'/#/userInfo/info\' class=\'close_other_dialog ' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u70B9\u51FB\u6FC0\u6D3B</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
+                    myDialog('\u60A8\u8FD8\u672A\u6FC0\u6D3B\u90AE\u7BB1\uFF0C\u8BF7<a href=\'/#/userInfo/info\' class=\'close_other_dialog ' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u70B9\u51FB\u6FC0\u6D3B</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 }
             }
         }, 500);
@@ -7116,7 +7121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handlePlugUpload: function handlePlugUpload() {
             if (this.formItem.plug_url !== '') {
-                myDialog('您已经上传了文件，请先删除');
+                myDialog('您已上传过文件，请先删除');
                 return false;
             }
         },
@@ -7499,7 +7504,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validategold = function validategold(rule, value, callback) {
             if (value.length === 0) {
                 if (_this.formItem.is_free === true) {
-                    callback(new Error('收费不能为空'));
+                    callback(new Error('金币不能为空'));
                 } else {
                     callback();
                 }
@@ -7564,14 +7569,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             csrfToken: window.Laravel.csrfToken,
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 content: [{ validator: validateContent, trigger: 'blur' }],
                 plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
-                info: [{ required: true, message: '详情不能为空' }],
-                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
+                info: [{ required: true, message: '简介不能为空' }],
+                updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150字符', trigger: 'change' }, { max: 150, message: '更新日志最长150字符', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
-                game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
+                game_version: [{ required: true, message: '游戏版本号不能为空', trigger: 'blur' }],
                 gold: [{ validator: validategold, trigger: 'change' }],
                 version: [{ validator: validateversion, trigger: 'blur' }]
             }
@@ -7704,7 +7709,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handlePlugUpload: function handlePlugUpload() {
             if (this.formItem.plug_url !== '') {
-                myDialog('您已经上传了文件，请先删除');
+                myDialog('您已上传过文件，请先删除');
                 return false;
             }
         },
@@ -8408,7 +8413,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!isNaN(money) && !/^\d+$/.test(this.pay_amount_other)) {
                 myDialog('请选择充值金额');
             } else if (!this.type) {
-                myDialog('请选择充值方式');
+                myDialog('请选择支付方式');
             } else {
                 axios.post('user/recharge', {
                     recharge_type: this.type,
@@ -8535,7 +8540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (value !== '') {
                 axios.get('/user/check_nickname/' + value).then(function (res) {
                     if (res.data === 0) {
-                        callback(new Error('昵称已经存在或者违规'));
+                        callback(new Error('昵称已存在或违规'));
                     } else {
                         callback();
                     }
@@ -8566,7 +8571,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             is_camp: false,
             ruleValidate: {
                 nickname: [{ required: true, message: '昵称不能为空', trigger: 'blur' }, { validator: validateName, trigger: 'blur' }],
-                info: [{ type: 'string', max: 255, message: '介绍不能多于255个字', trigger: 'change' }]
+                info: [{ type: 'string', max: 255, message: '简介内容不能超过255个字', trigger: 'change' }]
             },
             csrfToken: window.Laravel.csrfToken
         };
@@ -72432,7 +72437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     on: {
       "input": _vm.keyUp
@@ -72481,7 +72486,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.del_plug
     }
-  }, [_vm._v("删除上传的文件重新上传")])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("重新上传")])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "更新日志",
       "prop": "updated_info"
@@ -72492,7 +72497,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.updated_info),
@@ -72509,7 +72514,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "插件版本号",
+      "label": "插件版本",
       "prop": "version"
     }
   }, [_c('Input', {
@@ -72525,7 +72530,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "游戏版本号",
+      "label": "游戏版本",
       "prop": "game_version"
     }
   }, [_c('Select', {
@@ -72585,7 +72590,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格",
+      "label": "售价(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -72698,13 +72703,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
   })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看截图"
     },
     model: {
       value: (_vm.visible),
@@ -73189,7 +73194,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
+  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
     staticStyle: {
       "padding-top": "15px"
     }
@@ -73204,7 +73209,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.login
     }
-  }, [_vm._v("您还未登录，请先登录")])]) : _c('li', {
+  }, [_vm._v("请先登录")])]) : _c('li', {
     staticStyle: {
       "padding-top": "15px"
     }
@@ -73216,7 +73221,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后，剩余：\n                        "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后，余额：\n                        "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -73224,7 +73229,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v("\n                            " + _vm._s(_vm.userInfo.gold - _vm.down_plug.gold) + "\n                        ")])]) : _c('span', [_vm._v("您的金币不足，请先充值：")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.userInfo.gold - _vm.down_plug.gold) + "\n                        ")])]) : _c('span', [_vm._v("您的金币不足,请先充值：")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -73349,7 +73354,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [(_vm.pay_amount > 0) ? _c('span', [_vm._v(_vm._s(_vm.pay_amount))]) : _c('span', [_vm._v(_vm._s(_vm.pay_amount_other))])]), _vm._v("\n                    元\n                    将会得到\n                    "), _c('span', {
+  }, [(_vm.pay_amount > 0) ? _c('span', [_vm._v(_vm._s(_vm.pay_amount))]) : _c('span', [_vm._v(_vm._s(_vm.pay_amount_other))])]), _vm._v("\n                    元\n                    将会获得\n                    "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -73572,7 +73577,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("编辑")]), _vm._v(" "), _c('Poptip', {
       attrs: {
         "confirm": "",
-        "title": "您确认删除这条内容吗？"
+        "title": "确定要删除此等级吗？"
       },
       on: {
         "on-ok": function($event) {
@@ -73642,7 +73647,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "充值满足条件",
+      "label": "充值条件",
       "prop": "money"
     }
   }, [_c('Input-number', {
@@ -73969,7 +73974,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("等级")]), _vm._v(" "), (_vm.lv) ? _c('Poptip', {
     attrs: {
       "trigger": "hover",
-      "content": ("充值金币将会赠送" + (_vm.lv.giving) + "%的金币"),
+      "content": ("充值将获赠送" + (_vm.lv.giving) + "% 金币"),
       "placement": "bottom"
     }
   }, [_c('span', {
@@ -74039,7 +74044,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Tooltip', [_c('div', {
     slot: "content"
-  }, [_c('p', [_vm._v("邮箱还未激活")]), _vm._v(" "), _c('p', [_c('i', [_vm._v("点击重新发送邮件")])])]), _vm._v(" "), (!_vm.is_dis) ? _c('span', [_vm._v(_vm._s(_vm.userInfo.email))]) : _c('span', [_vm._v("邮件已经发送，" + _vm._s(_vm.rest_time) + " S后可以再次发送")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v("邮箱未激活")]), _vm._v(" "), _c('p', [_c('i', [_vm._v("点击重新发送邮件")])])]), _vm._v(" "), (!_vm.is_dis) ? _c('span', [_vm._v(_vm._s(_vm.userInfo.email))]) : _c('span', [_vm._v("邮件已经发送，" + _vm._s(_vm.rest_time) + " s后可再次发送")])])], 1)], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -74076,7 +74081,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.to_setting
     }
-  }, [_vm._v("还不知道你的出生地，点击立即设置")]) : _c('span', {
+  }, [_vm._v("点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s((_vm.userInfo.birthplace.province ? _vm.userInfo.birthplace.province : '未知省') + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -74089,7 +74094,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.to_setting
     }
-  }, [_vm._v("还不知道你的居住地，点击立即设置")]) : _c('span', {
+  }, [_vm._v("点击立即设置")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s((_vm.userInfo.habitably.province ? _vm.userInfo.habitably.province : '未知省') + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
     staticStyle: {
@@ -74215,22 +74220,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "padding-right": "2px"
       }
-    }, [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                " + _vm._s(v.title))]), _vm._v("\n            -\n            "), (v.gold === 0) ? _c('span', {
+    }, [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                    " + _vm._s(v.title))]), _vm._v("\n                -\n                "), (v.gold === 0) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v("[免费]")]) : _c('span', [_vm._v("售价：\n                  "), (v.order) ? _c('span', {
+    }, [_vm._v("[免费]")]) : _c('span', [_vm._v("售价：\n                      "), (v.order) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_c('s', [_vm._v("[" + _vm._s(v.gold) + "金币]")])]) : _c('span', {
-      staticClass: "normal_font",
-      class: {
-        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      }
-    }, [_vm._v("[" + _vm._s(v.gold) + "金币]")]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(已购买)")]) : _vm._e()])]), _vm._v(" "), _c('span', {
+    }, [_c('s', [_vm._v("[" + _vm._s(v.gold) + "金币]")])]) : _vm._e(), _vm._v(" "), _vm._v("\n<<<<<<< HEAD\n                                      v-else>[" + _vm._s(v.gold) + "金币]")]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(已购买)")]) : _vm._e(), _vm._v("\n=======\n                                      v-else>" + _vm._s(v.gold)), _vm._v(" "), (v.order) ? _c('span', [_vm._v("[已购买]")]) : _vm._e(), _vm._v("\n>>>>>>> iwowcn\n                ")]), _vm._v(" "), _c('span', {
       staticClass: "pull-right",
       staticStyle: {
         "padding-left": "5px"
@@ -74306,7 +74306,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.download_model = false
       }
     }
-  }, [_vm._v("取消\n                ")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("取消\n                    ")]), _vm._v(" "), _c('button', {
     staticClass: "close_dialog ivu-btn-primary",
     class: {
       'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -74322,7 +74322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.go_download(_vm.down_id, _vm.down_k)
       }
     }
-  }, [_vm._v("确认\n                ")])])])])])
+  }, [_vm._v("确认\n                    ")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -74492,7 +74492,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "admin.bm.list"
     }
-  }, [_vm._v("黑市")])], 1)], 2), _vm._v(" "), _c('Submenu', {
+  }, [_vm._v("黑市资源")])], 1)], 2), _vm._v(" "), _c('Submenu', {
     attrs: {
       "name": "3"
     }
@@ -75030,7 +75030,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "button_one_text"
-  }, [_vm._v("分享字符串")])]) : _c('div', [_c('div', {
+  }, [_vm._v("字符串分享")])]) : _c('div', [_c('div', {
     staticClass: "my_btn_wrapper",
     class: {
       'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -75415,7 +75415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": v.url,
         "target": "_blank"
       }
-    }, [_vm._v("点我下载")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.download_num))]), _vm._v(" "), _c('td', [_c('Tag', {
+    }, [_vm._v("点击下载")])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.download_num))]), _vm._v(" "), _c('td', [_c('Tag', {
       attrs: {
         "type": "dot",
         "color": v.status === 1 ? 'blue' : 'red'
@@ -75851,7 +75851,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                    充值比例：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    金币充值即时到帐，永久有效\n                    "), _c('br'), _vm._v("\n                    当用户等级达到Lv2(随机)充值可获赠金币\n                    "), _c('br'), _vm._v("\n                    当金币数量等同于200人民币时即可申请提现(新注册用户30日内不能申请提现)\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
+  }, [_vm._v("\n                    充值比例：1元 = 10金币\n                    "), _c('br'), _vm._v("\n                    金币充值即时到帐，永久有效\n                    "), _c('br'), _vm._v("\n                    当用户等级达到Lv2(随机)充值可获赠金币\n                    "), _c('br'), _vm._v("\n                    当金币数量等同于200人民币时可申请提现(新注册用户30日内不能提现)\n                ")])])]), _vm._v(" "), _c('Tab-pane', {
     staticClass: "pay_his",
     staticStyle: {
       "padding": "0 15px"
@@ -76407,7 +76407,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.removePlug
     }
-  }, [_vm._v("点击删除,重新上传")])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("重新上传")])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "资源类型",
       "prop": "zy_type"
@@ -76672,7 +76672,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "作者信息",
+      "label": "插件作者",
       "prop": "author"
     }
   }, [_c('Input', {
@@ -76703,7 +76703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     on: {
       "input": _vm.keyUp
@@ -76752,7 +76752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.del_plug
     }
-  }, [_vm._v("删除上传的文件重新上传")])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("重新上传")])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "更新日志",
       "prop": "updated_info"
@@ -76763,7 +76763,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.updated_info),
@@ -76780,7 +76780,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "插件版本号",
+      "label": "插件版本",
       "prop": "version"
     }
   }, [_c('Input', {
@@ -76796,7 +76796,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "游戏版本号",
+      "label": "游戏版本",
       "prop": "game_version"
     }
   }, [_c('Select', {
@@ -76856,7 +76856,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格",
+      "label": "售价(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -76975,7 +76975,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看截图"
     },
     model: {
       value: (_vm.visible),
@@ -77068,7 +77068,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "作者信息",
+      "label": "插件作者",
       "prop": "author"
     }
   }, [_c('Input', {
@@ -77099,7 +77099,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     on: {
       "input": _vm.keyUp
@@ -77148,7 +77148,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.updated_info),
@@ -77165,7 +77165,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "插件版本号",
+      "label": "插件版本",
       "prop": "version"
     }
   }, [_c('Input', {
@@ -77181,7 +77181,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "游戏版本号",
+      "label": "游戏版本",
       "prop": "game_version"
     }
   }, [_c('Select', {
@@ -77241,7 +77241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格(金币)",
+      "label": "售价(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -77359,7 +77359,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看截图"
     },
     model: {
       value: (_vm.visible),
@@ -77499,7 +77499,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         minRows: 2,
         maxRows: 5
       },
-      "placeholder": "您的建议"
+      "placeholder": "请输入您的建议"
     },
     model: {
       value: (_vm.formCustom.feedback),
@@ -77510,7 +77510,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "姓名",
+      "label": "昵称",
       "prop": "name"
     }
   }, [_c('Input', {
@@ -77526,7 +77526,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "手机号",
+      "label": "邮箱",
       "prop": "tel"
     }
   }, [_c('Input', {
@@ -77635,7 +77635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     on: {
       "input": _vm.keyUp
@@ -77684,7 +77684,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autosize": {
         minRows: 2
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.updated_info),
@@ -77701,7 +77701,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "插件版本号",
+      "label": "插件版本",
       "prop": "version"
     }
   }, [_c('Input', {
@@ -77717,7 +77717,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "游戏版本号",
+      "label": "游戏版本",
       "prop": "game_version"
     }
   }, [_c('Select', {
@@ -77777,7 +77777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.is_free"
     }],
     attrs: {
-      "label": "价格(金币)",
+      "label": "售价(金币)",
       "prop": "gold"
     }
   }, [_c('Input-number', {
@@ -77889,9 +77889,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看截图"
     },
     model: {
       value: (_vm.visible),
@@ -78111,7 +78111,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', [_vm._v("确定")])])], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看头像"
     },
     model: {
       value: (_vm.visible),
@@ -78247,7 +78247,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
-      "placeholder": "是否是管理员"
+      "placeholder": "是否管理员"
     },
     model: {
       value: (_vm.formS.is_admin),
@@ -78282,7 +78282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "padding": "10px 0"
     }
-  }, [_vm._v("\n        是否显示签名\n        "), _c('i-switch', {
+  }, [_vm._v("\n        显示签名\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_info),
       callback: function($$v) {
@@ -78300,7 +78300,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n        是否显示邮箱\n        "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示邮箱\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_email),
       callback: function($$v) {
@@ -78318,7 +78318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n        是否显示注册时间\n        "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示注册时间\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_c_at),
       callback: function($$v) {
@@ -78336,7 +78336,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n        是否显示登陆时间\n        "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示登陆时间\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_l_at),
       callback: function($$v) {
@@ -78436,7 +78436,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "8%"
     }
-  }, [_vm._v("是否是管理员")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("是否管理员")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "12%"
     }
@@ -78473,7 +78473,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.info)
       }
-    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '暂无手机号' : v.tel))]), _vm._v(" "), _c('td', {
+    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机' : v.tel))]), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -78770,7 +78770,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "gold"
     }
-  }, [_vm._v("金币")]), _vm._v(" "), _c('Option', {
+  }, [_vm._v("售价")]), _vm._v(" "), _c('Option', {
     attrs: {
       "value": "rank"
     }
@@ -79168,7 +79168,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("\n                    查看详情\n                ")]), _vm._v(" "), _c('span', [_vm._v("评分：")]), _vm._v(" "), (v.score.length === 0) ? _c('Rate', {
+    }, [_vm._v("\n                    查看详情\n                ")]), _vm._v(" "), _c('span', [_vm._v("推荐：")]), _vm._v(" "), (v.score.length === 0) ? _c('Rate', {
       staticStyle: {
         "position": "absolute",
         "top": "2px"
@@ -79233,7 +79233,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("花费")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
@@ -79340,13 +79340,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_vm._v("阵营修改间隔时间为30天")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("阵营修改间隔时间为 30 天")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "性别"
     }
   }, [_c('Select', {
     attrs: {
-      "placeholder": "请选择阵营"
+      "placeholder": "请选择性别"
     },
     model: {
       value: (_vm.formItem.sex),
@@ -79420,7 +79420,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "介绍",
+      "label": "个人简介",
       "prop": "info"
     }
   }, [_c('Input', {
@@ -79430,7 +79430,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         minRows: 2,
         maxRows: 5
       },
-      "placeholder": "请输入..."
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.info),
@@ -79452,7 +79452,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.handleSubmit('formValidate')
       }
     }
-  }, [_vm._v("提交")])], 1)], 1), _vm._v(" "), _c('avatar-cropper', {
+  }, [_vm._v("确定")])], 1)], 1), _vm._v(" "), _c('avatar-cropper', {
     attrs: {
       "upload-headers": {
         "X-CSRF-TOKEN": _vm.csrfToken
@@ -79506,7 +79506,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form-item', {
     attrs: {
-      "label": "原始密码",
+      "label": "原密码",
       "prop": "old_password"
     }
   }, [_c('Input', {
@@ -79522,7 +79522,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "新的密码",
+      "label": "新密码",
       "prop": "password"
     }
   }, [_c('Input', {
@@ -79572,7 +79572,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.rest_password('formPassword')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("提交")]) : _c('span', [_vm._v("Loading...")])])], 1)
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确认")]) : _c('span', [_vm._v("Loading...")])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -79659,7 +79659,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
-      "placeholder": "用户能否使用"
+      "placeholder": "用户可维护"
     },
     model: {
       value: (_vm.formS.is_for_user),
@@ -79706,7 +79706,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "img": v.thumb
       }
-    })], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.parent ? v.parent.name : '顶级'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.tag_type(v.type)))]), _vm._v(" "), _c('td', [_c('Tag', {
+    })], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.parent ? v.parent.name : '一级'))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.tag_type(v.type)))]), _vm._v(" "), _c('td', [_c('Tag', {
       attrs: {
         "type": "dot",
         "color": v.status === 1 ? 'blue' : 'red'
@@ -79851,7 +79851,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type.length === 1"
     }],
     attrs: {
-      "label": "标签图片",
+      "label": "标签图标",
       "prop": "thumb"
     }
   }, [_c('div', {
@@ -79937,7 +79937,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看截图"
     },
     model: {
       value: (_vm.visible),
@@ -79979,7 +79979,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("用户是否能使用")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("用户可维护")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
@@ -80077,7 +80077,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/userInfo/collect"
     }
-  }, [_vm._v("收藏的资源")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
+  }, [_vm._v("已收藏资源")])], 1), _vm._v(" "), _c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
     class: {
       'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -80085,7 +80085,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/userInfo/upload"
     }
-  }, [_vm._v("分享的资源")])], 1), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("已分享资源")])], 1), _vm._v(" "), _c('li', [_c('a', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -96286,8 +96286,8 @@ var statusType = {
     1: '正常'
 };
 var isForUser = {
-    0: '不能',
-    1: '能'
+    0: '否',
+    1: '可'
 };
 
 var yesOrNo = {

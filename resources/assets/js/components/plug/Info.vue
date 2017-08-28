@@ -165,11 +165,11 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
                     </li>
-                    <li>提示：此非实物交易，购买后不退款，请考虑好再买</li>
+                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
                         <a class="gold_class"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                           href="javascript:void(0)" @click="login">您还未登录，请先登录</a>
+                           href="javascript:void(0)" @click="login">请先登录</a>
                     </li>
                     <li style="padding-top: 15px" v-else>
                         您的金币余额：
@@ -177,13 +177,13 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
-                             支付成功后，剩余：
+                             支付成功后，余额：
                             <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}
                             </span>
                         </span>
-                        <span v-else>您的金币不足，请先充值：</span>
+                        <span v-else>您的金币不足,请先充值：</span>
                     </li>
                 </ul>
 
@@ -204,7 +204,7 @@
                         <Radio label="200">￥200 --- 2000金币</Radio>
                         <br>
                         <Radio label="0" style="border-left: 1px solid #dddee1;margin: 15px 15px 0 0">其他
-                            <!--<span v-show="pay_amount <= 0">：请在旁边的框，输入其他金额</span>-->
+                            <!--<span v-show="pay_amount <= 0">：请在左边输入其他金额</span>-->
                         </Radio>
                         <Input-number
                                 :min="1"
@@ -219,7 +219,7 @@
                             <span v-else>{{pay_amount_other}}</span>
                         </span>
                         元
-                        将会得到
+                        将会获得
                         <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span

@@ -7,8 +7,8 @@ export const statusType = {
     1: '正常'
 }
 export const isForUser = {
-    0: '不能',
-    1: '能'
+    0: '否',
+    1: '可'
 }
 
 export const yesOrNo = {

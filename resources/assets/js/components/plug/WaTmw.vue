@@ -20,7 +20,7 @@
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">分享字符串</div>
+                            <div class="button_one_text">字符串分享</div>
                         </div>
                         <div  v-else>
                             <div class="my_btn_wrapper"

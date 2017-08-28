@@ -14,10 +14,10 @@
                             <Option value="1">联盟</Option>
                             <Option value="2">部落</Option>
                         </Select>
-                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">阵营修改间隔时间为30天</p>
+                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">阵营修改间隔时间为 30 天</p>
                     </Form-item>
                     <Form-item label="性别" >
-                        <Select v-model="formItem.sex"  placeholder="请选择阵营">
+                        <Select v-model="formItem.sex"  placeholder="请选择性别">
                             <Option value="0">保密</Option>
                             <Option value="1">男</Option>
                             <Option value="2">女</Option>
@@ -40,11 +40,11 @@
                                       @area="onAreaHabitably"
                                       class="my_address"></v-distpicker>
                     </Form-item>
-                    <Form-item label="介绍" prop="info">
-                        <Input v-model="formItem.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+                    <Form-item label="个人简介" prop="info">
+                        <Input v-model="formItem.info" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
                     </Form-item>
                     <Form-item>
-                        <Button type="primary" @click="handleSubmit('formValidate')" class="pull-right"  :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">提交</Button>
+                        <Button type="primary" @click="handleSubmit('formValidate')" class="pull-right"  :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">确定</Button>
                     </Form-item>
                 </Form>
                 <avatar-cropper
@@ -76,7 +76,7 @@
                 if (value !== '') {
                     axios.get(`/user/check_nickname/${value}`).then(res => {
                         if(res.data === 0){
-                            callback(new Error('昵称已经存在或者违规'));
+                            callback(new Error('昵称已存在或违规'));
                         }else{
                             callback();
                         }
@@ -111,7 +111,7 @@
                         {validator: validateName, trigger: 'blur'}
                     ],
                     info: [
-                        { type: 'string', max: 255, message: '介绍不能多于255个字', trigger: 'change' }
+                        { type: 'string', max: 255, message: '简介内容不能超过255个字', trigger: 'change' }
                     ]
                 },
                 csrfToken : window.Laravel.csrfToken,

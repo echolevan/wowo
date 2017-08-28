@@ -38,8 +38,13 @@
                       ><s>[{{v.gold}}金币]</s></span>
                                 <span class="normal_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+<<<<<<< HEAD
                                       v-else>[{{v.gold}}金币]</span>
                                 <span v-if="v.order">(已购买)</span>
+=======
+                                      v-else>{{v.gold}}</span>
+                                <span v-if="v.order">[已购买]</span>
+>>>>>>> iwowcn
                 </span>
             </strong>
                 <span class="pull-right" style="padding-left: 5px">
@@ -150,7 +155,7 @@
                     if (res.data.sta === 1) {
                         this.go_download(id, k)
                     } else if (res.data.sta === 9) {
-                        myDialog(`您的金币不足，请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
+                        myDialog(`您的金币不足,请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
                             , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else if (res.data.sta === 2) {
                         this.down_id = id
@@ -167,7 +172,7 @@
                         this.list[k].order = 1
                         window.open(res.data.url);
                     } else if (res.data.sta === 9) {
-                        myDialog(`您的金币不足，请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
+                        myDialog(`您的金币不足,请先<a href='/#/userInfo/pay' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>充值</a>`
                             , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         myDialog(res.data.msg)
