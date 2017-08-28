@@ -2406,7 +2406,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.is_disabled === k) {
                 // 确定
                 if (this.list[k].rank === 0) {
-                    this.$Message.error('请输数字(1~99)');
+                    this.$Message.error('请输入数字(1~99)');
                     return false;
                 }
                 axios.get('/admin/bm/change_rank/' + id + '/' + this.list[k].rank).then(function (res) {
@@ -7506,7 +7506,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.this_page = p;
             this.get_plugs();
         },
-
 
         // 得到插件数据
         get_plugs: function get_plugs() {
@@ -77364,7 +77363,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("等级")]), _vm._v(" "), (_vm.lv) ? _c('Poptip', {
     attrs: {
       "trigger": "hover",
-      "content": ("充值将获赠送" + (_vm.lv.giving) + "% 金币"),
+      "content": ("充值将获赠" + (_vm.lv.giving) + "% 金币"),
       "placement": "bottom"
     }
   }, [_c('span', {
@@ -79020,7 +79019,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("分类")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("类型")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }
@@ -79735,28 +79734,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "20%"
     }
-  }, [_vm._v("插件名称")]), _vm._v(" "), _c('div', {
-    staticClass: "tt_center",
+  }, [_vm._v("资源名称")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
-    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("状态")]), _vm._v(" "), _c('div', {
-    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("插件版本")]), _vm._v(" "), _c('div', {
-    staticClass: "tt_center",
+  }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
-    staticClass: "tt_center",
     staticStyle: {
       "width": "40%"
     }
@@ -82805,7 +82799,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "40%"
     }
-  }, [_vm._v("插件名称")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("资源名称")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
@@ -82813,7 +82807,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("插件版本")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "width": "10%"
     }
@@ -83152,7 +83146,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.rest_password('formPassword')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确认")]) : _c('span', [_vm._v("Loading...")])])], 1)
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -53,7 +53,7 @@
             <thead>
             <tr>
                 <th style="width: 10%">下载方式</th>
-                <th style="width: 10%">分类</th>
+                <th style="width: 10%">类型</th>
                 <th style="width: 10%">标题</th>
                 <th style="width: 10%">售价</th>
                 <th style="width: 10%">地址</th>
@@ -156,7 +156,7 @@
                 if(this.is_disabled === k){
                     // 确定
                     if(this.list[k].rank === 0){
-                        this.$Message.error('请输数字(1~99)')
+                        this.$Message.error('请输入数字(1~99)')
                         return false
                     }
                     axios.get(`/admin/bm/change_rank/${id}/${this.list[k].rank}`).then(res => {

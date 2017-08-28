@@ -14,7 +14,7 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">等级</span>
-                <Poptip v-if="lv" trigger="hover" :content="`充值将获赠送${lv.giving}% 金币`" placement="bottom">
+                <Poptip v-if="lv" trigger="hover" :content="`充值将获赠${lv.giving}% 金币`" placement="bottom">
                     <span class="hover_hand">{{lv.name}}</span>
                 </Poptip>
                 <div style="clear: both"></div>
