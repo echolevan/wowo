@@ -21,7 +21,7 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.is_for_user" clearable placeholder="用户能否使用" style="width: 200px;">
+                <Select v-model="formS.is_for_user" clearable placeholder="用户可维护" style="width: 200px;">
                     <Option v-for="(v , k) in config_is_for_user" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -45,10 +45,10 @@
             <tr>
                 <th style="width: 10%">标签名称</th>
                 <th style="width: 10%">标签图标</th>
-                <th style="width: 10%">所属类别</th>
+                <th style="width: 10%">分类级别</th>
                 <th style="width: 10%">分类</th>
                 <th style="width: 10%">状态</th>
-                <th style="width: 10%">用户是否能使用</th>
+                <th style="width: 10%">用户可维护</th>
                 <th style="width: 10%">排序</th>
                 <th style="width: 10%">操作</th>
             </tr>
@@ -57,7 +57,7 @@
             <tr v-for="(v, k) in list">
                 <td>{{v.name}}</td>
                 <td><img-view :img="v.thumb"></img-view></td>
-                <td>{{v.parent ? v.parent.name : '顶级'}}</td>
+                <td>{{v.parent ? v.parent.name : '一级'}}</td>
                 <td>{{tag_type(v.type)}}</td>
                 <td>
                     <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'" @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{status_type(v.status)}}</Tag>
@@ -89,7 +89,7 @@
 
         <Modal
                 v-model="modal_edit"
-                title="编辑插件"
+                title="编辑分类"
                 @on-ok="ok('formItem')">
             <Form :model="formItem" :label-width="80" class="div_center form_main"ref="formItem" :rules="ruleValidate">
                 <Form-item label="名称" prop="name">
@@ -98,7 +98,7 @@
                 <Form-item label="类型" prop="type">
                     <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type" change-on-select  @on-change="on_sel"></Cascader>
                 </Form-item>
-                <Form-item label="分享图片" prop="thumb" v-show="formItem.type.length === 1">
+                <Form-item label="标签图标" prop="thumb" v-show="formItem.type.length === 1">
                     <!--// see img-->
                     <div class="small-upload-list" v-show="formItem.thumb !== ''">
                         <img :src="formItem.thumb">
@@ -131,7 +131,7 @@
             </div>
         </Modal>
 
-        <Modal title="查看图片" v-model="visible">
+        <Modal title="查看截图" v-model="visible">
             <img :src="imgName" v-if="visible" style="width: 100%">
         </Modal>
     </div>
@@ -193,7 +193,7 @@
                 ruleValidate: {
                     name: [
                         {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {max: 30, message: '标题最长30', trigger: 'change'}
+                        {max: 30, message: '标题最长30字符', trigger: 'change'}
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
@@ -212,7 +212,7 @@
                 if(this.is_disabled === k){
                     // 确定
                     if(this.list[k].rank === 0){
-                        this.$Message.error('请输入大于0小于99的数字')
+                        this.$Message.error('请输入数字(1~99)')
                         return false
                     }
                     axios.get(`/admin/tag/change_rank/${id}/${this.list[k].rank}`).then(res => {
@@ -295,7 +295,7 @@
             edit(info, k) {
                 this.edit_k = k
                 axios.get('/admin/plug_all_info').then(res=>{
-                    this.plug_tags = res.data
+                    this.plug_tags = res.data.res
                 })
                 this.formItem.name = info.name
                 this.formItem.thumb = info.thumb
@@ -333,7 +333,7 @@
                     if (valid) {
                         axios.put(`/admin/tag/update/${this.formItem.id}`,{data:this.formItem}).then(res=>{
                             if(res.data.sta === 1){
-                                this.$Message.success('编辑成功!');
+                                this.$Message.success('编辑成功');
                                 this.formItem.name = ''
                                 this.formItem.type = []
                                 this.formItem.thumb = ''

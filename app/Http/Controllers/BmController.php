@@ -33,7 +33,9 @@ class BmController extends Controller
         $list = $where->with(['user'])->with(['order'=>function($query){
             $query->where('orders.type',4);
         }])->skip(($page - 1) * $size)->take($size)->get();
-        return ['sta' => 1, 'count' => $count, 'list' => $list];
+
+        $today = date('Y-m-d');
+        return ['sta' => 1, 'count' => $count, 'list' => $list ,'today'=>$today];
     }
 
     public function create (Request $request)

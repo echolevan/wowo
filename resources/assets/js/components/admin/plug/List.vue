@@ -43,7 +43,7 @@
 
             <Form-item>
                 <Select v-model="formS.orderBySome" clearable placeholder="排序条件"  style="width: 100px;">
-                    <Option value="gold">金币</Option>
+                    <Option value="gold">售价</Option>
                     <Option value="rank">推荐</Option>
                     <Option value="download_num">下载</Option>
                     <Option value="collect_num">收藏</Option>
@@ -233,7 +233,7 @@
                 if(this.is_disabled === k){
                     // 确定
                     if(this.list[k].rank === 0){
-                        this.$Message.error('请输入大于0小于99的数字')
+                        this.$Message.error('请输入数字(1~99)')
                         return false
                     }
                     axios.get(`/admin/plug/change_rank/${id}/${this.list[k].rank}`).then(res => {

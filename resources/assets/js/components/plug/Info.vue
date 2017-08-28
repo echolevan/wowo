@@ -9,8 +9,13 @@
                     <div class="info">
                         <strong>{{plug.title}}</strong>
                         <p>
-                            <span>{{plug.type_name}}</span><span>{{plug.tag_one ? plug.tag_one.name : ''}}</span>
-                            <span v-if="plug.tag_two"> > </span><span>{{plug.tag_two ? plug.tag_two.name : ''}}</span>
+                            <span>
+                                <router-link :to="{name: 'waTmw.index' , params:{type: configUrl[plug.type_name]}}">
+                                    {{plug.type_name}}
+                                </router-link>
+                            </span>
+                            <span class="hover_hand" @click="to_waTmw(plug.tag_one.id)">{{plug.tag_one ? plug.tag_one.name : ''}}</span>
+                            <span v-if="plug.tag_two"> > </span><span  class="hover_hand" @click="to_waTmw(plug.tag_two.id,plug.tag_one.id)">{{plug.tag_two ? plug.tag_two.name : ''}}</span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
                             <span class="gold_class"
@@ -59,14 +64,15 @@
                                     <li v-for="v in updated_infos">
                                         <p class="time" style="font-size:14px;color:#333">
                                             <strong>{{v.created_at}}</strong></p>
-                                        <p>{{v.updated_info}}</p>
+                                        <p v-html="v.updated_info"></p>
                                     </li>
                                 </ul>
                             </Tab-pane>
                             <Tab-pane label="所有版本" name="3">
                                 <table class="table">
                                     <thead>
-                                    <tr class="table_tr" :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                    <tr class="table_tr"
+                                        :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                         <th>历史版本</th>
                                         <th>版本号</th>
                                         <th>游戏版本</th>
@@ -77,7 +83,7 @@
                                     <tr v-for="v in plug.historys">
                                         <td>
                                             <router-link :to="{name:'plug.info' , params:{id: v.id}}">
-                                                <a href="" class="link_a">{{ v.version }}</a>
+                                                <a href="" class="link_a">{{v.title}} - {{ v.version }}</a>
                                             </router-link>
                                         </td>
                                         <td>{{ v.version }}</td>
@@ -94,7 +100,8 @@
                             <div class="num">
                                 <span @click="collect_this(plug.plug_id)"
                                       v-if="plug.collect_plug === 0">收藏： {{plug.collect_num}}</span>
-                                <span v-else>已收藏： {{plug.collect_num}}</span>
+                                <span v-else @click="no_collect_this(plug.plug_id)">已收藏： {{plug.collect_num}}</span>
+
                                 <span @click="like_this(plug.plug_id)"
                                       v-if="plug.like_plug === 0">推荐： {{plug.like_num}}</span>
                                 <span v-else>已推荐： {{plug.like_num}}</span>
@@ -103,8 +110,14 @@
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
                             <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
-                            <p>插件作者：<span>{{plug.user.nickname}}</span></p>
-                            <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
+                            <div v-if="plug.author">
+                                <p>插件作者：<span>{{plug.author}}</span></p>
+                                <p>上传者：<span>{{plug.user.nickname}}</span></p>
+                            </div>
+                            <div v-else>
+                                <p>插件作者：<span>{{plug.user.nickname}}</span></p>
+                                <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
+                            </div>
                         </div>
                         <v-rank></v-rank>
                     </iCol>
@@ -152,11 +165,11 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
                     </li>
-                    <li>提示：此非实物交易，购买后不退款，请考虑好再买</li>
+                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
                         <a class="gold_class"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                           href="javascript:void(0)" @click="login">您还未登录，请先登录</a>
+                           href="javascript:void(0)" @click="login">请先登录</a>
                     </li>
                     <li style="padding-top: 15px" v-else>
                         您的金币余额：
@@ -164,13 +177,13 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
-                             支付成功后，剩余：
+                             支付成功后，余额：
                             <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}
                             </span>
                         </span>
-                        <span v-else>您的金币不足，请先充值：</span>
+                        <span v-else>您的金币不足,请先充值：</span>
                     </li>
                 </ul>
 
@@ -191,7 +204,7 @@
                         <Radio label="200">￥200 --- 2000金币</Radio>
                         <br>
                         <Radio label="0" style="border-left: 1px solid #dddee1;margin: 15px 15px 0 0">其他
-                            <!--<span v-show="pay_amount <= 0">：请在旁边的框，输入其他金额</span>-->
+                            <!--<span v-show="pay_amount <= 0">：请在左边输入其他金额</span>-->
                         </Radio>
                         <Input-number
                                 :min="1"
@@ -206,11 +219,13 @@
                             <span v-else>{{pay_amount_other}}</span>
                         </span>
                         元
-                        将会得到
+                        将会获得
                         <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
-                            <span v-else>{{pay_amount_other * 10}} <span v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other*10 / 100)}}</span></span>
+                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span
+                                    v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
+                            <span v-else>{{pay_amount_other * 10}} <span
+                                    v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}}</span></span>
                         </span>
                         金币
                     </p>
@@ -263,7 +278,12 @@
                 pay_type: 1,
                 pay_amount: 10,
                 pay_amount_other: 1,
-                lv: {}
+                lv: {},
+                configUrl: {
+                    'TMW': 'tmw',
+                    'WA': 'wa',
+                    '游戏插件': 'plug'
+                }
             }
         },
         computed: mapState([
@@ -302,6 +322,16 @@
                     } else {
                         this.plug.collect_plug = 1
                         this.plug.collect_num++
+                    }
+                })
+            },
+            no_collect_this(id) {
+                axios.get(`no_collect_this/${id}`).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg)
+                    } else {
+                        this.plug.collect_plug = 0
+                        this.plug.collect_num--
                     }
                 })
             },
@@ -347,7 +377,7 @@
             },
             toLoading(id) {
                 this.loading = true
-                axios.post('to_pay_plug',{id:id}).then(res=>{
+                axios.post('to_pay_plug', {id: id}).then(res => {
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
                     } else {
@@ -380,6 +410,11 @@
                 if (!(/^\d+$/.test(this.pay_amount_other))) {
                     this.pay_amount_other = Math.round(this.pay_amount_other)
                 }
+            },
+            to_waTmw(id ,pid=''){
+                localStorage.setItem('watmw_tag_id',id)
+                localStorage.setItem('watmw_tag_pid',pid)
+                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[this.plug.type_name]}})
             }
         },
         components: {

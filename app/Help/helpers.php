@@ -11,11 +11,11 @@ function upload_img($file , $path){
     return false;
 }
 
-function upload_plug($file , $path){
+function upload_plug($file , $path , $name){
 
-    $url = \Illuminate\Support\Facades\Storage::put($path, $file);
+    $url = \Illuminate\Support\Facades\Storage::putFileAs($path, $file, $name);
 
-    $url = ftp_file($url,'addons');
+    $url = ftp_file($url,'addons' , $name);
 
     if($url)
         return $url;
@@ -47,7 +47,7 @@ function upload_avatar_img($file, $path, $size, $ext)
     return false;
 }
 
-function ftp_file($path , $type){
+function ftp_file($path , $type ,$name = 0){
     $ftp = \Anchu\Ftp\Facades\Ftp::connection('xmr');
 
     $addons = $ftp->getDirListing('down.iwowcn.com/'.$type);
@@ -59,7 +59,7 @@ function ftp_file($path , $type){
     }
 
     $ext = explode(".",$path);
-    $name = \Illuminate\Support\Facades\Auth::id().str_random(20).substr(time(),6).'.'.end($ext);
+    $name = $name === 0 ? \Illuminate\Support\Facades\Auth::id().str_random(20).substr(time(),6).'.'.end($ext) : str_random(5).'_'.time().'_'.$name;
 
     $is_ftp = $ftp->uploadFile($path,'down.iwowcn.com/'.$type.'/'.$new_dir.'/'.$name,FTP_BINARY);
 

@@ -340,7 +340,7 @@ class UserController extends Controller
                 $lv = $type[$k];
             }
         }
-        return ['sta'=>1 , 'info'=>$lv];
+        return ['sta'=>1 , 'info'=>$lv ? $lv : ['name'=>'新手','money'=>0,'giving'=>0]];
     }
     
     

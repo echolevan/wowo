@@ -53,6 +53,7 @@ Route::get('download/plug/{id}' , 'PlugController@download')->name('plug.downloa
 //collect_this
 Route::group(['middleware' => ['user.login']], function () {
     Route::get("collect_this/{id}",'PlugController@collect_this'); //收藏插件
+    Route::get("no_collect_this/{id}",'PlugController@no_collect_this'); //取消收藏插件
     Route::get("like_this/{id}",'PlugController@like_this'); //点赞插件
     Route::post("upload_plug_info_img",'UploadController@upload_plug_info_img'); //上传插件详情图片
     Route::post("upload_plug_screen_img",'UploadController@upload_plug_screen_img'); //上传插件截图插件

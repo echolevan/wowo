@@ -3,7 +3,7 @@
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
                 <div style="width: 40%">插件名称</div>
-                <div style="width: 10%">花费</div>
+                <div style="width: 10%">售价</div>
                 <div style="width: 10%">插件版本</div>
                 <div style="width: 10%">游戏版本</div>
                 <div style="width: 30%">操作</div>
@@ -23,7 +23,7 @@
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.plug.id}}">
                         查看详情
                     </router-link>
-                        <span>评分：</span>
+                        <span>推荐：</span>
                     <Rate allow-half v-model="score[k]" style="position: absolute;top: 2px" @on-change="rate_score(v.plug.plug_id, k)" v-if="v.score.length === 0"></Rate>
                     <span v-else>{{v.score[0].score}}</span>
                 </div>

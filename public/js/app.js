@@ -2023,6 +2023,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2163,7 +2164,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrfToken: window.Laravel.csrfToken,
             loading_edit: false,
             modal_edit: false,
-            model_title: '新增资源',
+            model_title: '添加资源',
             formItem: {
                 id: '',
                 title: '',
@@ -2457,7 +2458,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs.bmCreate.formItem.bm_url = '';
 
             this.$refs.bmCreate.clear_from('formItem');
-            this.$refs.bmCreate.model_title = '新增资源';
+            this.$refs.bmCreate.model_title = '添加资源';
             this.$refs.bmCreate.modal_edit = true;
         },
         success: function success() {
@@ -2970,6 +2971,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3028,6 +3037,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }, 10);
         };
+        var validateversion = function validateversion(rule, value, callback) {
+            if (_this.formItem.type[0] === 3) {
+                if (value === '') {
+                    callback(new Error('插件版本'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
         return {
             game_versions: [],
             plug_tags: [],
@@ -3036,7 +3056,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type: [],
                 content: '',
                 info: '',
+                author: '',
                 updated_info: '',
+                version: '',
                 game_version: '',
                 is_free: false,
                 gold: 1,
@@ -3057,7 +3079,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
-                gold: [{ validator: validategold, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }],
+                version: [{ validator: validateversion, trigger: 'blur' }]
             }
         };
     },
@@ -3118,7 +3141,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.formItem.type = res.data.plug.type;
                 _this3.formItem.content = res.data.plug.content;
                 _this3.formItem.info = res.data.plug.info;
+                _this3.formItem.author = res.data.plug.author;
                 _this3.formItem.updated_info = res.data.plug.updated_info;
+                _this3.formItem.version = res.data.plug.version;
                 _this3.formItem.game_version = res.data.plug.game_version;
                 _this3.formItem.is_free = res.data.plug.is_free;
                 _this3.formItem.gold = res.data.plug.gold;
@@ -3321,6 +3346,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3380,6 +3415,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }, 10);
         };
+        var validateversion = function validateversion(rule, value, callback) {
+            if (_this.formItem.type[0] === 3) {
+                if (value === '') {
+                    callback(new Error('插件版本'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
         return {
             game_versions: [],
             plug_tags: [],
@@ -3388,7 +3434,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 type: [],
                 content: '',
                 info: '',
+                author: '',
                 updated_info: '',
+                version: '',
                 game_version: '',
                 is_free: false,
                 gold: 1,
@@ -3408,7 +3456,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
-                gold: [{ validator: validategold, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }],
+                version: [{ validator: validateversion, trigger: 'blur' }]
             }
         };
     },
@@ -4159,7 +4208,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.edit_k = k;
             axios.get('/admin/plug_all_info').then(function (res) {
-                _this6.plug_tags = res.data;
+                _this6.plug_tags = res.data.res;
             });
             this.formItem.name = info.name;
             this.formItem.thumb = info.thumb;
@@ -6118,6 +6167,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6140,7 +6219,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             download_model: false,
             down_id: 0,
-            down_k: 0
+            down_k: 0,
+            today: ''
         };
     },
 
@@ -6176,6 +6256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/bm/list/' + this.this_page + '/' + this.page_size, { search: this.formS }).then(function (res) {
                 _this2.plugs_count = res.data.count;
                 _this2.list = res.data.list;
+                _this2.today = res.data.today;
             });
         },
         to_search: function to_search() {
@@ -6466,6 +6547,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6493,7 +6589,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pay_type: 1,
             pay_amount: 10,
             pay_amount_other: 1,
-            lv: {}
+            lv: {},
+            configUrl: {
+                'TMW': 'tmw',
+                'WA': 'wa',
+                '游戏插件': 'plug'
+            }
         };
     },
 
@@ -6539,20 +6640,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        like_this: function like_this(id) {
+        no_collect_this: function no_collect_this(id) {
             var _this3 = this;
+
+            axios.get('no_collect_this/' + id).then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    _this3.plug.collect_plug = 0;
+                    _this3.plug.collect_num--;
+                }
+            });
+        },
+        like_this: function like_this(id) {
+            var _this4 = this;
 
             axios.get('like_this/' + id).then(function (res) {
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    _this3.plug.like_plug = 1;
-                    _this3.plug.like_num++;
+                    _this4.plug.like_plug = 1;
+                    _this4.plug.like_num++;
                 }
             });
         },
         download: function download(id) {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get('download/plug/' + id).then(function (res) {
                 if (res.data.sta === 0) {
@@ -6560,14 +6673,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 } else {
                     if (res.data.type === 1) {
                         // 弹出model
-                        _this4.down_plug = res.data.info;
-                        _this4.download_model = true;
+                        _this5.down_plug = res.data.info;
+                        _this5.download_model = true;
                     } else if (res.data.type === 2) {
                         // 跳转 下载
                         window.open(res.data.info.content);
                     } else {
-                        _this4.down_plug = res.data.info;
-                        _this4.download_pay_model = true;
+                        _this5.down_plug = res.data.info;
+                        _this5.download_pay_model = true;
                         // 收费插件 跳转到支付页面
                     }
                 }
@@ -6583,16 +6696,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.location.href = "/login";
         },
         toLoading: function toLoading(id) {
-            var _this5 = this;
+            var _this6 = this;
 
             this.loading = true;
             axios.post('to_pay_plug', { id: id }).then(function (res) {
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    _this5.download_pay_model = false;
-                    _this5.plug.is_pay = 1;
-                    _this5.download(id);
+                    _this6.download_pay_model = false;
+                    _this6.plug.is_pay = 1;
+                    _this6.download(id);
                 }
             });
             this.loading = false;
@@ -6600,7 +6713,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         // pay
         toPay: function toPay() {
-            var _this6 = this;
+            var _this7 = this;
 
             this.pay_loding = true;
             axios.post('user/recharge', {
@@ -6611,7 +6724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    _this6.$store.commit('change_userInfo', res.data.info);
+                    _this7.$store.commit('change_userInfo', res.data.info);
                     myDialog(res.data.msg);
                 }
             });
@@ -6621,6 +6734,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!/^\d+$/.test(this.pay_amount_other)) {
                 this.pay_amount_other = Math.round(this.pay_amount_other);
             }
+        },
+        to_waTmw: function to_waTmw(id) {
+            var pid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+            localStorage.setItem('watmw_tag_id', id);
+            localStorage.setItem('watmw_tag_pid', pid);
+            this.$router.push({ name: 'waTmw.index', params: { type: this.configUrl[this.plug.type_name] } });
         }
     },
     components: {
@@ -6638,6 +6758,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
 //
 //
 //
@@ -6797,6 +6921,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }, 10);
         };
+        var validateversion = function validateversion(rule, value, callback) {
+            if (_this.formItem.type[0] === 3) {
+                if (value === '') {
+                    callback(new Error('插件版本'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
         return {
             plug_tags: [],
             game_versions: [],
@@ -6806,6 +6941,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 content: '',
                 info: '',
                 updated_info: '',
+                version: '',
                 game_version: '',
                 is_free: false,
                 gold: 1,
@@ -6825,7 +6961,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
-                gold: [{ validator: validategold, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }],
+                version: [{ validator: validateversion, trigger: 'blur' }]
             }
         };
     },
@@ -7080,6 +7217,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7116,9 +7271,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        var watmw_tag_id = localStorage.getItem('watmw_tag_id');
+        var watmw_tag_pid = localStorage.getItem('watmw_tag_pid');
+
+        if (watmw_tag_id) {
+            this.tag_active = parseInt(watmw_tag_id);
+            localStorage.removeItem('watmw_tag_id');
+        }
+        if (watmw_tag_pid) {
+            this.tag_active_pid = parseInt(watmw_tag_pid);
+            localStorage.removeItem('watmw_tag_pid');
+        }
         $(document).on("click", ".down", function () {
             $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
         });
+        setTimeout(function () {
+            $('li.active').parent('.child').show('300');
+        }, 600);
         this._init();
     },
 
@@ -7172,6 +7341,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
             }
+        },
+        download: function download(id) {
+            axios.get('download/plug/' + id).then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    if (res.data.type === 1) {} else if (res.data.type === 2) {
+                        // 跳转 下载
+                        window.open(res.data.info.content);
+                    } else {}
+                }
+            });
         }
     },
     components: {
@@ -7188,6 +7369,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
+//
 //
 //
 //
@@ -7346,6 +7531,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }, 10);
         };
+        var validateversion = function validateversion(rule, value, callback) {
+            if (_this.formItem.type[0] === 3) {
+                if (value === '') {
+                    callback(new Error('插件版本'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
         return {
             plug_tags: [],
             game_versions: [],
@@ -7355,6 +7551,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 content: '',
                 info: '',
                 updated_info: '',
+                version: '',
                 game_version: '',
                 is_free: false,
                 gold: 1,
@@ -7375,7 +7572,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150', trigger: 'change' }, { max: 150, message: '更新日志最长150', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '对应游戏版本号不能为空', trigger: 'blur' }],
-                gold: [{ validator: validategold, trigger: 'change' }]
+                gold: [{ validator: validategold, trigger: 'change' }],
+                version: [{ validator: validateversion, trigger: 'blur' }]
             }
         };
     },
@@ -7437,6 +7635,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.formItem.content = res.data.plug.content;
                 _this3.formItem.info = res.data.plug.info;
                 _this3.formItem.updated_info = res.data.plug.updated_info;
+                _this3.formItem.version = res.data.plug.version;
                 _this3.formItem.game_version = res.data.plug.game_version;
                 _this3.formItem.is_free = res.data.plug.is_free;
                 _this3.formItem.gold = res.data.plug.gold;
@@ -11625,7 +11824,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.bm .search[data-v-19bcef58] {\n  width: 300px;\n}\n.bm ul li[data-v-19bcef58] {\n  width: 100%;\n  padding: 10px 0;\n  border-bottom: 1px solid #f2f2f2;\n}\n", ""]);
+exports.push([module.i, "\n.bm .search_list li[data-v-19bcef58] {\n  width: 100%;\n  padding: 10px 0;\n  border-bottom: 1px solid #f2f2f2;\n}\n", ""]);
 
 // exports
 
@@ -11805,7 +12004,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: none !important;\n}\n.download_rank[data-v-5e862cbc],\n.start_rank[data-v-5e862cbc] {\n  border: 1px solid #ddd;\n}\n.download_rank div.title[data-v-5e862cbc],\n.start_rank div.title[data-v-5e862cbc] {\n  color: #333;\n  padding: 5px 15px;\n  font-size: 14px;\n  border-bottom: 1px solid #ddd;\n}\n.download_rank div.title span[data-v-5e862cbc],\n.start_rank div.title span[data-v-5e862cbc] {\n  float: right;\n  color: #999;\n}\n.download_rank ul li[data-v-5e862cbc],\n.start_rank ul li[data-v-5e862cbc] {\n  height: 56px;\n  position: relative;\n}\n.download_rank ul li a[data-v-5e862cbc],\n.start_rank ul li a[data-v-5e862cbc] {\n  color: #333;\n}\n.download_rank ul li a[data-v-5e862cbc]:hover,\n.start_rank ul li a[data-v-5e862cbc]:hover {\n  color: #266ec1;\n}\n.download_rank ul li[data-v-5e862cbc]:after,\n.start_rank ul li[data-v-5e862cbc]:after {\n  content: \"\";\n  height: 24px;\n  width: 2px;\n  position: absolute;\n  top: 16px;\n  left: 0;\n  display: none;\n}\n.download_rank ul li .num[data-v-5e862cbc],\n.start_rank ul li .num[data-v-5e862cbc] {\n  position: absolute;\n  top: 0;\n  left: 2px;\n  width: 30px;\n  text-align: center;\n  height: 100%;\n  line-height: 56px;\n  color: #266ec1;\n}\n.download_rank ul .tit[data-v-5e862cbc],\n.start_rank ul .tit[data-v-5e862cbc] {\n  display: block;\n  position: relative;\n  left: 30px;\n  top: 10px;\n  width: 250px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .dig[data-v-5e862cbc],\n.start_rank ul .dig[data-v-5e862cbc] {\n  color: #999;\n  display: block;\n  position: relative;\n  top: 10px;\n  height: 20px;\n  left: 30px;\n  width: 210px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .size[data-v-5e862cbc],\n.start_rank ul .size[data-v-5e862cbc] {\n  color: #808080;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.download_rank ul .score[data-v-5e862cbc],\n.start_rank ul .score[data-v-5e862cbc] {\n  font-size: 20px;\n  color: #266ec1;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  height: 100%;\n  display: block;\n  line-height: 56px;\n}\n", ""]);
+exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: none !important;\n}\n.download_rank[data-v-5e862cbc],\n.start_rank[data-v-5e862cbc] {\n  border: 1px solid #ddd;\n}\n.download_rank div.title[data-v-5e862cbc],\n.start_rank div.title[data-v-5e862cbc] {\n  color: #333;\n  padding: 5px 15px;\n  font-size: 14px;\n  border-bottom: 1px solid #ddd;\n}\n.download_rank div.title span[data-v-5e862cbc],\n.start_rank div.title span[data-v-5e862cbc] {\n  float: right;\n  color: #999;\n}\n.download_rank ul li[data-v-5e862cbc],\n.start_rank ul li[data-v-5e862cbc] {\n  height: 56px;\n  position: relative;\n}\n.download_rank ul li a[data-v-5e862cbc],\n.start_rank ul li a[data-v-5e862cbc] {\n  color: #333;\n}\n.download_rank ul li a[data-v-5e862cbc]:hover,\n.start_rank ul li a[data-v-5e862cbc]:hover {\n  color: #266ec1;\n}\n.download_rank ul li[data-v-5e862cbc]:after,\n.start_rank ul li[data-v-5e862cbc]:after {\n  content: \"\";\n  height: 24px;\n  width: 2px;\n  position: absolute;\n  top: 16px;\n  left: 0;\n  display: none;\n}\n.download_rank ul li .num[data-v-5e862cbc],\n.start_rank ul li .num[data-v-5e862cbc] {\n  position: absolute;\n  top: 0;\n  left: 2px;\n  width: 30px;\n  text-align: center;\n  height: 100%;\n  line-height: 56px;\n  color: #266ec1;\n}\n.download_rank ul .tit[data-v-5e862cbc],\n.start_rank ul .tit[data-v-5e862cbc] {\n  display: block;\n  position: relative;\n  left: 30px;\n  top: 10px;\n  width: 250px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.download_rank ul .dig[data-v-5e862cbc],\n.start_rank ul .dig[data-v-5e862cbc] {\n  color: #999;\n  display: block;\n  position: relative;\n  top: 10px;\n  height: 20px;\n  left: 30px;\n  width: 210px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .size[data-v-5e862cbc],\n.start_rank ul .size[data-v-5e862cbc] {\n  color: #808080;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.download_rank ul .score[data-v-5e862cbc],\n.start_rank ul .score[data-v-5e862cbc] {\n  font-size: 20px;\n  color: #266ec1;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  height: 100%;\n  display: block;\n  line-height: 56px;\n}\n", ""]);
 
 // exports
 
@@ -71656,7 +71855,7 @@ module.exports = function normalizeComponent (
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('Row', [_c('iCol', {
     staticStyle: {
-      "padding": "0 0 15px 15px"
+      "padding": "0 0 15px 0"
     },
     attrs: {
       "span": "24"
@@ -71711,7 +71910,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e(), _vm._v(" "), _c('Button', {
     staticClass: "pull-right",
     staticStyle: {
-      "margin-top": "15px"
+      "margin-top": "15px",
+      "font-size": "15px"
     },
     attrs: {
       "type": "ghost"
@@ -71727,7 +71927,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "position": "absolute",
       "left": "0",
-      "bottom": "0"
+      "bottom": "0",
+      "font-size": "15px"
     },
     attrs: {
       "type": "ghost"
@@ -71741,7 +71942,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "position": "absolute",
       "right": "0",
-      "bottom": "0"
+      "bottom": "0",
+      "font-size": "15px"
     },
     attrs: {
       "type": "ghost"
@@ -71760,7 +71962,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "18"
     }
   }, [_c('div', {
-    staticClass: "div_block my_card_hover"
+    staticClass: "div_block my_card_hover",
+    staticStyle: {
+      "margin-left": "0"
+    }
   }, [_c('div', {
     staticClass: "tool_user title"
   }, [_c('strong', [_vm._v("最新主题")])]), _vm._v(" "), _c('div', {
@@ -71884,7 +72089,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "9"
     }
   }, [_c('div', {
-    staticClass: "div_block my_card_hover"
+    staticClass: "div_block my_card_hover",
+    staticStyle: {
+      "margin-left": "0"
+    }
   }, [_c('div', {
     staticClass: "tool_user title"
   }, [_c('strong', [_vm._v("WeakAuras")]), _vm._v(" "), _c('router-link', {
@@ -72022,7 +72230,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "9"
     }
   }, [_c('div', {
-    staticClass: "div_block my_card_hover"
+    staticClass: "div_block my_card_hover",
+    staticStyle: {
+      "margin-left": "0"
+    }
   }, [_c('div', {
     staticClass: "tool_user title"
   }, [_c('strong', [_vm._v("游戏插件")]), _vm._v(" "), _c('router-link', {
@@ -72289,6 +72500,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.formItem.updated_info = $$v
       },
       expression: "formItem.updated_info"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "插件版本号",
+      "prop": "version"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "插件版本号"
+    },
+    model: {
+      value: (_vm.formItem.version),
+      callback: function($$v) {
+        _vm.formItem.version = $$v
+      },
+      expression: "formItem.version"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -72671,7 +72904,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "info"
-  }, [_c('strong', [_vm._v(_vm._s(_vm.plug.title))]), _vm._v(" "), _c('p', [_c('span', [_vm._v(_vm._s(_vm.plug.type_name))]), _c('span', [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm.plug.title))]), _vm._v(" "), _c('p', [_c('span', [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'waTmw.index',
+        params: {
+          type: _vm.configUrl[_vm.plug.type_name]
+        }
+      }
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.plug.type_name) + "\n                            ")])], 1), _vm._v(" "), _c('span', {
+    staticClass: "hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_waTmw(_vm.plug.tag_one.id)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', {
+    staticClass: "hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_waTmw(_vm.plug.tag_two.id, _vm.plug.tag_one.id)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -72773,7 +73029,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "font-size": "14px",
         "color": "#333"
       }
-    }, [_c('strong', [_vm._v(_vm._s(v.created_at))])]), _vm._v(" "), _c('p', [_vm._v(_vm._s(v.updated_info))])])
+    }, [_c('strong', [_vm._v(_vm._s(v.created_at))])]), _vm._v(" "), _c('p', {
+      domProps: {
+        "innerHTML": _vm._s(v.updated_info)
+      }
+    })])
   }))]), _vm._v(" "), _c('Tab-pane', {
     attrs: {
       "label": "所有版本",
@@ -72801,7 +73061,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": ""
       }
-    }, [_vm._v(_vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
+    }, [_vm._v(_vm._s(v.title) + " - " + _vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
   }))])])], 1)], 1), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
@@ -72816,7 +73076,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.collect_this(_vm.plug.plug_id)
       }
     }
-  }, [_vm._v("收藏： " + _vm._s(_vm.plug.collect_num))]) : _c('span', [_vm._v("已收藏： " + _vm._s(_vm.plug.collect_num))]), _vm._v(" "), (_vm.plug.like_plug === 0) ? _c('span', {
+  }, [_vm._v("收藏： " + _vm._s(_vm.plug.collect_num))]) : _c('span', {
+    on: {
+      "click": function($event) {
+        _vm.no_collect_this(_vm.plug.plug_id)
+      }
+    }
+  }, [_vm._v("已收藏： " + _vm._s(_vm.plug.collect_num))]), _vm._v(" "), (_vm.plug.like_plug === 0) ? _c('span', {
     on: {
       "click": function($event) {
         _vm.like_this(_vm.plug.plug_id)
@@ -72824,11 +73090,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("推荐： " + _vm._s(_vm.plug.like_num))]) : _c('span', [_vm._v("已推荐： " + _vm._s(_vm.plug.like_num))])])]), _vm._v(" "), _c('div', {
     staticClass: "plug_sim_info"
-  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), _c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
+  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
     attrs: {
       "href": 'mailto:' + _vm.plug.user.email
     }
-  }, [_vm._v(_vm._s(_vm.plug.user.email))])])])]), _vm._v(" "), _c('v-rank')], 1)], 1)], 1)], 1), _vm._v(" "), _c('Modal', {
+  }, [_vm._v(_vm._s(_vm.plug.user.email))])])])])]), _vm._v(" "), _c('v-rank')], 1)], 1)], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "width": "720"
     },
@@ -73849,7 +74115,62 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "bm"
   }, [_c('div', {
     staticClass: "search pull-right"
-  }, [_c('Input', {
+  }, [_c('Form', {
+    attrs: {
+      "model": _vm.formS,
+      "inline": ""
+    }
+  }, [_c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "下载方式"
+    },
+    on: {
+      "on-change": _vm.to_search
+    },
+    model: {
+      value: (_vm.formS.type),
+      callback: function($$v) {
+        _vm.formS.type = $$v
+      },
+      expression: "formS.type"
+    }
+  }, _vm._l((_vm.configBmDownloadType), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "资源类型"
+    },
+    on: {
+      "on-change": _vm.to_search
+    },
+    model: {
+      value: (_vm.formS.zy_type),
+      callback: function($$v) {
+        _vm.formS.zy_type = $$v
+      },
+      expression: "formS.zy_type"
+    }
+  }, _vm._l((_vm.configBmType), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
     attrs: {
       "placeholder": "搜索标题",
       "icon": "search"
@@ -73870,11 +74191,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formS.title"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
-  }), _vm._v(" "), _c('ul', _vm._l((_vm.list), function(v, k) {
+  }), _vm._v(" "), (_vm.list.length > 0) ? _c('ul', {
+    staticClass: "search_list"
+  }, _vm._l((_vm.list), function(v, k) {
     return _c('li', [_c('strong', [_c('a', {
       attrs: {
         "href": "javascript:void(0)"
@@ -73892,31 +74215,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "padding-right": "2px"
       }
-    }, [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                " + _vm._s(v.title))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                " + _vm._s(v.title))]), _vm._v("\n            -\n            "), (v.gold === 0) ? _c('span', {
+      staticClass: "normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v("免费")]) : _c('span', [_vm._v("售价：\n                  "), (v.order) ? _c('span', {
+      staticClass: "normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_c('s', [_vm._v(_vm._s(v.gold))])]) : _c('span', {
+      staticClass: "normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(已购买)")]) : _vm._e()])]), _vm._v(" "), _c('span', {
       staticClass: "pull-right",
       staticStyle: {
         "padding-left": "5px"
       }
-    }, [_vm._v("\n\n            " + _vm._s(v.created_at))]), _vm._v(" "), _c('span', {
+    }, [_c('span', {
+      style: (_vm.today === v.created_at ? 'color:#d13030' : '')
+    }, [_vm._v(_vm._s(v.created_at))])]), _vm._v(" "), _c('span', {
       staticClass: "pull-right"
-    }, [_vm._v(_vm._s(v.user.name) + " - " + _vm._s(v.download_num) + "次下载 - ")]), _vm._v(" "), _c('br'), _vm._v(" "), (v.gold === 0) ? _c('span', {
-      staticClass: "pull-right",
-      staticStyle: {
-        "font-size": "14px",
-        "font-weight": "600"
-      }
-    }, [_vm._v("免费")]) : _c('span', {
-      staticClass: "pull-right",
-      staticStyle: {
-        "font-size": "14px",
-        "font-weight": "600"
-      }
-    }, [_vm._v("售价：\n                  "), (v.order) ? _c('span', [_c('s', [_vm._v(_vm._s(v.gold))])]) : _c('span', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("(您已经购买过)")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(v.user.name) + " - " + _vm._s(v.download_num) + "次下载 - ")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
       staticStyle: {
         "clear": "both"
       }
     })])
-  })), _vm._v(" "), _c('div', {
+  })) : _c('div', {
+    staticStyle: {
+      "width": "100%",
+      "text-align": "center",
+      "font-size": "16px"
+    }
+  }, [_c('strong', [_vm._v("暂无数据")])]), _vm._v(" "), _c('div', {
     staticClass: "sel sel_bottom",
     staticStyle: {
       "margin-top": "15px"
@@ -73957,7 +74291,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-radius": "5px"
     }
-  }, [_c('h2', [_vm._v("确认购买吗")]), _vm._v(" "), _c('div', [_c('button', {
+  }, [_c('h2', [_vm._v("确认购买?")]), _vm._v(" "), _c('div', [_c('button', {
     staticClass: "close_dialog",
     staticStyle: {
       "border-radius": "5px",
@@ -73972,7 +74306,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.download_model = false
       }
     }
-  }, [_vm._v("取消")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("取消\n                ")]), _vm._v(" "), _c('button', {
     staticClass: "close_dialog ivu-btn-primary",
     class: {
       'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -73988,7 +74322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.go_download(_vm.down_id, _vm.down_k)
       }
     }
-  }, [_vm._v("确认")])])])])])
+  }, [_vm._v("确认\n                ")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -74201,7 +74535,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Dropdown-menu', {
     slot: "list"
-  }, [_c('Dropdown-item', [_c('span', {
+  }, [_c('Dropdown-item', [_c('a', {
+    attrs: {
+      "href": "/#/userInfo/setting",
+      "target": "_blank"
+    }
+  }, [_vm._v("修改密码")])]), _vm._v(" "), _c('Dropdown-item', [_c('span', {
     on: {
       "click": _vm.logout
     }
@@ -74394,7 +74733,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "15px",
       "font-size": "12px"
     }
-  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("新增分类")])], 1), _vm._v(" "), _c('Form', {
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("分类管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("添加分类")])], 1), _vm._v(" "), _c('Form', {
     ref: "formItem",
     staticClass: "div_center from_main",
     staticStyle: {
@@ -74670,30 +75009,72 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v(_vm._s(child.name))])
     })) : _vm._e()]) : _vm._e()
-  }), _vm._v(" "), (_vm.$route.params.type !== 'plug') ? _c('li', {
+  }), _vm._v(" "), (_vm.$route.params.type !== 'plug') ? _c('div', {
+    staticClass: "my_btn_wrapper",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
     on: {
       "click": _vm.upload_plug
     }
-  }, [_c('a', {
+  }, [_c('svg', {
     attrs: {
-      "href": "javascript:void(0)"
+      "height": "45",
+      "width": "150"
     }
-  }, [_vm._v("分享字符串")])]) : _c('div', [_c('li', {
+  }, [_c('rect', {
+    staticClass: "button_one",
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text"
+  }, [_vm._v("分享字符串")])]) : _c('div', [_c('div', {
+    staticClass: "my_btn_wrapper",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
     on: {
       "click": _vm.upload_plug
     }
-  }, [_c('a', {
+  }, [_c('svg', {
     attrs: {
-      "href": "javascript:void(0)"
+      "height": "45",
+      "width": "150"
     }
-  }, [_vm._v("整合界面分享")])]), _vm._v(" "), _c('li', {
+  }, [_c('rect', {
+    staticClass: "button_one",
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text"
+  }, [_vm._v("整合界面分享")])]), _vm._v(" "), _c('div', {
+    staticClass: "my_btn_wrapper",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "margin-top": "5px"
+    },
     on: {
       "click": _vm.upload_plug
     }
-  }, [_c('a', {
+  }, [_c('svg', {
     attrs: {
-      "href": "javascript:void(0)"
+      "height": "45",
+      "width": "150"
     }
+  }, [_c('rect', {
+    staticClass: "button_one",
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text"
   }, [_vm._v("原创插件分享")])])])], 2)])]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "14"
@@ -74755,7 +75136,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('strong', {
       staticClass: "my_a_style"
-    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
+    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.$route.params.type === 'plug'),
+        expression: "$route.params.type === 'plug'"
+      }],
+      staticClass: "pull-right hover_hand",
+      on: {
+        "click": function($event) {
+          _vm.download(plug.id)
+        }
+      }
+    }, [_vm._v("下载")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
       attrs: {
         "type": "ios-cloud-download-outline"
       }
@@ -74767,11 +75161,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "ios-star-outline"
       }
-    }), _c('span', [_vm._v(_vm._s(plug.score))]), _vm._v(" "), _c('Icon', {
+    }), _c('span', [_vm._v(_vm._s(plug.collect_num))]), _vm._v(" "), _c('i', [_c('img', {
       attrs: {
-        "type": "ios-heart-outline"
+        "src": "/images/p07.png",
+        "alt": ""
       }
-    }), _c('span', [_vm._v(_vm._s(plug.collect_num))]), _vm._v(" "), _c('div', {
+    })]), _c('span', [_vm._v(_vm._s(plug.like_num))]), _vm._v(" "), _c('div', {
       staticClass: "over_div",
       staticStyle: {
         "width": "600px",
@@ -75427,7 +75822,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "button_one_text"
-  }, [_vm._v("充值自定义金额")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("充值其他金额")])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body",
     staticStyle: {
       "padding": "0 0 30px 0"
@@ -76007,7 +76402,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.removePlug
     }
-  }, [_vm._v("需要重新上传,点我删除")])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("点击删除,重新上传")])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "资源类型",
       "prop": "zy_type"
@@ -76142,7 +76537,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "color": "#333 !important",
         "background-color": "#fff !important"
       }
-    }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.title.substring(0, 20)))])]), _vm._v(" "), _c('span', {
       staticClass: "dig",
       domProps: {
         "innerHTML": _vm._s(v.info)
@@ -76176,7 +76571,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "color": "#333 !important",
         "background-color": "#fff !important"
       }
-    }, [_vm._v(_vm._s(v.title))])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.title.substring(0, 20)))])]), _vm._v(" "), _c('span', {
       staticClass: "dig",
       domProps: {
         "innerHTML": _vm._s(v.info)
@@ -76268,6 +76663,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "作者信息",
+      "prop": "author"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "作者信息"
+    },
+    model: {
+      value: (_vm.formItem.author),
+      callback: function($$v) {
+        _vm.formItem.author = $$v
+      },
+      expression: "formItem.author"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
       value: (_vm.formItem.type[0] === 1 || _vm.formItem.type[0] === 2),
       expression: "formItem.type[0] === 1 || formItem.type[0] === 2"
     }],
@@ -76349,6 +76766,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.formItem.updated_info = $$v
       },
       expression: "formItem.updated_info"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "插件版本号",
+      "prop": "version"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "插件版本号"
+    },
+    model: {
+      value: (_vm.formItem.version),
+      callback: function($$v) {
+        _vm.formItem.version = $$v
+      },
+      expression: "formItem.version"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -76620,6 +77059,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "作者信息",
+      "prop": "author"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "作者信息"
+    },
+    model: {
+      value: (_vm.formItem.author),
+      callback: function($$v) {
+        _vm.formItem.author = $$v
+      },
+      expression: "formItem.author"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
       value: (_vm.formItem.type[0] === 1 || _vm.formItem.type[0] === 2),
       expression: "formItem.type[0] === 1 || formItem.type[0] === 2"
     }],
@@ -76690,6 +77151,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.formItem.updated_info = $$v
       },
       expression: "formItem.updated_info"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "插件版本号",
+      "prop": "version"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "插件版本号"
+    },
+    model: {
+      value: (_vm.formItem.version),
+      callback: function($$v) {
+        _vm.formItem.version = $$v
+      },
+      expression: "formItem.version"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -77204,6 +77687,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.formItem.updated_info = $$v
       },
       expression: "formItem.updated_info"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.formItem.type[0] === 3),
+      expression: "formItem.type[0] === 3"
+    }],
+    attrs: {
+      "label": "插件版本号",
+      "prop": "version"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "插件版本号"
+    },
+    model: {
+      value: (_vm.formItem.version),
+      callback: function($$v) {
+        _vm.formItem.version = $$v
+      },
+      expression: "formItem.version"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
@@ -79275,7 +79780,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "编辑插件"
+      "title": "编辑分类"
     },
     on: {
       "on-ok": function($event) {
@@ -79341,7 +79846,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type.length === 1"
     }],
     attrs: {
-      "label": "分享图片",
+      "label": "标签图片",
       "prop": "thumb"
     }
   }, [_c('div', {
@@ -79457,7 +79962,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("所属类别")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("分类级别")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "10%"
     }

@@ -3,7 +3,7 @@
         <Breadcrumb style="margin-bottom: 15px;font-size: 12px">
             <Breadcrumb-item>主页</Breadcrumb-item>
             <Breadcrumb-item>分类管理</Breadcrumb-item>
-            <Breadcrumb-item>新增分类</Breadcrumb-item>
+            <Breadcrumb-item>添加分类</Breadcrumb-item>
         </Breadcrumb>
         <Form :model="formItem" :label-width="100" class="div_center from_main" style="width: 500px" ref="formItem" :rules="ruleValidate">
             <Form-item label="名称" prop="name">
@@ -115,7 +115,7 @@
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         axios.put('/admin/tag/create',{data:this.formItem}).then(res=>{
-                            this.$Message.success('添加成功!');
+                            this.$Message.success('添加成功');
                             this.formItem.name = ''
                             this.formItem.type = []
                             this.formItem.thumb = ''

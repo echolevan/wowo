@@ -40,7 +40,7 @@
             <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
         </form>
         <span>没有帐号？
-        <a href="">点我注册</a>
+        <a href="">点击注册</a>
         </span>
     </div>
 </div>
@@ -56,7 +56,7 @@
 {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
 {{--<meta name="viewport" content="width=device-width, initial-scale=1">--}}
 {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
-{{--<title>窝窝来了</title>--}}
+{{--<title>嘿市</title>--}}
 {{--<script>--}}
 {{--window.Laravel = {!! json_encode([--}}
 {{--'csrfToken' => csrf_token(),--}}

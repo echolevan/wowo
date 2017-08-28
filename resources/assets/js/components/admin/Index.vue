@@ -61,7 +61,7 @@
                     <Menu-item name="admin.plug.create">添加资源</Menu-item>
                 </router-link>
                 <router-link to="/admin/bm/list">
-                    <Menu-item name="admin.bm.list">黑市</Menu-item>
+                    <Menu-item name="admin.bm.list">黑市资源</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="3">
@@ -101,6 +101,7 @@
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <Dropdown-menu slot="list">
+                            <Dropdown-item ><a href="/#/userInfo/setting" target="_blank">修改密码</a></Dropdown-item>
                             <Dropdown-item ><span @click="logout">退出登陆</span></Dropdown-item>
                         </Dropdown-menu>
                     </Dropdown>
@@ -136,7 +137,7 @@
                         if(res.data.info.is_active === 0){
                             this.$Notice.open({
                                 title: '您的帐号还未激活',
-                                desc: '已经发送了一封邮件到您的邮箱，<a target="_blank" href=' + res.data.email + '>点我请去验证</a>。',
+                                desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
                                 duration: 0
                             });
                         }

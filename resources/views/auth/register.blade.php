@@ -23,6 +23,7 @@
     </script>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/dialog.css') }}">
     <style>
         .lm_button{
             background: #266ec1;
@@ -94,6 +95,17 @@
            </div>
         </div>
     </div>
+
+    <div class="dialog dialog--open" style="display: none">
+        <div class="dialog__overlay"></div>
+        <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">
+            <h2>阵营切换间隔时间为 <span style="color: #d13030">30</span> 天,请谨慎选择!</h2>
+            <div>
+                <button type="button" class="close_dialog" onclick="$('.dialog').hide()" style="border-radius: 5px;background: #d13030;color: #fff">确认</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script src="{{ asset('/js/jq.js') }}"></script>
 <script src="{{ asset('js/login2.js') }}"></script>
@@ -101,6 +113,7 @@
 <script>
     $(function(){
         var this_camp = ''
+        var choice_time = 0
         window.myFlux = new flux.slider('#slider', {
             autoplay: false,
             pagination: false,
@@ -108,6 +121,11 @@
             delay: 20
         });
         $(document).on("change","select",function(){
+            console.log(choice_time)
+            if(choice_time === 0){
+                $(".dialog").fadeIn();
+                choice_time++
+            }
             if(this_camp === $("select[name='camp']").val()){
                 return false
             }else{

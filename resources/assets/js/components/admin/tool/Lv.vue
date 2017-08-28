@@ -42,7 +42,7 @@
                     <Button type="ghost" size="small" @click="edit_lv(v)">编辑</Button>
                     <Poptip
                             confirm
-                            title="您确认删除这条内容吗？"
+                            title="确定要删除此等级吗？"
                             @on-ok="del_ok(v.id)">
                         <Button type="error" size="small">删除</Button>
                     </Poptip>
@@ -72,7 +72,7 @@
                 <Form-item label="名称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"></Input>
                 </Form-item>
-                <Form-item label="充值满足条件" prop="money">
+                <Form-item label="充值条件" prop="money">
                     <Input-number :min="0" v-model="formItem.money" @on-change="change_other"></Input-number>
                 </Form-item>
                 <Form-item label="赠送比例" prop="giving">
@@ -142,7 +142,7 @@
                 ruleValidate: {
                     name: [
                         {required: true, message: '名称不能为空', trigger: 'blur'},
-                        {max: 30, message: '名称最长30', trigger: 'change'},
+                        {max: 30, message: '名称最长30字符', trigger: 'change'},
                         {validator: validateName, trigger: 'blur'},
                     ],
                     money: [
@@ -211,7 +211,7 @@
                             })
                         }
                     } else {
-                        this.$Message.error('操作失败!');
+                        this.$Message.error('操作失败');
                     }
                 })
                 this.loading_edit = false

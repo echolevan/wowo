@@ -121,7 +121,7 @@
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>
                             </svg>
-                            <div class="button_one_text">充值自定义金额</div>
+                            <div class="button_one_text">充值其他金额</div>
                         </div>
                     </div>
 
@@ -163,7 +163,7 @@
                         <br>
                         当用户等级达到Lv2(随机)充值可获赠金币
                         <br>
-                        当金币数量等同于200人民币时即可申请提现(新注册用户30日内不能申请提现)
+                        当金币数量等同于200人民币时可申请提现(新注册用户30日内不能提现)
                     </div>
                 </div>
             </Tab-pane>
@@ -248,7 +248,7 @@
                 if (!isNaN(money) && !(/^\d+$/.test(this.pay_amount_other))) {
                     myDialog('请选择充值金额')
                 } else if (!this.type) {
-                    myDialog('请选择充值方式')
+                    myDialog('请选择支付方式')
                 } else {
                     axios.post('user/recharge', {
                         recharge_type: this.type,
