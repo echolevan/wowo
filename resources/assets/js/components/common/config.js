@@ -29,7 +29,7 @@ export const isLogin = {
 export const plugType = {
     1: 'WA',
     2: 'TMW',
-    3: '魔兽插件'
+    3: '游戏插件'
 }
 
 export const checkType = {

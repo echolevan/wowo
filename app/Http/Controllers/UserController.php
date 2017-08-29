@@ -222,7 +222,7 @@ class UserController extends Controller
     {
         if( !Auth::user()->update_camp_at || time() - Auth::user()->update_camp_at > 30*60*60*24 )
             return ['sta'=> 1];
-        return ['sta'=> 0 , 'time'=> floor( (time()- Auth::user()->update_camp_at) / (60*60*24) )];
+        return ['sta'=> 0 , 'time'=> 30 - floor( (time()- Auth::user()->update_camp_at) / (60*60*24) )];
     }
 
 

@@ -2132,8 +2132,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2196,14 +2194,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 this.$Loading.finish();
                 this.formItem.url = res.url;
-                this.$Message.success('开始上传');
+                this.$refs.uploadPlug.clearFiles();
+                this.$Message.success('上传完成');
             }
         },
         handlePlugUpload: function handlePlugUpload() {
-            if (this.formItem.url !== '') {
-                this.$Message.error('您已上传过文件，请先删除');
-                return false;
-            }
+            //                if (this.formItem.url !== '') {
+            //                    this.$Message.error('您已上传过文件，请先删除')
+            //                    return false;
+            //                }
             this.$Loading.start();
             this.$Message.success('开始上传');
         },
@@ -2984,6 +2983,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -3225,15 +3225,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (res.sta === 0) {
                 this.$Message.error(res.msg);
             } else {
+                this.$refs.uploadPlug.clearFiles();
                 this.formItem.plug_url = res.url;
             }
         },
-        handlePlugUpload: function handlePlugUpload() {
-            if (this.formItem.plug_url !== '') {
-                this.$Message.error('您已上传过文件，请先删除');
-                return false;
-            }
-        },
+        handlePlugUpload: function handlePlugUpload() {},
         removePlug: function removePlug() {
             this.formItem.plug_url = '';
         },
@@ -3258,6 +3254,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
 //
 //
 //
@@ -3630,15 +3627,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (res.sta === 0) {
                 this.$Message.error(res.msg);
             } else {
+                this.$refs.uploadPlug.clearFiles();
                 this.formItem.plug_url = res.url;
             }
         },
-        handlePlugUpload: function handlePlugUpload() {
-            if (this.formItem.plug_url !== '') {
-                this.$Message.error('您已上传过文件，请先删除');
-                return false;
-            }
-        },
+        handlePlugUpload: function handlePlugUpload() {},
         removePlug: function removePlug() {
             this.formItem.plug_url = '';
         },
@@ -6141,66 +6134,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -6225,6 +6158,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('plug_all_info_nav').then(function (res) {
             _this.nav_tags = res.data.res;
         });
+        setTimeout(function () {
+            $(".modern-menu").modernMenu();
+        }, 1000);
     },
 
     methods: {
@@ -6264,7 +6200,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
-//
 //
 //
 //
@@ -7013,6 +6948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -7138,7 +7074,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         setTimeout(function () {
             if (!_this2.userInfo) {
-                myDialog('\u8BF7\u5148 <a href="/register" class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
+                myDialog('\u8BF7\u5148 <a href="/register" class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                     <a href="/login"  class="' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 _this2.$router.push('/home');
             } else {
                 if (_this2.userInfo.is_active === 0) {
@@ -7284,14 +7220,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (res.sta === 0) {
                 myDialog(res.msg);
             } else {
+                this.$refs.uploadPlug.clearFiles();
                 this.formItem.plug_url = res.url;
             }
         },
         handlePlugUpload: function handlePlugUpload() {
-            if (this.formItem.plug_url !== '') {
-                myDialog('您已上传过文件，请先删除');
-                return false;
-            }
+            //                if (this.formItem.plug_url !== '') {
+            //                    myDialog('您已上传过文件，请先删除')
+            //                    return false;
+            //                }
         },
         removePlug: function removePlug() {
             this.formItem.plug_url = '';
@@ -7410,6 +7347,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -7432,7 +7371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tag_active: 0,
             tag_active_pid: 0,
             plugs: [],
-            plugs_count: 0,
+            plugs_count: -1,
             this_page: 1
         };
     },
@@ -7557,6 +7496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
 //
 //
 //
@@ -7903,14 +7843,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (res.sta === 0) {
                 myDialog(res.msg);
             } else {
+                this.$refs.uploadPlug.clearFiles();
                 this.formItem.plug_url = res.url;
             }
         },
         handlePlugUpload: function handlePlugUpload() {
-            if (this.formItem.plug_url !== '') {
-                myDialog('您已上传过文件，请先删除');
-                return false;
-            }
+            //                if(this.formItem.plug_url !== ''){
+            //                    myDialog('您已上传过文件，请先删除')
+            //                    return false;
+            //                }
         },
         removePlug: function removePlug() {
             this.formItem.plug_url = '';
@@ -12062,10 +12003,11 @@ exports.push([module.i, "\n.admin_content .my_menu[data-v-202c03be] {\n  width: 
 
 exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
 // imports
+exports.i(__webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./resources/assets/common/nav.css"), "");
 exports.i(__webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./resources/assets/common/demo.css"), "");
 
 // module
-exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1240px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  padding: 15px 0;\n  margin: 0 auto;\n  width: 1240px;\n  background-color: #fff;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1240px;\n  padding: 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -12456,6 +12398,21 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 // module
 exports.push([module.i, "@charset \"UTF-8\";\r\n\r\n.head-v3 h1, .head-v3 h2, .head-v3 h3, .head-v3 h4, .head-v3 h5, .head-v3 h6 {\r\n    font-size: 100%;\r\n}\r\n\r\nli {\r\n    list-style: none\r\n}\r\n\r\na:link, a:visited {\r\n    text-decoration: none\r\n}\r\n\r\n.head-v3 {\r\n    position: relative;\r\n    z-index: 100;\r\n    min-width: 1240px\r\n}\r\n\r\n.head-v3 .navigation-inner {\r\n    width: 1240px;\r\n    position: relative\r\n}\r\n\r\n.navigation-up {\r\n    height: 40px;\r\n    background: #fff\r\n}\r\n\r\n.navigation-up .navigation-v3 {\r\n    float: left;\r\n}\r\n\r\n.navigation-up .navigation-v3 ul {\r\n    float: left\r\n}\r\n\r\n.navigation-up .navigation-v3 li {\r\n    float: left;\r\n    font: normal 16px/59px \"microsoft yahei\";\r\n    color: #fff\r\n}\r\n\r\n.navigation-up .navigation-v3 .nav-up-selected {\r\n    background: #266ec1\r\n}\r\n\r\n.nav-up-selected.bl_hover_color{\r\n    background: #d13030 !important;\r\n}\r\n\r\n.nav-up-selected a{\r\n    color: #fff !important;\r\n}\r\n\r\n.navigation-up .navigation-v3 .nav-up-selected-inpage {\r\n    background: #266ec1\r\n}\r\n\r\n.navigation-up .navigation-v3 li h2 {\r\n    font-weight: normal;\r\n    padding: 0;\r\n    margin: 0\r\n}\r\n\r\n.navigation-up .navigation-v3 li h2 a {\r\n    padding: 0 25px;\r\n    color: #333;\r\n    display: inline-block;\r\n    height: 40px;\r\n    line-height: 40px;\r\n}\r\n.nav-up-selected-inpage a{\r\n    color:#fff !important;\r\n}\r\n.navigation-down {\r\n    position: absolute;\r\n    top: 40px;\r\n    left: 0px;\r\n    width: 100%\r\n}\r\n.nav_top{\r\n    margin-left:15px;\r\n}\r\n.navigation-down .nav-down-menu {\r\n    width: 100%;\r\n    margin: 0;\r\n    background: rgba(255,255,255,0.9);\r\n    position: absolute;\r\n    top: 0;\r\n    padding: 15px;\r\n    border: 1px solid #ddd\r\n}\r\n\r\n.navigation-down .nav-down-menu .navigation-down-inner {\r\n    margin: auto;\r\n    width: 1200px;\r\n    position: relative\r\n}\r\n\r\n.navigation-down .nav-down-menu dl {\r\n    float: left;\r\n    margin: 15px\r\n}\r\n\r\n.navigation-down .menu-1 dl {\r\n}\r\n\r\n.height_200{\r\n    height: 120px;\r\n}\r\n.nav_top{\r\n    border-radius: 5px;\r\n}\r\n.navigation-down .menu-1 dt {\r\n    color: #266ec1;\r\n    font-size: 14px;\r\n    font-weight:bold;\r\n    /*border-bottom: 1px solid #333;*/\r\n    margin-bottom: 10px\r\n}\r\n\r\n.navigation-down .menu-1 dd a {\r\n    color: #333;\r\n}\r\n\r\n.navigation-down .menu-1 dd a:hover {\r\n    color: #333\r\n}\r\n\r\n.navigation-down .menu-2 dd a, .navigation-down .menu-3 dd a {\r\n    color: #333;\r\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./resources/assets/common/nav.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".modern-menu { height: 40px; font-family: \"Arial Narrow\", sans-serif; font-size: 15px; font-weight: 700; position: relative; clear: both }\r\n.modern-menu.mm-vertical { width: 184px; height: auto }\r\n.modern-menu, .modern-menu ul { list-style: none; margin: 0; padding: 0 }\r\n.modern-menu li { position: relative ; margin-right: 30px }\r\n.modern-menu a { height: 100%; text-decoration: none; display: block; position: relative; overflow: hidden; z-index: 101; border: 0 }\r\n.modern-menu a span { line-height: 40px; padding: 0 20px; display: block }\r\n.modern-menu.mm-vertical a span { line-height: 36px }\r\n.mm-container.mm-drop span { padding-right: 15px }\r\n.mm-horizontal span { float: left }\r\n.mm-hdrop, .mm-hdrop-over, .mm-vdrop, .mm-vdrop-over { background-repeat: no-repeat; background-position: center right; padding-right: 20px }\r\n.modern-menu .mm-right { display: block; float: right }\r\n.modern-menu>li { float: left }\r\n.modern-menu.mm-vertical>li { float: none }\r\n.mm-group li { float: left }\r\n.modern-menu .mm-group span { line-height: 40px }\r\n.modern-menu ul span { line-height: 36px }\r\n.modern-menu li>ul { width: 155px; font-size: 14px; position: absolute; left: -5000px; opacity: 0; z-index: 100 }\r\n.mm-vertical li>ul { top: 0 }\r\n.modern-menu ul ul { float: right; top: 0 }\r\n.modern-menu .mm-icon span { width: 14px; height: 40px; background-repeat: no-repeat; background-position: center; padding: 0 18px }\r\n.mm-vertical .mm-icon span { width: 10px }\r\n/*.theme2 { background-color: #fafafa }*/\r\n/*.theme2 a span { color: #707070; background-color: #f0edf2 }*/\r\n.theme2 .mm-over { color: #fff; background-color: #266ec1 }", ""]);
 
 // exports
 
@@ -75450,7 +75407,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   }, [_c('ul', [_c('div', {
     staticClass: "col-md-6"
-  }, [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.user_count))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))])]), _vm._v(" "), _c('div', {
+  }, [_c('li', [_vm._v("用户总数：" + _vm._s(_vm.census.useCount))]), _vm._v(" "), _c('li', [_vm._v("联盟用户：" + _vm._s(_vm.census.lm_count))])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"
   }, [_c('li', [_vm._v("今日访问：" + _vm._s(_vm.total_person))]), _vm._v(" "), _c('li', [_vm._v("部落用户：" + _vm._s(_vm.census.bl_count))])]), _vm._v(" "), _c('div', {
     staticClass: "col-md-12"
@@ -75992,6 +75949,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "plug_url"
     }
   }, [_c('Upload', {
+    ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
       "headers": {
@@ -76006,7 +75964,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -76119,7 +76077,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.imgName
     }
-  }) : _vm._e()])], 1)
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -77606,15 +77568,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.down_bm(v.id, k)
         }
       }
-    }, [_c('span', {
-      staticStyle: {
-        "padding-right": "2px"
-      }
-    }, [_vm._v("[" + _vm._s(_vm.configBmDownloadType[v.type]) + "]")]), _vm._v(" "), _c('span', {
-      staticStyle: {
-        "padding-right": "2px"
-      }
-    }, [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                " + _vm._s(v.title))]), _vm._v("\n            -\n            "), (v.gold === 0) ? _c('span', {
+    }, [_c('span', [_vm._v("[" + _vm._s(_vm.configBmDownloadType[v.type]) + "]")]), _c('span', [_vm._v("[" + _vm._s(_vm.configBmType[v.zy_type]) + "]")]), _vm._v("\n                " + _vm._s(v.title))]), _vm._v("\n            -\n            "), (v.gold === 0) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -77629,7 +77583,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', [_vm._v("[已购买]")]) : _vm._e()])]), _vm._v(" "), _c('span', {
+    }, [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', {
+      staticStyle: {
+        "color": "#d13030"
+      }
+    }, [_vm._v("[已购买]")]) : _vm._e()])]), _vm._v(" "), _c('span', {
       staticClass: "pull-right",
       staticStyle: {
         "padding-left": "5px"
@@ -78032,131 +77990,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "head-v3"
   }, [_c('div', {
-    staticClass: "navigation-up"
-  }, [_c('div', {
-    staticClass: "navigation-inner"
-  }, [_c('div', {
-    staticClass: "navigation-v3"
-  }, [_c('ul', [_c('li', {
-    staticClass: "nav_top",
-    class: {
-      'nav-up-selected': _vm.is_hover === 'home', 'bl_hover_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    staticStyle: {
-      "margin-left": "0"
-    },
-    on: {
-      "mouseenter": function($event) {
-        _vm.is_hover = 'home'
-      },
-      "mouseleave": function($event) {
-        _vm.is_hover = 0
-      }
-    }
-  }, [_c('h2', [_c('router-link', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "to": "/home"
-    }
-  }, [_c('span', {
-    staticClass: "no_active"
-  }, [_vm._v("首页")])])], 1)]), _vm._v(" "), _vm._l((_vm.nav_tags), function(v) {
-    return (_vm.nav_tags.length > 0) ? _c('li', {
-      staticClass: "nav_top",
-      class: {
-        'nav-up-selected': _vm.is_hover === v.value, 'bl_hover_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
-      attrs: {
-        "_t_nav": v.label
-      },
-      on: {
-        "mouseenter": function($event) {
-          _vm.is_hover = v.value
-        },
-        "mouseleave": function($event) {
-          _vm.is_hover = 0
-        }
-      }
-    }, [_c('h2', [_c('router-link', {
-      class: {
-        'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
-      attrs: {
-        "to": {
-          name: 'waTmw.index',
-          params: {
-            'type': _vm.configUrl[v.label]
-          }
-        }
-      }
-    }, [_c('span', {
-      staticClass: "no_active"
-    }, [_vm._v(_vm._s(v.label))])])], 1)]) : _vm._e()
-  }), _vm._v(" "), _c('li', {
-    staticClass: "nav_top",
-    class: {
-      'nav-up-selected': _vm.is_hover === 'yy', 'bl_hover_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "mouseenter": function($event) {
-        _vm.is_hover = 'yy'
-      },
-      "mouseleave": function($event) {
-        _vm.is_hover = 0
-      }
-    }
-  }, [_c('h2', [_c('a', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "href": "javascript:void(0)"
-    }
-  }, [_c('span', [_vm._v("易游")])])])]), _vm._v(" "), (_vm.tools.bm === '1') ? _c('li', {
-    staticClass: "nav_top",
-    class: {
-      'nav-up-selected': _vm.is_hover === 'bm', 'bl_hover_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "mouseenter": function($event) {
-        _vm.is_hover = 'bm'
-      },
-      "mouseleave": function($event) {
-        _vm.is_hover = 0
-      }
-    }
-  }, [_c('h2', [_c('router-link', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "to": "/bm"
-    }
-  }, [_c('span', {
-    staticClass: "no_active"
-  }, [_vm._v("黑市")])])], 1)]) : _vm._e(), _vm._v(" "), _c('li', {
-    staticClass: "nav_top",
-    class: {
-      'nav-up-selected': _vm.is_hover === 'pdly', 'bl_hover_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    on: {
-      "mouseenter": function($event) {
-        _vm.is_hover = 'pdly'
-      },
-      "mouseleave": function($event) {
-        _vm.is_hover = 0
-      }
-    }
-  }, [_c('h2', [_c('a', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "href": "https://bbs.iwowcn.com"
-    }
-  }, [_c('span', [_vm._v("潘达利亚")])])])])], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "navigation-down"
   }, _vm._l((_vm.nav_tags), function(v) {
     return (_vm.nav_tags.length > 0) ? _c('div', {
@@ -78211,6 +78044,71 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })], 2)
     }))]) : _vm._e()
   }))]), _vm._v(" "), _c('div', {
+    staticClass: "underline"
+  }, [_c('ul', {
+    staticClass: "modern-menu theme2"
+  }, [_c('li', {
+    staticStyle: {
+      "margin-left": "15px"
+    }
+  }, [_c('router-link', {
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "to": "/home"
+    }
+  }, [_c('span', {
+    staticClass: "no_active"
+  }, [_vm._v("首页")])])], 1), _vm._v(" "), _vm._l((_vm.nav_tags), function(v) {
+    return (_vm.nav_tags.length > 0) ? _c('li', {
+      on: {
+        "mouseenter": function($event) {
+          _vm.is_hover = v.value
+        },
+        "mouseleave": function($event) {
+          _vm.is_hover = 0
+        }
+      }
+    }, [_c('router-link', {
+      class: {
+        'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
+      attrs: {
+        "to": {
+          name: 'waTmw.index',
+          params: {
+            'type': _vm.configUrl[v.label]
+          }
+        }
+      }
+    }, [_c('span', {
+      staticClass: "no_active"
+    }, [_vm._v(_vm._s(v.label))])])], 1) : _vm._e()
+  }), _vm._v(" "), _c('li', [_c('a', {
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "href": "javascript:void(0)"
+    }
+  }, [_c('span', [_vm._v("易游")])])]), _vm._v(" "), (_vm.tools.bm === '1') ? _c('li', [_c('router-link', {
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "to": "/bm"
+    }
+  }, [_c('span', {
+    staticClass: "no_active"
+  }, [_vm._v("黑市")])])], 1) : _vm._e(), _vm._v(" "), _c('li', [_c('a', {
+    class: {
+      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "href": "https://bbs.iwowcn.com"
+    }
+  }, [_c('span', [_vm._v("潘达利亚")])])])], 2)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -78618,7 +78516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": item.value
       }
     }, [_vm._v(_vm._s(item.label))])
-  })), _vm._v(" "), _c('Page', {
+  })), _vm._v(" "), (_vm.plugs.length > 0) ? _c('Page', {
     key: _vm.plugs_count,
     ref: "pageThis",
     class: {
@@ -78635,7 +78533,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-change": _vm.change_page
     }
-  })], 1), _vm._v(" "), _vm._l((_vm.plugs), function(plug) {
+  }) : _vm._e()], 1), _vm._v(" "), _vm._l((_vm.plugs), function(plug) {
     return (_vm.plugs.length > 0) ? _c('div', {
       staticClass: "content"
     }, [_c('div', {
@@ -78702,8 +78600,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })], 1)]) : _vm._e()
   }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.plugs_count === 0),
+      expression: "plugs_count === 0"
+    }],
+    staticClass: "content tt_center"
+  }, [_c('strong', {
+    staticStyle: {
+      "margin": "0 auto",
+      "font-size": "16px"
+    }
+  }, [_vm._v("暂无内容")])]), _vm._v(" "), _c('div', {
     staticClass: "sel sel_bottom"
-  }, [_c('Page', {
+  }, [(_vm.plugs.length > 0) ? _c('Page', {
     key: _vm.plugs_count,
     ref: "pageTwo",
     class: {
@@ -78720,7 +78631,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-change": _vm.change_page
     }
-  })], 1)], 2)]), _vm._v(" "), _c('iCol', {
+  }) : _vm._e()], 1)], 2)]), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
     }
@@ -79751,22 +79662,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "20%"
     }
   }, [_vm._v("资源名称")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("状态")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "40%"
     }
@@ -79907,12 +79823,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "url"
     }
   }, [_c('Upload', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.url === ''),
-      expression: "formItem.url === ''"
-    }],
+    ref: "uploadPlug",
     attrs: {
       "action": "/admin/upload_bm_plug",
       "headers": {
@@ -79920,26 +79831,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "on-success": _vm.handlePlugSuccess,
       "before-upload": _vm.handlePlugUpload,
-      "on-remove": _vm.removePlug,
-      "show-upload-list": false
+      "on-remove": _vm.removePlug
     }
   }, [_c('Button', {
     attrs: {
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")])], 1), _vm._v(" "), _c('p', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.url !== ''),
-      expression: "formItem.url !== ''"
-    }],
-    staticClass: "hover_hand",
-    on: {
-      "click": _vm.removePlug
-    }
-  }, [_vm._v("重新上传")])], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "资源类型",
       "prop": "zy_type"
@@ -80402,6 +80301,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "plug_url"
     }
   }, [_c('Upload', {
+    ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
       "headers": {
@@ -80416,7 +80316,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -80808,6 +80708,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "plug_url"
     }
   }, [_c('Upload', {
+    ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
       "headers": {
@@ -80822,7 +80723,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -81366,6 +81267,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "plug_url"
     }
   }, [_c('Upload', {
+    ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
       "headers": {
@@ -81380,7 +81282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -82286,7 +82188,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formS.tagType"
     }
-  }, _vm._l((_vm.configTagType), function(v, k) {
+  }, _vm._l((_vm.configPlugType), function(v, k) {
     return _c('Option', {
       key: k,
       attrs: {
@@ -82719,27 +82621,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "placement": "bottom"
       }
     }, [_vm._v("\n                    " + _vm._s(v.plug.title) + "\n                ")])], 1), _vm._v(" "), (v.plug.gold === 0) ? _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v("免费")]) : _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.plug.gold) + " 金币")]), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.plug.version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child",
+      staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
       }
     }, [_vm._v(_vm._s(v.plug.game_version))]), _vm._v(" "), _c('div', {
-      staticClass: "td_child tool",
+      staticClass: "td_child tool tt_center",
       staticStyle: {
         "width": "30%",
         "position": "relative"
@@ -82754,27 +82656,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           }
         }
       }
-    }, [_vm._v("\n                    查看详情\n                ")]), _vm._v(" "), _c('span', [_vm._v("推荐：")]), _vm._v(" "), (v.score.length === 0) ? _c('Rate', {
-      staticStyle: {
-        "position": "absolute",
-        "top": "2px"
-      },
-      attrs: {
-        "allow-half": ""
-      },
-      on: {
-        "on-change": function($event) {
-          _vm.rate_score(v.plug.plug_id, k)
-        }
-      },
-      model: {
-        value: (_vm.score[k]),
-        callback: function($$v) {
-          _vm.$set(_vm.score, k, $$v)
-        },
-        expression: "score[k]"
-      }
-    }) : _c('span', [_vm._v(_vm._s(v.score[0].score))])], 1)])
+    }, [_vm._v("\n                    查看详情\n                ")])], 1)])
   })], 2) : _c('p', {
     staticClass: "normal_font",
     class: {
@@ -82816,18 +82698,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "40%"
     }
   }, [_vm._v("资源名称")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "10%"
     }
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
+    staticClass: "tt_center",
     staticStyle: {
       "width": "30%"
     }
@@ -99902,7 +99788,7 @@ var isLogin = {
 var plugType = {
     1: 'WA',
     2: 'TMW',
-    3: '魔兽插件'
+    3: '游戏插件'
 };
 
 var checkType = {

@@ -93,7 +93,7 @@
                     <div class="tool_user_child child">
                         <ul>
                             <div class="col-md-6">
-                                <li>用户总数：{{census.user_count}}</li>
+                                <li>用户总数：{{census.useCount}}</li>
                                 <li>联盟用户：{{census.lm_count}}</li>
                             </div>
                             <div class="col-md-6">

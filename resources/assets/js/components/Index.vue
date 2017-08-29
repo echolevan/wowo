@@ -171,7 +171,6 @@
         width 1240px
         padding: 15px
         margin 0 auto
-
     .footer
         border-top 1px solid #f5f5f5
         width 1240px

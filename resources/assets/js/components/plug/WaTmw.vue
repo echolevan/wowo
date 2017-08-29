@@ -51,7 +51,7 @@
                         <Select v-model="orderBy" size="small" style="width:100px" @on-change="change_order" :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                         </Select>
-                        <Page ref="pageThis"  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        <Page  v-if="plugs.length > 0"  ref="pageThis"  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
@@ -72,8 +72,10 @@
                             <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
                         </div>
                     </div>
+                    <div class="content tt_center" v-show="plugs_count === 0"><strong style="margin:0 auto;font-size: 16px">暂无内容</strong></div>
+
                     <div class="sel sel_bottom">
-                        <Page ref="pageTwo" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        <Page  v-if="plugs.length > 0"  ref="pageTwo" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                               :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
@@ -117,7 +119,7 @@
                 tag_active: 0,
                 tag_active_pid: 0,
                 plugs: [],
-                plugs_count: 0,
+                plugs_count: -1,
                 this_page: 1
             }
         },

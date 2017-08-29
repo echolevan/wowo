@@ -3,11 +3,11 @@
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
                 <div style="width: 20%">资源名称</div>
-                <div style="width: 10%">售价</div>
-                <div style="width: 10%">状态</div>
-                <div style="width: 10%">版本</div>
-                <div style="width: 10%">游戏版本</div>
-                <div style="width: 40%">操作</div>
+                <div class="tt_center" style="width: 10%">售价</div>
+                <div class="tt_center" style="width: 10%">状态</div>
+                <div class="tt_center" style="width: 10%">版本</div>
+                <div class="tt_center" style="width: 10%">游戏版本</div>
+                <div class="tt_center" style="width: 40%">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
                 <div class="td_child title" style="width: 20%">

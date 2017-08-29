@@ -3,10 +3,10 @@
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
                 <div style="width: 40%">资源名称</div>
-                <div style="width: 10%">售价</div>
-                <div style="width: 10%">版本</div>
-                <div style="width: 10%">游戏版本</div>
-                <div style="width: 30%">操作</div>
+                <div class="tt_center" style="width: 10%">售价</div>
+                <div class="tt_center" style="width: 10%">版本</div>
+                <div class="tt_center" style="width: 10%">游戏版本</div>
+                <div class="tt_center" style="width: 30%">操作</div>
 
             </div>
             <div class="td_div" v-for="(v,k) in orders">
@@ -15,17 +15,17 @@
                         {{v.plug.title}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%" v-if="v.plug.gold === 0">免费</div>
-                <div class="td_child" style="width: 10%" v-else>{{v.plug.gold}} 金币</div>
-                <div class="td_child" style="width: 10%">{{v.plug.version}}</div>
-                <div class="td_child" style="width: 10%">{{v.plug.game_version}}</div>
-                <div class="td_child tool" style="width: 30%;position: relative">
+                <div class="td_child tt_center" style="width: 10%" v-if="v.plug.gold === 0">免费</div>
+                <div class="td_child tt_center" style="width: 10%" v-else>{{v.plug.gold}} 金币</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.plug.version}}</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.plug.game_version}}</div>
+                <div class="td_child tool tt_center" style="width: 30%;position: relative">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.plug.id}}">
                         查看详情
                     </router-link>
-                        <span>推荐：</span>
-                    <Rate allow-half v-model="score[k]" style="position: absolute;top: 2px" @on-change="rate_score(v.plug.plug_id, k)" v-if="v.score.length === 0"></Rate>
-                    <span v-else>{{v.score[0].score}}</span>
+                        <!--<span>推荐：</span>-->
+                    <!--<Rate allow-half v-model="score[k]" style="position: absolute;top: 2px" @on-change="rate_score(v.plug.plug_id, k)" v-if="v.score.length === 0"></Rate>-->
+                    <!--<span v-else>{{v.score[0].score}}</span>-->
                 </div>
             </div>
         </table>

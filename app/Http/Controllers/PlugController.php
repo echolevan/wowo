@@ -714,7 +714,7 @@ class PlugController extends Controller
             }else{
                 $census['last_time'] = '暂无';
             }
-            $census['user_count'] = User::count();
+            $census['useCount'] = User::count();
             $census['lm_count'] = User::where('camp',1)->count();
             $census['bl_count'] = User::where('camp',2)->count();
             Cache::put('plug_index_census',$census,60);

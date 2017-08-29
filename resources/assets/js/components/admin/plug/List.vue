@@ -27,7 +27,7 @@
             </Form-item>
             <Form-item>
                 <Select v-model="formS.tagType" clearable placeholder="资源类型"  style="width: 100px;">
-                    <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
+                    <Option v-for="(v , k) in configPlugType" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
             <Form-item>

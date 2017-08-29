@@ -25,8 +25,7 @@
             <li  v-for="(v, k) in list" >
                 <strong>
                 <a href="javascript:void(0)" @click="down_bm(v.id, k)"
-                ><span style="padding-right: 2px">[{{configBmDownloadType[v.type]}}]</span>
-                    <span style="padding-right: 2px">[{{configBmType[v.zy_type]}}]</span>
+                ><span>[{{configBmDownloadType[v.type]}}]</span><span >[{{configBmType[v.zy_type]}}]</span>
                     {{v.title}}</a>
                 -
                 <span v-if="v.gold === 0" class="normal_font"
@@ -39,7 +38,7 @@
                                 <span class="normal_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                       v-else>{{v.gold}}</span>
-                                <span v-if="v.order">[已购买]</span>
+                                <span v-if="v.order" style="color: #d13030">[已购买]</span>
                 </span>
             </strong>
                 <span class="pull-right" style="padding-left: 5px">

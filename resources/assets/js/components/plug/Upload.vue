@@ -49,12 +49,13 @@
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
                 <Upload action="/upload_plug_info_plug"
+                        ref="uploadPlug"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
                         :before-upload="handlePlugUpload"
                         :on-remove="removePlug"
                 >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                    <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
                 </Upload>
             </Form-item>
 
@@ -401,14 +402,15 @@
                 if (res.sta === 0) {
                     myDialog(res.msg)
                 } else {
+                    this.$refs.uploadPlug.clearFiles()
                     this.formItem.plug_url = res.url
                 }
             },
             handlePlugUpload() {
-                if (this.formItem.plug_url !== '') {
-                    myDialog('您已上传过文件，请先删除')
-                    return false;
-                }
+//                if (this.formItem.plug_url !== '') {
+//                    myDialog('您已上传过文件，请先删除')
+//                    return false;
+//                }
             },
             removePlug() {
                 this.formItem.plug_url = ''
