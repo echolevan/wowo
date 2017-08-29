@@ -1876,14 +1876,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (res.data.info.is_active === 0) {
                         if (res.data.info.camp === 1) {
                             _this2.$Notice.info({
-                                title: '您的帐号还未激活',
-                                desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
+                                title: '您的安全邮箱未验证',
+                                desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                                 duration: 0
                             });
                         } else {
                             _this2.$Notice.error({
-                                title: '您的帐号还未激活',
-                                desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
+                                title: '您的安全邮箱未验证',
+                                desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                                 duration: 0
                             });
                         }
@@ -3045,7 +3045,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateversion = function validateversion(rule, value, callback) {
             if (_this.formItem.type[0] === 3) {
                 if (value === '') {
-                    callback(new Error('插件版本'));
+                    callback(new Error('插件版本不能为空'));
                 } else {
                     callback();
                 }
@@ -3436,7 +3436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateversion = function validateversion(rule, value, callback) {
             if (_this.formItem.type[0] === 3) {
                 if (value === '') {
-                    callback(new Error('插件版本'));
+                    callback(new Error('插件版本不能为空'));
                 } else {
                     callback();
                 }
@@ -7011,7 +7011,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateversion = function validateversion(rule, value, callback) {
             if (_this.formItem.type[0] === 3) {
                 if (value === '') {
-                    callback(new Error('插件版本'));
+                    callback(new Error('插件版本不能为空'));
                 } else {
                     callback();
                 }
@@ -7078,7 +7078,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.$router.push('/home');
             } else {
                 if (_this2.userInfo.is_active === 0) {
-                    myDialog('\u60A8\u8FD8\u672A\u6FC0\u6D3B\u90AE\u7BB1\uFF0C\u8BF7<a href=\'/#/userInfo/info\' class=\'close_other_dialog ' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u70B9\u51FB\u6FC0\u6D3B</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
+                    myDialog('\u60A8\u8FD8\u672A\u9A8C\u8BC1\u90AE\u7BB1\uFF0C\u8BF7<a href=\'/#/userInfo/info\' class=\'close_other_dialog ' + (_this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '\'>\u70B9\u51FB\u9A8C\u8BC1</a>', _this2.userInfo && _this2.userInfo.camp && _this2.userInfo.camp === 2 || !_this2.userInfo && _this2.choice_cmap === '2' ? 'bl_button_color' : '');
                 }
             }
         }, 500);
@@ -7666,7 +7666,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateversion = function validateversion(rule, value, callback) {
             if (_this.formItem.type[0] === 3) {
                 if (value === '') {
-                    callback(new Error('插件版本'));
+                    callback(new Error('插件版本不能为空'));
                 } else {
                     callback();
                 }
@@ -76298,7 +76298,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.gold))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.gold))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("(您已经购买过)")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
+  }, [(_vm.plug.is_pay) ? _c('span', [_c('s', [_vm._v(_vm._s(_vm.plug.gold))])]) : _c('span', [_vm._v(_vm._s(_vm.plug.gold))])]), _vm._v("\n                        金币")]), _vm._v(" "), (_vm.plug.is_pay) ? _c('span', [_vm._v("[已购买]")]) : _vm._e()])])]), _vm._v(" "), _c('iCol', {
     staticClass: "score_down",
     attrs: {
       "span": "8"
@@ -77005,7 +77005,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "充值条件",
+      "label": "满足条件",
       "prop": "money"
     }
   }, [_c('Input-number', {
@@ -77024,7 +77024,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "label": "赠送比例",
+      "label": "赠送比例(%)",
       "prop": "giving"
     }
   }, [_c('Input-number', {
@@ -77389,7 +77389,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Tooltip', {
     attrs: {
-      "content": "邮箱已经激活"
+      "content": "安全邮箱已验证"
     }
   }, [_vm._v("\n                    " + _vm._s(_vm.userInfo.email) + "\n                ")])], 1) : _c('Button', {
     attrs: {
@@ -77402,7 +77402,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Tooltip', [_c('div', {
     slot: "content"
-  }, [_c('p', [_vm._v("邮箱未激活")]), _vm._v(" "), _c('p', [_c('i', [_vm._v("点击重新发送邮件")])])]), _vm._v(" "), (!_vm.is_dis) ? _c('span', [_vm._v(_vm._s(_vm.userInfo.email))]) : _c('span', [_vm._v("邮件已经发送，" + _vm._s(_vm.rest_time) + " s后可再次发送")])])], 1)], 1), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v("安全邮箱未验证")]), _vm._v(" "), _c('p', [_c('i', [_vm._v("点击重新发送邮件")])])]), _vm._v(" "), (!_vm.is_dis) ? _c('span', [_vm._v(_vm._s(_vm.userInfo.email))]) : _c('span', [_vm._v("邮件已经发送，" + _vm._s(_vm.rest_time) + " s后可再次发送")])])], 1)], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -77575,7 +77575,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v("[免费]")]) : _c('span', [_vm._v("售价：\n                  "), (v.order) ? _c('span', {
+    }, [_vm._v("免费")]) : _c('span', [(v.order) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -77650,7 +77650,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-radius": "5px"
     }
-  }, [_c('h2', [_vm._v("确认购买?")]), _vm._v(" "), _c('div', [_c('button', {
+  }, [_c('h2', [_vm._v("确定购买?")]), _vm._v(" "), _c('div', [_c('button', {
     staticClass: "close_dialog",
     staticStyle: {
       "border-radius": "5px",
@@ -77681,7 +77681,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.go_download(_vm.down_id, _vm.down_k)
       }
     }
-  }, [_vm._v("确认\n                ")])])])])])
+  }, [_vm._v("确定\n                ")])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -78190,7 +78190,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type.length === 1"
     }],
     attrs: {
-      "label": "标签图片",
+      "label": "标签图标",
       "prop": "thumb"
     }
   }, [_c('div', {
@@ -78289,7 +78289,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "查看图片"
+      "title": "查看图标"
     },
     model: {
       value: (_vm.visible),
@@ -79434,7 +79434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add_to('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确认")]) : _c('span', [_vm._v("Loading...")])])], 1)], 1)], 1)
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -79746,7 +79746,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add_to('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确认")]) : _c('span', [_vm._v("Loading...")])])], 1)], 1)], 1)
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -81693,7 +81693,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
-      "placeholder": "是否激活"
+      "placeholder": "是否验证"
     },
     model: {
       value: (_vm.formS.is_active),
@@ -81918,7 +81918,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "5%"
     }
-  }, [_vm._v("帐号是否激活")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("安全邮箱验证")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "5%"
     }
@@ -82181,7 +82181,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "clearable": "",
-      "placeholder": "资源类型"
+      "placeholder": "资源分类"
     },
     model: {
       value: (_vm.formS.tagType),
@@ -82190,7 +82190,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formS.tagType"
     }
-  }, _vm._l((_vm.configPlugType), function(v, k) {
+  }, _vm._l((_vm.configTagType), function(v, k) {
     return _c('Option', {
       key: k,
       attrs: {
@@ -82514,7 +82514,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("资源分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', {
     staticStyle: {
