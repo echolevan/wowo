@@ -12,7 +12,7 @@
                 </Form-item>
 
                 <Button type="primary" :loading="loading" @click="add_to('formItem')" class="pull-right">
-                    <span v-if="!loading">确认</span>
+                    <span v-if="!loading">确定</span>
                     <span v-else>Loading...</span>
                 </Button>
 

@@ -32,14 +32,14 @@
             </li>
             <li><span class="title">邮箱</span><span class="val">
                 <Button type="success"  size="small" v-if="userInfo.is_active === 1">
-                    <Tooltip content="邮箱已经激活">
+                    <Tooltip content="安全邮箱已验证">
                         {{userInfo.email}}
                     </Tooltip>
                 </Button>
                    <Button type="warning" :disabled="is_dis"  size="small" @click="send_mail" v-else>
                         <Tooltip>
                               <div slot="content">
-                                <p>邮箱未激活</p>
+                                <p>安全邮箱未验证</p>
                                 <p><i>点击重新发送邮件</i></p>
                             </div>
                             <span v-if="!is_dis">{{userInfo.email}}</span>

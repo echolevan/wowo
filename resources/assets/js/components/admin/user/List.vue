@@ -20,7 +20,7 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.is_active" clearable  placeholder="是否激活" style="width: 100px;">
+                <Select v-model="formS.is_active" clearable  placeholder="是否验证" style="width: 100px;">
                     <Option v-for="(v , k) in configYesOrNo" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -81,7 +81,7 @@
                 <th style="width: 5%">发布资源数</th>
                 <th style="width: 10%" v-show="show_c_at">注册时间</th>
                 <th style="width: 10%" v-show="show_l_at">最近登陆</th>
-                <th style="width: 5%">帐号是否激活</th>
+                <th style="width: 5%">安全邮箱验证</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否管理员</th>
                 <th style="width: 12%">操作</th>

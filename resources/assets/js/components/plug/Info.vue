@@ -25,7 +25,7 @@
                                 <span v-else>{{plug.gold}}</span>
                             </span>
                             金币</span>
-                            <span v-if="plug.is_pay">(您已经购买过)</span>
+                            <span v-if="plug.is_pay">[已购买]</span>
                         </p>
                     </div>
                 </iCol>

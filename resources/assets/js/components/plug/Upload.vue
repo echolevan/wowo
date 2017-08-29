@@ -162,7 +162,7 @@
             const validateversion = (rule, value, callback) => {
                 if (this.formItem.type[0] === 3) {
                     if (value === '') {
-                        callback(new Error('插件版本'));
+                        callback(new Error('插件版本不能为空'));
                     } else {
                         callback();
                     }
@@ -239,7 +239,7 @@
                     this.$router.push('/home')
                 }else{
                     if(this.userInfo.is_active === 0){
-                        myDialog(`您还未激活邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>点击激活</a>`
+                        myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
                             , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     }
                 }
