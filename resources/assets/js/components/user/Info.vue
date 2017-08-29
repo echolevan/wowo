@@ -30,7 +30,7 @@
             >{{userInfo.gold}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">邮箱</span><span class="val">
+            <li><span class="title">安全邮箱</span><span class="val">
                 <Button type="success"  size="small" v-if="userInfo.is_active === 1">
                     <Tooltip content="安全邮箱已验证">
                         {{userInfo.email}}
@@ -49,22 +49,22 @@
                 </span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">手机</span>
+            <li><span class="title">手机号码</span>
                 <span class="val hover_hand" v-if="userInfo.tel === '0'" @click="to_setting">点击立即绑定</span>
                 <span class="val" v-else>{{userInfo.tel}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">生日</span>
+            <li><span class="title">出生日期</span>
                 <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{userInfo.birthday}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">出生地</span>
+            <li><span class="title">户籍地址</span>
                 <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">居住地</span>
+            <li><span class="title">现居地址</span>
                 <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{(userInfo.habitably.province ? userInfo.habitably.province : '未知省') + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
                 <div style="clear: both"></div>

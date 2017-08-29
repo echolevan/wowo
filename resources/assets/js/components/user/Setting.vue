@@ -57,8 +57,8 @@
             <Tab-pane label="修改密码" name="2">
                 <rest-password></rest-password>
             </Tab-pane>
-            <Tab-pane label="修改邮箱" name="3">标签三的内容</Tab-pane>
-            <Tab-pane label="修改手机" name="4">标签三的内容</Tab-pane>
+            <Tab-pane label="修改安全邮箱" name="3">标签三的内容</Tab-pane>
+            <Tab-pane label="修改手机号码" name="4">标签三的内容</Tab-pane>
         </Tabs>
 
     </div>
