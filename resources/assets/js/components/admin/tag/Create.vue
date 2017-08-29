@@ -50,7 +50,7 @@
             </Button>
         </Form>
 
-        <Modal title="查看图片" v-model="visible">
+        <Modal title="查看图标" v-model="visible">
             <img :src="imgName" v-if="visible" style="width: 100%">
         </Modal>
     </div>

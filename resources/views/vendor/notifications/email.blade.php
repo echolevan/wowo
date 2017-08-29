@@ -50,7 +50,7 @@ From,<br>{{ config('app.name') }}
 {{-- Subcopy --}}
 @isset($actionText)
 @component('mail::subcopy')
-如果您不能点击 "{{ $actionText }}" 这个按钮, 那么复制下面的链接到浏览器打开: [{{ $actionUrl }}]({{ $actionUrl }})
+如果您不能点击 "{{ $actionText }}" 这个按钮, 请复制下面的链接到浏览器打开: [{{ $actionUrl }}]({{ $actionUrl }})
 @endcomponent
 @endisset
 @endcomponent
