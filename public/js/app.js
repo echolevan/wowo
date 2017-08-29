@@ -7602,9 +7602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -7674,17 +7671,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
-        var validatename = function validatename(rule, value, callback) {
-            if (_this.formItem.type[0] === 3) {
-                if (value === '') {
-                    callback(new Error('插件名称不能为空'));
-                } else {
-                    callback();
-                }
-            } else {
-                callback();
-            }
-        };
         return {
             plug_tags: [],
             game_versions: [],
@@ -7699,8 +7685,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false,
                 gold: 1,
                 uploadList: [],
-                plug_url: '',
-                name: ''
+                plug_url: ''
             },
             imgName: '',
             visible: false,
@@ -7710,15 +7695,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             ruleValidate: {
                 title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
-                content: [{ validator: validateContent, required: true, trigger: 'blur' }],
-                plug_url: [{ validator: validateContentUrl, required: true, trigger: 'change' }],
+                content: [{ validator: validateContent, trigger: 'blur' }],
+                plug_url: [{ validator: validateContentUrl, trigger: 'change' }],
                 info: [{ required: true, message: '简介不能为空' }],
                 updated_info: [{ required: true, message: '更新日志不能为空', trigger: 'blur' }, { max: 150, message: '更新日志最长150字符', trigger: 'change' }, { max: 150, message: '更新日志最长150字符', trigger: 'blur' }],
                 uploadList: [{ validator: validateUploadList, required: true, trigger: 'change' }],
                 game_version: [{ required: true, message: '游戏版本号不能为空', trigger: 'blur' }],
-                gold: [{ validator: validategold, required: true, trigger: 'change' }],
-                version: [{ validator: validateversion, required: true, trigger: 'blur' }],
-                name: [{ validator: validatename, required: true, trigger: 'blur' }, { max: 30, message: '插件名称最长30字符', trigger: 'change' }, { max: 30, message: '插件名称最长30字符', trigger: 'blur' }]
+                gold: [{ validator: validategold, trigger: 'change' }],
+                version: [{ validator: validateversion, trigger: 'blur' }]
             }
         };
     },
@@ -7783,7 +7767,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.formItem.version = res.data.plug.version;
                 _this3.formItem.game_version = res.data.plug.game_version;
                 _this3.formItem.is_free = res.data.plug.is_free;
-                _this3.formItem.name = res.data.plug.name;
                 _this3.formItem.gold = res.data.plug.gold;
                 _this3.formItem.plug_url = res.data.plug.content;
                 _this3.formItem.uploadList = res.data.plug.thumbs;
@@ -7845,15 +7828,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (res.sta === 0) {
                 myDialog(res.msg);
             } else {
-                this.$refs.uploadPlug.clearFiles();
                 this.formItem.plug_url = res.url;
             }
         },
         handlePlugUpload: function handlePlugUpload() {
-            //                if(this.formItem.plug_url !== ''){
-            //                    myDialog('您已上传过文件，请先删除')
-            //                    return false;
-            //                }
+            if (this.formItem.plug_url !== '') {
+                myDialog('您已上传过文件，请先删除');
+                return false;
+            }
         },
         removePlug: function removePlug() {
             this.formItem.plug_url = '';
@@ -75739,7 +75721,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Input', {
     attrs: {
-      "placeholder": "标题"
+      "placeholder": "请输入"
     },
     model: {
       value: (_vm.formItem.title),
@@ -75753,7 +75735,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "分类",
       "prop": "type"
     }
-  }, [(_vm.plug_tags && _vm.plug_tags.length > 0) ? _c('Cascader', {
+  }, [(_vm.plug_tags.length > 0) ? _c('Cascader', {
     attrs: {
       "data": _vm.plug_tags
     },
@@ -75771,25 +75753,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
+      value: (_vm.formItem.type[0] === 1 || _vm.formItem.type[0] === 2),
+      expression: "formItem.type[0] === 1 || formItem.type[0] === 2"
+    }],
+    attrs: {
+      "label": "字符串",
+      "prop": "content"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "textarea",
+      "autosize": {
+        minRows: 2
+      },
+      "placeholder": "请输入"
+    },
+    on: {
+      "input": _vm.keyUp
+    },
+    model: {
+      value: (_vm.formItem.content),
+      callback: function($$v) {
+        _vm.formItem.content = $$v
+      },
+      expression: "formItem.content"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
       value: (_vm.formItem.type[0] === 3),
       expression: "formItem.type[0] === 3"
     }],
     attrs: {
-      "label": "插件名称",
-      "prop": "name"
+      "label": "上传插件",
+      "prop": "plug_url"
     }
-  }, [_c('Input', {
+  }, [_c('Upload', {
     attrs: {
-      "placeholder": "插件名称"
-    },
-    model: {
-      value: (_vm.formItem.name),
-      callback: function($$v) {
-        _vm.formItem.name = $$v
+      "action": "/upload_plug_info_plug",
+      "headers": {
+        "X-CSRF-TOKEN": _vm.csrfToken
       },
-      expression: "formItem.name"
+      "on-success": _vm.handlePlugSuccess,
+      "before-upload": _vm.handlePlugUpload,
+      "on-remove": _vm.removePlug
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }, [_c('Button', {
+    attrs: {
+      "type": "ghost",
+      "icon": "ios-cloud-upload-outline"
+    }
+  }, [_vm._v("上传文件")])], 1), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.del_plug_sta === 1 && this.formItem.plug_url),
+      expression: "del_plug_sta === 1 && this.formItem.plug_url"
+    }],
+    staticClass: "hover_hand",
+    on: {
+      "click": _vm.del_plug
+    }
+  }, [_vm._v("重新上传")])], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "更新日志",
       "prop": "updated_info"
@@ -75911,69 +75937,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.gold"
     }
   })], 1), _vm._v(" "), _c('Form-item', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.type[0] === 1 || _vm.formItem.type[0] === 2),
-      expression: "formItem.type[0] === 1 || formItem.type[0] === 2"
-    }],
-    attrs: {
-      "label": "字符串",
-      "prop": "content"
-    }
-  }, [_c('Input', {
-    attrs: {
-      "type": "textarea",
-      "autosize": {
-        minRows: 2
-      },
-      "placeholder": "请输入"
-    },
-    on: {
-      "input": _vm.keyUp
-    },
-    model: {
-      value: (_vm.formItem.content),
-      callback: function($$v) {
-        _vm.formItem.content = $$v
-      },
-      expression: "formItem.content"
-    }
-  })], 1), _vm._v(" "), _c('Form-item', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.type[0] === 3),
-      expression: "formItem.type[0] === 3"
-    }],
-    attrs: {
-      "label": "上传插件",
-      "prop": "plug_url"
-    }
-  }, [_c('Upload', {
-    ref: "uploadPlug",
-    attrs: {
-      "action": "/upload_plug_info_plug",
-      "headers": {
-        "X-CSRF-TOKEN": _vm.csrfToken
-      },
-      "on-success": _vm.handlePlugSuccess,
-      "before-upload": _vm.handlePlugUpload,
-      "on-remove": _vm.removePlug
-    }
-  }, [_c('Button', {
-    attrs: {
-      "type": "ghost",
-      "icon": "ios-cloud-upload-outline"
-    }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
     }
   }, [_vm._l((_vm.formItem.uploadList), function(item, k) {
     return _c('div', {
-      staticClass: "demo-upload-list"
+      staticClass: "demo-upload-list",
+      class: ("img_viewer_" + k)
     }, [_c('img', {
       attrs: {
         "src": item.url
@@ -76061,7 +76032,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "查看截图"
     },
@@ -76079,11 +76054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.imgName
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })], 1)
+  }) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
