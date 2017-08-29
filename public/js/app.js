@@ -7384,6 +7384,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.tag_active_pid = 0;
         },
         change_s_tag: function change_s_tag() {
+            this.tag_active = 0;
+            this.tag_active_pid = 0;
             var watmw_tag_id = localStorage.getItem('watmw_tag_id');
             var watmw_tag_pid = localStorage.getItem('watmw_tag_pid');
             if (watmw_tag_id) {

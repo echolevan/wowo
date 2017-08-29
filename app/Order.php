@@ -11,7 +11,7 @@ class Order extends Model
 
     public function plug()
     {
-        return $this->belongsTo(Plug::class);
+        return $this->belongsTo(Plug::class,'plug_only_id','plug_id');
     }
 
     public function score()

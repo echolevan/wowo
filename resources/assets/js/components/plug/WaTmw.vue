@@ -133,6 +133,8 @@
                 this.tag_active_pid = 0
             },
             change_s_tag() {
+                this.tag_active = 0
+                this.tag_active_pid = 0
                 let  watmw_tag_id = localStorage.getItem('watmw_tag_id')
                 let  watmw_tag_pid = localStorage.getItem('watmw_tag_pid')
                 if(watmw_tag_id){
