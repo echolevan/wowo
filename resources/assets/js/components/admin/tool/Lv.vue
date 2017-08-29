@@ -72,10 +72,10 @@
                 <Form-item label="名称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"></Input>
                 </Form-item>
-                <Form-item label="充值条件" prop="money">
+                <Form-item label="满足条件" prop="money">
                     <Input-number :min="0" v-model="formItem.money" @on-change="change_other"></Input-number>
                 </Form-item>
-                <Form-item label="赠送比例" prop="giving">
+                <Form-item label="赠送比例(%)" prop="giving">
                     <Input-number :max="100" :min="0" v-model="formItem.giving" @on-change="change_giving"></Input-number>
                 </Form-item>
             </Form>

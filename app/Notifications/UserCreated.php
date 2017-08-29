@@ -45,9 +45,9 @@ class UserCreated extends Notification
     {
         return (new MailMessage)
                     ->line('亲爱的'.$this->user->nickname)
-                    ->subject('请您激活您的帐号')
-                    ->line('请激活您的嘿市网帐号')
-                    ->action('点击激活', url(route('user.check_email',array('token'=>$this->user->token))))
+                    ->subject('嘿市网邮箱验证')
+                    ->line('您于 申请验证邮箱，点击以下按钮，即可完成验证：')
+                    ->action('验证邮箱', url(route('user.check_email',array('token'=>$this->user->token))))
                     ->line('Thanks a lot!');
     }
 

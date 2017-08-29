@@ -26,9 +26,9 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.tagType" clearable placeholder="资源类型"  style="width: 100px;">
-                    <Option v-for="(v , k) in configPlugType" :value="k" :key="k">{{v}}</Option>
-                </Select>
+            <Select v-model="formS.tagType" clearable placeholder="资源分类"  style="width: 100px;">
+                <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
+            </Select>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.status" clearable placeholder="状态"  style="width: 80px;">
@@ -84,7 +84,7 @@
                 <th>插件名称</th>
                 <th>作者</th>
                 <th>售价</th>
-                <th>分类</th>
+                <th>资源分类</th>
                 <th>资源内容</th>
                 <th>是否为最新</th>
                 <th>下载次数</th>

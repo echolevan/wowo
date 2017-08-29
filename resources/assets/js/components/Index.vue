@@ -141,14 +141,14 @@
                         if (res.data.info.is_active === 0) {
                             if(res.data.info.camp === 1){
                                 this.$Notice.info({
-                                    title: '您的帐号还未激活',
-                                    desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
+                                    title: '您的安全邮箱未验证',
+                                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                                     duration: 0
                                 });
                             }else{
                                 this.$Notice.error({
-                                    title: '您的帐号还未激活',
-                                    desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
+                                    title: '您的安全邮箱未验证',
+                                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                                     duration: 0
                                 });
                             }

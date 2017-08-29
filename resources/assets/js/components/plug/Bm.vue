@@ -30,8 +30,8 @@
                 -
                 <span v-if="v.gold === 0" class="normal_font"
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                >[免费]</span>
-                <span v-else>售价：
+                >免费</span>
+                <span v-else>
                       <span v-if="v.order" class="normal_font"
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                       ><s>[{{v.gold}}金币]</s></span>
@@ -64,14 +64,14 @@
         <div class="dialog dialog--open" v-show="download_model">
             <div class="dialog__overlay"></div>
             <div class="dialog__content  animated fadeIn" style="border-radius: 5px">
-                <h2>确认购买?</h2>
+                <h2>确定购买?</h2>
                 <div>
                     <button type="button" class="close_dialog" style="border-radius: 5px;background:#fff;color:#333;"
                             @click="download_model = false">取消
                     </button>
                     <button type="button" class="close_dialog ivu-btn-primary"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            style="border-radius: 5px" @click="go_download(down_id, down_k)">确认
+                            style="border-radius: 5px" @click="go_download(down_id, down_k)">确定
                     </button>
                 </div>
             </div>

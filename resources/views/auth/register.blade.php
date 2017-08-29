@@ -71,7 +71,7 @@
                    @if ($errors->has('nickname'))
                        <p>{{ $errors->first('nickname') }}</p>
                    @endif
-                   <input type="password" name="password" placeholder="密码(必须有大小写+数字、不少于8位)">
+                   <input type="password" name="password" placeholder="密码(必须有大小写+数字，不少于8位)">
                    @if ($errors->has('password'))
                        <p>{{ $errors->first('password') }}</p>
                    @endif
@@ -99,9 +99,9 @@
     <div class="dialog dialog--open" style="display: none">
         <div class="dialog__overlay"></div>
         <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">
-            <h2>阵营切换间隔时间为 <span style="color: #d13030">30</span> 天,请谨慎选择!</h2>
+            <h2>阵营切换间隔时间为 <span style="color: #d13030">30</span> 天，请谨慎选择！</h2>
             <div>
-                <button type="button" class="close_dialog" onclick="$('.dialog').hide()" style="border-radius: 5px;background: #d13030;color: #fff">确认</button>
+                <button type="button" class="close_dialog" onclick="$('.dialog').hide()" style="border-radius: 5px;background: #d13030;color: #fff">确定</button>
             </div>
         </div>
     </div>
