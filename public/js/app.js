@@ -2048,8 +2048,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.$store.commit('change_userInfo', res.data.info);
                     if (res.data.info.is_active === 0) {
                         _this.$Notice.open({
-                            title: '您的帐号还未激活',
-                            desc: '已发送激活邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击激活</a>。',
+                            title: '您的安全邮箱未验证',
+                            desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                             duration: 0
                         });
                     }
@@ -77575,7 +77575,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v("免费")]) : _c('span', [(v.order) ? _c('span', {
+    }, [_vm._v("[免费]")]) : _c('span', [(v.order) ? _c('span', {
       staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
