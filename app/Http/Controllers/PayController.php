@@ -76,14 +76,14 @@ class PayController extends Controller
                         Recharge::where('out_trade_no',$out_trade_no)->update([
                             'status'=>9
                         ]);
-                        User::where('id',Auth::id())->update([
+                        User::where('id',$recharge->user_id)->update([
                             'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
                         ]);
                         Log::info('add_success');
                         DB::commit();
                     }catch(\Exception $e){
                         DB::rollBack();
-                        Log::error(json_encode([$recharge, Auth::id()]));
+                        Log::error(json_encode([$recharge, $recharge->user_id]));
                         echo "fail";
                     }
                 }
