@@ -114,11 +114,20 @@ class UserController extends Controller
             return ['sta'=>0 , 'msg'=>'创建充值订单失败'];
         }
 
-        // 如果支付成功
+        if($rec->recharge_type == 1){
+            // 支付宝
+            // todo
+            $payC = new PayController();
+            $pay_url = $payC->alipay($rec);
+        }else if($rec->recharge_type == 2){
+            // 微信
+            // todo
+        }
 
 
 //        $user_info = User::where('id',Auth::id())->first();
-        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id)];
+//        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id)];
+        return ['sta'=>1 , 'url'=>$pay_url];
 
     }
 
