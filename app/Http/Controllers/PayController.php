@@ -28,7 +28,7 @@ class PayController extends Controller
         $customData = json_encode(['recharge_gold' => $order->recharge_gold, 'user_id' => $order->user_id]);//自定义参数
         $response = Alipay::tradePagePay($subject, $body, $out_trade_no, $total_amount, $customData);
         //输出表单
-        return $response;
+        return $response['redirect_url'];
     }
 
     public function tradePayQuery(Request $request)
@@ -62,6 +62,27 @@ class PayController extends Controller
             $trade_no = $_POST['trade_no'];
             //交易状态
             $trade_status = $_POST['trade_status'];
+
+            $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
+            $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
+            if($recharge->status === 9){
+                return redirect('/#/userInfo/pay');
+            }
+            DB::beginTransaction();
+            try{
+                Recharge::where('out_trade_no',$out_trade_no)->update([
+                    'status'=>9
+                ]);
+                User::where('id',Auth::id())->update([
+                    'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                ]);
+                DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                Log::error(json_encode([$recharge, Auth::id()]));
+                return ['sta'=>0 , 'msg'=>'充值失败，但付款成功，请联系客服'];
+            }
+
 
             if ($_POST['trade_status'] == 'TRADE_FINISHED') {
 
