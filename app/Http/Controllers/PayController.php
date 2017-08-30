@@ -63,43 +63,26 @@ class PayController extends Controller
             //交易状态
             $trade_status = $_POST['trade_status'];
 
-            $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
-            $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
-            if($recharge->status === 9){
-                return redirect('/#/userInfo/pay');
-            }
-            DB::beginTransaction();
-            try{
-                Recharge::where('out_trade_no',$out_trade_no)->update([
-                    'status'=>9
-                ]);
-                User::where('id',Auth::id())->update([
-                    'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
-                ]);
-                DB::commit();
-            }catch(\Exception $e){
-                DB::rollBack();
-                Log::error(json_encode([$recharge, Auth::id()]));
-                return ['sta'=>0 , 'msg'=>'充值失败，但付款成功，请联系客服'];
-            }
-
-
-            if ($_POST['trade_status'] == 'TRADE_FINISHED') {
-
-                //判断该笔订单是否在商户网站中已经做过处理
-                //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-                //请务必判断请求时的total_amount与通知时获取的total_fee为一致的
-                //如果有做过处理，不执行商户的业务程序
-
-                //注意：
-                //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-            } else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
-                //判断该笔订单是否在商户网站中已经做过处理
-                //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-                //请务必判断请求时的total_amount与通知时获取的total_fee为一致的
-                //如果有做过处理，不执行商户的业务程序
-                //注意：
-                //付款完成后，支付宝系统发送该交易状态通知
+            if($trade_status == 'TRADE_SUCCESS'){
+                $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
+                if($recharge->status === 9){
+                    echo "success";
+                    exit;
+                }
+                DB::beginTransaction();
+                try{
+                    Recharge::where('out_trade_no',$out_trade_no)->update([
+                        'status'=>9
+                    ]);
+                    User::where('id',Auth::id())->update([
+                        'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                    ]);
+                    DB::commit();
+                }catch(\Exception $e){
+                    DB::rollBack();
+                    Log::error(json_encode([$recharge, Auth::id()]));
+                    echo "fail";
+                }
             }
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
             echo "success";    //请不要修改或删除
