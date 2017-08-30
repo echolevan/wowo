@@ -45,7 +45,6 @@ class PayController extends Controller
         Log::info('notify_begin');
         Log::info(print_r($result));
         Log::info($_POST);
-        Log::info($request->all());
         Log::info('notify_end');
         /* 实际验证过程建议商户添加以下校验。
        1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
@@ -73,12 +72,13 @@ class PayController extends Controller
                     exit;
                 }else{
                     DB::beginTransaction();
+                    $gold = User::where('id',$recharge->user_id)->value('gold');
                     try{
                         Recharge::where('out_trade_no',$out_trade_no)->update([
                             'status'=>9
                         ]);
                         User::where('id',$recharge->user_id)->update([
-                            'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                            'gold' => $gold + $recharge->recharge_amount*10 + $recharge->giving_gold
                         ]);
                         Log::info('add_success');
                         DB::commit();
