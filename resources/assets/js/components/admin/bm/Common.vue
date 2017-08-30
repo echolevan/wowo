@@ -14,16 +14,14 @@
                 </Form-item>
                 <Form-item label="上传"  prop="url">
                     <Upload action="/admin/upload_bm_plug"
+                            ref="uploadPlug"
                             :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                             :on-success="handlePlugSuccess"
                             :before-upload="handlePlugUpload"
                             :on-remove="removePlug"
-                            :show-upload-list="false"
-                            v-show="formItem.url === ''"
                     >
-                        <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+                        <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.url === '' ? '上传文件' : '重新上传'}}</Button>
                     </Upload>
-                    <p v-show="formItem.url !== ''" @click="removePlug" class="hover_hand">重新上传</p>
                 </Form-item>
 
                 <Form-item label="资源类型" prop="zy_type">
@@ -124,15 +122,16 @@
                 } else {
                     this.$Loading.finish()
                     this.formItem.url = res.url
-                    this.$Message.success('开始上传')
+                    this.$refs.uploadPlug.clearFiles()
+                    this.$Message.success('上传完成')
                 }
 
             },
             handlePlugUpload() {
-                if (this.formItem.url !== '') {
-                    this.$Message.error('您已上传过文件，请先删除')
-                    return false;
-                }
+//                if (this.formItem.url !== '') {
+//                    this.$Message.error('您已上传过文件，请先删除')
+//                    return false;
+//                }
                 this.$Loading.start()
                 this.$Message.success('开始上传')
             },

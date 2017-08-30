@@ -11,6 +11,12 @@ export const isForUser = {
     1: '可'
 }
 
+export const isActive = {
+    0: '待验证',
+    1: '已验证'
+}
+
+
 export const yesOrNo = {
     0: '否',
     1: '是'
@@ -29,7 +35,7 @@ export const isLogin = {
 export const plugType = {
     1: 'WA',
     2: 'TMW',
-    3: '魔兽插件'
+    3: '游戏插件'
 }
 
 export const checkType = {

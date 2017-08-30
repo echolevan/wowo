@@ -100,7 +100,7 @@ class PlugController extends Controller
         $plug = Plug::with('thumbs')
             ->with('tag_one')->with('tag_two')->with('user')
             ->with(['historys' => function ($query) {
-                $query->select('id','plug_id','version','game_version','created_at','title')->latest();
+                $query->select('id','plug_id','version','game_version','created_at','title','name','type')->latest();
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->where('id',$id)->first();
@@ -361,6 +361,44 @@ class PlugController extends Controller
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
 
+    public function plug_all_info_type($type,$name)
+    {
+        if($type === 'wa'){
+            $tag = [[1, 1, 'WA']];
+            $name = 'null';
+        }else if($type === 'tmw'){
+            $tag = [ [1,2,'TMW']];
+            $name = 'null';
+        }else if($type === 'plug'){
+            $tag = [ [2, 3, '游戏插件']];
+        }else{
+            $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '游戏插件']];
+            $name = 'null';
+        }
+
+        $res = [];
+        foreach ($tag as $k => $v) {
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['label'] = $v[2];
+            $res[$k]['children'] = Tag::with(['children' => function ($query) {
+                $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
+                ->when(isset($name) && $name !== 'null',function($query) use ($name) {
+                    $query->where('name',$name);
+                })
+                ->when(Auth::user()->is_admin === 0 , function ($query){
+                    $query->where('is_for_user', 1);
+                })
+                ->orderBy('rank','desc')->latest()
+                ->get();
+        }
+
+        $game_version = Tool::where('name','game_version')->get();
+
+
+        return ['res'=>$res , 'game_versions' =>$game_version];
+    }
+
     public function plug_all_info_for_admin()
     {
         $tag = [[1, 1, 'WA/TMW'], [2, 3, '游戏插件']];
@@ -399,6 +437,26 @@ class PlugController extends Controller
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
+
+    public function plug_all_info_nav()
+    {
+        $tag = [[1, 1, 'WA'] , [1,2,'TMW'], [2, 3, '游戏插件']];
+
+        $res = [];
+        foreach ($tag as $k => $v) {
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['label'] = $v[2];
+            $res[$k]['children'] = Tag::with(['children' => function ($query) {
+                $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
+            }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
+                ->orderBy('rank','desc')->latest()->get();
+        }
+
+        $game_version = Tool::where('name','game_version')->get();
+
+        return ['res'=>$res , 'game_versions' =>$game_version];
+    }
+
     /**
      * @param Request $request
      * @return array
@@ -421,7 +479,7 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
-        $plug->author = $req['author'];
+        $plug->author = isset($req['author']) ? $req['author'] : '';
         $Plug->plug_id = ($plug_id === 0 || $plug_id === 'undefined') ? get_only_one_plug_id() : $plug_id;
         $Plug->gold = !$req['is_free'] ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
@@ -480,7 +538,7 @@ class PlugController extends Controller
             $Plug->$k = $v;
         }
         $Plug->user_id = Auth::id();
-        $plug->author = $req['author'];
+        $plug->author = isset($req['author']) ? $req['author'] : '';
         $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
@@ -625,7 +683,11 @@ class PlugController extends Controller
         if(Cache::has('plug_index_download_plugs')){
             $download_plugs = Cache::get('plug_index_download_plugs');
         }else{
-            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->orderBy('download_num','desc')->where([['status', 1], ['is_check', 1]])->get();
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')
+                ->where([['status', 1], ['is_check', 1]])
+                ->orderBy('download_num','desc')
+                ->latest()
+                ->get();
             Cache::put('plug_index_download_plugs',$download_plugs,60);
         }
 
@@ -636,8 +698,8 @@ class PlugController extends Controller
                 ->where([['status', 1], ['is_check', 1]])
                 ->skip(0)->take(20)->select('plugs.id','plugs.title','plugs.created_at' , 'downloads.num')->
             leftJoin('downloads', 'plugs.plug_id' ,'=' ,'downloads.plug_id')
-
                 ->orderBy('downloads.num','desc')
+                ->orderBy('plugs.created_at','desc')
                 ->get();
             Cache::put('plug_index_download_plugs_this_mouth',$download_plugs_this_mouth,60);
         }
@@ -645,18 +707,18 @@ class PlugController extends Controller
         if(Cache::has('plug_index_census')){
             $census = Cache::get('plug_index_census');
         }else{
-            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1]])->count();
-            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',1)->count();
-            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',2)->count();
-            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',3)->count();
-            $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
-            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at');
+            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->count();
+            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',1)->count();
+            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',2)->count();
+            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',3)->count();
+            $census['today_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
+            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->orderBy('created_at','desc')->value('created_at');
             if($census['last_time']){
                 $census['last_time'] = $census['last_time'];
             }else{
                 $census['last_time'] = '暂无';
             }
-            $census['user_count'] = User::count();
+            $census['useCount'] = User::count();
             $census['lm_count'] = User::where('camp',1)->count();
             $census['bl_count'] = User::where('camp',2)->count();
             Cache::put('plug_index_census',$census,60);

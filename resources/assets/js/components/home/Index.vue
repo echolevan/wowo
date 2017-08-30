@@ -6,9 +6,14 @@
                 <div class="tool_user_child child">
                     <iCol span="18">
                         <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
+                        <p class="pull-right "
+                        >共 <span class="normal_font"
+                                 :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                 style="font-weight:bold"
+                        >{{content.length}}</span> 字符 </p>
                     </iCol>
                     <iCol span="6">
-                        <div  style="width: 250px;margin:0 auto;height: 178px;position: relative">
+                        <div  style="width: 250px;margin:0 auto;height: 193px;position: relative">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                       @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
 
@@ -93,7 +98,7 @@
                     <div class="tool_user_child child">
                         <ul>
                             <div class="col-md-6">
-                                <li>用户总数：{{census.user_count}}</li>
+                                <li>用户总数：{{census.useCount}}</li>
                                 <li>联盟用户：{{census.lm_count}}</li>
                             </div>
                             <div class="col-md-6">

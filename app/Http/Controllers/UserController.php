@@ -99,6 +99,7 @@ class UserController extends Controller
         // 生成充值订单
         $rec = Recharge::create([
             'user_id' => Auth::id(),
+            'out_trade_no' => date('YmdHis') . time().rand(10000,99999),
             'recharge_type' => $request->recharge_type,
             'recharge_amount' => sprintf("%.2f",$recharge_amount),
             'recharge_gold' => $recharge_amount*10,
@@ -112,35 +113,37 @@ class UserController extends Controller
             Log::error(json_encode($rec));
             return ['sta'=>0 , 'msg'=>'创建充值订单失败'];
         }
+//
+//        if($rec->recharge_type == 1){
+//            // 支付宝
+//            // todo
+//            $payC = new PayController();
+//            $pay_url = $payC->alipay($rec);
+//        }else if($rec->recharge_type == 2){
+//            // 微信
+//            // todo
+//        }
 
-        if($request->recharge_type == 1){
+
+//        $user_info = User::where('id',Auth::id())->first();
+        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id)];
+//        return ['sta'=>1 , 'url'=>$pay_url];
+
+    }
+
+    public function go_to_pay($id)
+    {
+        $order = Recharge::find($id);
+        if($order->recharge_type == 1){
             // 支付宝
             // todo
-        }else if($request->recharge_type == 2){
+            $payC = new PayController();
+            $pay_url = $payC->alipay($order);
+        }else if($order->recharge_type == 2){
             // 微信
             // todo
         }
-
-        // 如果支付成功
-         DB::beginTransaction();
-         try{
-              Recharge::where('id',$rec->id)->update([
-                 'status'=>9
-             ]);
-             User::where('id',Auth::id())->update([
-                 'gold' => Auth::user()->gold + $recharge_amount*10 + floor( $recharge_amount*10*$lv['info']->giving / 100)
-             ]);
-             DB::commit();
-         }catch(\Exception $e){
-             DB::rollBack();
-             Log::error(json_encode([$rec, Auth::id()]));
-             return ['sta'=>0 , 'msg'=>'充值失败，但付款成功，请联系客服'];
-         }
-
-        $user_info = User::where('id',Auth::id())->first();
-        return ['sta'=>1 , 'msg'=>'充值成功','info'=>$user_info];
     }
-
 
     /**
      * @param Request $request
@@ -186,7 +189,7 @@ class UserController extends Controller
 
             $sta = $this->check_is_camp();
             if(!$sta['sta']){
-                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营'];
+                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营' , 'time'=>$sta['time']];
             }
 
             $arr = [
@@ -222,7 +225,7 @@ class UserController extends Controller
     {
         if( !Auth::user()->update_camp_at || time() - Auth::user()->update_camp_at > 30*60*60*24 )
             return ['sta'=> 1];
-        return ['sta'=> 0];
+        return ['sta'=> 0 , 'time'=> 30 - floor( (time()- Auth::user()->update_camp_at) / (60*60*24) )];
     }
 
 
@@ -281,7 +284,7 @@ class UserController extends Controller
         $res = Recharge::where('user_id',Auth::id())->where('status',9)->skip(($page-1)*$size)->take($size)->orderBy('created_at','desc')->get();
         return ['count'=>$count , 'res'=>$res];
     }
-    
+
     public function send_mail()
     {
         // put in session
@@ -342,9 +345,9 @@ class UserController extends Controller
         }
         return ['sta'=>1 , 'info'=>$lv ? $lv : ['name'=>'新手','money'=>0,'giving'=>0]];
     }
-    
-    
-    
+
+
+
     public function user_list(Request $request,$page,$size)
     {
         $where = User::when($request->search['name'] != null, function ($query) use ($request) {

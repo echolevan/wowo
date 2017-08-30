@@ -21,15 +21,7 @@
                 <router-link to="/admin/notice/setting">
                     <Menu-item name="admin.notice.setting">公告管理</Menu-item>
                 </router-link>
-                <router-link to="/admin/lv/setting">
-                    <Menu-item name="admin.lv.setting">等级管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/nickname/setting/">
-                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/game_version/setting/">
-                    <Menu-item name="admin.game_version.setting">游戏版本管理</Menu-item>
-                </router-link>
+
             </Submenu>
             <Submenu name="1">
                 <template slot="title">
@@ -38,6 +30,12 @@
                 </template>
                 <router-link to="/admin/user/list">
                     <Menu-item name="admin.user.list">用户管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/lv/setting">
+                    <Menu-item name="admin.lv.setting">等级管理</Menu-item>
+                </router-link>
+                <router-link to="/admin/nickname/setting/">
+                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="5">
@@ -62,6 +60,9 @@
                 </router-link>
                 <router-link to="/admin/bm/list">
                     <Menu-item name="admin.bm.list">黑市资源</Menu-item>
+                </router-link>
+                <router-link to="/admin/game_version/setting/">
+                    <Menu-item name="admin.game_version.setting">游戏版本管理</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="3">

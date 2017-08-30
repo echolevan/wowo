@@ -258,8 +258,7 @@
                         if (res.data.sta === 0) {
                             myDialog(res.data.msg)
                         } else {
-                            this.$store.commit('change_userInfo', res.data.info)
-                            myDialog(res.data.msg)
+                            window.open(res.data.url);
                         }
                     })
                 }

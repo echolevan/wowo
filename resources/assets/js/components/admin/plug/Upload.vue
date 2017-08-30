@@ -16,35 +16,17 @@
                           @on-change="on_sel"></Cascader>
             </Form-item>
 
+            <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
+                <Input v-model="formItem.name" placeholder="插件名称"></Input>
+            </Form-item>
 
             <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.author" placeholder="作者信息"></Input>
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入" v-on:input="keyUp"></Input>
-            </Form-item>
-
-            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
-                <Upload action="/upload_plug_info_plug"
-                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
-                        :on-success="handlePlugSuccess"
-                        :before-upload="handlePlugUpload"
-                        :on-remove="removePlug"
-                >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                </Upload>
-            </Form-item>
-
-            <Form-item label="更新日志" prop="updated_info">
-                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
-                       placeholder="请输入"></Input>
-            </Form-item>
-
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
-
 
             <Form-item label="游戏版本" prop="game_version">
                 <Select v-model="formItem.game_version" style="width:200px" placeholder="请选择游戏版本号">
@@ -64,6 +46,22 @@
                         :min="1"
                         v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
+            </Form-item>
+
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入" v-on:input="keyUp"></Input>
+            </Form-item>
+
+            <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
+                <Upload action="/upload_plug_info_plug"
+                        ref="uploadPlug"
+                        :headers='{ "X-CSRF-TOKEN" : csrfToken}'
+                        :on-success="handlePlugSuccess"
+                        :before-upload="handlePlugUpload"
+                        :on-remove="removePlug"
+                >
+                    <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
+                </Upload>
             </Form-item>
 
 
@@ -93,6 +91,11 @@
                         </p>
                     </div>
                 </Upload>
+            </Form-item>
+
+            <Form-item label="更新日志" prop="updated_info">
+                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
+                       placeholder="请输入"></Input>
             </Form-item>
 
             <Form-item label="功能简介" prop="info">
@@ -183,6 +186,17 @@
                     callback();
                 }
             };
+            const validatename = (rule, value, callback) => {
+                if (this.formItem.type[0] === 3) {
+                    if (value === '') {
+                        callback(new Error('插件名称不能为空'));
+                    } else {
+                        callback();
+                    }
+                } else {
+                    callback();
+                }
+            };
             return {
                 game_versions:[],
                 plug_tags: [],
@@ -199,6 +213,7 @@
                     gold: 1,
                     uploadList: [],
                     plug_url: '',
+                    name: ''
                 },
                 imgName: '',
                 visible: false,
@@ -213,10 +228,10 @@
                         {validator: validateType, required: true, trigger: 'change'}
                     ],
                     content: [
-                        {validator: validateContent, trigger: 'blur'}
+                        {validator: validateContent, required: true,trigger: 'blur'}
                     ],
                     plug_url: [
-                        {validator: validateContentUrl, trigger: 'change'}
+                        {validator: validateContentUrl,required: true, trigger: 'change'}
                     ],
                     info: [
                         {required: true, message: '简介不能为空'}
@@ -233,10 +248,15 @@
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
-                        {validator: validategold, trigger: 'change'}
+                        {validator: validategold, required: true,trigger: 'change'}
                     ],
                     version: [
-                        {validator: validateversion, trigger: 'blur'}
+                        {validator: validateversion,required: true, trigger: 'blur'}
+                    ],
+                    name: [
+                        {validator: validatename,required: true,  trigger: 'blur'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'change'},
+                        {max: 30, message: '插件名称最长30字符', trigger: 'blur'},
                     ]
                 }
             }
@@ -245,14 +265,6 @@
             'userInfo', 'choice_cmap'
         ]),
         mounted() {
-            setTimeout(()=>{
-                if(!this.userInfo){
-                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
-                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
-                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                    this.$router.push('/home')
-                }
-            },500)
             this._init()
         },
         watch: {
@@ -373,14 +385,11 @@
                 if (res.sta === 0) {
                     this.$Message.error(res.msg)
                 } else {
+                    this.$refs.uploadPlug.clearFiles()
                     this.formItem.plug_url = res.url
                 }
             },
             handlePlugUpload() {
-                if (this.formItem.plug_url !== '') {
-                    this.$Message.error('您已上传过文件，请先删除')
-                    return false;
-                }
             },
             removePlug() {
                 this.formItem.plug_url = ''

@@ -26,9 +26,9 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.tagType" clearable placeholder="资源分类"  style="width: 100px;">
-                    <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
-                </Select>
+            <Select v-model="formS.tagType" clearable placeholder="资源分类"  style="width: 100px;">
+                <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
+            </Select>
             </Form-item>
             <Form-item>
                 <Select v-model="formS.status" clearable placeholder="状态"  style="width: 80px;">

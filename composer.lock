@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d74979a8c4b441c4f7c89902cf16c4b",
+    "content-hash": "b1729c37c90b66a43a20c46546104732",
     "packages": [
         {
             "name": "anchu/ftp",
@@ -600,6 +600,52 @@
                 "parser"
             ],
             "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "echobool/alipay-laravel5",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/echobool/alipay-laravel5.git",
+                "reference": "33c578cb4bce0835e9bb652b79f838daf13b5496"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/echobool/alipay-laravel5/33c578cb4bce0835e9bb652b79f838daf13b5496.zip",
+                "reference": "33c578cb4bce0835e9bb652b79f838daf13b5496",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EchoBool\\AlipayLaravel\\": "src/EchoBool/AlipayLaravel/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "luojinyi",
+                    "email": "40281612@qq.com"
+                }
+            ],
+            "keywords": [
+                "Alipay SDK",
+                "alipay",
+                "l5",
+                "laravel",
+                "laravel 5",
+                "支付宝",
+                "电脑网站支付"
+            ],
+            "time": "2017-07-02T04:32:50+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -4234,7 +4280,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "echobool/alipay-laravel5": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

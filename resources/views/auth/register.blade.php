@@ -98,10 +98,10 @@
 
     <div class="dialog dialog--open" style="display: none">
         <div class="dialog__overlay"></div>
-        <div class="dialog__content  animated fadeIn"  style="border-radius: 5px">
+        <div class="dialog__content  animated fadeIn"  style="border-radius: 2px">
             <h2>阵营切换间隔时间为 <span style="color: #d13030">30</span> 天，请谨慎选择！</h2>
             <div>
-                <button type="button" class="close_dialog" onclick="$('.dialog').hide()" style="border-radius: 5px;background: #d13030;color: #fff">确定</button>
+                <button type="button" class="close_dialog" onclick="$('.dialog').hide()" style="border-radius: 2px;background: #d13030;color: #fff">确定</button>
             </div>
         </div>
     </div>

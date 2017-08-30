@@ -14,7 +14,7 @@
                             <Option value="1">联盟</Option>
                             <Option value="2">部落</Option>
                         </Select>
-                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">阵营修改间隔时间为 30 天</p>
+                        <p v-if="!is_camp" class="normal_font" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">阵营修改间隔时间为 <span style="color: #ed3f14">{{is_camp_time}}</span> 天</p>
                     </Form-item>
                     <Form-item label="性别" >
                         <Select v-model="formItem.sex"  placeholder="请选择性别">
@@ -104,6 +104,7 @@
                         area: '区',
                     }
                 },
+                is_camp_time: 0,
                 is_camp: false,
                 ruleValidate: {
                     nickname: [
@@ -144,6 +145,7 @@
                   if(res.data.sta === 1){
                       this.is_camp = true
                   }else{
+                      this.is_camp_time = res.data.time
                       this.is_camp = false
                   }
               })

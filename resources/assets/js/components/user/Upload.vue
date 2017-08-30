@@ -3,11 +3,11 @@
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
                 <div style="width: 20%">资源名称</div>
-                <div style="width: 10%">售价</div>
-                <div style="width: 10%">状态</div>
-                <div style="width: 10%">版本</div>
-                <div style="width: 10%">游戏版本</div>
-                <div style="width: 40%">操作</div>
+                <div class="tt_center" style="width: 10%">售价</div>
+                <div class="tt_center" style="width: 10%">状态</div>
+                <div class="tt_center" style="width: 10%">版本</div>
+                <div class="tt_center" style="width: 10%">游戏版本</div>
+                <div class="tt_center" style="width: 40%">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
                 <div class="td_child title" style="width: 20%">
@@ -15,15 +15,15 @@
                         {{v.title}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%" v-if="v.gold === 0">免费</div>
-                <div class="td_child" style="width: 10%" v-else>{{v.gold}} 金币</div>
-                <div class="td_child" style="width: 10%">{{v.is_check === 1 ? '已审核' : '待审核'}}</div>
-                <div class="td_child hover_hand" style="width: 10%">
+                <div class="td_child tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
+                <div class="td_child tt_center" style="width: 10%" v-else>{{v.gold}} 金币</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.is_check === 1 ? '已审核' : '待审核'}}</div>
+                <div class="td_child hover_hand tt_center" style="width: 10%">
                     <Poptip :content="v.version" trigger="hover"  placement="bottom">
                         {{v.version}}
                     </Poptip>
                 </div>
-                <div class="td_child" style="width: 10%">{{v.game_version}}</div>
+                <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
                 <div class="td_child tool" style="width: 40%">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.id}}">
                         查看详情
@@ -41,15 +41,20 @@
                         mode="out-in" enter-active-class="animated fadeIn"
                 >
                     <div class="td_div td_div_child"  v-if="is_show_his === v.id" v-for="vv in v.historys" :key="vv.id">
-                        <div class="td_child title" style="width: 30%">
+                        <div class="td_child title" style="width: 20%">
                             <Poptip :content="vv.title" trigger="hover"  placement="bottom">
                                 {{vv.title}}
                             </Poptip>
                         </div>
-                        <div class="td_child" style="width: 10%" v-if="vv.gold === 0">免费</div>
-                        <div class="td_child" style="width: 10%" v-else>{{vv.gold}} 金币</div>
-                        <div class="td_child" style="width: 10%">{{vv.version}}</div>
-                        <div class="td_child" style="width: 10%">{{vv.game_version}}</div>
+                        <div class="td_child tt_center" style="width: 10%" v-if="vv.gold === 0">免费</div>
+                        <div class="td_child tt_center" style="width: 10%" v-else>{{vv.gold}} 金币</div>
+                        <div class="td_child tt_center" style="width: 10%">{{vv.is_check === 1 ? '已审核' : '待审核'}}</div>
+                        <div class="td_child hover_hand tt_center" style="width: 10%">
+                            <Poptip :content="vv.version" trigger="hover"  placement="bottom">
+                                {{vv.version}}
+                            </Poptip>
+                        </div>
+                        <div class="td_child tt_center" style="width: 10%">{{vv.game_version}}</div>
                         <div class="td_child tool" style="width: 40%">
                             <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: vv.id}}">
                                 查看详情

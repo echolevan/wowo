@@ -83,7 +83,7 @@
                                     <tr v-for="v in plug.historys">
                                         <td>
                                             <router-link :to="{name:'plug.info' , params:{id: v.id}}">
-                                                <a href="" class="link_a">{{v.title}} - {{ v.version }}</a>
+                                                <a href="" class="link_a">{{v.type}} - {{ v.version }}</a>
                                             </router-link>
                                         </td>
                                         <td>{{ v.version }}</td>

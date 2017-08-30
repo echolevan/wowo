@@ -173,6 +173,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Anchu\Ftp\FtpServiceProvider::class,
         Levan\Baidu\Stat\BaiduStatServiceProvider::class,
+        EchoBool\AlipayLaravel\AlipayServiceProvider::class,
         /*
          * Application Service Providers...
          */
