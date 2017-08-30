@@ -67,6 +67,7 @@ class PayController extends Controller
             if($trade_status == 'TRADE_SUCCESS'){
                 $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
                 if($recharge->status === 9){
+                    Log::info('success');
                     echo "success";
                     exit;
                 }else{
@@ -78,6 +79,7 @@ class PayController extends Controller
                         User::where('id',Auth::id())->update([
                             'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
                         ]);
+                        Log::info('add_success');
                         DB::commit();
                     }catch(\Exception $e){
                         DB::rollBack();
