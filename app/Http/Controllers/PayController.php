@@ -44,6 +44,7 @@ class PayController extends Controller
         $result = Alipay::notify($_POST);
         Log::info('notify_begin');
         Log::info(print_r($result));
+        Log::info(print_r($_POST));
         Log::info('notify_end');
         /* 实际验证过程建议商户添加以下校验。
        1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
@@ -68,20 +69,21 @@ class PayController extends Controller
                 if($recharge->status === 9){
                     echo "success";
                     exit;
-                }
-                DB::beginTransaction();
-                try{
-                    Recharge::where('out_trade_no',$out_trade_no)->update([
-                        'status'=>9
-                    ]);
-                    User::where('id',Auth::id())->update([
-                        'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
-                    ]);
-                    DB::commit();
-                }catch(\Exception $e){
-                    DB::rollBack();
-                    Log::error(json_encode([$recharge, Auth::id()]));
-                    echo "fail";
+                }else{
+                    DB::beginTransaction();
+                    try{
+                        Recharge::where('out_trade_no',$out_trade_no)->update([
+                            'status'=>9
+                        ]);
+                        User::where('id',Auth::id())->update([
+                            'gold' => Auth::user()->gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                        ]);
+                        DB::commit();
+                    }catch(\Exception $e){
+                        DB::rollBack();
+                        Log::error(json_encode([$recharge, Auth::id()]));
+                        echo "fail";
+                    }
                 }
             }
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
