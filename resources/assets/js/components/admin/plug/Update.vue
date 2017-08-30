@@ -24,11 +24,6 @@
                 <Input v-model="formItem.author" placeholder="作者信息"></Input>
             </Form-item>
 
-            <Form-item label="更新日志" prop="updated_info">
-                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
-                       placeholder="请输入"></Input>
-            </Form-item>
-
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
@@ -97,6 +92,12 @@
                     </div>
                 </Upload>
             </Form-item>
+
+            <Form-item label="更新日志" prop="updated_info">
+                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
+                       placeholder="请输入"></Input>
+            </Form-item>
+
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>

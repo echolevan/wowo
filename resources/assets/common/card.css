@@ -10,7 +10,7 @@
 /*= common css to all effects end =*/
 
 /*= effect-1 css =*/
-.user_card .card.effect-1{border-radius: 5px 5px 0 0; padding-bottom: 40px;}
+.user_card .card.effect-1{border-radius: 2px 5px 0 0; padding-bottom: 40px;}
 .user_card .card.effect-1 .member-image {border: 2px solid #266ec1; border-radius: 60px 0; display: inline-block; overflow: hidden; transition: 0.3s;}
 .user_card .card.effect-1 .social-touch{background-color: #e13157; position: absolute; left: 0; bottom: 0; height: 5px; overflow: hidden; padding: 5px 0 0; width: 100%; transition: 0.3s;}
 .user_card .card.effect-1 .member-image img{transition: 0.3s; border-radius: 60px 0;}

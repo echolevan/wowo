@@ -11,6 +11,12 @@ export const isForUser = {
     1: '可'
 }
 
+export const isActive = {
+    0: '待验证',
+    1: '已验证'
+}
+
+
 export const yesOrNo = {
     0: '否',
     1: '是'

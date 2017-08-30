@@ -32,7 +32,7 @@
         <div class="nav menu">
             <div class="head-v3">
 
-                <div class="navigation-down">
+                <div class="navigation-down" v-show="1 === 2">
 
                     <div v-if="nav_tags.length > 0" v-for="v in nav_tags" :id="v.lable" class="nav-down-menu menu-1"  :_t_nav="v.label"
                          v-on:mouseenter="is_hover = v.value" v-on:mouseleave="is_hover = 0"
@@ -131,6 +131,7 @@ console.log(1)<script>
                 axios.get('user/logout').then(res => {
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo', '')
+                        sessionStorage.removeItem('loginUserInfoId')
                     }
                 })
             },

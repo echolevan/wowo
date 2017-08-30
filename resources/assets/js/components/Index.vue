@@ -81,7 +81,6 @@
                 localStorage.setItem('redirect', "/")
                 this.$router.push(redirect)
             }
-            this._init()
             this.choice_camp()
 
             $('.goTop').css('opacity',0);
@@ -105,7 +104,6 @@
         },
         methods: {
             go_feedback(name) {
-                console.log(name)
                 this.$refs[name].validate((valid) => {
                     if (valid) {
                         axios.put('/feedback',{data: this.formCustom}).then(res => {
@@ -132,33 +130,7 @@
             choice_camp() {
                 let choice_camp = window.localStorage.getItem('choice_camp')
                 this.$store.commit('choice_camp', choice_camp)
-            },
-            _init() {
-                axios.get('user/info').then(res => {
-                    this.$store.commit('change_tools', res.data.tools)
-                    if (res.data.sta === '1') {
-                        this.$store.commit('change_userInfo', res.data.info)
-                        if (res.data.info.is_active === 0) {
-                            if(res.data.info.camp === 1){
-                                this.$Notice.info({
-                                    title: '您的安全邮箱未验证',
-                                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
-                                    duration: 0
-                                });
-                            }else{
-                                this.$Notice.error({
-                                    title: '您的安全邮箱未验证',
-                                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
-                                    duration: 0
-                                });
-                            }
-
-                        }
-                    } else {
-                        this.userInfo = '';
-                    }
-                })
-            },
+            }
         },
         components: {
             'v-nav': Nav

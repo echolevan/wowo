@@ -51,6 +51,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $messages = [
+            'email.unique' => '邮箱已经存在',
             'camp.required' => '请选择阵营',
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '验证码输入错误',

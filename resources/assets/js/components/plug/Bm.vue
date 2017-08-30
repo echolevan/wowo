@@ -63,16 +63,32 @@
 
         <div class="dialog dialog--open" v-show="download_model">
             <div class="dialog__overlay"></div>
-            <div class="dialog__content  animated fadeIn" style="border-radius: 5px">
+            <div class="dialog__content  animated fadeIn" style="border-radius: 2px">
                 <h2>确定购买?</h2>
                 <div>
-                    <button type="button" class="close_dialog" style="border-radius: 5px;background:#fff;color:#333;"
+                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#fff;color:#333;"
                             @click="download_model = false">取消
                     </button>
                     <button type="button" class="close_dialog ivu-btn-primary"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            style="border-radius: 5px" @click="go_download(down_id, down_k)">确定
+                            style="border-radius: 2px" @click="go_download(down_id, down_k)">确定
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialog dialog--open" v-show="!is_show_this">
+            <div class="dialog__overlay"></div>
+            <div class="dialog__content dialog__tell_you animated fadeIn" style="border-radius: 2px">
+                <div class="title_one">
+                    公告
+                </div>
+                <div class="title_two" v-html="tools.bm_notice">
+
+                </div>
+                <div class="title_thr">
+                    <div class="no_show_button hover_hand" @click="no_show_this">不再显示</div>
+                    <div class="i_know_button hover_hand" @click="i_know_this">我知道了</div>
                 </div>
             </div>
         </div>
@@ -102,11 +118,12 @@
                 download_model: false,
                 down_id: 0,
                 down_k: 0,
-                today: ''
+                today: '',
+                is_show_this: ''
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap'
+            'userInfo', 'choice_cmap' , 'tools'
         ]),
         watch: {
             userInfo() {
@@ -119,17 +136,18 @@
             }
         },
         mounted() {
-            setTimeout(() => {
-                if (!this.userInfo) {
-                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
-                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
-                        , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                    this.$router.push('/home')
-                }
-            }, 500)
+            localStorage.removeItem('no_show_this')
+            this.is_show_this = localStorage.getItem('no_show_this')
             this.get_plugs()
         },
         methods: {
+            no_show_this() {
+              localStorage.setItem('no_show_this',1)
+                this.is_show_this = 1
+            },
+            i_know_this() {
+              this.is_show_this = 1
+            },
             change_page(p) {
                 this.this_page = p
                 this.get_plugs()
@@ -185,4 +203,35 @@
                 width 100%
                 padding 5px 0
                 border-bottom 1px solid #f2f2f2
+
+    .dialog__tell_you
+        padding 0
+        text-align left
+        .title_one
+            font-size: 14px
+            padding 5px 15px
+        .title_two
+            color: #fff
+            padding 30px
+            font-size 14px
+            background-color #393d49
+        .title_thr
+            padding 10px 0
+            display flex
+            justify-content center
+            text-align center
+            div
+                width 100px
+                height 30px
+                font-size: 14px
+                border 1px solid #f1f1f1
+                line-height 30px
+                margin 0 5px
+                &.no_show_button
+                    background-color #393d49
+                    color #fff
+                &.i_know_button
+                    background-color #f1f1f1
+                    color #333
+
 </style>

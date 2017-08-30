@@ -683,7 +683,11 @@ class PlugController extends Controller
         if(Cache::has('plug_index_download_plugs')){
             $download_plugs = Cache::get('plug_index_download_plugs');
         }else{
-            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')->orderBy('download_num','desc')->where([['status', 1], ['is_check', 1]])->get();
+            $download_plugs = Plug::where('is_new',1)->skip(0)->take(20)->select('id','title','created_at','download_num')
+                ->where([['status', 1], ['is_check', 1]])
+                ->orderBy('download_num','desc')
+                ->latest()
+                ->get();
             Cache::put('plug_index_download_plugs',$download_plugs,60);
         }
 
@@ -694,8 +698,8 @@ class PlugController extends Controller
                 ->where([['status', 1], ['is_check', 1]])
                 ->skip(0)->take(20)->select('plugs.id','plugs.title','plugs.created_at' , 'downloads.num')->
             leftJoin('downloads', 'plugs.plug_id' ,'=' ,'downloads.plug_id')
-
                 ->orderBy('downloads.num','desc')
+                ->orderBy('plugs.created_at','desc')
                 ->get();
             Cache::put('plug_index_download_plugs_this_mouth',$download_plugs_this_mouth,60);
         }
@@ -703,12 +707,12 @@ class PlugController extends Controller
         if(Cache::has('plug_index_census')){
             $census = Cache::get('plug_index_census');
         }else{
-            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1]])->count();
-            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',1)->count();
-            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',2)->count();
-            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1]])->where('type',3)->count();
-            $census['today_count'] = Plug::where([['status', 1], ['is_check', 1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
-            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1]])->orderBy('created_at','desc')->value('created_at');
+            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->count();
+            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',1)->count();
+            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',2)->count();
+            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',3)->count();
+            $census['today_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
+            $census['last_time'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->orderBy('created_at','desc')->value('created_at');
             if($census['last_time']){
                 $census['last_time'] = $census['last_time'];
             }else{

@@ -15,7 +15,7 @@ import iView from 'iview';
 import VuePreview from 'vue-preview'
 import Vuex from 'vuex'
 
-import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType, payType, payStatus} from './components/common/config'
+import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType, payType, payStatus,isActive} from './components/common/config'
 import {my_dialog} from '../common/dialog.js'
 global.configTagType = tagType;
 global.configStatusType = statusType;
@@ -30,6 +30,7 @@ global.configBmType = bmType;
 global.myDialog = my_dialog;
 global.configPayType = payType;
 global.configPayStatus = payStatus;
+global.configIsActive = isActive;
 
 Vue.use(Vuex)
 Vue.use(VueRouter);
@@ -49,6 +50,7 @@ const store = new Vuex.Store({
         tools: {
             'bm': 0,
             'notice': '',
+            'bm_notice': ''
         }
     },
     mutations: {
@@ -61,6 +63,7 @@ const store = new Vuex.Store({
         change_tools (state, tools) {
             state.tools.bm = tools['bm'] ? tools['bm'].value : 1
             state.tools.notice = tools['notice'] ? tools['notice'].value : ''
+            state.tools.bm_notice = tools['bm_notice'] ? tools['bm_notice'].value : ''
         },
         change_tag (state, tools) {
             state.change_s_tag = Math.random()
@@ -68,8 +71,44 @@ const store = new Vuex.Store({
     }
 })
 
+axios.get('/user/info').then(res => {
+    store.commit('change_tools', res.data.tools)
+    if (res.data.sta === '1') {
+        store.commit('change_userInfo', res.data.info)
+        sessionStorage.setItem('loginUserInfoId',[res.data.info.id , res.data.info.is_active])
+        if (res.data.info.is_active === 0) {
+            if(res.data.info.camp === 1){
+                iView.Notice.info({
+                    title: '您的安全邮箱未验证',
+                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#266ec1">点击验证</a>。',
+                    duration: 0
+                });
+            }else{
+                iView.Notice.error({
+                    title: '您的安全邮箱未验证',
+                    desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#d13030">点击验证</a>。',
+                    duration: 0
+                });
+            }
+        }
+    } else {
+        sessionStorage.setItem('loginUserInfoId','')
+        this.userInfo = '';
+    }
+})
+
 
 RouterConfig.beforeEach((to,from,next) => {
+    if(to.name === 'bm.index' || to.matched[0].name === 'user.index'){
+        let userInfo = sessionStorage.getItem('loginUserInfoId')
+        if(!userInfo){
+            myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            RouterConfig.push('/home')
+            return false
+        }
+    }
     iView.LoadingBar.start();
     next()
 });

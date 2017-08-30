@@ -63,7 +63,9 @@
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
-                            <span class="pull-right hover_hand"  @click="download(plug.id)" v-show="$route.params.type === 'plug'">下载</span>
+                            <span class="pull-right hover_hand"  @click="download(plug.id)" v-show="$route.params.type === 'plug'" style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
+                                  :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                            >下载</span>
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>

@@ -37055,12 +37055,12 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
 
 .nav_top .router-link-exact-active.router-link-active {
   background: #266ec1;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .nav_top .router-link-exact-active.router-link-active.bl_active_color {
   background: #d13030;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .ivu-radio-group-button .ivu-radio-wrapper:hover {

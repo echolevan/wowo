@@ -14,11 +14,6 @@
                 <Input v-model="formItem.name" placeholder="插件名称"></Input>
             </Form-item>
 
-            <Form-item label="更新日志" prop="updated_info">
-                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
-                       placeholder="请输入"></Input>
-            </Form-item>
-
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
@@ -85,6 +80,11 @@
                         </p>
                     </div>
                 </Upload>
+            </Form-item>
+
+            <Form-item label="更新日志" prop="updated_info">
+                <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
+                       placeholder="请输入"></Input>
             </Form-item>
 
             <Form-item label="功能简介" prop="info">
@@ -252,19 +252,18 @@
             'userInfo', 'choice_cmap'
         ]),
         mounted() {
-            setTimeout(()=>{
-                if(!this.userInfo){
-                    myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+            let userInfo = sessionStorage.getItem('loginUserInfoId')
+            if(!userInfo){
+                myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                    , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                this.$router.push('/home')
+            }else{
+                if(userInfo[1] === 0){
+                    myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
                         , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                    this.$router.push('/home')
-                }else{
-                    if(this.userInfo.is_active === 0){
-                        myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
-                            , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                    }
                 }
-            },500)
+            }
             this._init()
         },
         watch: {
@@ -294,9 +293,11 @@
                             } else {
                                 myDialog(res.data.msg)
                                 if(this.$route.name === 'admin.plug.create'){
-                                    this.$router.push('/admin/plug/list')
+                                    this.$router.go(-1)
+//                                    this.$router.push('/admin/plug/list')
                                 }else{
-                                    this.$router.push('/waTmw/wa')
+                                    this.$router.go(-1)
+//                                    this.$router.push('/waTmw/wa')
                                 }
                             }
                         })

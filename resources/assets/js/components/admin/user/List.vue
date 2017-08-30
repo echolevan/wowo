@@ -21,7 +21,7 @@
             </Form-item>
             <Form-item>
                 <Select v-model="formS.is_active" clearable  placeholder="是否验证" style="width: 100px;">
-                    <Option v-for="(v , k) in configYesOrNo" :value="k" :key="k">{{v}}</Option>
+                    <Option v-for="(v , k) in configIsActive" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
             <Form-item>
@@ -74,13 +74,13 @@
                 <th style="width: 5%">用户名</th>
                 <th style="width: 5%">头像</th>
                 <th style="width: 10%" v-show="show_info">签名</th>
-                <th style="width: 7%">手机</th>
                 <th style="width: 8%" v-show="show_email">邮箱</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
                 <th style="width: 5%">发布资源数</th>
                 <th style="width: 10%" v-show="show_c_at">注册时间</th>
                 <th style="width: 10%" v-show="show_l_at">最近登陆</th>
+                <th style="width: 7%">手机</th>
                 <th style="width: 5%">安全邮箱验证</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否管理员</th>
@@ -102,15 +102,15 @@
                         </div>
                     </Tooltip>
                 </td>
-                <td>{{v.tel === '0' ? '未绑定手机' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
                 <td>{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
                 <td>{{v.plugs.length}}</td>
                 <td v-show="show_c_at">{{v.created_at}}</td>
                 <td v-show="show_l_at">{{v.login_at}}</td>
+                <td>{{v.tel === '0' ? '未绑定手机' : v.tel}}</td>
                 <td>
-                    <Tag type="border" :color="v.is_active === 1 ? 'blue' : 'red'">{{configYesOrNo[v.is_active]}}</Tag>
+                    <Tag type="border" :color="v.is_active === 1 ? 'blue' : 'red'">{{configIsActive[v.is_active]}}</Tag>
                 </td>
                 <td>
                     <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'"
@@ -173,6 +173,7 @@
                 },
                 configCamp: configCamp,
                 configIsLogin: configIsLogin,
+                configIsActive: configIsActive,
                 configYesOrNo: configYesOrNo,
                 this_user_info: {},
                 edit_k: 0

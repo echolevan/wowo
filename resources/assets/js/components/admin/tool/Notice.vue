@@ -6,17 +6,35 @@
             <Breadcrumb-item>公告管理</Breadcrumb-item>
         </Breadcrumb>
         <div>
-            <Form ref="formItem" :model="formItem" :label-width="100" :rules="ruleValidate" style="width:800px">
-                <Form-item label="网站公告"  prop="notice">
+            <Form ref="formItem" :model="formItem" :label-width="100" style="width:800px">
+                <Form-item label="网站公告">
                     <Input type="textarea" v-model="formItem.notice"></Input>
                 </Form-item>
 
                 <Button type="primary" :loading="loading" @click="add_to('formItem')" class="pull-right">
-                    <span v-if="!loading">确定</span>
+                    <span v-if="!loading">网站公告确定</span>
                     <span v-else>Loading...</span>
                 </Button>
 
+                <div style="clear:both;margin-bottom:15px"></div>
+
             </Form>
+
+            <Form ref="formItemOne" :model="formItemOne" :label-width="100" style="width:800px">
+                <Form-item label="黑市公告">
+                    <Input type="textarea" :rows="8" v-model="formItemOne.bm_notice"></Input>
+                </Form-item>
+
+                <Button type="primary" :loading="loading" @click="add_to('c')" class="pull-right">
+                    <span v-if="!loading">黑市公告确定</span>
+                    <span v-else>Loading...</span>
+                </Button>
+
+                <div style="clear:both;margin-bottom:15px"></div>
+
+            </Form>
+
+
         </div>
     </div>
 </template>
@@ -28,12 +46,10 @@
                 formItem: {
                     notice: ''
                 },
-                loading: false,
-                ruleValidate: {
-                    notice: [
-                        {required: true, message: '公告内容不能为空', trigger: 'blur'}
-                    ]
-                }
+                formItemOne: {
+                    bm_notice: ''
+                },
+                loading: false
             }
         },
         mounted() {
@@ -42,23 +58,18 @@
         methods: {
             _init() {
                 axios.get('/admin/tool/index').then(res => {
-                    this.formItem.notice = res.data.tools['notice'].value ? res.data.tools['notice'].value : ''
+                    this.formItem.notice = res.data.tools['notice'] ? res.data.tools['notice'].value : ''
+                    this.formItemOne.bm_notice = res.data.tools['bm_notice'] ? res.data.tools['bm_notice'].value : ''
                 })
             },
             add_to(name) {
                 this.loading = true;
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        axios.put('/admin/tool/create',{data:this.formItem}).then(res => {
-                            if(res.data.sta === 1){
-                                this.$Message.success(res.data.msg);
-                            }
-                        })
-                    } else {
-                        this.$Message.error('更新失败');
+                axios.put('/admin/tool/create',{data: name === 'formItem' ? this.formItem : this.formItemOne}).then(res => {
+                    if(res.data.sta === 1){
+                        this.$Message.success(res.data.msg);
                     }
-                    this.loading = false;
                 })
+                this.loading = false;
             }
         }
     }

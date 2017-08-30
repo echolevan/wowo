@@ -70,11 +70,6 @@
             }
         },
         mounted(){
-            setTimeout(()=>{
-                if(!this.userInfo){
-                    this.$router.push("/home")
-                }
-            },500)
         },
         computed: mapState([
             'userInfo', 'choice_cmap'
