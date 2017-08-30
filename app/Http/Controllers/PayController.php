@@ -41,7 +41,6 @@ class PayController extends Controller
 
     public function alipay_notify(Request $request)
     {
-        dd($_POST);
         $result = Alipay::notify($_POST);
         Log::info('notify_begin');
         Log::info(print_r($result));
