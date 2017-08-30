@@ -44,7 +44,8 @@ class PayController extends Controller
         $result = Alipay::notify($_POST);
         Log::info('notify_begin');
         Log::info(print_r($result));
-        Log::info(print_r($_POST));
+        Log::info($_POST);
+        Log::info($request->all());
         Log::info('notify_end');
         /* 实际验证过程建议商户添加以下校验。
        1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
