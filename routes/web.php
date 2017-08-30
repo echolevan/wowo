@@ -27,7 +27,7 @@ Route::get('/', 'HomeController@index')->name('index');
 //    $user->notify(new \App\Notifications\UserCreated($user));
 //});
 
-Route::any('/notify', 'PayController@alipay_notify');
+Route::any('/aplipay_notify', 'PayController@alipay_notify');
 Route::any('/return', 'PayController@return_url');
 
 Auth::routes();

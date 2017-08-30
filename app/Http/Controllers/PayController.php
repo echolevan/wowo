@@ -28,7 +28,7 @@ class PayController extends Controller
         $customData = json_encode(['recharge_gold' => $order->recharge_gold, 'user_id' => $order->user_id]);//自定义参数
         $response = Alipay::tradePagePay($subject, $body, $out_trade_no, $total_amount, $customData);
         //输出表单
-        return $response['redirect_url'];
+        return $response;
     }
 
     public function tradePayQuery(Request $request)
@@ -41,6 +41,7 @@ class PayController extends Controller
 
     public function alipay_notify(Request $request)
     {
+        dd($_POST);
         $result = Alipay::notify($_POST);
         Log::info('notify_begin');
         Log::info(print_r($result));
