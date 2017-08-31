@@ -52,7 +52,7 @@
             <dd class="val_icon">
                 <div class="checkcode">
                     <input type="text" name="captcha" id="J_codetext" style="width: 50%;color: #fff" placeholder="验证码" maxlength="4" class="login_txtbx">
-                    <img style="width: 45%;height: 45px;border-radius: 2px;" class="captcha" src="{{captcha_src()}}" alt="">
+                    <img style="width: 47%;height: 45px;border-radius: 2px;" class="captcha" src="{{captcha_src()}}" alt="">
                 </div>
             </dd>
             @if ($errors->has('captcha'))

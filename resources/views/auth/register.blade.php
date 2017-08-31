@@ -23,6 +23,7 @@
     </script>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/login_index.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/dialog.css') }}">
     <style>
         .lm_button{
@@ -71,7 +72,14 @@
                    @if ($errors->has('nickname'))
                        <p>{{ $errors->first('nickname') }}</p>
                    @endif
-                   <input type="password" name="password" placeholder="密码(必须有大小写+数字，不少于8位)">
+                       <input type="password"  name="password" placeholder="密码(必须有大小写+数字，不少于8位)" @input="p_len" v-model="password" />
+                       <div class="lnu_container">
+                           <p v-bind:class="{ lovercase_valid: contains_lovercase }" style="padding-left: 0">小写字母</p>
+                           <p v-bind:class="{ number_valid: contains_number }"  style="padding-left: 0">数字</p>
+                           <p v-bind:class="{ uppercase_valid: contains_uppercase }"  style="padding-left: 0">大写字母</p>
+                           <p v-bind:class="{ uppercase_valid: valid_password_length }"  style="padding-left: 0">8位</p>
+                       </div>
+
                    @if ($errors->has('password'))
                        <p>{{ $errors->first('password') }}</p>
                    @endif
@@ -110,6 +118,8 @@
 <script src="{{ asset('/js/jq.js') }}"></script>
 <script src="{{ asset('js/login2.js') }}"></script>
 <script src="{{ asset('js/jquery.transitions.js') }}"></script>
+<script src='http://cdn.bootcss.com/vue/2.2.2/vue.min.js'></script>
+<script src="{{ asset('js/login_index.js') }}"></script>
 <script>
     $(function(){
         var this_camp = ''

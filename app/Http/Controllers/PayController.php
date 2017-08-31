@@ -31,12 +31,38 @@ class PayController extends Controller
         return $response;
     }
 
-    public function tradePayQuery(Request $request)
+    public function tradePayQuery($out_trade_no)
     {
         //商户订单号
-        $out_trade_no = $request->get('trade_no');
         $response = Alipay::tradePayQuery($out_trade_no);
-        dd($response);
+//        TRADE_SUCCESS
+        if(isset($response->trade_status) && $response->trade_status == 'TRADE_SUCCESS'){
+            $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
+            if($recharge->status === 9){
+                Log::info('success');
+                echo "success";
+                exit;
+            }else{
+                DB::beginTransaction();
+                $gold = User::where('id',$recharge->user_id)->value('gold');
+                try{
+                    Recharge::where('out_trade_no',$out_trade_no)->where('status','!=','9')->update([
+                        'status'=>9
+                    ]);
+                    User::where('id',$recharge->user_id)->update([
+                        'gold' => $gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                    ]);
+                    Log::info('add_success');
+                    DB::commit();
+                }catch(\Exception $e){
+                    DB::rollBack();
+                    Log::error(json_encode([$recharge, $recharge->user_id]));
+                    echo "fail";
+                }
+            }
+            return ['sta'=>1 ,'info'=> User::find(Auth::id())];
+        }
+        return 0;
     }
 
     public function alipay_notify(Request $request)
@@ -74,7 +100,7 @@ class PayController extends Controller
                     DB::beginTransaction();
                     $gold = User::where('id',$recharge->user_id)->value('gold');
                     try{
-                        Recharge::where('out_trade_no',$out_trade_no)->update([
+                        Recharge::where('out_trade_no',$out_trade_no)->where('status','!=','9')->update([
                             'status'=>9
                         ]);
                         User::where('id',$recharge->user_id)->update([
@@ -115,7 +141,7 @@ class PayController extends Controller
             }
             DB::beginTransaction();
             try{
-                Recharge::where('out_trade_no',$out_trade_no)->update([
+                Recharge::where('out_trade_no',$out_trade_no)->where('status','!=','9')->update([
                     'status'=>9
                 ]);
                 User::where('id',Auth::id())->update([

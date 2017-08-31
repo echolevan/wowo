@@ -17,6 +17,7 @@ import Vuex from 'vuex'
 
 import {tagType, statusType, isForUser, yesOrNo, camp, isLogin, plugType, checkType, bmDownloadType, bmType, payType, payStatus,isActive} from './components/common/config'
 import {my_dialog} from '../common/dialog.js'
+import {close_my_dialog} from '../common/dialog.js'
 global.configTagType = tagType;
 global.configStatusType = statusType;
 global.configIsForUser = isForUser;
@@ -28,6 +29,7 @@ global.configCheckType = checkType;
 global.configBmDownloadType = bmDownloadType;
 global.configBmType = bmType;
 global.myDialog = my_dialog;
+global.clodeMyDialog = close_my_dialog;
 global.configPayType = payType;
 global.configPayStatus = payStatus;
 global.configIsActive = isActive;

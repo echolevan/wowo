@@ -16,3 +16,7 @@ export function my_dialog(msg , button_class = '') {
         $('.dialog').remove();
     })
 }
+
+export function close_my_dialog() {
+    $(".close_dialog").click()
+}

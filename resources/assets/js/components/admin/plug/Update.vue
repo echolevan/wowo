@@ -49,7 +49,12 @@
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入" v-on:input="keyUp"></Input>
+                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入"  v-on:input="keyUp"></Input>
+                <p class="pull-right "
+                >共 <span class="normal_font"
+                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                         style="font-weight:bold"
+                >{{formItem.content.length}}</span> 字符 </p>
             </Form-item>
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
@@ -275,7 +280,8 @@
         },
         methods: {
             keyUp() {
-                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
+                this.content = this.content.replace(/[\u4E00-\u9FA5]/g,"")
+//                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading (name) {
                 this.loading = true;

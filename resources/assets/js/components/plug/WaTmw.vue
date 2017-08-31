@@ -55,7 +55,7 @@
                                :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
                     </div>
 
-                    <div class="content"  v-if="plugs.length > 0" v-for="plug in plugs">
+                    <div class="content"  v-if="plugs.length > 0" v-for="(plug,k) in plugs">
                         <div class="img_view">
                             <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : ''" alt="">
                         </div>
@@ -63,9 +63,22 @@
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
-                            <span class="pull-right hover_hand"  @click="download(plug.id)" v-show="$route.params.type === 'plug'" style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
+                            <span v-if="plug.is_free === 0">免费</span>
+                            <span  style="padding-right:0" v-else>
+                                  <span   class="gold_class normal_font"
+                                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                          style="font-size: 16px;padding-right:0"
+                                  >
+                                <span v-if="plug.is_pay" style="padding-right:0"><s>{{plug.gold}}</s></span>
+                                <span v-else style="padding-right:0">{{plug.gold}}</span>
+                            </span>
+                                                                金币
+                            </span>
+
+                            <span v-if="plug.is_pay">[已购买]</span>
+                            <span class="pull-right hover_hand"  @click="download(plug.id,k)" style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
                                   :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            >下载</span>
+                            >{{$route.params.type === 'plug' ? '下载 ' : '获取'}}</span>
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
@@ -92,11 +105,137 @@
                 </div>
             </iCol>
         </Row>
+
+        <Modal v-model="download_model" width="720">
+            <p slot="header" class="model_title"
+               style="text-align:center">
+                <span
+                        class="normal_font"
+                        :class="{'bl_model_span_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{down_plug.title}}</span>
+            </p>
+            <div>
+                <p class="plug_info" v-html="down_plug.content"></p>
+            </div>
+            <div slot="footer">
+                <div class="my_btn_wrapper clipboard"
+                     :data-clipboard-text="down_plug.content"
+                     @click="clipboard"
+                     style="width: 100%"
+                     :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                    <svg height="45" width="150">
+                        <rect class="button_one" height="45" width="150"></rect>
+                    </svg>
+                    <div class="button_one_text">复制</div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </Modal>
+
+
+        <Modal v-model="download_pay_model" class="download_pay_model" width="720">
+            <p slot="header" class="model_title "
+               style="text-align:center">
+                <span class="normal_font"
+                        :class="{'bl_model_span_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{down_plug.title}}</span>
+            </p>
+            <div style="text-align:left">
+                <div class="title">资源购买</div>
+                <ul>
+                    <li>此资源售价
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
+                        金币
+                    </li>
+                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
+                    <li style="padding-top: 15px" v-if="!userInfo">
+                        <a class="gold_class"
+                           :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                           href="javascript:void(0)" @click="login">请先登录</a>
+                    </li>
+                    <li style="padding-top: 15px" v-else>
+                        您的金币余额：
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
+                        <br>
+                        <span v-if="userInfo.gold >= down_plug.gold">
+                             支付成功后，余额：
+                            <span class="gold_class" style="font-size: 16px"
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                {{userInfo.gold - down_plug.gold}}
+                            </span>
+                        </span>
+                        <span v-else>您的金币不足,请先充值：</span>
+                    </li>
+                </ul>
+
+                <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
+                    <Radio-group v-model="pay_type" type="button"
+                                 :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <Radio label="1" style="height:56px"><img src="/images/pay/002.jpg" alt=""></Radio>
+                        <Radio label="2" style="height:56px"><img src="/images/pay/001.jpg" alt=""></Radio>
+                    </Radio-group>
+
+                    <p></p>
+
+                    <Radio-group v-model="pay_amount" type="button" style="margin-top: 15px"
+                                 :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <Radio label="30">￥30 --- 300金币</Radio>
+                        <Radio label="50">￥50 --- 500金币</Radio>
+                        <Radio label="100">￥100 --- 1000金币</Radio>
+                        <Radio label="200">￥200 --- 2000金币</Radio>
+                        <br>
+                        <Radio label="0" style="border-left: 1px solid #dddee1;margin: 15px 15px 0 0">其他
+                            <!--<span v-show="pay_amount <= 0">：请在左边输入其他金额</span>-->
+                        </Radio>
+                        <Input-number
+                                :min="1"
+                                v-model="pay_amount_other" style="width: 100px;margin-top: 15px;"
+                                v-show="pay_amount <= 0" @on-change="change_other"></Input-number>
+                    </Radio-group>
+
+                    <p style="margin-top: 15px">您需要花费
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span v-if="pay_amount > 0">{{ pay_amount }}</span>
+                            <span v-else>{{pay_amount_other}}</span>
+                        </span>
+                        元
+                        将会获得
+                        <span class="gold_class" style="font-size: 16px"
+                              :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span
+                                    v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
+                            <span v-else>{{pay_amount_other * 10}} <span
+                                    v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}}</span></span>
+                        </span>
+                        金币
+                    </p>
+
+                    <Button type="primary" :loading="pay_loding"
+                            :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                            @click="toPay">
+                        <span>点击充值</span>
+                    </Button>
+                </div>
+
+            </div>
+            <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
+                <Button type="primary" :loading="loading"
+                        :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        @click="toLoading(plug_id)">
+                    <span>购买</span>
+                </Button>
+            </div>
+
+        </Modal>
     </div>
 </template>
 
 <script>
     import Rank from '../common/Rank.vue'
+    import Clipboard from 'clipboard'
     import { mapState } from 'vuex'
     export default {
         data () {
@@ -122,7 +261,21 @@
                 tag_active_pid: 0,
                 plugs: [],
                 plugs_count: -1,
-                this_page: 1
+                this_page: 1,
+                download_model: false,
+                download_pay_model: false,
+                loading: false,
+                pay_loding: false,
+                down_plug: {
+                    title: '',
+                    content: ''
+                },
+                plug_id:'',
+                plug_key:'',
+                pay_type: 1,
+                pay_amount: 10,
+                pay_amount_other: 1,
+                lv: {},
             }
         },
         computed: mapState([
@@ -216,21 +369,73 @@
                         , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
             },
-            download(id) {
+            download(id,k) {
                 axios.get(`download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
                     } else {
+                        this.plug_id = id
+                        this.plug_key = k
                         if (res.data.type === 1) {
-
+                            // 弹出model
+                            this.down_plug = res.data.info
+                            this.download_model = true
                         } else if (res.data.type === 2) {
                             // 跳转 下载
                             window.open(res.data.info.content);
                         } else {
-
+                            this.down_plug = res.data.info
+                            this.download_pay_model = true
+                            // 收费插件 跳转到支付页面
                         }
                     }
                 })
+            },
+            clipboard() {
+                const clipboard = new Clipboard('.clipboard')
+                clipboard.on('success', function (e) {
+                })
+                myDialog('复制成功')
+            },
+            login() {
+                localStorage.setItem('redirect', this.$route.path)
+                window.location.href = "/login"
+            },
+            toLoading(id) {
+                this.loading = true
+                axios.post('to_pay_plug', {id: id}).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg)
+                    } else {
+                        this.download_pay_model = false
+                        this.plugs[this.plug_key].is_pay = 1
+                        this.download(id,this.plug_key)
+                    }
+                })
+                this.loading = false
+            },
+            // pay
+            toPay() {
+                this.pay_loding = true
+                axios.post('user/recharge', {
+                    recharge_type: this.pay_type,
+                    recharge_amount: this.pay_amount,
+                    recharge_amount_other: this.pay_amount_other
+                }).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg)
+                    } else {
+                        this.$store.commit('change_userInfo', res.data.info)
+                        myDialog(res.data.msg)
+                    }
+                })
+                this.pay_loding = false
+
+            },
+            change_other() {
+                if (!(/^\d+$/.test(this.pay_amount_other))) {
+                    this.pay_amount_other = Math.round(this.pay_amount_other)
+                }
             },
         },
         components:{

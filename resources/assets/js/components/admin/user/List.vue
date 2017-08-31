@@ -103,7 +103,7 @@
                     </Tooltip>
                 </td>
                 <td v-show="show_email">{{v.email}}</td>
-                <td>{{configCamp[v.camp]}}</td>
+                <td :style="{'color': v.camp === 1 ? '#266ec1' : '#d13030'}">{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
                 <td>{{v.plugs.length}}</td>
                 <td v-show="show_c_at">{{v.created_at}}</td>

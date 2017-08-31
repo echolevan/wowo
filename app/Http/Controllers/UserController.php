@@ -126,7 +126,7 @@ class UserController extends Controller
 
 
 //        $user_info = User::where('id',Auth::id())->first();
-        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id)];
+        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id) , 'out_trade_no'=>$rec->out_trade_no];
 //        return ['sta'=>1 , 'url'=>$pay_url];
 
     }

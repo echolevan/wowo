@@ -54,6 +54,9 @@ class PlugController extends Controller
             ->when($keyWord != '', function ($query) use ($keyWord) {
                 return $query->where('title', 'like', "%$keyWord%");
             })
+            ->with(['is_pay' => function ($query) {
+                $query->where('orders.user_id', Auth::id());
+            }])
             ->where('is_new',1)
             ->where([['status', 1], ['is_check', 1]])
             ->skip($limit)->take(10)
@@ -131,7 +134,7 @@ class PlugController extends Controller
                 $query->where('orders.user_id', Auth::id());
             }])->find($id);
 
-        if ($plug->user_id !== Auth::id()) {
+        if ($plug->user_id !== Auth::id() && Auth::user()->is_admin === 0) {
             return ['sta' => 0];
         }
 
@@ -384,7 +387,8 @@ class PlugController extends Controller
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
                 ->when(isset($name) && $name !== 'null',function($query) use ($name) {
-                    $query->where('name',$name);
+                    $query->where('name','整合界面')->orWhere('name','原创插件')
+                        ->orderBy('name',$name === '整合界面' ? 'desc' : 'asc');
                 })
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);

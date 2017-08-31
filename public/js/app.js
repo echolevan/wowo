@@ -2956,6 +2956,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -3088,7 +3093,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
+            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -3346,6 +3352,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -3480,7 +3491,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
+            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -5852,7 +5864,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         keyUp: function keyUp() {
-            this.content = this.content.replace(/[^\w\.\/]/ig, '');
+            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
         },
         quick_share: function quick_share() {
             if (!this.userInfo) {
@@ -6951,6 +6963,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -7099,7 +7116,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
+            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -7254,7 +7272,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_Rank_vue__ = __webpack_require__("./resources/assets/js/components/common/Rank.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_Rank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__common_Rank_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clipboard__ = __webpack_require__("./node_modules/_clipboard@1.7.1@clipboard/lib/clipboard.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_clipboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -7352,6 +7372,145 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -7375,11 +7534,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tag_active_pid: 0,
             plugs: [],
             plugs_count: -1,
-            this_page: 1
+            this_page: 1,
+            download_model: false,
+            download_pay_model: false,
+            loading: false,
+            pay_loding: false,
+            down_plug: {
+                title: '',
+                content: ''
+            },
+            plug_id: '',
+            plug_key: '',
+            pay_type: 1,
+            pay_amount: 10,
+            pay_amount_other: 1,
+            lv: {}
         };
     },
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'change_s_tag']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'change_s_tag']),
     watch: {
         '$route': function $route(to, from) {
             this._init();
@@ -7474,17 +7647,78 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
             }
         },
-        download: function download(id) {
+        download: function download(id, k) {
+            var _this3 = this;
+
             axios.get('download/plug/' + id).then(function (res) {
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    if (res.data.type === 1) {} else if (res.data.type === 2) {
+                    _this3.plug_id = id;
+                    _this3.plug_key = k;
+                    if (res.data.type === 1) {
+                        // 弹出model
+                        _this3.down_plug = res.data.info;
+                        _this3.download_model = true;
+                    } else if (res.data.type === 2) {
                         // 跳转 下载
                         window.open(res.data.info.content);
-                    } else {}
+                    } else {
+                        _this3.down_plug = res.data.info;
+                        _this3.download_pay_model = true;
+                        // 收费插件 跳转到支付页面
+                    }
                 }
             });
+        },
+        clipboard: function clipboard() {
+            var clipboard = new __WEBPACK_IMPORTED_MODULE_1_clipboard___default.a('.clipboard');
+            clipboard.on('success', function (e) {});
+            myDialog('复制成功');
+        },
+        login: function login() {
+            localStorage.setItem('redirect', this.$route.path);
+            window.location.href = "/login";
+        },
+        toLoading: function toLoading(id) {
+            var _this4 = this;
+
+            this.loading = true;
+            axios.post('to_pay_plug', { id: id }).then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    _this4.download_pay_model = false;
+                    _this4.plugs[_this4.plug_key].is_pay = 1;
+                    _this4.download(id, _this4.plug_key);
+                }
+            });
+            this.loading = false;
+        },
+
+        // pay
+        toPay: function toPay() {
+            var _this5 = this;
+
+            this.pay_loding = true;
+            axios.post('user/recharge', {
+                recharge_type: this.pay_type,
+                recharge_amount: this.pay_amount,
+                recharge_amount_other: this.pay_amount_other
+            }).then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    _this5.$store.commit('change_userInfo', res.data.info);
+                    myDialog(res.data.msg);
+                }
+            });
+            this.pay_loding = false;
+        },
+        change_other: function change_other() {
+            if (!/^\d+$/.test(this.pay_amount_other)) {
+                this.pay_amount_other = Math.round(this.pay_amount_other);
+            }
         }
     },
     components: {
@@ -7501,6 +7735,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__("./node_modules/_vue2-editor@2.0.26@vue2-editor/dist/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7739,7 +7978,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig, '');
+            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
             var _this2 = this;
@@ -8143,7 +8383,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             rest_time: 60,
             is_dis: false,
-            lv: {}
+            lv: {},
+            djs: ''
         };
     },
     mounted: function mounted() {
@@ -8173,13 +8414,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sub_time: function sub_time() {
             var _this2 = this;
 
-            setInterval(function () {
+            this.djs = setInterval(function () {
                 _this2.rest_time--;
                 _this2.check_is_out();
             }, 1000);
         },
         check_is_out: function check_is_out() {
             if (this.rest_time <= 0) {
+                clearInterval(this.djs);
                 this.is_dis = false;
             }
         },
@@ -8545,6 +8787,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         pay: function pay(money) {
+            var _this2 = this;
+
             var recharge_amount_other = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
             if (!isNaN(money) && !/^\d+$/.test(this.pay_amount_other)) {
@@ -8560,6 +8804,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg);
                     } else {
+                        myDialog('请在新窗口支付');
+                        var aaa = setInterval(function () {
+                            axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
+                                if (res.data.sta === 1) {
+                                    clodeMyDialog();
+                                    myDialog('支付成功');
+                                    _this2.$store.commit('change_userInfo', res.data.info);
+                                    clearInterval(aaa);
+                                }
+                            });
+                        }, 1000);
                         window.open(res.data.url);
                     }
                 });
@@ -8570,14 +8825,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.get_orders_history(2);
         },
         get_orders_history: function get_orders_history(name) {
-            var _this2 = this;
+            var _this3 = this;
 
             if (name === '1') {
                 return false;
             }
             axios.post('user/get_orders_history/' + this.page + '/' + this.size).then(function (res) {
-                _this2.count = res.data.count;
-                _this2.orders_history = res.data.res;
+                _this3.count = res.data.count;
+                _this3.orders_history = res.data.res;
             });
         }
     },
@@ -75209,8 +75464,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "tool_user_child child"
   }, [_c('iCol', {
+    staticStyle: {
+      "padding-right": "15px"
+    },
     attrs: {
-      "span": "18"
+      "span": "19"
     }
   }, [_c('Input', {
     staticClass: "w_input",
@@ -75238,7 +75496,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.content.length))]), _vm._v(" 字符 ")])], 1), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "6"
+      "span": "5"
     }
   }, [_c('div', {
     staticStyle: {
@@ -75314,8 +75572,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "clear": "both"
     }
   })], 1)]), _vm._v(" "), _c('iCol', {
+    staticStyle: {
+      "padding-right": "15px"
+    },
     attrs: {
-      "span": "18"
+      "span": "19"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover",
@@ -75356,7 +75617,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "6"
+      "span": "5"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover",
@@ -75492,8 +75753,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
     }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
+    staticStyle: {
+      "padding-right": "15px"
+    },
     attrs: {
-      "span": "9"
+      "span": "10"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover"
@@ -75541,7 +75805,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "6"
+      "span": "5"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover",
@@ -75633,8 +75897,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       style: (_vm.todd_time === v.created_at ? 'color:#d13030' : '')
     }, [_vm._v(_vm._s(v.created_at))])])], 1)], 1)
   }))])])]), _vm._v(" "), _c('iCol', {
+    staticStyle: {
+      "padding-right": "15px"
+    },
     attrs: {
-      "span": "9"
+      "span": "10"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover"
@@ -75654,7 +75921,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool_user_child child"
   })])]), _vm._v(" "), _c('iCol', {
     attrs: {
-      "span": "6"
+      "span": "5"
     }
   }, [_c('div', {
     staticClass: "div_block my_card_hover",
@@ -75908,9 +76175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Input', {
     attrs: {
       "type": "textarea",
-      "autosize": {
-        minRows: 2
-      },
+      "rows": 8,
       "placeholder": "请输入"
     },
     on: {
@@ -75923,7 +76188,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.content"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticClass: "pull-right "
+  }, [_vm._v("共 "), _c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-weight": "bold"
+    }
+  }, [_vm._v(_vm._s(_vm.formItem.content.length))]), _vm._v(" 字符 ")])], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -77370,7 +77645,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
   }, [_vm._v("金币")]), _c('span', {
-    staticClass: "val normal_font normal_font_hover",
+    staticClass: "val normal_font normal_font_hover my_gold",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -78579,7 +78854,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-change": _vm.change_page
     }
-  }) : _vm._e()], 1), _vm._v(" "), _vm._l((_vm.plugs), function(plug) {
+  }) : _vm._e()], 1), _vm._v(" "), _vm._l((_vm.plugs), function(plug, k) {
     return (_vm.plugs.length > 0) ? _c('div', {
       staticClass: "content"
     }, [_c('div', {
@@ -78605,13 +78880,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('strong', {
       staticClass: "my_a_style"
-    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.$route.params.type === 'plug'),
-        expression: "$route.params.type === 'plug'"
-      }],
+    }, [_vm._v(_vm._s(plug.title))])]), _vm._v(" "), (plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', {
+      staticStyle: {
+        "padding-right": "0"
+      }
+    }, [_c('span', {
+      staticClass: "gold_class normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      },
+      staticStyle: {
+        "font-size": "16px",
+        "padding-right": "0"
+      }
+    }, [(plug.is_pay) ? _c('span', {
+      staticStyle: {
+        "padding-right": "0"
+      }
+    }, [_c('s', [_vm._v(_vm._s(plug.gold))])]) : _c('span', {
+      staticStyle: {
+        "padding-right": "0"
+      }
+    }, [_vm._v(_vm._s(plug.gold))])]), _vm._v("\n                                                            金币\n                        ")]), _vm._v(" "), (plug.is_pay) ? _c('span', [_vm._v("[已购买]")]) : _vm._e(), _vm._v(" "), _c('span', {
       staticClass: "pull-right hover_hand",
       class: {
         'bl_nav_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -78624,10 +78914,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       on: {
         "click": function($event) {
-          _vm.download(plug.id)
+          _vm.download(plug.id, k)
         }
       }
-    }, [_vm._v("下载")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
+    }, [_vm._v(_vm._s(_vm.$route.params.type === 'plug' ? '下载 ' : '获取'))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Icon', {
       attrs: {
         "type": "ios-cloud-download-outline"
       }
@@ -78715,7 +79005,304 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "keyword"
     }
-  })], 1), _vm._v(" "), _c('v-rank')], 1)])], 1)], 1)
+  })], 1), _vm._v(" "), _c('v-rank')], 1)])], 1), _vm._v(" "), _c('Modal', {
+    attrs: {
+      "width": "720"
+    },
+    model: {
+      value: (_vm.download_model),
+      callback: function($$v) {
+        _vm.download_model = $$v
+      },
+      expression: "download_model"
+    }
+  }, [_c('p', {
+    staticClass: "model_title",
+    staticStyle: {
+      "text-align": "center"
+    },
+    slot: "header"
+  }, [_c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_model_span_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v(_vm._s(_vm.down_plug.title))])]), _vm._v(" "), _c('div', [_c('p', {
+    staticClass: "plug_info",
+    domProps: {
+      "innerHTML": _vm._s(_vm.down_plug.content)
+    }
+  })]), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('div', {
+    staticClass: "my_btn_wrapper clipboard",
+    class: {
+      'bl_my_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "data-clipboard-text": _vm.down_plug.content
+    },
+    on: {
+      "click": _vm.clipboard
+    }
+  }, [_c('svg', {
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  }, [_c('rect', {
+    staticClass: "button_one",
+    attrs: {
+      "height": "45",
+      "width": "150"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "button_one_text"
+  }, [_vm._v("复制")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })])]), _vm._v(" "), _c('Modal', {
+    staticClass: "download_pay_model",
+    attrs: {
+      "width": "720"
+    },
+    model: {
+      value: (_vm.download_pay_model),
+      callback: function($$v) {
+        _vm.download_pay_model = $$v
+      },
+      expression: "download_pay_model"
+    }
+  }, [_c('p', {
+    staticClass: "model_title ",
+    staticStyle: {
+      "text-align": "center"
+    },
+    slot: "header"
+  }, [_c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_model_span_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v(_vm._s(_vm.down_plug.title))])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "left"
+    }
+  }, [_c('div', {
+    staticClass: "title"
+  }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("此资源售价\n                    "), _c('span', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
+    staticStyle: {
+      "padding-top": "15px"
+    }
+  }, [_c('a', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "href": "javascript:void(0)"
+    },
+    on: {
+      "click": _vm.login
+    }
+  }, [_vm._v("请先登录")])]) : _c('li', {
+    staticStyle: {
+      "padding-top": "15px"
+    }
+  }, [_vm._v("\n                    您的金币余额：\n                    "), _c('span', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后，余额：\n                        "), _c('span', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [_vm._v("\n                            " + _vm._s(_vm.userInfo.gold - _vm.down_plug.gold) + "\n                        ")])]) : _c('span', [_vm._v("您的金币不足,请先充值：")])])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.userInfo && _vm.userInfo.gold < _vm.down_plug.gold),
+      expression: "userInfo && userInfo.gold < down_plug.gold"
+    }],
+    staticStyle: {
+      "margin-top": "15px"
+    }
+  }, [_c('Radio-group', {
+    class: {
+      'bl_radio_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "type": "button"
+    },
+    model: {
+      value: (_vm.pay_type),
+      callback: function($$v) {
+        _vm.pay_type = $$v
+      },
+      expression: "pay_type"
+    }
+  }, [_c('Radio', {
+    staticStyle: {
+      "height": "56px"
+    },
+    attrs: {
+      "label": "1"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/pay/002.jpg",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('Radio', {
+    staticStyle: {
+      "height": "56px"
+    },
+    attrs: {
+      "label": "2"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/pay/001.jpg",
+      "alt": ""
+    }
+  })])], 1), _vm._v(" "), _c('p'), _vm._v(" "), _c('Radio-group', {
+    class: {
+      'bl_radio_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "margin-top": "15px"
+    },
+    attrs: {
+      "type": "button"
+    },
+    model: {
+      value: (_vm.pay_amount),
+      callback: function($$v) {
+        _vm.pay_amount = $$v
+      },
+      expression: "pay_amount"
+    }
+  }, [_c('Radio', {
+    attrs: {
+      "label": "30"
+    }
+  }, [_vm._v("￥30 --- 300金币")]), _vm._v(" "), _c('Radio', {
+    attrs: {
+      "label": "50"
+    }
+  }, [_vm._v("￥50 --- 500金币")]), _vm._v(" "), _c('Radio', {
+    attrs: {
+      "label": "100"
+    }
+  }, [_vm._v("￥100 --- 1000金币")]), _vm._v(" "), _c('Radio', {
+    attrs: {
+      "label": "200"
+    }
+  }, [_vm._v("￥200 --- 2000金币")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('Radio', {
+    staticStyle: {
+      "border-left": "1px solid #dddee1",
+      "margin": "15px 15px 0 0"
+    },
+    attrs: {
+      "label": "0"
+    }
+  }, [_vm._v("其他\n                        ")]), _vm._v(" "), _c('Input-number', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.pay_amount <= 0),
+      expression: "pay_amount <= 0"
+    }],
+    staticStyle: {
+      "width": "100px",
+      "margin-top": "15px"
+    },
+    attrs: {
+      "min": 1
+    },
+    on: {
+      "on-change": _vm.change_other
+    },
+    model: {
+      value: (_vm.pay_amount_other),
+      callback: function($$v) {
+        _vm.pay_amount_other = $$v
+      },
+      expression: "pay_amount_other"
+    }
+  })], 1), _vm._v(" "), _c('p', {
+    staticStyle: {
+      "margin-top": "15px"
+    }
+  }, [_vm._v("您需要花费\n                    "), _c('span', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [(_vm.pay_amount > 0) ? _c('span', [_vm._v(_vm._s(_vm.pay_amount))]) : _c('span', [_vm._v(_vm._s(_vm.pay_amount_other))])]), _vm._v("\n                    元\n                    将会获得\n                    "), _c('span', {
+    staticClass: "gold_class",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-size": "16px"
+    }
+  }, [(_vm.pay_amount > 0) ? _c('span', [_vm._v(_vm._s(_vm.pay_amount * 10) + " "), (_vm.lv) ? _c('span', [_vm._v("+ " + _vm._s(_vm.lv.giving * _vm.pay_amount * 10 / 100))]) : _vm._e()]) : _c('span', [_vm._v(_vm._s(_vm.pay_amount_other * 10) + " "), (_vm.lv && _vm.pay_amount_other >= 10) ? _c('span', [_vm._v("+ " + _vm._s(Math.floor(_vm.lv.giving * _vm.pay_amount_other * 10 / 100)))]) : _vm._e()])]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('Button', {
+    class: {
+      'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "type": "primary",
+      "loading": _vm.pay_loding
+    },
+    on: {
+      "click": _vm.toPay
+    }
+  }, [_c('span', [_vm._v("点击充值")])])], 1)]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.userInfo && _vm.userInfo.gold >= _vm.down_plug.gold),
+      expression: "userInfo && userInfo.gold >= down_plug.gold"
+    }],
+    slot: "footer"
+  }, [_c('Button', {
+    class: {
+      'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.toLoading(_vm.plug_id)
+      }
+    }
+  }, [_c('span', [_vm._v("购买")])])], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -80353,9 +80940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Input', {
     attrs: {
       "type": "textarea",
-      "autosize": {
-        minRows: 2
-      },
+      "rows": 8,
       "placeholder": "请输入"
     },
     on: {
@@ -80368,7 +80953,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.content"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticClass: "pull-right "
+  }, [_vm._v("共 "), _c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-weight": "bold"
+    }
+  }, [_vm._v(_vm._s(_vm.formItem.content.length))]), _vm._v(" 字符 ")])], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -80760,9 +81355,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Input', {
     attrs: {
       "type": "textarea",
-      "autosize": {
-        minRows: 2
-      },
+      "rows": 8,
       "placeholder": "请输入"
     },
     on: {
@@ -80775,7 +81368,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.content"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticClass: "pull-right "
+  }, [_vm._v("共 "), _c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-weight": "bold"
+    }
+  }, [_vm._v(_vm._s(_vm.formItem.content.length))]), _vm._v(" 字符 ")])], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -81319,9 +81922,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Input', {
     attrs: {
       "type": "textarea",
-      "autosize": {
-        minRows: 2
-      },
+      "rows": 8,
       "placeholder": "请输入"
     },
     on: {
@@ -81334,7 +81935,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.content"
     }
-  })], 1), _vm._v(" "), _c('Form-item', {
+  }), _vm._v(" "), _c('p', {
+    staticClass: "pull-right "
+  }, [_vm._v("共 "), _c('span', {
+    staticClass: "normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "font-weight": "bold"
+    }
+  }, [_vm._v(_vm._s(_vm.formItem.content.length))]), _vm._v(" 字符 ")])], 1), _vm._v(" "), _c('Form-item', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -82067,7 +82678,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         value: (_vm.show_email),
         expression: "show_email"
       }]
-    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', {
+      style: ({
+        'color': v.camp === 1 ? '#266ec1' : '#d13030'
+      })
+    }, [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -98518,7 +99133,8 @@ module.exports = function(module) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = my_dialog;
+/* harmony export (immutable) */ __webpack_exports__["b"] = my_dialog;
+/* harmony export (immutable) */ __webpack_exports__["a"] = close_my_dialog;
 function my_dialog(msg) {
     var button_class = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
@@ -98530,6 +99146,10 @@ function my_dialog(msg) {
     $(document).on("click", ".close_dialog , .close_other_dialog", function () {
         $('.dialog').remove();
     });
+}
+
+function close_my_dialog() {
+    $(".close_dialog").click();
 }
 
 /***/ }),
@@ -98849,6 +99469,7 @@ window.Vue = __webpack_require__("./node_modules/_vue@2.4.2@vue/dist/vue.common.
 
 
 
+
 global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["l" /* tagType */];
 global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["k" /* statusType */];
 global.configIsForUser = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["f" /* isForUser */];
@@ -98859,7 +99480,8 @@ global.configPlugType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__[
 global.configCheckType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["d" /* checkType */];
 global.configBmDownloadType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["a" /* bmDownloadType */];
 global.configBmType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["b" /* bmType */];
-global.myDialog = __WEBPACK_IMPORTED_MODULE_6__common_dialog_js__["a" /* my_dialog */];
+global.myDialog = __WEBPACK_IMPORTED_MODULE_6__common_dialog_js__["b" /* my_dialog */];
+global.clodeMyDialog = __WEBPACK_IMPORTED_MODULE_6__common_dialog_js__["a" /* close_my_dialog */];
 global.configPayType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["i" /* payType */];
 global.configPayStatus = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["h" /* payStatus */];
 global.configIsActive = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["e" /* isActive */];

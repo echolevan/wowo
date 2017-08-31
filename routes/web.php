@@ -21,11 +21,11 @@ Route::get('/', 'HomeController@index')->name('index');
 //    ]);
 //});
 
-//Route::get('/abc', function () {
+Route::get('/abc', function () {
 //    \Illuminate\Support\Facades\Cache::flush();
-//    $user = \App\User::where('email','347735313@qq.com')->first();
-//    $user->notify(new \App\Notifications\UserCreated($user));
-//});
+    $user = \App\User::where('email','347735313@qq.com')->first();
+    $user->notify(new \App\Notifications\UserCreated($user));
+});
 
 Route::any('/aplipay_notify', 'PayController@alipay_notify');
 Route::any('/return', 'PayController@return_url');
@@ -67,6 +67,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::put("upload_plug/{plug_id}",'PlugController@upload_plug'); //上传插件
     Route::post("user/recharge",'UserController@recharge'); //用户充值
     Route::get("user/to_pay/{id}",'UserController@go_to_pay')->name('user.go_to_pay'); //用户充值
+    Route::get("user/is_pay_ok/{id}",'PayController@tradePayQuery')->name('user.is_pay_ok'); //用户充值
     Route::post("to_pay_plug",'PlugController@to_pay'); //用户购买插件
     Route::post("user/upload_avatar",'UserController@upload_avatar'); //用户上传头像
     Route::post("user/update",'UserController@update'); //用户更新资料

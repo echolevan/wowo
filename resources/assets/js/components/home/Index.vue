@@ -4,15 +4,15 @@
             <!--快捷分享-->
             <iCol span="24" style="padding:0 0 15px 0">
                 <div class="tool_user_child child">
-                    <iCol span="18">
-                        <Input v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input"></Input>
+                    <iCol span="19" style="padding-right: 15px">
+                        <Input  v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input" ></Input>
                         <p class="pull-right "
                         >共 <span class="normal_font"
                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                  style="font-weight:bold"
                         >{{content.length}}</span> 字符 </p>
                     </iCol>
-                    <iCol span="6">
+                    <iCol span="5">
                         <div  style="width: 250px;margin:0 auto;height: 193px;position: relative">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
                                       @on-change="on_sel" placeholder="请选择插件分类" class="w_input"></Cascader>
@@ -38,7 +38,7 @@
             </iCol>
 
             <!--最新主题-->
-            <iCol span="18">
+            <iCol span="19" style="padding-right: 15px">
                 <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>最新主题</strong>
@@ -60,7 +60,7 @@
                 </div>
             </iCol>
             <!--网站公告-->
-            <iCol span="6">
+            <iCol span="5">
                 <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title tool_title">
                         <strong class="hover_hand"
@@ -143,7 +143,7 @@
                 </div>
             </iCol>
             <!--TellMeWhen-->
-            <iCol span="9">
+            <iCol span="10" style="padding-right: 15px">
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>TellMeWhen</strong>
@@ -168,7 +168,7 @@
                 </div>
             </iCol>
             <!--总下载量排行-->
-            <iCol span="6">
+            <iCol span="5">
                 <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title">
                         <strong>总下载量排行</strong>
@@ -215,7 +215,7 @@
                     </div>
                 </div>
             </iCol>
-            <iCol span="9">
+            <iCol span="10" style="padding-right: 15px">
             <div class="div_block my_card_hover">
                 <div class="tool_user title">
                     <strong>易游</strong>
@@ -229,7 +229,7 @@
             </div>
             </iCol>
             <!--月下载量排行-->
-            <iCol span="6">
+            <iCol span="5">
                 <div class="div_block my_card_hover" style="width: 250px;margin:0 auto">
                     <div class="tool_user title">
                         <strong>月下载量排行</strong>
@@ -302,7 +302,7 @@
         },
         methods: {
             keyUp() {
-                this.content = this.content.replace(/[^\w\.\/]/ig,'')
+                this.content = this.content.replace(/[\u4E00-\u9FA5]/g,"")
             },
             quick_share() {
                 if(!this.userInfo){
