@@ -12,7 +12,7 @@
                 </Form-item>
 
                 <Button type="primary" :loading="loading" @click="add_to('formItem')" class="pull-right">
-                    <span v-if="!loading">网站公告确定</span>
+                    <span v-if="!loading">确定</span>
                     <span v-else>Loading...</span>
                 </Button>
 
@@ -26,7 +26,7 @@
                 </Form-item>
 
                 <Button type="primary" :loading="loading" @click="add_to('c')" class="pull-right">
-                    <span v-if="!loading">黑市公告确定</span>
+                    <span v-if="!loading">确定</span>
                     <span v-else>Loading...</span>
                 </Button>
 
