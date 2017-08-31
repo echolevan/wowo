@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'name.is_name_zw' => '用户名不能为汉字',
             'password.is_pass' => '密码必须有大小写字母+数字',
             'nickname.required' => '昵称不能为空',
-            'nickname.max' => '昵称最长为10',
+            'nickname.max' => '昵称最长为10字符',
             'nickname.unique' => '昵称已经存在',
             'nickname.alpha_num' => '昵称不能含有符号',
             'name.is_admin_name' => '用户名违规',

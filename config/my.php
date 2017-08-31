@@ -35,9 +35,10 @@ return [
 
     'upload_bm_type' => [
         '1' => 'torrent',
-        '2' => 'zip',
-        '3' => 'rar',
-        '4' => '7z',
+		'2' => 'txt',
+        '3' => 'zip',
+        '4' => 'rar',
+        '5' => '7z',
     ],
 
     'down_url' => 'https://down.iwowcn.com/'

@@ -35,7 +35,7 @@ class TagController extends Controller
             'is_check' => 1,
             'is_for_user' => $request->data['is_for_user'],
         ]);
-        return ['sta' => 1, 'msg' => '新增成功'];
+        return ['sta' => 1, 'msg' => '添加成功'];
     }
 
     public function update (Request $request, $id)
@@ -56,7 +56,7 @@ class TagController extends Controller
         ]);
 
         $tag = Tag::with('parent')->find($id);
-        return ['sta' => 1, 'msg' => '新增成功', 'info' => $tag];
+        return ['sta' => 1, 'msg' => '添加成功', 'info' => $tag];
     }
 
     public function tag_list (Request $request, $page, $size)

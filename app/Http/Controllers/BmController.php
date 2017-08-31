@@ -105,7 +105,7 @@ class BmController extends Controller
             if ($bm->gold > Auth::user()->gold) {
                 return ['sta' => 9 , 'msg'=>'金币不够'];
             } else {
-                return ['sta' => 2 , 'msg'=>'金币够，请求确认'];
+                return ['sta' => 2 , 'msg'=>'金币充足，请确认'];
             }
         }
     }

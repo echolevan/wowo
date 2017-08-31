@@ -189,7 +189,7 @@ class UserController extends Controller
 
             $sta = $this->check_is_camp();
             if(!$sta['sta']){
-                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营' , 'time'=>$sta['time']];
+                return ['sta'=> 0 ,'msg'=>'阵营切换间隔时间为 30 天' , 'time'=>$sta['time']];
             }
 
             $arr = [
@@ -289,7 +289,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_mail")) {
-            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
         }
         Cache::forget(Auth::id()."_send_mail");
         Cache::add(Auth::id()."_send_mail", time(), 1);
@@ -311,7 +311,7 @@ class UserController extends Controller
         if(Hash::check($request->password, $user->password)) {
             return ['sta'=> 1 ,'msg'=>'ok'];
         }
-        return ['sta'=> 0 ,'msg'=>'原始密码错误' ];
+        return ['sta'=> 0 ,'msg'=>'原密码错误' ];
     }
 
     /**
@@ -400,7 +400,7 @@ class UserController extends Controller
         $username = User::where('id','!=',$request->id)->where('nickname',$request->name)->count();
         $is_wg = Tool::where('name','nickname')->where('value',$request->name)->first();
         if($username > 0 || $is_wg)
-            return ['sta'=>0,'msg'=>'用户名已经存在或者违规'];
+            return ['sta'=>0,'msg'=>'用户名已存在或违规'];
         return ['sta'=>1];
     }
 
@@ -408,7 +408,7 @@ class UserController extends Controller
     {
         $username = User::where('id','!=',$request->id)->where('email',$request->email)->count();
         if($username > 0)
-            return ['sta'=>0,'msg'=>'邮箱重复了'];
+            return ['sta'=>0,'msg'=>'邮箱已存在'];
         return ['sta'=>1];
     }
 
@@ -416,7 +416,7 @@ class UserController extends Controller
     {
         $username = User::where('id','!=',$request->id)->where('tel',$request->tel)->count();
         if($username > 0)
-            return ['sta'=>0,'msg'=>'手机号重复了'];
+            return ['sta'=>0,'msg'=>'手机号码已存在'];
         return ['sta'=>1];
     }
 

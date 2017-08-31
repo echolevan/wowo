@@ -62,7 +62,7 @@
                 @if ($errors->has('login_error'))
                     <input type="submit" value="{{ $errors->first('login_error') }}" disabled="disabled" class="submit_btn">
                 @else
-                    <input type="submit" value="立即登陆" class="submit_btn">
+                    <input type="submit" value="登陆" class="submit_btn">
                 @endif
             </dd>
             <dd>
