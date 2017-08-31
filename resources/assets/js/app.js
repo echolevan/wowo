@@ -53,6 +53,9 @@ const store = new Vuex.Store({
             'bm': 0,
             'notice': '',
             'bm_notice': ''
+        },
+        lv: {
+            'name': '新手','money':0,'giving':0
         }
     },
     mutations: {
@@ -69,6 +72,9 @@ const store = new Vuex.Store({
         },
         change_tag (state, tools) {
             state.change_s_tag = Math.random()
+        },
+        change_lv (state, lv) {
+            state.lv = lv
         }
     }
 })
@@ -76,7 +82,9 @@ const store = new Vuex.Store({
 axios.get('/user/info').then(res => {
     store.commit('change_tools', res.data.tools)
     if (res.data.sta === '1') {
+        console.log(res)
         store.commit('change_userInfo', res.data.info)
+        store.commit('change_lv', res.data.lv)
         sessionStorage.setItem('loginUserInfoId',[res.data.info.id , res.data.info.is_active])
         if (res.data.info.is_active === 0) {
             if(res.data.info.camp === 1){

@@ -225,7 +225,7 @@
                             <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span
                                     v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
                             <span v-else>{{pay_amount_other * 10}} <span
-                                    v-if="lv && pay_amount_other >= 10">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}}</span></span>
+                                    v-if="lv && pay_amount_other >= 1">+ {{Math.floor(lv.giving * pay_amount_other * 10 / 100)}}</span></span>
                         </span>
                         金币
                     </p>
@@ -399,8 +399,18 @@
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
                     } else {
-                        this.$store.commit('change_userInfo', res.data.info)
-                        myDialog(res.data.msg)
+                        myDialog('请在新窗口支付')
+                        let aaa = setInterval(()=>{
+                            axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
+                                if(res.data.sta === 1){
+                                    clodeMyDialog()
+                                    myDialog('支付成功')
+                                    this.$store.commit('change_userInfo', res.data.info)
+                                    clearInterval(aaa)
+                                }
+                            })
+                        },1000)
+                        window.open(res.data.url);
                     }
                 })
                 this.pay_loding = false

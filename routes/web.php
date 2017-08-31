@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@index')->name('index');
 //});
 
 Route::get('/abc', function () {
+
 //    \Illuminate\Support\Facades\Cache::flush();
     $user = \App\User::where('email','347735313@qq.com')->first();
     $user->notify(new \App\Notifications\UserCreated($user));
@@ -77,6 +78,8 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("user/orders/upload/{page}/{size}",'UserController@orders_upload'); //我上传的插件
     Route::post("user/get_orders_history/{page}/{size}",'UserController@get_orders_history'); //充值记录
     Route::get("user/send_mail",'UserController@send_mail'); //发送激活邮件
+    Route::get("user/send_msg/{tel}/{type}",'UserController@send_msg'); //发送短信
+    Route::post("user/update_tel",'UserController@update_tel'); //更新手机号
     Route::post("user/check_password",'UserController@check_password'); // 修改密码时检查密码
     Route::post("user/update_password",'UserController@update_password'); // 更改密码
     Route::get("user/lv",'UserController@get_user_lv'); // 更改密码

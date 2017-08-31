@@ -58,7 +58,9 @@
                 <rest-password></rest-password>
             </Tab-pane>
             <Tab-pane label="修改邮箱" name="3">标签三的内容</Tab-pane>
-            <Tab-pane label="修改手机" name="4">标签三的内容</Tab-pane>
+            <Tab-pane label="修改手机" name="4">
+                <v-tel></v-tel>
+            </Tab-pane>
         </Tabs>
 
     </div>
@@ -66,6 +68,7 @@
 
 <script>
     import AvatarCropper from 'vue-avatar-cropper'
+    import VTel from './Tel.vue'
     import restPassword from '../common/restPassword.vue'
     import {mapState} from 'vuex'
     import VDistpicker from 'v-distpicker'
@@ -218,7 +221,8 @@
         components: {
             'avatar-cropper': AvatarCropper,
             'rest-password': restPassword,
-            'v-distpicker': VDistpicker
+            'v-distpicker': VDistpicker,
+            'v-tel': VTel
         }
     }
 </script>

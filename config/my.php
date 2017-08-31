@@ -40,6 +40,11 @@ return [
         '4' => '7z',
     ],
 
-    'down_url' => 'https://down.iwowcn.com/'
+    'down_url' => 'https://down.iwowcn.com/',
+
+    'msg_template' => [
+        'rest_password' => 'SMS_91030011',
+        'regiest' => 'SMS_91010005'
+    ]
 
 ];

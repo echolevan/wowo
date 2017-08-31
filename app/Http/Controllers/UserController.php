@@ -32,9 +32,10 @@ class UserController extends Controller
         }
 
         if (Auth::check()){
+            $lv = $this->get_user_lv();
             $arr = explode('@',Auth::user()->email);
             $domain = $arr[1];
-            return ['sta' =>'1' , 'info' => Auth::user() , 'email'=>'http://mail.'.$domain , 'tools'=>$tool];
+            return ['sta' =>'1' , 'info' => Auth::user() , 'email'=>'http://mail.'.$domain , 'tools'=>$tool , 'lv'=>$lv['info']];
         }
 
         return ['sta' => 0, 'tools'=>$tool];
@@ -299,6 +300,42 @@ class UserController extends Controller
         $user = User::find(Auth::id());
         $user->notify(new \App\Notifications\UserCreated($user));
         return ['sta'=>1 , 'msg'=>'邮件发送成功'];
+    }
+
+    public function send_msg($tel , $type)
+    {
+        // put in session
+        if (Cache::has(Auth::id()."_send_msg")) {
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg")];
+        }
+        $code = rand(100000,999999);
+        $is_true = send_msg($code,$tel,config('my.msg_template.'.($type === 1 ? 'regiest' : 'rest_password').''));
+        if($is_true['success']){
+            Cache::forget(Auth::id()."_send_msg");
+            Cache::add(Auth::id()."_send_msg_code", json_encode(['code'=>$code , 'tel'=> $tel]), 10);
+            Cache::add(Auth::id()."_send_msg", time(), 1);
+            return ['sta'=>1 , 'msg'=>'短信发送成功'];
+        }
+        return ['sta'=>0 , 'msg'=>'短信发送失败'];
+    }
+
+
+    public function update_tel(Request $request)
+    {
+        if (!Cache::has(Auth::id()."_send_msg_code")) {
+            return ['sta'=>0 , 'msg'=>'验证码已失效'];
+        }
+        $cache = Cache::get(Auth::id()."_send_msg_code");
+        $cache = json_decode($cache,true);
+        if($request->code != $cache['code'] || $request->tel != $cache['tel']){
+            return ['sta'=>0 , 'msg'=>'验证码错误'];
+        }
+        $user = User::where('id',Auth::id())->update([
+            'tel' => $request->tel
+        ]);
+        if($user)
+            return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
+        return ['sta'=>0 , 'msg'=>'更新失败'];
     }
 
     /**
