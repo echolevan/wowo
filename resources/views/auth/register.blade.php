@@ -118,7 +118,7 @@
 <script src="{{ asset('/js/jq.js') }}"></script>
 <script src="{{ asset('js/login2.js') }}"></script>
 <script src="{{ asset('js/jquery.transitions.js') }}"></script>
-<script src='http://cdn.bootcss.com/vue/2.2.2/vue.min.js'></script>
+<script src="{{ asset('js/vue.js') }}"></script>
 <script src="{{ asset('js/login_index.js') }}"></script>
 <script>
     $(function(){
