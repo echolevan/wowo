@@ -5886,12 +5886,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             localStorage.setItem('quick_share_type', this.type);
             this.$router.push('/upload');
         },
-        quick_share_plug: function quick_share_plug(k) {
+        quick_share_plug: function quick_share_plug(type) {
+            var tag_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
             if (!this.userInfo) {
                 myDialog('\u8BF7\u5148 <a href="/register" class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u6CE8\u518C</a>\n                 <a href="/login"  class="' + (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_font_color' : 'lm_font_color') + '">\u767B\u5F55</a>', this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 || !this.userInfo && this.choice_cmap === '2' ? 'bl_button_color' : '');
                 return false;
             }
-            this.$router.push('/upload');
+            localStorage.setItem('upload_type', type);
+            if (tag_name !== 0) {
+                localStorage.setItem('upload_type_name', tag_name);
+            }
+            this.$router.push("/upload");
         },
         on_sel: function on_sel(v) {
             this.type = v;
@@ -75551,7 +75557,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.quick_share_plug(1)
+        _vm.quick_share_plug('plug', '整合界面')
       }
     }
   }, [_vm._v("整合界面分享")]), _vm._v(" "), _c('Button', {
@@ -75566,7 +75572,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.quick_share_plug(2)
+        _vm.quick_share_plug('plug', '原创插件')
       }
     }
   }, [_vm._v("原创插件分享")])], 1)]), _vm._v(" "), _c('div', {

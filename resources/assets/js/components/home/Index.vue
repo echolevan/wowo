@@ -24,11 +24,11 @@
                             <div style="clear: both"></div>
                             <Button type="ghost"
                                     style="position:absolute;left: 0;bottom: 0;font-size: 15px;"
-                                    @click="quick_share_plug(1)"
+                                    @click="quick_share_plug('plug' , '整合界面')"
                             >整合界面分享</Button>
                             <Button type="ghost"
                                     style="position:absolute;right: 0;bottom: 0;font-size: 15px;"
-                                    @click="quick_share_plug(2)"
+                                    @click="quick_share_plug('plug' , '原创插件')"
                             >原创插件分享</Button>
                         </div>
 
@@ -326,14 +326,18 @@
                 localStorage.setItem('quick_share_type', this.type)
                 this.$router.push('/upload')
             },
-            quick_share_plug(k){
+            quick_share_plug(type, tag_name = 0){
                 if(!this.userInfo){
                     myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
                         , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
-                this.$router.push('/upload')
+                localStorage.setItem('upload_type',type)
+                if(tag_name !== 0){
+                    localStorage.setItem('upload_type_name',tag_name)
+                }
+                this.$router.push("/upload")
             },
             on_sel(v) {
                 this.type = v
