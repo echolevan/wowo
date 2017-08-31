@@ -40,8 +40,7 @@ class PayController extends Controller
             $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
             if($recharge->status === 9){
                 Log::info('success');
-                echo "success";
-                exit;
+                return ['sta'=>1 ,'info'=> User::find(Auth::id())];
             }else{
                 DB::beginTransaction();
                 $gold = User::where('id',$recharge->user_id)->value('gold');
