@@ -158,14 +158,13 @@
                 <span>{{down_plug.title}}</span>
             </p>
             <div style="text-align:left">
-                <div class="title">资源购买</div>
                 <ul>
                     <li>此资源售价
                         <span class="gold_class" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
                     </li>
-                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
+                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买！</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
                         <a class="gold_class"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -177,7 +176,7 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
-                             支付成功后，余额：
+                             交易后余额：
                             <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}

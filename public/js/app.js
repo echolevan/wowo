@@ -2145,7 +2145,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false
             },
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 60, message: '标题最长60字符', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ required: true, message: '下载方式不能为空' }],
                 zy_type: [{ required: true, message: '资源分类不能为空' }],
                 url: [{ required: true, validator: validateUrl }],
@@ -75217,7 +75217,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入字符串"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     model: {
       value: (_vm.content),
@@ -76457,7 +76457,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("推荐： " + _vm._s(_vm.plug.like_num))]) : _c('span', [_vm._v("已推荐： " + _vm._s(_vm.plug.like_num))])])]), _vm._v(" "), _c('div', {
     staticClass: "plug_sim_info"
-  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
+  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
     attrs: {
       "href": 'mailto:' + _vm.plug.user.email
     }
@@ -76556,7 +76556,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
+  }, [_vm._v(_vm._s(_vm.down_plug.gold))]), _vm._v("\n                    金币\n                ")]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买！")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
     staticStyle: {
       "padding-top": "15px"
     }
@@ -78318,7 +78318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     slot: "open"
-  }, [_vm._v("是")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("可")]), _vm._v(" "), _c('span', {
     slot: "close"
   }, [_vm._v("否")])])], 1), _vm._v(" "), _c('Button', {
     staticClass: "pull-right",
@@ -82611,7 +82611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("资源分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否为最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("资源分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', {
     staticStyle: {
