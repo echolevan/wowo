@@ -39,7 +39,7 @@
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入"  v-on:input="keyUp"></Input>
+                <Input v-model="formItem.content" type="textarea" :autosize="{minRows: 2}" placeholder="请输入字符串(不能包含中文)"  v-on:input="keyUp"></Input>
             </Form-item>
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
