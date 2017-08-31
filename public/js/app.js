@@ -5829,7 +5829,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             was: [],
             modal_zj: false,
-            census: {},
+            census: {
+                useCount: 0
+            },
             tmws: [],
             plugs: [],
             total_person: '',
@@ -80384,7 +80386,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add_to('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("网站公告确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both",
       "margin-bottom": "15px"
@@ -80425,7 +80427,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add_to('c')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("黑市公告确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both",
       "margin-bottom": "15px"

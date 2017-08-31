@@ -267,7 +267,9 @@
             return {
                 was: [],
                 modal_zj: false,
-                census: {},
+                census: {
+                    useCount: 0
+                },
                 tmws: [],
                 plugs: [],
                 total_person: '',
