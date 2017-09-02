@@ -76548,7 +76548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "title"
-  }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("此资源售价\n                    "), _c('span', {
+  }, [_vm._v("资源购买")]), _vm._v(" "), _c('ul', [_c('li', [_vm._v("资源售价\n                    "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -76583,7 +76583,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后，余额：\n                        "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.userInfo.gold >= _vm.down_plug.gold) ? _c('span', [_vm._v("\n                         支付成功后余额：\n                        "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
