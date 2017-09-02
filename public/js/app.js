@@ -2145,7 +2145,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false
             },
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 60, message: '标题最长60字符', trigger: 'change' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'blur' }],
                 type: [{ required: true, message: '下载方式不能为空' }],
                 zy_type: [{ required: true, message: '资源分类不能为空' }],
                 url: [{ required: true, validator: validateUrl }],

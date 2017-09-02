@@ -94,7 +94,7 @@
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {max: 60, message: '标题最长60字符', trigger: 'change'}
+                        {max: 120, message: '标题最长120字符', trigger: 'blur'}
                     ],
                     type: [
                         {required: true, message: '下载方式不能为空'}
