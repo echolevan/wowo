@@ -22,6 +22,8 @@ Route::get('/', 'HomeController@index')->name('index');
 //});
 
 Route::get('/abc', function () {
+//    \Illuminate\Support\Facades\Mail::to('347735313@qq.com')->send(new \App\Mail\sendCodeToUser('123232'));
+//    dd(1);
 //    \Illuminate\Support\Facades\Cache::flush();
 //    $user = \App\User::where('email','347735313@qq.com')->first();
 //    $user->notify(new \App\Notifications\UserCreated($user));
