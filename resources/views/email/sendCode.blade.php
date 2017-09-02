@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-        您的验证码为:{{$code}}
+        您正在修改嘿市网安全邮箱，验证码{{$code}}，如果非本人操作请忽略。
 </body>
 </html>
