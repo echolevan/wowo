@@ -133,7 +133,7 @@ class PayController extends Controller
          */
         if ($result) {//验证成功
             //商户订单号
-            $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
+            $out_trade_no = (string)$_GET['out_trade_no'];
             $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
             if($recharge->status === 9){
                 return redirect('/#/userInfo/pay');
