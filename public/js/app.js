@@ -5020,13 +5020,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -83069,7 +83062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "padding": "10px 0"
     }
-  }, [_vm._v("\n            显示签名\n            "), _c('i-switch', {
+  }, [_vm._v("\n        显示签名\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_info),
       callback: function($$v) {
@@ -83087,7 +83080,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n            显示邮箱\n            "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示邮箱\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_email),
       callback: function($$v) {
@@ -83105,7 +83098,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n            显示注册时间\n            "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示注册时间\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_c_at),
       callback: function($$v) {
@@ -83123,7 +83116,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "android-close"
     },
     slot: "close"
-  })], 1), _vm._v("\n            显示登陆时间\n            "), _c('i-switch', {
+  })], 1), _vm._v("\n        显示登陆时间\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_l_at),
       callback: function($$v) {
@@ -83165,7 +83158,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("签名")]), _vm._v("\n<<<<<<< HEAD\n                "), _c('th', {
+  }, [_vm._v("签名")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "7%"
     }
@@ -83179,17 +83172,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "8%"
     }
-  }, [_vm._v("安全邮箱")]), _vm._v("\n=======\n                "), _c('th', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.show_email),
-      expression: "show_email"
-    }],
-    staticStyle: {
-      "width": "8%"
-    }
-  }, [_vm._v("邮箱")]), _vm._v("\n>>>>>>> master\n                "), _c('th', {
+  }, [_vm._v("安全邮箱")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "5%"
     }
@@ -83274,7 +83257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.info)
       }
-    })])])], 1), _vm._v("\n<<<<<<< HEAD\n                "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机号码' : v.tel))]), _vm._v("\n=======\n>>>>>>> master\n                "), _c('td', {
+    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机号码' : v.tel))]), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -83314,7 +83297,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.change_status(v.status === 1 ? 0 : 1, v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.configIsLogin[v.status]) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_c('Tag', {
+    }, [_vm._v(_vm._s(_vm.configIsLogin[v.status]) + "\n                ")])], 1), _vm._v(" "), _c('td', [_c('Tag', {
       attrs: {
         "type": "dot",
         "color": v.is_admin === 1 ? 'blue' : 'red'
@@ -83324,7 +83307,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.change_is_admin(v.is_admin === 1 ? 0 : 1, v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_admin]) + "\n                    ")])], 1), _vm._v(" "), _c('td', [_c('Button', {
+    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_admin]) + "\n                ")])], 1), _vm._v(" "), _c('td', [_c('Button', {
       attrs: {
         "type": "ghost",
         "size": "small"
@@ -83390,7 +83373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "colspan": "15"
     }
-  }, [_vm._v("\n                    暂无数据\n                ")])])
+  }, [_vm._v("\n                暂无数据\n            ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
