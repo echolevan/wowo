@@ -74,7 +74,12 @@
                 <th style="width: 5%">用户名</th>
                 <th style="width: 5%">头像</th>
                 <th style="width: 10%" v-show="show_info">签名</th>
+<<<<<<< HEAD
+                <th style="width: 7%">手机号码</th>
+                <th style="width: 8%" v-show="show_email">安全邮箱</th>
+=======
                 <th style="width: 8%" v-show="show_email">邮箱</th>
+>>>>>>> master
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
                 <th style="width: 5%">发布资源数</th>
@@ -102,6 +107,10 @@
                         </div>
                     </Tooltip>
                 </td>
+<<<<<<< HEAD
+                <td>{{v.tel === '0' ? '未绑定手机号码' : v.tel}}</td>
+=======
+>>>>>>> master
                 <td v-show="show_email">{{v.email}}</td>
                 <td :style="{'color': v.camp === 1 ? '#266ec1' : '#d13030'}">{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>

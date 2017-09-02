@@ -63,19 +63,6 @@
                             <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
-                            <span v-if="plug.is_free === 0">免费</span>
-                            <span  style="padding-right:0" v-else>
-                                  <span   class="gold_class normal_font"
-                                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                          style="font-size: 16px;padding-right:0"
-                                  >
-                                <span v-if="plug.is_pay" style="padding-right:0"><s>{{plug.gold}}</s></span>
-                                <span v-else style="padding-right:0">{{plug.gold}}</span>
-                            </span>
-                                                                金币
-                            </span>
-
-                            <span v-if="plug.is_pay">[已购买]</span>
                             <span class="pull-right hover_hand"  @click="download(plug.id,k)" style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
                                   :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                             >{{$route.params.type === 'plug' ? '下载 ' : '获取'}}</span>
@@ -84,6 +71,17 @@
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
                             <Icon type="ios-star-outline"></Icon><span>{{plug.collect_num}}</span>
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
+                            <span v-if="plug.is_free === 0">免费</span>
+                            <span  style="padding-right:0" v-else>
+                                  <span   class="gold_class normal_font"
+                                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                          style="font-size: 16px;padding-right:0"
+                                  >
+                                <span v-if="plug.is_pay" class="my_gold"><s>{{plug.gold}}</s></span>
+                                <span v-else class="my_gold">{{plug.gold}}</span>
+                            </span>
+                            </span>
+                            <span v-if="plug.is_pay" style="color: rgb(209, 48, 48);">[已购买]</span>
                             <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
                         </div>
                     </div>
@@ -141,10 +139,9 @@
                 >{{down_plug.title}}</span>
             </p>
             <div style="text-align:left">
-                <div class="title">资源购买</div>
                 <ul>
                     <li>此资源售价
-                        <span class="gold_class" style="font-size: 16px"
+                        <span class="gold_class normal_font" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                         金币
                     </li>
@@ -156,12 +153,12 @@
                     </li>
                     <li style="padding-top: 15px" v-else>
                         您的金币余额：
-                        <span class="gold_class" style="font-size: 16px"
+                        <span class="gold_class normal_font" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
                              支付成功后，余额：
-                            <span class="gold_class" style="font-size: 16px"
+                            <span class="gold_class normal_font" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}
                             </span>
@@ -196,14 +193,14 @@
                     </Radio-group>
 
                     <p style="margin-top: 15px">您需要花费
-                        <span class="gold_class" style="font-size: 16px"
+                        <span class="gold_class normal_font" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span v-if="pay_amount > 0">{{ pay_amount }}</span>
                             <span v-else>{{pay_amount_other}}</span>
                         </span>
                         元
                         将会获得
-                        <span class="gold_class" style="font-size: 16px"
+                        <span class="gold_class normal_font" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <span v-if="pay_amount > 0">{{ pay_amount * 10 }} <span
                                     v-if="lv">+ {{lv.giving * pay_amount * 10 / 100}}</span></span>
@@ -222,11 +219,16 @@
 
             </div>
             <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
-                <Button type="primary" :loading="loading"
-                        :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                        @click="toLoading(plug_id)">
-                    <span>购买</span>
-                </Button>
+                <Poptip
+                        confirm
+                        title="您确认购买吗？"
+                        @on-ok="toLoading(plug_id)">
+                    <Button type="primary" :loading="loading"
+                            :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <span>购买</span>
+                    </Button>
+                </Poptip>
+
             </div>
 
         </Modal>

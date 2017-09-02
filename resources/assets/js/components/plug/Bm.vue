@@ -32,10 +32,10 @@
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >[免费]</span>
                 <span v-else>
-                      <span v-if="v.order" class="normal_font"
+                      <span v-if="v.order" class="normal_font my_gold"
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                      ><s>[{{v.gold}}金币]</s></span>
-                                <span class="normal_font"
+                      ><s>[{{v.gold}}]</s></span>
+                                <span class="normal_font my_gold"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                       v-else>{{v.gold}}</span>
                                 <span v-if="v.order" style="color: #d13030">[已购买]</span>
@@ -87,7 +87,9 @@
 
                 </div>
                 <div class="title_thr">
-                    <div class="no_show_button hover_hand" @click="no_show_this">不再显示</div>
+                    <div class="hover_hand ivu-btn-primary"
+                         :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                         @click="no_show_this">不再显示</div>
                     <div class="i_know_button hover_hand" @click="i_know_this">我知道了</div>
                 </div>
             </div>
@@ -136,7 +138,6 @@
             }
         },
         mounted() {
-            localStorage.removeItem('no_show_this')
             this.is_show_this = localStorage.getItem('no_show_this')
             this.get_plugs()
         },
@@ -228,10 +229,11 @@
                 line-height 30px
                 margin 0 5px
                 &.no_show_button
-                    background-color #393d49
+                    background-color #266ec1
                     color #fff
                 &.i_know_button
-                    background-color #f1f1f1
-                    color #333
+                    background-color #393d49
+                    color #fff
+
 
 </style>

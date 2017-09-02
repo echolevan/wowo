@@ -154,7 +154,7 @@ class PlugController extends Controller
         $collect_plug = DB::table('collect_plugs')->where('user_id',Auth::id())->where('plug_id',$id)->count();
 
         if ($collect_plug > 0) {
-            return ['sta' => 0, 'msg' => '你已经收藏过了'];
+            return ['sta' => 0, 'msg' => '您已收藏过'];
         }
         DB::beginTransaction();
         try {
@@ -181,7 +181,7 @@ class PlugController extends Controller
         $collect_plug = DB::table('collect_plugs')->where('user_id',Auth::id())->where('plug_id',$id)->count();
 
         if ($collect_plug === 0) {
-            return ['sta' => 0, 'msg' => '你还没收藏'];
+            return ['sta' => 0, 'msg' => '您还未收藏'];
         }
         DB::beginTransaction();
         try {
@@ -213,7 +213,7 @@ class PlugController extends Controller
         $like_plug = DB::table('like_plugs')->where('user_id',Auth::id())->where('plug_id',$id)->count();
 
         if ($like_plug > 0) {
-            return ['sta' => 0, 'msg' => '你已经推荐过了'];
+            return ['sta' => 0, 'msg' => '你已推荐过'];
         }
 
         DB::beginTransaction();
@@ -307,7 +307,7 @@ class PlugController extends Controller
         //check user gold
         $user = Auth::user();
         if ($user->gold < $plug->gold) {
-            return ['sta' => 0, 'msg' => '窝窝币不足，请先充值'];
+            return ['sta' => 0, 'msg' => '金币不足，请先充值'];
         }
 
         //pay
@@ -522,7 +522,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '上传失败'];
         }
 
-        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '上传成功' : '上传成功,请等待审核'];
+        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '分享成功' : '分享成功,请等待审核'];
     }
 
     public function update_plug (Request $request, $id)
@@ -590,7 +590,7 @@ class PlugController extends Controller
                 // update
                 $plug = Plug::where('plug_id',$plug_id)->where('is_new',1)->first();
                 if($request->version <= $plug->version ){
-                    return ['sta'=>0 , 'msg'=>'版本号要大于上一个版本'];
+                    return ['sta'=>0 , 'msg'=>'版本号要大于上一版本'];
                 }else{
                     return ['sta'=>1];
                 }
@@ -610,7 +610,7 @@ class PlugController extends Controller
         $is_rate = Score::where('user_id',Auth::id())->where('plug_id',$plug_id)->count();
 
         if ($is_rate > 0) {
-            return ['sta' => 0, 'msg' => '你已经评分过了'];
+            return ['sta' => 0, 'msg' => '你已评分过'];
         }
 
         $sum_count = Score::where('plug_id',$plug_id)->select(DB::raw('sum(score) as score , count(*) as count'))->first();

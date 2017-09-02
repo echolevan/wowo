@@ -1,12 +1,12 @@
 <template>
     <div>
-        <Form ref="formTel" :model="formTel" :rules="telCustom" :label-width="100" style="width: 500px">
-            <FormItem label="原始手机" prop="oldTel" v-show="userInfo.tel !== '0'">
-                <Input type="text" v-model="userInfo.tel" disabled></Input>
+        <Form ref="fromMail" :model="fromMail" :rules="mailCustom" :label-width="100" style="width: 500px">
+            <FormItem label="原始邮箱" prop="oldTel" v-show="userInfo.email">
+                <Input type="text" v-model="userInfo.email" disabled></Input>
             </FormItem>
-            <FormItem label="新手机" prop="newTel">
+            <FormItem label="新邮箱" prop="newMail">
                 <iCol span="16">
-                    <Input type="text" placeholder="新手机" :maxlength="maxlength" v-model="formTel.newTel"></Input>
+                    <Input type="text" placeholder="新邮箱" v-model="fromMail.newMail"></Input>
                 </iCol>
                 <iCol span="8" class="pull-right">
                     <Button type="ghost" class="pull-right" :disabled="is_dis" @click="send_msg">
@@ -17,10 +17,10 @@
                 <div style="clear:both"></div>
             </FormItem>
             <FormItem label="验证码" prop="code">
-                <Input type="text" placeholder="验证码" v-model="formTel.code" :maxlength="maxlengthTwo"></Input>
+                <Input type="text" placeholder="验证码" v-model="fromMail.code" :maxlength="maxlengthTwo"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('formTel')">提交</Button>
+                <Button type="primary" @click="handleSubmit('fromMail')">提交</Button>
             </FormItem>
         </Form>
     </div>
@@ -33,41 +33,33 @@
         data() {
             const validateTel = (rule, value, callback) => {
                 if(value !== ''){
-                    let tel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-                    if(!tel.test(value))
-                    {
-                        callback(new Error('请输入正确的手机号码'));
+                    if(this.fromMail.newMail === this.userInfo.email){
+                        callback(new Error('新邮箱不能与原始邮箱相同'));
                     }else{
-                        if(this.formTel.newTel === this.userInfo.tel){
-                            callback(new Error('新手机不能与原始手机相同'));
-                        }else{
-                            axios.post('/check/user_tel',{tel: this.formTel.newTel}).then(res => {
-                                if(res.data.sta === 0){
-                                    callback(new Error('手机号码已存在'));
-                                }else{
-                                    callback();
-                                }
-                            })
-                        }
-
+                        axios.post('/check/user_email',{email: this.fromMail.newMail , id: this.userInfo.id}).then(res => {
+                            if(res.data.sta === 0){
+                                callback(new Error('邮箱已存在'));
+                            }else{
+                                callback();
+                            }
+                        })
                     }
                 }else{
                     callback();
                 }
             };
             return {
-                formTel: {
-                    newTel: '',
+                fromMail: {
+                    newMail: '',
                     code: '',
                 },
                 is_dis: false,
-                maxlength: 11,
                 maxlengthTwo: 6,
                 rest_time: 60,
-                telCustom: {
-                    newTel: [
-                        { required:true,message:'新手机不能为空',trigger:'blur' },
-                        {validator: validateTel, trigger: 'change'},
+                mailCustom: {
+                    newMail: [
+                        { required:true,message:'新邮箱不能为空',trigger:'blur' },
+                        { type: 'email', message: '邮箱格式不正确', trigger: 'blur' },
                         {validator: validateTel, trigger: 'blur'},
                     ],
                     code: [
@@ -83,26 +75,26 @@
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.post('user/update_tel', {tel: this.formTel.newTel, code: this.formTel.code}).then(res => {
+                        axios.post('user/update_email', {email: this.fromMail.newMail, code: this.fromMail.code}).then(res => {
                             if(res.data.sta === 0){
                                 myDialog(res.data.msg)
                             }else {
                                 myDialog(res.data.msg)
                                 this.$store.commit('change_userInfo', res.data.info)
-                                this.formTel.newTel = ''
-                                this.formTel.code = ''
+                                this.fromMail.newMail = ''
+                                this.fromMail.code = ''
                             }
                         })
                     }
                 })
             },
             send_msg() {
-                this.$refs.formTel.validateField('newTel',(v)=>{
+                this.$refs.fromMail.validateField('newMail',(v)=>{
                     if(!v){
                         this.rest_time = 60
                         this.is_dis = true
                         this.sub_time()
-                        axios.get(`user/send_msg/${this.formTel.newTel}/1`).then(res=>{
+                        axios.get(`user/send_email/${this.fromMail.newMail}`).then(res=>{
                             if(res.data.sta === 0){
                                 myDialog(res.data.msg)
                                 if(res.data.timeOut){

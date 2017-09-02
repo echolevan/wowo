@@ -39,7 +39,7 @@
 
             <Form-item label="用户可维护">
                 <i-Switch v-model="formItem.is_for_user" size="large">
-                    <span slot="open">是</span>
+                    <span slot="open">可</span>
                     <span slot="close">否</span>
                 </i-Switch>
             </Form-item>

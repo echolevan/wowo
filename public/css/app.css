@@ -37079,9 +37079,9 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
 }
 
 .my_gold {
-  background: url("/images/pay/gold.ico") no-repeat;
+  background: url("/images/pay/gold.ico") no-repeat right;
   background-size: contain;
-  padding-left: 30px;
+  padding-right: 20px !important;
 }
 
 .ivu-btn-primary {

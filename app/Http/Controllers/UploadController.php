@@ -69,11 +69,11 @@ class UploadController extends Controller
     public function upload_bm_plug(Request $request)
     {
         if(!in_array(strtolower($request->file('file')->getClientOriginalExtension()) , config('my.upload_bm_type'))){
-            return ['sta'=> 0 ,'msg'=>'请上传Bt文件'];
+            return ['sta'=> 0 ,'msg'=>'请上传BT文件'];
         }
 
         if($request->file('file')->getSize() > 1024*1024){
-            return ['sta'=> 0 ,'msg'=>'请上传小于1M的种子文件'];
+            return ['sta'=> 0 ,'msg'=>'请上传小于1M的BT文件'];
         }
 
         $path = "media/";

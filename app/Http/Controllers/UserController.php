@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -190,7 +191,7 @@ class UserController extends Controller
 
             $sta = $this->check_is_camp();
             if(!$sta['sta']){
-                return ['sta'=> 0 ,'msg'=>'30天内不能修改阵营' , 'time'=>$sta['time']];
+                return ['sta'=> 0 ,'msg'=>'阵营切换间隔时间为 30 天' , 'time'=>$sta['time']];
             }
 
             $arr = [
@@ -290,7 +291,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_mail")) {
-            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
         }
         Cache::forget(Auth::id()."_send_mail");
         Cache::add(Auth::id()."_send_mail", time(), 1);
@@ -299,6 +300,20 @@ class UserController extends Controller
         ]);
         $user = User::find(Auth::id());
         $user->notify(new \App\Notifications\UserCreated($user));
+        return ['sta'=>1 , 'msg'=>'邮件发送成功'];
+    }
+
+    public function send_email($email)
+    {
+        // put in session
+        if (Cache::has(Auth::id()."_send_code_email")) {
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_code_email")];
+        }
+        $code = rand(100000,999999);
+        Mail::to($email)->send(new \App\Mail\sendCodeToUser($code));
+        Cache::forget(Auth::id()."_send_code_email");
+        Cache::add(Auth::id()."_send_email_code", json_encode(['code'=>$code , 'email'=> $email]), 10);
+        Cache::add(Auth::id()."_send_code_email", time(), 1);
         return ['sta'=>1 , 'msg'=>'邮件发送成功'];
     }
 
@@ -333,8 +348,30 @@ class UserController extends Controller
         $user = User::where('id',Auth::id())->update([
             'tel' => $request->tel
         ]);
-        if($user)
+        if($user){
+            Cache::forget(Auth::id()."_send_msg_code");
             return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
+        }
+        return ['sta'=>0 , 'msg'=>'更新失败'];
+    }
+
+    public function update_email(Request $request)
+    {
+        if (!Cache::has(Auth::id()."_send_email_code")) {
+            return ['sta'=>0 , 'msg'=>'验证码已失效'];
+        }
+        $cache = Cache::get(Auth::id()."_send_email_code");
+        $cache = json_decode($cache,true);
+        if($request->code != $cache['code'] || $request->email != $cache['email']){
+            return ['sta'=>0 , 'msg'=>'验证码错误'];
+        }
+        $user = User::where('id',Auth::id())->update([
+            'email' => $request->email
+        ]);
+        if($user){
+            Cache::forget(Auth::id()."_send_email_code");
+            return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
+        }
         return ['sta'=>0 , 'msg'=>'更新失败'];
     }
 
@@ -348,7 +385,7 @@ class UserController extends Controller
         if(Hash::check($request->password, $user->password)) {
             return ['sta'=> 1 ,'msg'=>'ok'];
         }
-        return ['sta'=> 0 ,'msg'=>'原始密码错误' ];
+        return ['sta'=> 0 ,'msg'=>'原密码错误' ];
     }
 
     /**
@@ -437,7 +474,7 @@ class UserController extends Controller
         $username = User::where('id','!=',$request->id)->where('nickname',$request->name)->count();
         $is_wg = Tool::where('name','nickname')->where('value',$request->name)->first();
         if($username > 0 || $is_wg)
-            return ['sta'=>0,'msg'=>'用户名已经存在或者违规'];
+            return ['sta'=>0,'msg'=>'用户名已存在或违规'];
         return ['sta'=>1];
     }
 
@@ -445,7 +482,7 @@ class UserController extends Controller
     {
         $username = User::where('id','!=',$request->id)->where('email',$request->email)->count();
         if($username > 0)
-            return ['sta'=>0,'msg'=>'邮箱重复了'];
+            return ['sta'=>0,'msg'=>'邮箱已存在'];
         return ['sta'=>1];
     }
 
@@ -453,7 +490,7 @@ class UserController extends Controller
     {
         $username = User::where('id','!=',$request->id)->where('tel',$request->tel)->count();
         if($username > 0)
-            return ['sta'=>0,'msg'=>'手机号重复了'];
+            return ['sta'=>0,'msg'=>'手机号码已存在'];
         return ['sta'=>1];
     }
 

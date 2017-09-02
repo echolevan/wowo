@@ -128,7 +128,7 @@ class ToolController extends Controller
     {
         $count = Tool::where('name','nickname')->where('value',$name)->count();
         if($count > 0){
-            return ['sta'=>1 , 'msg'=>'昵称已经存在'];
+            return ['sta'=>1 , 'msg'=>'昵称已存在'];
         }
         $nick = Tool::create([
             'name'=> 'nickname',
@@ -159,7 +159,7 @@ class ToolController extends Controller
     {
         $count = Tool::where('name','game_version')->where('value',$name)->count();
         if($count > 0){
-            return ['sta'=>1 , 'msg'=>'游戏版本号已经存在'];
+            return ['sta'=>1 , 'msg'=>'游戏版本号已存在'];
         }
         $nick = Tool::create([
             'name'=> 'game_version',
