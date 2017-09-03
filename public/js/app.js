@@ -2145,7 +2145,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 is_free: false
             },
             ruleValidate: {
-                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'blur' }],
+                title: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'blur' }, { max: 120, message: '标题最长120字符', trigger: 'change' }],
                 type: [{ required: true, message: '下载方式不能为空' }],
                 zy_type: [{ required: true, message: '资源分类不能为空' }],
                 url: [{ required: true, validator: validateUrl }],
@@ -7710,8 +7710,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'lv']),
     watch: {
         '$route': function $route(to, from) {
-            $('#' + this.$route.params.type).removeClass('active');
-            $(".cd-morph-dropdown").removeClass('is-dropdown-visible');
             this._init();
         }
     },
@@ -7732,6 +7730,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('tag/' + this.$route.params.type).then(function (res) {
                 _this.tags = res.data;
             });
+            $('#' + this.$route.params.type).removeClass('active');
+            $(".cd-morph-dropdown").removeClass('is-dropdown-visible');
             this.tag_active = this.$route.params.active ? this.$route.params.active : 0;
             this.tag_active_pid = this.$route.params.active_pid ? this.$route.params.active_pid : 0;
             this.get_plugs();
@@ -75939,7 +75939,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入字符串"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     model: {
       value: (_vm.content),
@@ -76640,7 +76640,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     on: {
       "input": _vm.keyUp
@@ -77579,7 +77579,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.down_plug.gold))])]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
+  }, [_vm._v(_vm._s(_vm.down_plug.gold))])]), _vm._v(" "), _c('li', [_vm._v("提示：此非实物交易，购买后不退款，请考虑好再购买！")]), _vm._v(" "), (!_vm.userInfo) ? _c('li', {
     staticStyle: {
       "padding-top": "15px"
     }
@@ -81804,7 +81804,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     on: {
       "input": _vm.keyUp
@@ -82219,7 +82219,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     on: {
       "input": _vm.keyUp
@@ -82793,7 +82793,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "textarea",
       "rows": 8,
-      "placeholder": "请输入"
+      "placeholder": "请输入字符串(不能包含中文)"
     },
     on: {
       "input": _vm.keyUp

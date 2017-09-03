@@ -308,8 +308,6 @@
         ]),
         watch: {
             '$route'(to, from) {
-                $(`#${this.$route.params.type}`).removeClass('active')
-                $(".cd-morph-dropdown").removeClass('is-dropdown-visible')
                 this._init()
             }
         },
@@ -327,6 +325,8 @@
                 axios.get(`tag/${this.$route.params.type}`).then(res => {
                     this.tags = res.data
                 })
+                $(`#${this.$route.params.type}`).removeClass('active')
+                $(".cd-morph-dropdown").removeClass('is-dropdown-visible')
                 this.tag_active = this.$route.params.active ? this.$route.params.active : 0
                 this.tag_active_pid = this.$route.params.active_pid ? this.$route.params.active_pid : 0
                 this.get_plugs()

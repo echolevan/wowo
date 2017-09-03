@@ -5,7 +5,7 @@
             <iCol span="24" style="padding:0 0 15px 0">
                 <div class="tool_user_child child">
                     <iCol span="19" style="padding-right: 15px">
-                        <Input  v-model="content" type="textarea" :rows="8" placeholder="请输入字符串" class="w_input" ></Input>
+                        <Input  v-model="content" type="textarea" :rows="8" placeholder="请输入字符串(不能包含中文)" class="w_input" ></Input>
                         <p class="pull-right "
                         >共 <span class="normal_font"
                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"

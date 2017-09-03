@@ -168,7 +168,7 @@
                         <span class="gold_class my_gold" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                     </li>
-                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
+                    <li>提示：此非实物交易，购买后不退款，请考虑好再购买！</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
                         <a class="gold_class"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"

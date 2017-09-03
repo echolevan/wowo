@@ -49,7 +49,7 @@
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入"  v-on:input="keyUp"></Input>
+                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串(不能包含中文)"  v-on:input="keyUp"></Input>
                 <p class="pull-right "
                 >共 <span class="normal_font"
                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
