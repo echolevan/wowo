@@ -177,7 +177,7 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
-                             支付成功后，余额：
+                             支付成功后余额：
                             <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}
