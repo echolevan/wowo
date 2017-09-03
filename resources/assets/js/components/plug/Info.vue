@@ -109,7 +109,7 @@
                         </div>
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
-                            <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
+                            <p>最新版本：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
                             <div v-if="plug.author">
                                 <p>插件作者：<span>{{plug.author}}</span></p>
                                 <p>上传者：<span>{{plug.user.nickname}}</span></p>

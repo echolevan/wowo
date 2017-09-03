@@ -77075,7 +77075,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("推荐： " + _vm._s(_vm.plug.like_num))]) : _c('span', [_vm._v("已推荐： " + _vm._s(_vm.plug.like_num))])])]), _vm._v(" "), _c('div', {
     staticClass: "plug_sim_info"
-  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本号："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
+  }, [_c('p', [_vm._v("最后更新："), _c('span', [_vm._v(_vm._s(_vm.plug.created_at))])]), _vm._v(" "), _c('p', [_vm._v("最新版本："), (_vm.plug.historys) ? _c('span', [_vm._v(_vm._s(_vm.plug.historys[0].version))]) : _vm._e()]), _vm._v(" "), (_vm.plug.author) ? _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.author))])]), _vm._v(" "), _c('p', [_vm._v("上传者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])])]) : _c('div', [_c('p', [_vm._v("插件作者："), _c('span', [_vm._v(_vm._s(_vm.plug.user.nickname))])]), _vm._v(" "), _c('p', [_vm._v("联系作者："), _c('span', [_c('a', {
     attrs: {
       "href": 'mailto:' + _vm.plug.user.email
     }
