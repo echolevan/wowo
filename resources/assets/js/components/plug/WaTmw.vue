@@ -4,14 +4,21 @@
             <iCol span="4">
                 <div class="tool_plug">
                     <ul>
-                        <li :class="{'active':tag_active === 0 , 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" @click="change_tag(0, 0)">全部插件</li>
-                        <div  v-if="tags.length > 0"  v-for="tag in tags">
-                            <li class='down'  :class="{'active':tag_active === tag.id,  'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(tag.id , tag.pid)">
+                        <li :class="{'active':tag_active === 0 , 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                            @click="change_tag(0, 0)">全部插件
+                        </li>
+                        <div v-if="tags.length > 0" v-for="tag in tags">
+                            <li class='down'
+                                :class="{'active':tag_active === tag.id,  'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                @click="change_tag(tag.id , tag.pid)">
                                 <img :src="tag.thumb" alt="">
                                 {{tag.name}}
                             </li>
                             <div class="child" v-if="tag.tags.length > 0">
-                                <li  v-for="child in tag.tags " :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"  @click="change_tag(child.id , child.pid)" >{{child.name}}</li>
+                                <li v-for="child in tag.tags "
+                                    :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                    @click="change_tag(child.id , child.pid)">{{child.name}}
+                                </li>
                             </div>
                         </div>
                         <div class="my_btn_wrapper"
@@ -22,7 +29,7 @@
                             </svg>
                             <div class="button_one_text">字符串分享</div>
                         </div>
-                        <div  v-else>
+                        <div v-else>
                             <div class="my_btn_wrapper"
                                  @click="upload_plug($route.params.type , '整合界面')"
                                  :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
@@ -48,37 +55,47 @@
                 <div class="plug_content">
                     <div class="sel">
                         排序：
-                        <Select v-model="orderBy" size="small" style="width:100px" @on-change="change_order" :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        <Select v-model="orderBy" size="small" style="width:100px" @on-change="change_order"
+                                :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}
+                            </Option>
                         </Select>
-                        <Page  v-if="plugs.length > 0"  ref="pageThis"  :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                               :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
+                        <Page v-if="plugs.length > 0" ref="pageThis"
+                              :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                              :total="plugs_count" size="small" @on-change="change_page" style="float:right" show-total
+                              :key="plugs_count"></Page>
                     </div>
 
-                    <div class="content"  v-if="plugs.length > 0" v-for="(plug,k) in plugs">
+                    <div class="content" v-if="plugs.length > 0" v-for="(plug,k) in plugs">
                         <div class="img_view">
                             <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : ''" alt="">
                         </div>
                         <div class="content_main">
-                            <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: plug.id}}">
+                            <router-link
+                                    :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                    :to="{name:'plug.info' , params:{id: plug.id}}">
                                 <strong class="my_a_style">{{plug.title}}</strong>
                             </router-link>
-                            <span class="pull-right hover_hand"  @click="download(plug.id,k)" style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
+                            <span class="pull-right hover_hand" @click="download(plug.id,k)"
+                                  style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
                                   :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                             >{{$route.params.type === 'plug' ? '下载 ' : '获取'}}</span>
                             <br>
-                            <Icon type="ios-cloud-download-outline"></Icon><span>{{plug.download_num}}</span>
-                            <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
-                            <Icon type="ios-star-outline"></Icon><span>{{plug.collect_num}}</span>
+                            <Icon type="ios-cloud-download-outline"></Icon>
+                            <span>{{plug.download_num}}</span>
+                            <Icon type="ios-clock-outline"></Icon>
+                            <span>{{plug.created_at}}</span>
+                            <Icon type="ios-star-outline"></Icon>
+                            <span>{{plug.collect_num}}</span>
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
                             <span
                                     class="normal_font"
                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                     v-if="plug.is_free === 0">免费</span>
-                            <span  style="padding-right:0" v-else>
-                                  <span   class="gold_class normal_font"
-                                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                          style="font-size: 16px;padding-right:0"
+                            <span style="padding-right:0" v-else>
+                                  <span class="gold_class normal_font"
+                                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                        style="font-size: 16px;padding-right:0"
                                   >
                                 <span v-if="plug.is_pay" class="my_gold"><s>{{plug.gold}}</s></span>
                                 <span v-else class="my_gold">{{plug.gold}}</span>
@@ -88,11 +105,14 @@
                             <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
                         </div>
                     </div>
-                    <div class="content tt_center" v-show="plugs_count === 0"><strong style="margin:0 auto;font-size: 16px">暂无内容</strong></div>
+                    <div class="content tt_center" v-show="plugs_count === 0"><strong
+                            style="margin:0 auto;font-size: 16px">暂无内容</strong></div>
 
                     <div class="sel sel_bottom">
-                        <Page  v-if="plugs.length > 0"  ref="pageTwo" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                              :total="plugs_count"  size="small" @on-change="change_page" style="float:right" show-total  :key="plugs_count"></Page>
+                        <Page v-if="plugs.length > 0" ref="pageTwo"
+                              :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                              :total="plugs_count" size="small" @on-change="change_page" style="float:right" show-total
+                              :key="plugs_count"></Page>
                     </div>
 
                 </div>
@@ -100,7 +120,8 @@
             <iCol span="6">
                 <div class="tool_right">
                     <div class="search">
-                        <Input v-model="keyword" @keyup.enter.native="to_search"  placeholder="搜索标题"  icon="search" @on-click="to_search"></Input>
+                        <Input v-model="keyword" @keyup.enter.native="to_search" placeholder="搜索标题" icon="search"
+                               @on-click="to_search"></Input>
                     </div>
                     <v-rank></v-rank>
                 </div>
@@ -138,7 +159,7 @@
             <p slot="header" class="model_title "
                style="text-align:center">
                 <span class="normal_font"
-                        :class="{'bl_model_span_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                      :class="{'bl_model_span_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >{{down_plug.title}}</span>
             </p>
             <div style="text-align:left">
@@ -149,7 +170,7 @@
                     </li>
                     <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
                     <li style="padding-top: 15px" v-if="!userInfo">
-                        <a class="gold_class"
+                        <a class="gold_class normal_font"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                            href="javascript:void(0)" @click="login">请先登录</a>
                     </li>
@@ -240,11 +261,12 @@
 <script>
     import Rank from '../common/Rank.vue'
     import Clipboard from 'clipboard'
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
+
     export default {
-        data () {
+        data() {
             return {
-                orderByList:[
+                orderByList: [
                     {
                         value: '1',
                         label: '更新时间',
@@ -258,7 +280,7 @@
                         label: '推荐度',
                     }
                 ],
-                tags:[],
+                tags: [],
                 orderBy: '1',
                 keyword: '',
                 tag_active: 0,
@@ -274,68 +296,47 @@
                     title: '',
                     content: ''
                 },
-                plug_id:'',
-                plug_key:'',
+                plug_id: '',
+                plug_key: '',
                 pay_type: 1,
                 pay_amount: 10,
                 pay_amount_other: 1,
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap', 'change_s_tag', 'lv'
+            'userInfo', 'choice_cmap', 'lv'
         ]),
         watch: {
-            '$route' (to, from) {
+            '$route'(to, from) {
+                $(`#${this.$route.params.type}`).removeClass('active')
+                $(".cd-morph-dropdown").removeClass('is-dropdown-visible')
                 this._init()
-                this.tag_active = 0
-                this.tag_active_pid = 0
-            },
-            change_s_tag() {
-                this.tag_active = 0
-                this.tag_active_pid = 0
-                let  watmw_tag_id = localStorage.getItem('watmw_tag_id')
-                let  watmw_tag_pid = localStorage.getItem('watmw_tag_pid')
-                if(watmw_tag_id){
-                    this.tag_active = parseInt(watmw_tag_id)
-                    localStorage.removeItem('watmw_tag_id')
-                }
-                if(watmw_tag_pid){
-                    this.tag_active_pid = parseInt(watmw_tag_pid)
-                    localStorage.removeItem('watmw_tag_pid')
-                }
-
-                setTimeout(()=>{
-                    $('li.active').parent('.child').show('300')
-                },600)
-
-                this.get_plugs()
-
-            },
+            }
         },
-        mounted () {
-
-            $(document).on("click" , ".down" , function () {
+        mounted() {
+            $(document).on("click", ".down", function () {
                 $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
             })
-
             this._init()
         },
         methods: {
-            to_search(){
+            to_search() {
                 this.get_plugs();
             },
             _init() {
-                axios.get(`tag/${this.$route.params.type}`).then(res=>{
+                axios.get(`tag/${this.$route.params.type}`).then(res => {
                     this.tags = res.data
                 })
-               this.get_plugs()
+                this.tag_active = this.$route.params.active ? this.$route.params.active : 0
+                this.tag_active_pid = this.$route.params.active_pid ? this.$route.params.active_pid : 0
+                this.get_plugs()
             },
-            change_tag(id , pid) {
+            change_tag(id, pid) {
                 let old_tag_id = this.tag_active
                 this.tag_active = id
                 this.tag_active_pid = pid
 
-                if(old_tag_id !== id){
+                if (old_tag_id !== id) {
                     this.get_plugs();
                 }
             },
@@ -344,35 +345,44 @@
                 this.get_plugs();
             },
             // 更改分页
-            change_page (p) {
-                this.$refs.pageThis.currentPage  = p
-                this.$refs.pageTwo.currentPage  = p
+            change_page(p) {
+                this.$refs.pageThis.currentPage = p
+                this.$refs.pageTwo.currentPage = p
                 this.this_page = p
                 this.get_plugs();
             },
             // 得到插件数据
-            get_plugs(){
-                axios.post(`plug/${this.$route.params.type}` , {orderBy:this.orderBy , tag_active:this.tag_active , tag_active_pid: this.tag_active_pid , page:this.this_page , keyword:this.keyword} ).then(res=>{
+            get_plugs() {
+                axios.post(`plug/${this.$route.params.type}`, {
+                    orderBy: this.orderBy,
+                    tag_active: this.tag_active,
+                    tag_active_pid: this.tag_active_pid,
+                    page: this.this_page,
+                    keyword: this.keyword
+                }).then(res => {
                     this.plugs = res.data.plugs
                     this.plugs_count = res.data.count
                     this.this_page = 1
                 })
+                setTimeout(() => {
+                    $('li.active').parent('.child').show('300')
+                }, 600)
             },
 
-            upload_plug(type , tag_name = 0){
-                if(this.$store.state.userInfo){
-                    localStorage.setItem('upload_type',type)
-                    if(tag_name !== 0){
-                        localStorage.setItem('upload_type_name',tag_name)
+            upload_plug(type, tag_name = 0) {
+                if (this.$store.state.userInfo) {
+                    localStorage.setItem('upload_type', type)
+                    if (tag_name !== 0) {
+                        localStorage.setItem('upload_type_name', tag_name)
                     }
                     this.$router.push("/upload")
-                }else{
+                } else {
                     myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
                         , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
             },
-            download(id,k) {
+            download(id, k) {
                 axios.get(`download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
@@ -412,7 +422,7 @@
                     } else {
                         this.download_pay_model = false
                         this.plugs[this.plug_key].is_pay = 1
-                        this.download(id,this.plug_key)
+                        this.download(id, this.plug_key)
                     }
                 })
                 this.loading = false
@@ -429,16 +439,16 @@
                         myDialog(res.data.msg)
                     } else {
                         myDialog('请在新窗口支付')
-                        let aaa = setInterval(()=>{
+                        let aaa = setInterval(() => {
                             axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
-                                if(res.data.sta === 1){
+                                if (res.data.sta === 1) {
                                     clodeMyDialog()
                                     myDialog('支付成功')
                                     this.$store.commit('change_userInfo', res.data.info)
                                     clearInterval(aaa)
                                 }
                             })
-                        },1000)
+                        }, 1000)
                         window.open(res.data.url);
                     }
                 })
@@ -451,7 +461,7 @@
                 }
             },
         },
-        components:{
+        components: {
             'v-rank': Rank
         }
     }
@@ -482,6 +492,7 @@
                 display none
                 li
                     padding-left 48px !important
+
     .plug_content
         padding 0 15px
         .sel
@@ -519,6 +530,7 @@
                     word-break break-all
         .sel_bottom
             margin-top 15px
+
     .tool_right
         padding-left 15px
         .search

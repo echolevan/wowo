@@ -6074,71 +6074,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-//    import {myNav} from '../../../common/nav.js'
 
 
 
@@ -6156,14 +6092,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'tools']),
-    mounted: function mounted() {
-        //            axios.get('plug_all_info_nav').then(res=>{
-        //                this.nav_tags = res.data.res
-        //            })
-        //            setTimeout(()=>{
-        //                $(".modern-menu").modernMenu();
-        //            },1000)
-    },
+    mounted: function mounted() {},
 
     methods: {
         logout: function logout() {
@@ -6305,6 +6234,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6330,24 +6302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'tools']),
-    methods: {
-        to_go: function to_go(type, id) {
-            var pid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-            console.log(type);
-            if (type === '游戏插件') {
-                $('#PLUG').removeClass('active');
-            } else {
-                $('#' + type).removeClass('active');
-            }
-            $(".cd-morph-dropdown").removeClass('is-dropdown-visible');
-            localStorage.setItem('watmw_tag_id', id);
-            localStorage.setItem('watmw_tag_pid', pid);
-            this.$store.commit('change_tag');
-            this.$router.push({ name: 'waTmw.index', params: { type: this.configUrl[type] } });
-        }
-    }
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'tools'])
 });
 
 /***/ }),
@@ -6821,6 +6776,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -6834,7 +6794,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 thumbs: [],
                 user: {},
                 collect_plug: [],
-                like_plug: []
+                like_plug: [],
+                tag_one: {
+                    id: 0
+                },
+                tag_two: {
+                    id: 0
+                }
             },
             updated_infos: [],
             download_model: false,
@@ -7003,13 +6969,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!/^\d+$/.test(this.pay_amount_other)) {
                 this.pay_amount_other = Math.round(this.pay_amount_other);
             }
-        },
-        to_waTmw: function to_waTmw(id) {
-            var pid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-            localStorage.setItem('watmw_tag_id', id);
-            localStorage.setItem('watmw_tag_pid', pid);
-            this.$router.push({ name: 'waTmw.index', params: { type: this.configUrl[this.plug.type_name] } });
         }
     },
     components: {
@@ -7685,6 +7644,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -7726,40 +7707,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'change_s_tag', 'lv']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap', 'lv']),
     watch: {
         '$route': function $route(to, from) {
+            $('#' + this.$route.params.type).removeClass('active');
+            $(".cd-morph-dropdown").removeClass('is-dropdown-visible');
             this._init();
-            this.tag_active = 0;
-            this.tag_active_pid = 0;
-        },
-        change_s_tag: function change_s_tag() {
-            this.tag_active = 0;
-            this.tag_active_pid = 0;
-            var watmw_tag_id = localStorage.getItem('watmw_tag_id');
-            var watmw_tag_pid = localStorage.getItem('watmw_tag_pid');
-            if (watmw_tag_id) {
-                this.tag_active = parseInt(watmw_tag_id);
-                localStorage.removeItem('watmw_tag_id');
-            }
-            if (watmw_tag_pid) {
-                this.tag_active_pid = parseInt(watmw_tag_pid);
-                localStorage.removeItem('watmw_tag_pid');
-            }
-
-            setTimeout(function () {
-                $('li.active').parent('.child').show('300');
-            }, 600);
-
-            this.get_plugs();
         }
     },
     mounted: function mounted() {
-
         $(document).on("click", ".down", function () {
             $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
         });
-
         this._init();
     },
 
@@ -7773,6 +7732,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('tag/' + this.$route.params.type).then(function (res) {
                 _this.tags = res.data;
             });
+            this.tag_active = this.$route.params.active ? this.$route.params.active : 0;
+            this.tag_active_pid = this.$route.params.active_pid ? this.$route.params.active_pid : 0;
             this.get_plugs();
         },
         change_tag: function change_tag(id, pid) {
@@ -7802,11 +7763,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         get_plugs: function get_plugs() {
             var _this2 = this;
 
-            axios.post('plug/' + this.$route.params.type, { orderBy: this.orderBy, tag_active: this.tag_active, tag_active_pid: this.tag_active_pid, page: this.this_page, keyword: this.keyword }).then(function (res) {
+            axios.post('plug/' + this.$route.params.type, {
+                orderBy: this.orderBy,
+                tag_active: this.tag_active,
+                tag_active_pid: this.tag_active_pid,
+                page: this.this_page,
+                keyword: this.keyword
+            }).then(function (res) {
                 _this2.plugs = res.data.plugs;
                 _this2.plugs_count = res.data.count;
                 _this2.this_page = 1;
             });
+            setTimeout(function () {
+                $('li.active').parent('.child').show('300');
+            }, 600);
         },
         upload_plug: function upload_plug(type) {
             var tag_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -12586,7 +12556,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 exports.i(__webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./resources/assets/common/new/style.css"), "");
 
 // module
-exports.push([module.i, "\n.nav_link[data-v-045af35a] {\n  border-radius: 5px;\n  margin: 0 5px;\n}\n.nav_link.router-link-exact-active.router-link-active[data-v-045af35a] {\n  background: #266ec1;\n  color: #fff;\n}\n", ""]);
+exports.push([module.i, "\n.nav_link[data-v-045af35a] {\n  margin: 0 5px;\n}\n.nav_link.router-link-active[data-v-045af35a] {\n  background: #266ec1;\n  color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -12767,7 +12737,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1240px;\n  padding: 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1300px;\n  padding: 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -13157,7 +13127,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "/* --------------------------------\n\n Header\n\n-------------------------------- */\n.cd-morph-dropdown {\n    position: relative;\n    height: 60px;\n    background-color: #fff;\n}\n\n.cd-morph-dropdown::before {\n    /* never visible - used in JS to check mq */\n    content: 'mobile';\n    display: none;\n}\n\n.cd-morph-dropdown .nav-trigger {\n    /* menu icon - visible on small screens only */\n    position: absolute;\n    top: 35px;\n    right: 0;\n    height: 40px;\n    width: 60px;\n    /* replace text with icon */\n    overflow: hidden;\n    text-indent: 100%;\n    white-space: nowrap;\n    color: transparent;\n}\n\n.cd-morph-dropdown .nav-trigger span, .cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\n    /* these are the 3 lines of the menu icon */\n    position: absolute;\n    background-color: #1A1A1A;\n    height: 3px;\n    width: 26px;\n}\n\n.cd-morph-dropdown .nav-trigger span {\n    left: 50%;\n    top: 50%;\n    bottom: auto;\n    right: auto;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n    -ms-transform: translateX(-50%) translateY(-50%);\n    transform: translateX(-50%) translateY(-50%);\n    -webkit-transition: background-color .3s;\n    transition: background-color .3s;\n}\n\n.cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\n    content: '';\n    left: 0;\n    -webkit-transition: -webkit-transform .3s;\n    transition: -webkit-transform .3s;\n    transition: transform .3s;\n    transition: transform .3s, -webkit-transform .3s;\n}\n\n.cd-morph-dropdown .nav-trigger span::before {\n    -webkit-transform: translateY(-9px);\n    -ms-transform: translateY(-9px);\n    transform: translateY(-9px);\n}\n\n.cd-morph-dropdown .nav-trigger span::after {\n    -webkit-transform: translateY(9px);\n    -ms-transform: translateY(9px);\n    transform: translateY(9px);\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span {\n    background-color: transparent;\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span::before {\n    -webkit-transform: rotate(45deg);\n    -ms-transform: rotate(45deg);\n    transform: rotate(45deg);\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span::after {\n    -webkit-transform: rotate(-45deg);\n    -ms-transform: rotate(-45deg);\n    transform: rotate(-45deg);\n}\n\n.cd-morph-dropdown .main-nav {\n    display: none;\n}\n\n.cd-morph-dropdown .morph-dropdown-wrapper {\n    display: none;\n    position: absolute;\n    top: 60px;\n    left: 0;\n    width: 100%;\n    padding: 1.2em 5%;\n    box-shadow: inset 0 1px 0 #e6e6e6;\n    background-color: #fff;\n}\n\n.cd-morph-dropdown.nav-open .morph-dropdown-wrapper {\n    display: block;\n}\n\n.cd-morph-dropdown .dropdown-list > ul > li {\n    margin-bottom: 3.3em;\n}\n\n.cd-morph-dropdown .label {\n    display: block;\n    font-size: 2.2rem;\n    color: #1A1A1A;\n    margin-bottom: .8em;\n}\n\n.cd-morph-dropdown .content li::after {\n    clear: both;\n    content: \"\";\n    display: block;\n}\n\n.cd-morph-dropdown .gallery .content li {\n    margin-bottom: 1.4em;\n}\n\n.cd-morph-dropdown .gallery .content a {\n    display: block;\n}\n\n.cd-morph-dropdown .gallery .content a::before {\n    /* icon on the left */\n    content: '';\n    display: inline-block;\n    float: left;\n    height: 54px;\n    width: 54px;\n    margin-right: .6em;\n    background: red;\n    border-radius: 50%;\n    -webkit-transition: background .2s;\n    transition: background .2s;\n}\n\n.cd-morph-dropdown .gallery .content a span, .cd-morph-dropdown .gallery .content a em {\n    display: block;\n    line-height: 1.2;\n}\n\n.cd-morph-dropdown .gallery .content a em {\n    font-size: 1.8rem;\n    padding: .4em 0 .2em;\n    color: #1A1A1A;\n}\n\n.cd-morph-dropdown .gallery .content a span {\n    font-size: 1.4rem;\n    color: #a6a6a6;\n}\n\n.cd-morph-dropdown .gallery .content a:hover::before {\n    background-color: #1A1A1A;\n}\n\n.cd-morph-dropdown .links-list a,\n.cd-morph-dropdown .btn {\n    display: block;\n    margin-left: 14px;\n    font-size: 12px;\n    line-height: 1.6;\n}\n\n.cd-morph-dropdown .links-list a:hover,\n.cd-morph-dropdown .btn:hover {\n    color: #1A1A1A;\n}\n\n.cd-morph-dropdown .content h2 {\n    color: #a6a6a6;\n    text-transform: uppercase;\n    font-weight: bold;\n    font-size: 1.3rem;\n    margin: 20px 0 10px 14px;\n}\n\n@media only screen and (min-width: 1000px) {\n    .cd-morph-dropdown {\n        position: absolute;\n        height: 40px;\n        left: 0;\n        top: 35px;\n        z-index: 9999;\n        width: 100%;\n        padding: 0;\n        text-align: center;\n        background-color: transparent;\n    }\n\n    .cd-morph-dropdown::before {\n        content: 'desktop';\n    }\n\n    .cd-morph-dropdown .nav-trigger {\n        display: none;\n    }\n\n    .cd-morph-dropdown .main-nav {\n        display: inline-block;\n        width: 1240px;\n        margin: 0 auto;\n    }\n\n    .cd-morph-dropdown .main-nav > ul > li {\n        display: inline-block;\n        float: left;\n    }\n\n    .cd-morph-dropdown .main-nav > ul > li > a {\n        display: block;\n        padding: 0 1.8em;\n        height: 40px;\n        line-height: 40px;\n        color: #333;\n        font-size: 16px;\n        font-weight: bold;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n        -webkit-transition: opacity .2s;\n        transition: opacity .2s;\n    }\n\n\n\n    .cd-morph-dropdown .morph-dropdown-wrapper {\n        /* dropdown wrapper - used to create the slide up/slide down effect when dropdown is revealed/hidden */\n        display: block;\n        top: 58px;\n        /* overwrite mobile style */\n        width: auto;\n        padding: 0;\n        box-shadow: none;\n        background-color: transparent;\n        /* Force Hardware acceleration */\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform;\n        -webkit-transform: translateY(20px);\n        -ms-transform: translateY(20px);\n        transform: translateY(20px);\n        -webkit-transition: -webkit-transform .3s;\n        transition: -webkit-transform .3s;\n        transition: transform .3s;\n        transition: transform .3s, -webkit-transform .3s;\n    }\n\n    .main-nav li{\n        border-radius: 5px\n    }\n\n    .main-nav li:hover a{\n        background-color: #266ec1;\n        color: #fff !important;\n    }\n\n\n    .main-nav li:hover a.bl_active_color{\n        background-color: #d13030;\n        color: #fff !important;\n    }\n\n    .has-dropdown.active a{\n        background-color: #266ec1;\n        color: #fff !important;\n    }\n\n    .has-dropdown.active a.bl_active_color{\n        background-color: #d13030;\n        color: #fff !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .morph-dropdown-wrapper {\n        -webkit-transform: translateY(0);\n        -ms-transform: translateY(0);\n        transform: translateY(0);\n    }\n\n    .cd-morph-dropdown .dropdown-list {\n        position: absolute;\n        top: -10px;\n        left: 0;\n        visibility: hidden;\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform, width, height;\n        -webkit-transition: visibility .3s;\n        transition: visibility .3s;\n        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);\n    }\n\n    .no-csstransitions .cd-morph-dropdown .dropdown-list {\n        display: none;\n    }\n\n    .cd-morph-dropdown .dropdown-list::before {\n        /* dropdown top triangle */\n        content: '';\n        position: absolute;\n        bottom: 100%;\n        left: 50%;\n        right: auto;\n        -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n        transform: translateX(-50%);\n        height: 0;\n        width: 0;\n        border: 12px solid transparent;\n        border-bottom-color: #266ec1;\n        opacity: 0;\n        -webkit-transition: opacity .3s;\n        transition: opacity .3s;\n    }\n\n    .cd-morph-dropdown .dropdown-list.bl_dropdown_list::before{\n        border-bottom-color: #d13030;\n    }\n\n    .cd-morph-dropdown .dropdown-list > ul {\n        position: relative;\n        z-index: 1;\n        height: 100%;\n        width: 100%;\n        overflow: hidden;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list {\n        visibility: visible;\n        -webkit-transition: width .3s, height .3s, -webkit-transform .3s;\n        transition: width .3s, height .3s, -webkit-transform .3s;\n        transition: transform .3s, width .3s, height .3s;\n        transition: transform .3s, width .3s, height .3s, -webkit-transform .3s;\n        border-top: 5px solid #266ec1 !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list.bl_dropdown_list{\n        border-top: 5px solid #d13030 !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list::before {\n        opacity: 1;\n    }\n\n    .cd-morph-dropdown .dropdown {\n        position: absolute;\n        left: 0;\n        top: 0;\n        opacity: 0;\n        visibility: hidden;\n        width: 100%;\n        -webkit-transition: opacity .3s, visibility .3s;\n        transition: opacity .3s, visibility .3s;\n    }\n\n    .cd-morph-dropdown .dropdown.active {\n        opacity: 1;\n        visibility: visible;\n    }\n\n    .cd-morph-dropdown .dropdown.move-left .content {\n        -webkit-transform: translateX(-100px);\n        -ms-transform: translateX(-100px);\n        transform: translateX(-100px);\n    }\n\n    .cd-morph-dropdown .dropdown.move-right .content {\n        -webkit-transform: translateX(100px);\n        -ms-transform: translateX(100px);\n        transform: translateX(100px);\n    }\n\n    .cd-morph-dropdown .label {\n        /* hide the label on bigger devices */\n        display: none;\n    }\n\n    .cd-morph-dropdown .content {\n        padding: 2.2em 1.8em;\n        -webkit-transition: -webkit-transform .3s;\n        transition: -webkit-transform .3s;\n        transition: transform .3s;\n        transition: transform .3s, -webkit-transform .3s;\n        text-align: left;\n    }\n\n    .cd-morph-dropdown .content > ul::after {\n        clear: both;\n        content: \"\";\n        display: block;\n    }\n\n    .cd-morph-dropdown .content > ul > li {\n        width: 20%;\n        float: left;\n        margin: 0 2%;\n    }\n\n    .cd-morph-dropdown .content > ul > li:nth-of-type(2n) {\n        margin-right: 0;\n    }\n\n    .cd-morph-dropdown .gallery .content {\n        /* you need to set a width for the .content elements because they have a position absolute */\n        width: 510px;\n        padding-bottom: .8em;\n    }\n\n    .cd-morph-dropdown .gallery .content li {\n        margin-bottom: 1.8em;\n    }\n\n    .cd-morph-dropdown .links .content > ul > li {\n        margin-top: 0;\n        margin-bottom: 1em;\n    }\n    .cd-morph-dropdown .links .content,\n    .cd-morph-dropdown .button .content {\n        width: 500px;\n    }\n\n    .cd-morph-dropdown .links-list a {\n        font-size: 12px;\n        margin-left: 0;\n    }\n\n    .cd-morph-dropdown .btn {\n        display: block;\n        width: 100%;\n        height: 60px;\n        margin: 1.5em 0 0;\n        font-size: 1.8rem;\n        text-align: center;\n        color: #fff;\n        line-height: 60px;\n        background: #DB6356;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n    }\n\n    .cd-morph-dropdown .btn:hover {\n        background: #1A1A1A;\n        color: #fff;\n    }\n\n\n    .cd-morph-dropdown .content h2 {\n        font-size: 14px;\n        text-transform: none;\n        font-weight: normal;\n        color: #266ec1;\n        margin: 0 0 .6em;\n    }\n    .cd-morph-dropdown .bg-layer {\n        /* morph dropdown background */\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 1px;\n        width: 1px;\n        background: #fff;\n        opacity: 0;\n        -webkit-transition: opacity .3s;\n        transition: opacity .3s;\n        -webkit-transform-origin: top left;\n        -ms-transform-origin: top left;\n        transform-origin: top left;\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform;\n        -webkit-backface-visibility: hidden;\n        backface-visibility: hidden;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .bg-layer {\n        opacity: 1;\n        -webkit-transition: opacity .3s, -webkit-transform .3s;\n        transition: opacity .3s, -webkit-transform .3s;\n        transition: transform .3s, opacity .3s;\n        transition: transform .3s, opacity .3s, -webkit-transform .3s;\n    }\n}\n", ""]);
+exports.push([module.i, "/* --------------------------------\n\n Header\n\n-------------------------------- */\n.cd-morph-dropdown {\n    position: relative;\n    height: 60px;\n    background-color: #fff;\n}\n\n.cd-morph-dropdown::before {\n    /* never visible - used in JS to check mq */\n    content: 'mobile';\n    display: none;\n}\n\n.cd-morph-dropdown .nav-trigger {\n    /* menu icon - visible on small screens only */\n    position: absolute;\n    top: 35px;\n    right: 0;\n    height: 40px;\n    width: 60px;\n    /* replace text with icon */\n    overflow: hidden;\n    text-indent: 100%;\n    white-space: nowrap;\n    color: transparent;\n}\n\n.cd-morph-dropdown .nav-trigger span, .cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\n    /* these are the 3 lines of the menu icon */\n    position: absolute;\n    background-color: #1A1A1A;\n    height: 3px;\n    width: 26px;\n}\n\n.cd-morph-dropdown .nav-trigger span {\n    left: 50%;\n    top: 50%;\n    bottom: auto;\n    right: auto;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n    -ms-transform: translateX(-50%) translateY(-50%);\n    transform: translateX(-50%) translateY(-50%);\n    -webkit-transition: background-color .3s;\n    transition: background-color .3s;\n}\n\n.cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\n    content: '';\n    left: 0;\n    -webkit-transition: -webkit-transform .3s;\n    transition: -webkit-transform .3s;\n    transition: transform .3s;\n    transition: transform .3s, -webkit-transform .3s;\n}\n\n.cd-morph-dropdown .nav-trigger span::before {\n    -webkit-transform: translateY(-9px);\n    -ms-transform: translateY(-9px);\n    transform: translateY(-9px);\n}\n\n.cd-morph-dropdown .nav-trigger span::after {\n    -webkit-transform: translateY(9px);\n    -ms-transform: translateY(9px);\n    transform: translateY(9px);\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span {\n    background-color: transparent;\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span::before {\n    -webkit-transform: rotate(45deg);\n    -ms-transform: rotate(45deg);\n    transform: rotate(45deg);\n}\n\n.cd-morph-dropdown.nav-open .nav-trigger span::after {\n    -webkit-transform: rotate(-45deg);\n    -ms-transform: rotate(-45deg);\n    transform: rotate(-45deg);\n}\n\n.cd-morph-dropdown .main-nav {\n    display: none;\n}\n\n.cd-morph-dropdown .morph-dropdown-wrapper {\n    display: none;\n    position: absolute;\n    top: 60px;\n    left: 0;\n    width: 100%;\n    padding: 1.2em 5%;\n    box-shadow: inset 0 1px 0 #e6e6e6;\n    background-color: #fff;\n}\n\n.cd-morph-dropdown.nav-open .morph-dropdown-wrapper {\n    display: block;\n}\n\n.cd-morph-dropdown .dropdown-list > ul > li {\n    margin-bottom: 3.3em;\n}\n\n.cd-morph-dropdown .label {\n    display: block;\n    font-size: 2.2rem;\n    color: #1A1A1A;\n    margin-bottom: .8em;\n}\n\n.cd-morph-dropdown .content li::after {\n    clear: both;\n    content: \"\";\n    display: block;\n}\n\n.cd-morph-dropdown .gallery .content li {\n    margin-bottom: 1.4em;\n}\n\n.cd-morph-dropdown .gallery .content a {\n    display: block;\n}\n\n.cd-morph-dropdown .gallery .content a::before {\n    /* icon on the left */\n    content: '';\n    display: inline-block;\n    float: left;\n    height: 54px;\n    width: 54px;\n    margin-right: .6em;\n    background: red;\n    border-radius: 50%;\n    -webkit-transition: background .2s;\n    transition: background .2s;\n}\n\n.cd-morph-dropdown .gallery .content a span, .cd-morph-dropdown .gallery .content a em {\n    display: block;\n    line-height: 1.2;\n}\n\n.cd-morph-dropdown .gallery .content a em {\n    font-size: 1.8rem;\n    padding: .4em 0 .2em;\n    color: #1A1A1A;\n}\n\n.cd-morph-dropdown .gallery .content a span {\n    font-size: 1.4rem;\n    color: #a6a6a6;\n}\n\n.cd-morph-dropdown .gallery .content a:hover::before {\n    background-color: #1A1A1A;\n}\n\n.cd-morph-dropdown .links-list a,\n.cd-morph-dropdown .btn {\n    display: block;\n    margin-left: 14px;\n    font-size: 12px;\n    line-height: 1.6;\n}\n\n.cd-morph-dropdown .links-list a:hover,\n.cd-morph-dropdown .btn:hover {\n    color: #1A1A1A;\n}\n\n.cd-morph-dropdown .content h2 {\n    color: #a6a6a6;\n    text-transform: uppercase;\n    font-weight: bold;\n    font-size: 1.3rem;\n    margin: 20px 0 10px 14px;\n}\n\n@media only screen and (min-width: 1000px) {\n    .cd-morph-dropdown {\n        position: absolute;\n        height: 40px;\n        left: 0;\n        top: 35px;\n        z-index: 99;\n        width: 100%;\n        padding: 0;\n        text-align: center;\n        background-color: transparent;\n    }\n\n    .cd-morph-dropdown::before {\n        content: 'desktop';\n    }\n\n    .cd-morph-dropdown .nav-trigger {\n        display: none;\n    }\n\n    .cd-morph-dropdown .main-nav {\n        display: inline-block;\n        width: 1240px;\n        margin: 0 auto;\n    }\n\n    .cd-morph-dropdown .main-nav > ul > li {\n        display: inline-block;\n        float: left;\n    }\n\n    .cd-morph-dropdown .main-nav > ul > li > a {\n        display: block;\n        padding: 0 1.8em;\n        height: 40px;\n        line-height: 40px;\n        color: #333;\n        font-size: 16px;\n        font-weight: bold;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n        -webkit-transition: opacity .2s;\n        transition: opacity .2s;\n    }\n\n\n\n    .cd-morph-dropdown .morph-dropdown-wrapper {\n        /* dropdown wrapper - used to create the slide up/slide down effect when dropdown is revealed/hidden */\n        display: block;\n        top: 58px;\n        /* overwrite mobile style */\n        width: auto;\n        padding: 0;\n        box-shadow: none;\n        background-color: transparent;\n        /* Force Hardware acceleration */\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform;\n        -webkit-transform: translateY(20px);\n        -ms-transform: translateY(20px);\n        transform: translateY(20px);\n        -webkit-transition: -webkit-transform .3s;\n        transition: -webkit-transform .3s;\n        transition: transform .3s;\n        transition: transform .3s, -webkit-transform .3s;\n    }\n\n    .main-nav li:hover a{\n        background-color: #266ec1;\n        color: #fff !important;\n    }\n\n\n    .main-nav li:hover a.bl_active_color{\n        background-color: #d13030;\n        color: #fff !important;\n    }\n\n    .has-dropdown.active a{\n        background-color: #266ec1;\n        color: #fff !important;\n    }\n\n    .has-dropdown.active a.bl_active_color{\n        background-color: #d13030;\n        color: #fff !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .morph-dropdown-wrapper {\n        -webkit-transform: translateY(0);\n        -ms-transform: translateY(0);\n        transform: translateY(0);\n    }\n\n    .cd-morph-dropdown .dropdown-list {\n        position: absolute;\n        top: -10px;\n        left: 0;\n        visibility: hidden;\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform, width, height;\n        -webkit-transition: visibility .3s;\n        transition: visibility .3s;\n        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);\n    }\n\n    .no-csstransitions .cd-morph-dropdown .dropdown-list {\n        display: none;\n    }\n\n    .cd-morph-dropdown .dropdown-list::before {\n        /* dropdown top triangle */\n        content: '';\n        position: absolute;\n        bottom: 100%;\n        left: 50%;\n        right: auto;\n        -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n        transform: translateX(-50%);\n        height: 0;\n        width: 0;\n        border: 12px solid transparent;\n        border-bottom-color: #266ec1;\n        opacity: 0;\n        -webkit-transition: opacity .3s;\n        transition: opacity .3s;\n    }\n\n    .cd-morph-dropdown .dropdown-list.bl_dropdown_list::before{\n        border-bottom-color: #d13030;\n    }\n\n    .cd-morph-dropdown .dropdown-list > ul {\n        position: relative;\n        z-index: 1;\n        height: 100%;\n        width: 100%;\n        overflow: hidden;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list {\n        border-radius: 5px;\n        visibility: visible;\n        -webkit-transition: width .3s, height .3s, -webkit-transform .3s;\n        transition: width .3s, height .3s, -webkit-transform .3s;\n        transition: transform .3s, width .3s, height .3s;\n        transition: transform .3s, width .3s, height .3s, -webkit-transform .3s;\n        border-top: 5px solid #266ec1 !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list.bl_dropdown_list{\n        border-top: 5px solid #d13030 !important;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list::before {\n        opacity: 1;\n    }\n\n    .cd-morph-dropdown .dropdown {\n        position: absolute;\n        left: 0;\n        top: 0;\n        opacity: 0;\n        visibility: hidden;\n        width: 100%;\n        -webkit-transition: opacity .3s, visibility .3s;\n        transition: opacity .3s, visibility .3s;\n    }\n\n    .cd-morph-dropdown .dropdown.active {\n        opacity: 1;\n        visibility: visible;\n    }\n\n    .cd-morph-dropdown .dropdown.move-left .content {\n        -webkit-transform: translateX(-100px);\n        -ms-transform: translateX(-100px);\n        transform: translateX(-100px);\n    }\n\n    .cd-morph-dropdown .dropdown.move-right .content {\n        -webkit-transform: translateX(100px);\n        -ms-transform: translateX(100px);\n        transform: translateX(100px);\n    }\n\n    .cd-morph-dropdown .label {\n        /* hide the label on bigger devices */\n        display: none;\n    }\n\n    .cd-morph-dropdown .content {\n        padding: 2.2em 1.8em;\n        -webkit-transition: -webkit-transform .3s;\n        transition: -webkit-transform .3s;\n        transition: transform .3s;\n        transition: transform .3s, -webkit-transform .3s;\n        text-align: left;\n    }\n\n    .cd-morph-dropdown .content > ul::after {\n        clear: both;\n        content: \"\";\n        display: block;\n    }\n\n    .cd-morph-dropdown .content > ul > li {\n        width: 20%;\n        float: left;\n        margin: 0 2%;\n    }\n\n    .cd-morph-dropdown .content > ul > li:nth-of-type(2n) {\n        margin-right: 0;\n    }\n\n    .cd-morph-dropdown .gallery .content {\n        /* you need to set a width for the .content elements because they have a position absolute */\n        width: 510px;\n        padding-bottom: .8em;\n    }\n\n    .cd-morph-dropdown .gallery .content li {\n        margin-bottom: 1.8em;\n    }\n\n    .cd-morph-dropdown .links .content > ul > li {\n        margin-top: 0;\n        margin-bottom: 1em;\n    }\n    .cd-morph-dropdown .links .content,\n    .cd-morph-dropdown .button .content {\n        width: 500px;\n    }\n\n    .cd-morph-dropdown .links-list a {\n        font-size: 12px;\n        margin-left: 0;\n    }\n\n    .cd-morph-dropdown .btn {\n        display: block;\n        width: 100%;\n        height: 60px;\n        margin: 1.5em 0 0;\n        font-size: 1.8rem;\n        text-align: center;\n        color: #fff;\n        line-height: 60px;\n        background: #DB6356;\n        -webkit-font-smoothing: antialiased;\n        -moz-osx-font-smoothing: grayscale;\n    }\n\n    .cd-morph-dropdown .btn:hover {\n        background: #1A1A1A;\n        color: #fff;\n    }\n\n\n    .cd-morph-dropdown .content h2 {\n        font-size: 14px;\n        text-transform: none;\n        font-weight: normal;\n        color: #266ec1;\n        margin: 0 0 .6em;\n    }\n    .cd-morph-dropdown .bg-layer {\n        /* morph dropdown background */\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 1px;\n        width: 1px;\n        background: #fff;\n        opacity: 0;\n        -webkit-transition: opacity .3s;\n        transition: opacity .3s;\n        -webkit-transform-origin: top left;\n        -ms-transform-origin: top left;\n        transform-origin: top left;\n        -webkit-transform: translateZ(0);\n        transform: translateZ(0);\n        will-change: transform;\n        -webkit-backface-visibility: hidden;\n        backface-visibility: hidden;\n    }\n\n    .cd-morph-dropdown.is-dropdown-visible .bg-layer {\n        opacity: 1;\n        -webkit-transition: opacity .3s, -webkit-transform .3s;\n        transition: opacity .3s, -webkit-transform .3s;\n        transition: transform .3s, opacity .3s;\n        transition: transform .3s, opacity .3s, -webkit-transform .3s;\n    }\n}\n", ""]);
 
 // exports
 
@@ -77036,10 +77006,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/home"
     }
-  }, [_vm._v("首页")])], 1), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                        首页\n                    ")])], 1), _vm._v(" "), _c('li', {
     staticClass: "has-dropdown links",
     attrs: {
-      "data-content": "WA"
+      "data-content": "wa"
     }
   }, [_c('router-link', {
     staticClass: "nav_link",
@@ -77054,10 +77024,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }, [_vm._v("\n                        wa\n                    ")])], 1), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                        WA\n                    ")])], 1), _vm._v(" "), _c('li', {
     staticClass: "has-dropdown links",
     attrs: {
-      "data-content": "TMW"
+      "data-content": "tmw"
     }
   }, [_c('router-link', {
     staticClass: "nav_link",
@@ -77072,10 +77042,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }, [_vm._v("\n                        tmw\n                    ")])], 1), _vm._v(" "), _c('li', {
+  }, [_vm._v("\n                        TMW\n                    ")])], 1), _vm._v(" "), _c('li', {
     staticClass: "has-dropdown links",
     attrs: {
-      "data-content": "PLUG"
+      "data-content": "plug"
     }
   }, [_c('router-link', {
     staticClass: "nav_link",
@@ -77124,7 +77094,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('ul', [_c('li', {
     staticClass: "dropdown links",
     attrs: {
-      "id": "WA"
+      "id": "wa"
     }
   }, [_c('div', {
     staticClass: "content"
@@ -77134,61 +77104,88 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "hover_hand normal_font",
         class: {
           'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+        }
+      }, [_c('router-link', {
+        staticClass: "normal_font_import",
+        class: {
+          'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
         },
-        on: {
-          "click": function($event) {
-            _vm.to_go(v.label, vv.value)
+        attrs: {
+          "to": {
+            name: 'waTmw.index',
+            params: {
+              'type': 'wa',
+              'active': vv.value,
+              'active_pid': 0
+            }
           }
         }
-      }, [_vm._v(_vm._s(vv.label))]), _vm._v(" "), _c('ul', {
+      }, [_vm._v("\n                                            " + _vm._s(vv.label) + "\n                                        ")])], 1), _vm._v(" "), _c('ul', {
         staticClass: "links-list"
       }, _vm._l((vv.children), function(vvv) {
         return _c('li', {
-          staticClass: "hover_hand",
-          on: {
-            "click": function($event) {
-              _vm.to_go(v.label, vvv.value, vv.value)
+          staticClass: "hover_hand"
+        }, [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'waTmw.index',
+              params: {
+                'type': 'wa',
+                'active': vvv.value,
+                'active_pid': vv.value
+              }
             }
           }
-        }, [_vm._v(_vm._s(vvv.label))])
+        }, [_vm._v("\n                                                " + _vm._s(vvv.label) + "\n                                            ")])], 1)
       }))])
     })) : _vm._e()
   }))]), _vm._v(" "), _c('li', {
     staticClass: "dropdown links",
     attrs: {
-      "id": "TMW"
+      "id": "tmw"
     }
   }, [_c('div', {
     staticClass: "content"
   }, _vm._l((_vm.nav_tags), function(v) {
     return (v.label === 'TMW') ? _c('ul', _vm._l((v.children), function(vv) {
-      return _c('li', [_c('h2', {
-        staticClass: "hover_hand normal_font",
+      return _c('li', [_c('h2', [_c('router-link', {
+        staticClass: "normal_font_import",
         class: {
           'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
         },
-        on: {
-          "click": function($event) {
-            _vm.to_go(v.label, vv.value)
+        attrs: {
+          "to": {
+            name: 'waTmw.index',
+            params: {
+              'type': 'tmw',
+              'active': vv.value,
+              'active_pid': 0
+            }
           }
         }
-      }, [_vm._v(_vm._s(vv.label))]), _vm._v(" "), _c('ul', {
+      }, [_vm._v("\n                                            " + _vm._s(vv.label) + "\n                                        ")])], 1), _vm._v(" "), _c('ul', {
         staticClass: "links-list"
       }, _vm._l((vv.children), function(vvv) {
         return _c('li', {
-          staticClass: "hover_hand",
-          on: {
-            "click": function($event) {
-              _vm.to_go(v.label, vvv.value, vv.value)
+          staticClass: "hover_hand"
+        }, [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'waTmw.index',
+              params: {
+                'type': 'tmw',
+                'active': vvv.value,
+                'active_pid': vv.value
+              }
             }
           }
-        }, [_vm._v(_vm._s(vvv.label))])
+        }, [_vm._v("\n                                                " + _vm._s(vvv.label) + "\n                                            ")])], 1)
       }))])
     })) : _vm._e()
   }))]), _vm._v(" "), _c('li', {
     staticClass: "dropdown links",
     attrs: {
-      "id": "PLUG"
+      "id": "plug"
     }
   }, [_c('div', {
     staticClass: "content"
@@ -77198,23 +77195,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         staticClass: "hover_hand normal_font",
         class: {
           'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+        }
+      }, [_c('router-link', {
+        staticClass: "normal_font_import",
+        class: {
+          'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
         },
-        on: {
-          "click": function($event) {
-            _vm.to_go(v.label, vv.value)
+        attrs: {
+          "to": {
+            name: 'waTmw.index',
+            params: {
+              'type': 'plug',
+              'active': vv.value,
+              'active_pid': 0
+            }
           }
         }
-      }, [_vm._v(_vm._s(vv.label))]), _vm._v(" "), _c('ul', {
+      }, [_vm._v("\n                                            " + _vm._s(vv.label) + "\n                                        ")])], 1), _vm._v(" "), _c('ul', {
         staticClass: "links-list"
       }, _vm._l((vv.children), function(vvv) {
         return _c('li', {
-          staticClass: "hover_hand",
-          on: {
-            "click": function($event) {
-              _vm.to_go(v.label, vvv.value, vv.value)
+          staticClass: "hover_hand"
+        }, [_c('router-link', {
+          attrs: {
+            "to": {
+              name: 'waTmw.index',
+              params: {
+                'type': 'plug',
+                'active': vvv.value,
+                'active_pid': vv.value
+              }
             }
           }
-        }, [_vm._v(_vm._s(vvv.label))])
+        }, [_vm._v("\n                                                " + _vm._s(vvv.label) + "\n                                            ")])], 1)
       }))])
     })) : _vm._e()
   }))])]), _vm._v(" "), _c('div', {
@@ -77281,20 +77294,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("\n                                " + _vm._s(_vm.plug.type_name) + "\n                            ")])], 1), _vm._v(" "), _c('span', {
-    staticClass: "hover_hand",
-    on: {
-      "click": function($event) {
-        _vm.to_waTmw(_vm.plug.tag_one.id)
+    staticClass: "hover_hand"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'waTmw.index',
+        params: {
+          'type': _vm.configUrl[_vm.plug.type_name],
+          'active': _vm.plug.tag_one.id,
+          'active_pid': 0
+        }
       }
     }
-  }, [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))]), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _c('span', {
-    staticClass: "hover_hand",
-    on: {
-      "click": function($event) {
-        _vm.to_waTmw(_vm.plug.tag_two.id, _vm.plug.tag_one.id)
+  }, [_vm._v(_vm._s(_vm.plug.tag_one ? _vm.plug.tag_one.name : ''))])], 1), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', [_vm._v(" > ")]) : _vm._e(), _vm._v(" "), (_vm.plug.tag_two) ? _c('span', {
+    staticClass: "hover_hand"
+  }, [_c('router-link', {
+    attrs: {
+      "to": {
+        name: 'waTmw.index',
+        params: {
+          'type': _vm.configUrl[_vm.plug.type_name],
+          'active': _vm.plug.tag_two.id,
+          'active_pid': _vm.plug.tag_one.id
+        }
       }
     }
-  }, [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))]), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.plug.tag_two ? _vm.plug.tag_two.name : ''))])], 1) : _vm._e(), _vm._v(" "), _c('span', [_vm._v("版本号： " + _vm._s(_vm.plug.version))]), _vm._v(" "), (_vm.plug.is_free === 0) ? _c('span', [_vm._v("免费")]) : _c('span', [_vm._v("需消耗\n                        "), _c('span', {
     staticClass: "gold_class",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -79263,145 +79288,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("退出登录")])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "nav menu"
-  }, [_c('v-new-nav')], 1), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (1 === 3),
-      expression: "1 === 3"
-    }],
-    staticClass: "nav menu"
-  }, [_c('div', {
-    staticClass: "head-v3"
-  }, [_c('div', {
-    staticClass: "navigation-down"
-  }, [_c('transition-group', {
-    attrs: {
-      "enter-active-class": "animated fadeInUp"
-    }
-  }, _vm._l((_vm.nav_tags), function(v) {
-    return (_vm.nav_tags.length > 0) ? _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.is_hover === v.value),
-        expression: "is_hover === v.value"
-      }],
-      key: v.value,
-      staticClass: "nav-down-menu menu-1",
-      attrs: {
-        "id": v.lable,
-        "_t_nav": v.label
-      },
-      on: {
-        "mouseenter": function($event) {
-          _vm.is_hover = v.value
-        },
-        "mouseleave": function($event) {
-          _vm.is_hover = 0
-        }
-      }
-    }, [_c('div', {
-      staticClass: "navigation-down-inner"
-    }, _vm._l((v.children), function(child) {
-      return _c('dl', {
-        class: {
-          'height_200': v.label !== '游戏插件'
-        }
-      }, [_c('dt', {
-        staticClass: "hover_hand",
-        class: {
-          'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-        },
-        on: {
-          "click": function($event) {
-            _vm.to_go(v.label, child.value)
-          }
-        }
-      }, [_vm._v(_vm._s(child.label))]), _vm._v(" "), _vm._l((child.children), function(c) {
-        return _c('dd', [_c('a', {
-          attrs: {
-            "hotrep": "hp.header.product.storage1",
-            "href": "javascript:void(0)"
-          },
-          on: {
-            "click": function($event) {
-              _vm.to_go(v.label, c.value, child.value)
-            }
-          }
-        }, [_vm._v(_vm._s(c.label))])])
-      })], 2)
-    }))]) : _vm._e()
-  }))], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "underline"
-  }, [_c('ul', {
-    staticClass: "modern-menu theme2"
-  }, [_c('li', {
-    staticStyle: {
-      "margin-left": "15px"
-    }
-  }, [_c('router-link', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "to": "/home"
-    }
-  }, [_c('span', {
-    staticClass: "no_active"
-  }, [_vm._v("首页")])])], 1), _vm._v(" "), _vm._l((_vm.nav_tags), function(v) {
-    return (_vm.nav_tags.length > 0) ? _c('li', {
-      on: {
-        "mouseenter": function($event) {
-          _vm.is_hover = v.value
-        },
-        "mouseleave": function($event) {
-          _vm.is_hover = 0
-        }
-      }
-    }, [_c('router-link', {
-      class: {
-        'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-      },
-      attrs: {
-        "to": {
-          name: 'waTmw.index',
-          params: {
-            'type': _vm.configUrl[v.label]
-          }
-        }
-      }
-    }, [_c('span', {
-      staticClass: "no_active"
-    }, [_vm._v(_vm._s(v.label))])])], 1) : _vm._e()
-  }), _vm._v(" "), _c('li', [_c('a', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "href": "javascript:void(0)"
-    }
-  }, [_c('span', [_vm._v("易游")])])]), _vm._v(" "), (_vm.tools.bm === '1') ? _c('li', [_c('router-link', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "to": "/bm"
-    }
-  }, [_c('span', {
-    staticClass: "no_active"
-  }, [_vm._v("黑市")])])], 1) : _vm._e(), _vm._v(" "), _c('li', [_c('a', {
-    class: {
-      'bl_active_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
-    },
-    attrs: {
-      "href": "https://bbs.iwowcn.com"
-    }
-  }, [_c('span', [_vm._v("潘达利亚")])])])], 2)]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })])])
+  }, [_c('v-new-nav')], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -79668,7 +79555,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.change_tag(0, 0)
       }
     }
-  }, [_vm._v("全部插件")]), _vm._v(" "), _vm._l((_vm.tags), function(tag) {
+  }, [_vm._v("全部插件\n                    ")]), _vm._v(" "), _vm._l((_vm.tags), function(tag) {
     return (_vm.tags.length > 0) ? _c('div', [_c('li', {
       staticClass: "down",
       class: {
@@ -79696,7 +79583,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             _vm.change_tag(child.id, child.pid)
           }
         }
-      }, [_vm._v(_vm._s(child.name))])
+      }, [_vm._v(_vm._s(child.name) + "\n                            ")])
     })) : _vm._e()]) : _vm._e()
   }), _vm._v(" "), (_vm.$route.params.type !== 'plug') ? _c('div', {
     staticClass: "my_btn_wrapper",
@@ -79804,7 +79691,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "value": item.value
       }
-    }, [_vm._v(_vm._s(item.label))])
+    }, [_vm._v(_vm._s(item.label) + "\n                        ")])
   })), _vm._v(" "), (_vm.plugs.length > 0) ? _c('Page', {
     key: _vm.plugs_count,
     ref: "pageThis",
@@ -79868,15 +79755,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "ios-cloud-download-outline"
       }
-    }), _c('span', [_vm._v(_vm._s(plug.download_num))]), _vm._v(" "), _c('Icon', {
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(plug.download_num))]), _vm._v(" "), _c('Icon', {
       attrs: {
         "type": "ios-clock-outline"
       }
-    }), _c('span', [_vm._v(_vm._s(plug.created_at))]), _vm._v(" "), _c('Icon', {
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(plug.created_at))]), _vm._v(" "), _c('Icon', {
       attrs: {
         "type": "ios-star-outline"
       }
-    }), _c('span', [_vm._v(_vm._s(plug.collect_num))]), _vm._v(" "), _c('i', [_c('img', {
+    }), _vm._v(" "), _c('span', [_vm._v(_vm._s(plug.collect_num))]), _vm._v(" "), _c('i', [_c('img', {
       attrs: {
         "src": "/images/p07.png",
         "alt": ""
@@ -80078,7 +79965,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "padding-top": "15px"
     }
   }, [_c('a', {
-    staticClass: "gold_class",
+    staticClass: "gold_class normal_font",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
@@ -102633,7 +102520,7 @@ module.exports = Component.exports
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
+/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type/:active?/:active_pid?', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
 
 //admin
 { path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }, { path: '/admin/recharge/list', name: 'admin.recharge.list', component: __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default.a }]);

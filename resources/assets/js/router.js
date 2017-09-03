@@ -33,7 +33,7 @@ import AdminRechargeList from './components/admin/recharge/List.vue'
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
-    { path: '/waTmw/:type', name:'waTmw.index' , component:WaTmw},
+    { path: '/waTmw/:type/:active?/:active_pid?', name:'waTmw.index' , component:WaTmw},
     { path: '/bm', name:'bm.index' , component:Bm},
     { path: '/info/:id', name:'plug.info' , component:Info},
     { path: '/upload/:id?', name:'upload.plug' , component:uploadPlug},

@@ -14,8 +14,13 @@
                                     {{plug.type_name}}
                                 </router-link>
                             </span>
-                            <span class="hover_hand" @click="to_waTmw(plug.tag_one.id)">{{plug.tag_one ? plug.tag_one.name : ''}}</span>
-                            <span v-if="plug.tag_two"> > </span><span  class="hover_hand" @click="to_waTmw(plug.tag_two.id,plug.tag_one.id)">{{plug.tag_two ? plug.tag_two.name : ''}}</span>
+                            <span class="hover_hand">
+                                <router-link :to="{name:'waTmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_one.id , 'active_pid': 0}}">{{plug.tag_one ? plug.tag_one.name : ''}}</router-link>
+                            </span>
+                            <span v-if="plug.tag_two"> > </span>
+                            <span  class="hover_hand" v-if="plug.tag_two">
+                                <router-link :to="{name:'waTmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
+                            </span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
                             <span class="gold_class"
@@ -263,6 +268,12 @@
                     user: {},
                     collect_plug: [],
                     like_plug: [],
+                    tag_one: {
+                        id: 0
+                    },
+                    tag_two:{
+                        id: 0
+                    }
                 },
                 updated_infos: [],
                 download_model: false,
@@ -418,11 +429,6 @@
                 if (!(/^\d+$/.test(this.pay_amount_other))) {
                     this.pay_amount_other = Math.round(this.pay_amount_other)
                 }
-            },
-            to_waTmw(id ,pid=''){
-                localStorage.setItem('watmw_tag_id',id)
-                localStorage.setItem('watmw_tag_pid',pid)
-                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[this.plug.type_name]}})
             }
         },
         components: {

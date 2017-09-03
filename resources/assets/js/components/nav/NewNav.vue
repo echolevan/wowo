@@ -6,31 +6,39 @@
             <nav class="main-nav">
                 <ul>
                     <li>
-                        <router-link class="nav_link" to="/home" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">首页</router-link>
-                    </li>
-
-                    <li  class="has-dropdown links" data-content="WA">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'wa'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            wa
+                        <router-link class="nav_link" to="/home"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            首页
                         </router-link>
                     </li>
 
-                    <li  class="has-dropdown links" data-content="TMW">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'tmw'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            tmw
+                    <li class="has-dropdown links" data-content="wa">
+                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'wa'}}"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            WA
                         </router-link>
                     </li>
 
-                    <li  class="has-dropdown links" data-content="PLUG">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'plug'}}" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                    <li class="has-dropdown links" data-content="tmw">
+                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'tmw'}}"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            TMW
+                        </router-link>
+                    </li>
+
+                    <li class="has-dropdown links" data-content="plug">
+                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'plug'}}"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             游戏插件
                         </router-link>
                     </li>
                     <li>
-                        <a href="javascript:void(0)" class="nav_link" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
+                        <a href="javascript:void(0)" class="nav_link"
+                           :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
                     </li>
                     <li v-if="tools.bm === '1'">
-                        <router-link class="nav_link" to="/bm" :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <router-link class="nav_link" to="/bm"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             黑市
                         </router-link>
                     </li>
@@ -47,43 +55,78 @@
                 >
                     <ul>
 
-                        <li id="WA" class="dropdown links">
+                        <li id="wa" class="dropdown links">
                             <div class="content">
                                 <ul v-for="v in nav_tags" v-if="v.label === 'WA'">
                                     <li v-for="vv in v.children">
                                         <h2 class="hover_hand normal_font"
                                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                            @click="to_go(v.label , vv.value)">{{vv.label}}</h2>
+                                        >
+                                            <router-link
+                                                    class="normal_font_import"
+                                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                                    :to="{name:'waTmw.index' , params:{'type':'wa' , 'active': vv.value , 'active_pid': 0}}">
+                                                {{vv.label}}
+                                            </router-link>
+                                        </h2>
                                         <ul class="links-list">
-                                            <li class="hover_hand"  v-for="vvv in vv.children" @click="to_go(v.label , vvv.value,vv.value)">{{vvv.label}}</li>
+                                            <li class="hover_hand" v-for="vvv in vv.children">
+                                                <router-link
+                                                        :to="{name:'waTmw.index' , params:{'type':'wa' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                    {{vvv.label}}
+                                                </router-link>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li id="TMW" class="dropdown links">
+                        <li id="tmw" class="dropdown links">
                             <div class="content">
                                 <ul v-for="v in nav_tags" v-if="v.label === 'TMW'">
                                     <li v-for="vv in v.children">
-                                        <h2 class="hover_hand normal_font"
-                                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                            @click="to_go(v.label , vv.value)">{{vv.label}}</h2>
+                                        <h2
+                                        >
+                                            <router-link
+                                                    class="normal_font_import"
+                                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                                    :to="{name:'waTmw.index' , params:{'type':'tmw' , 'active': vv.value , 'active_pid': 0}}">
+                                                {{vv.label}}
+                                            </router-link>
+                                        </h2>
                                         <ul class="links-list">
-                                            <li class="hover_hand"   v-for="vvv in vv.children" @click="to_go(v.label , vvv.value,vv.value)">{{vvv.label}}</li>
+                                            <li class="hover_hand" v-for="vvv in vv.children">
+                                                <router-link
+                                                        :to="{name:'waTmw.index' , params:{'type':'tmw' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                    {{vvv.label}}
+                                                </router-link>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li id="PLUG" class="dropdown links">
+                        <li id="plug" class="dropdown links">
                             <div class="content">
                                 <ul v-for="v in nav_tags" v-if="v.label === '游戏插件'">
                                     <li v-for="vv in v.children">
                                         <h2 class="hover_hand normal_font"
                                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                            @click="to_go(v.label , vv.value)">{{vv.label}}</h2>
+                                        >
+                                            <router-link
+                                                    class="normal_font_import"
+                                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                                    :to="{name:'waTmw.index' , params:{'type':'plug' , 'active': vv.value , 'active_pid': 0}}">
+                                                {{vv.label}}
+                                            </router-link>
+                                        </h2>
                                         <ul class="links-list">
-                                            <li class="hover_hand" v-for="vvv in vv.children" @click="to_go(v.label , vvv.value,vv.value)">{{vvv.label}}</li>
+                                            <li class="hover_hand" v-for="vvv in vv.children">
+                                                <router-link
+                                                        :to="{name:'waTmw.index' , params:{'type':'plug' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                    {{vvv.label}}
+                                                </router-link>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -118,38 +161,23 @@
             }
         },
         mounted() {
-            axios.get('plug_all_info_nav').then(res=>{
+            axios.get('plug_all_info_nav').then(res => {
                 console.log(res)
                 this.nav_tags = res.data.res
             })
         },
         computed: mapState([
             'userInfo', 'choice_cmap', 'tools'
-        ]),
-        methods: {
-            to_go(type , id ,pid = '') {
-                console.log(type)
-                if(type === '游戏插件'){
-                    $('#PLUG').removeClass('active')
-                }else{
-                    $(`#${type}`).removeClass('active')
-                }
-                $(".cd-morph-dropdown").removeClass('is-dropdown-visible')
-                localStorage.setItem('watmw_tag_id',id)
-                localStorage.setItem('watmw_tag_pid',pid)
-                this.$store.commit('change_tag')
-                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[type]}})
-            }
-        }
+        ])
     }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
     @import "../../../common/new/style.css"
     .nav_link
-        border-radius 5px
         margin 0 5px
-    .nav_link.router-link-exact-active.router-link-active
+
+    .nav_link.router-link-active
         background #266ec1
         color #fff
 </style>

@@ -191,7 +191,7 @@
         height: 40px;
         left: 0;
         top: 35px;
-        z-index: 9999;
+        z-index: 99;
         width: 100%;
         padding: 0;
         text-align: center;
@@ -253,10 +253,6 @@
         transition: -webkit-transform .3s;
         transition: transform .3s;
         transition: transform .3s, -webkit-transform .3s;
-    }
-
-    .main-nav li{
-        border-radius: 5px
     }
 
     .main-nav li:hover a{
@@ -335,6 +331,7 @@
     }
 
     .cd-morph-dropdown.is-dropdown-visible .dropdown-list {
+        border-radius: 5px;
         visibility: visible;
         -webkit-transition: width .3s, height .3s, -webkit-transform .3s;
         transition: width .3s, height .3s, -webkit-transform .3s;
