@@ -86,11 +86,12 @@ a:link, a:visited {
 .navigation-down .nav-down-menu {
     width: 100%;
     margin: 0;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,1);
     position: absolute;
     top: 0;
     padding: 15px;
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
+    border-top: 5px solid #266ec1;
 }
 
 .navigation-down .nav-down-menu .navigation-down-inner {

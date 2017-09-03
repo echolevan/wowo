@@ -1,6 +1,6 @@
 
 /**
- * First we will load all of this project's JavaScript dependencies which
+ * First we will load all of store.state project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
@@ -103,7 +103,7 @@ axios.get('/user/info').then(res => {
         }
     } else {
         sessionStorage.setItem('loginUserInfoId','')
-        this.userInfo = '';
+        store.state.userInfo = '';
     }
 })
 
@@ -112,9 +112,9 @@ RouterConfig.beforeEach((to,from,next) => {
     if(to.name === 'bm.index' || to.matched[0].name === 'user.index'){
         let userInfo = sessionStorage.getItem('loginUserInfoId')
         if(!userInfo){
-            myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
-                     <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
-                , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            myDialog(`请先 <a href="/register" class="${(store.state.userInfo && store.state.userInfo.camp && store.state.userInfo.camp === 2 ) || (!store.state.userInfo && store.state.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
+                     <a href="/login"  class="${(store.state.userInfo && store.state.userInfo.camp && store.state.userInfo.camp === 2 ) || (!store.state.userInfo && store.state.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
+                , (store.state.userInfo && store.state.userInfo.camp && store.state.userInfo.camp === 2 ) || (!store.state.userInfo && store.state.choice_cmap === '2') ? 'bl_button_color' : '')
             RouterConfig.push('/home')
             return false
         }
@@ -131,7 +131,7 @@ RouterConfig.afterEach(() => {
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
+ * the page. Then, you may begin adding components to store.state application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 

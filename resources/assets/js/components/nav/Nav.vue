@@ -30,28 +30,28 @@
             </div>
         </div>
         <div class="nav menu">
+            <v-new-nav></v-new-nav>
+        </div>
+        <div class="nav menu" v-show="1 === 3">
             <div class="head-v3">
 
-                <div class="navigation-down" v-show="1 === 2">
-
-                    <div v-if="nav_tags.length > 0" v-for="v in nav_tags" :id="v.lable" class="nav-down-menu menu-1"  :_t_nav="v.label"
-                         v-on:mouseenter="is_hover = v.value" v-on:mouseleave="is_hover = 0"
-                         v-show="is_hover === v.value">
-
-                        <div class="navigation-down-inner">
-
-                            <dl v-for=" child in v.children " :class="{'height_200':v.label !== '游戏插件'}">
-                                <dt class="hover_hand" @click="to_go(v.label , child.value)" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{child.label}}</dt>
-                                <dd v-for="c in child.children">
-                                    <a hotrep="hp.header.product.storage1"
-                                       href="javascript:void(0)" @click="to_go(v.label , c.value,child.value)">{{c.label}}</a>
-                                </dd>
-                            </dl>
-
+                <div class="navigation-down">
+                    <transition-group enter-active-class="animated fadeInUp">
+                        <div v-if="nav_tags.length > 0" v-for="v in nav_tags" :id="v.lable" class="nav-down-menu menu-1"  :_t_nav="v.label"
+                             v-bind:key="v.value"
+                             v-on:mouseenter="is_hover = v.value" v-on:mouseleave="is_hover = 0"
+                             v-show="is_hover === v.value">
+                            <div class="navigation-down-inner">
+                                <dl v-for=" child in v.children " :class="{'height_200':v.label !== '游戏插件'}">
+                                    <dt class="hover_hand" @click="to_go(v.label , child.value)" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{child.label}}</dt>
+                                    <dd v-for="c in child.children">
+                                        <a hotrep="hp.header.product.storage1"
+                                           href="javascript:void(0)" @click="to_go(v.label , c.value,child.value)">{{c.label}}</a>
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
-
-                    </div>
-
+                    </transition-group>
                 </div>
             </div>
             <div class="underline">
@@ -97,11 +97,10 @@
         </div>
     </div>
 </template>
-
-ready() {
-console.log(1)<script>
-    import {myNav} from '../../../common/nav.js'
+<script>
+//    import {myNav} from '../../../common/nav.js'
     import {mapState} from 'vuex'
+    import NewVue from './NewNav.vue'
 
     export default {
         data() {
@@ -119,12 +118,12 @@ console.log(1)<script>
             'userInfo', 'choice_cmap', 'tools'
         ]),
         mounted() {
-            axios.get('plug_all_info_nav').then(res=>{
-                this.nav_tags = res.data.res
-            })
-            setTimeout(()=>{
-                $(".modern-menu").modernMenu();
-            },1000)
+//            axios.get('plug_all_info_nav').then(res=>{
+//                this.nav_tags = res.data.res
+//            })
+//            setTimeout(()=>{
+//                $(".modern-menu").modernMenu();
+//            },1000)
         },
         methods: {
             logout() {
@@ -143,19 +142,22 @@ console.log(1)<script>
                 localStorage.setItem('redirect', this.$route.path)
                 window.location.href = "/register"
             },
-            to_go(type , id ,pid = '') {
-                localStorage.setItem('watmw_tag_id',id)
-                localStorage.setItem('watmw_tag_pid',pid)
-                this.$store.commit('change_tag')
-                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[type]}})
-            }
+//            to_go(type , id ,pid = '') {
+//                localStorage.setItem('watmw_tag_id',id)
+//                localStorage.setItem('watmw_tag_pid',pid)
+//                this.$store.commit('change_tag')
+//                this.$router.push({name: 'waTmw.index' , params:{type: this.configUrl[type]}})
+//            }
+        },
+        components: {
+            'v-new-nav': NewVue
         }
     }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-    @import "../../../common/nav.css"
-    @import "../../../common/demo.css"
+    /*@import "../../../common/nav.css"*/
+    /*@import "../../../common/demo.css"*/
     #nav
         width 100%
         height 35px

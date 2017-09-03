@@ -25,11 +25,11 @@ return array(
     'connections' => array(
 
         'xmr' => array(
-//            'host'   => '47.94.208.177',
-            'host'   => '172.17.51.51',
+//            'host'   => '',
+            'host'   => env('FTP_XMR_HOST'),
             'port'  => 21,
-            'username' => 'xmr',
-            'password'   => 'xmr!20170808',
+            'username' => env('FTP_XMR_USERNAME'),
+            'password'   => env('FTP_XMR_PASSWORD'),
             'passive'   => false,
         ),
     ),

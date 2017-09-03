@@ -32,9 +32,9 @@
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >[免费]</span>
                 <span v-else>
-                      <span v-if="v.order" class="normal_font my_gold"
+                      <span v-if="v.order" class="normal_font "
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                      ><s>[{{v.gold}}]</s></span>
+                      >[<span class="my_gold"><s>{{v.gold}}</s></span>]</span>
                                 <span class="normal_font my_gold"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                       v-else>{{v.gold}}</span>
@@ -213,11 +213,11 @@
             padding 5px 15px
         .title_two
             color: #fff
-            padding 30px
+            padding 15px
             font-size 14px
             background-color #393d49
         .title_thr
-            padding 10px 0
+            padding 5px 0
             display flex
             justify-content center
             text-align center
@@ -228,6 +228,7 @@
                 border 1px solid #f1f1f1
                 line-height 30px
                 margin 0 5px
+                border-radius 3px
                 &.no_show_button
                     background-color #266ec1
                     color #fff

@@ -36839,7 +36839,7 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   color: #fff;
 }
 
-.router-link-exact-active.router-link-active.bl_active_color span {
+.router-link-exact-active.router-link-active.bl_active_color {
   background: #d13030 !important;
   color: #fff;
 }
@@ -37094,6 +37094,11 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   border-color: #d13030;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+
 a,
 a:active,
 a:focus,
@@ -37127,6 +37132,27 @@ a:hover {
   height: 45px;
   line-height: 45px !important;
   text-align: center;
+}
+
+.animated {
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 50px, 0);
+            transform: translate3d(0, 50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 .my_admin_table .ivu-tooltip-inner {

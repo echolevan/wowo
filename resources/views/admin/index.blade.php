@@ -12,7 +12,6 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body>

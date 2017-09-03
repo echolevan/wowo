@@ -71,7 +71,10 @@
                             <Icon type="ios-clock-outline"></Icon><span>{{plug.created_at}}</span>
                             <Icon type="ios-star-outline"></Icon><span>{{plug.collect_num}}</span>
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
-                            <span v-if="plug.is_free === 0">免费</span>
+                            <span
+                                    class="normal_font"
+                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                    v-if="plug.is_free === 0">免费</span>
                             <span  style="padding-right:0" v-else>
                                   <span   class="gold_class normal_font"
                                           :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -141,9 +144,8 @@
             <div style="text-align:left">
                 <ul>
                     <li>此资源售价
-                        <span class="gold_class normal_font" style="font-size: 16px"
+                        <span class="gold_class normal_font my_gold" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
-                        金币
                     </li>
                     <li>提示：此非实物交易，购买后不退款，请考虑好再购买</li>
                     <li style="padding-top: 15px" v-if="!userInfo">

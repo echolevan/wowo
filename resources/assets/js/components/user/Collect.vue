@@ -2,21 +2,21 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 60%">资源名称</div>
+                <div style="width: 50%">资源名称</div>
                 <div style="width: 10%" class="tt_center">售价</div>
-                <div style="width: 10%" class="tt_center">版本</div>
+                <div style="width: 20%" class="tt_center">版本</div>
                 <div style="width: 10%" class="tt_center">游戏版本</div>
                 <div style="width: 10%" class="tt_center">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
-                <div class="td_child hidden_div title" style="width: 60%">
+                <div class="td_child hidden_div title" style="width: 50%">
                     <Poptip :content="v.title" trigger="hover"  placement="bottom">
                         {{v.title}}
                     </Poptip>
                 </div>
                 <div class="td_child hidden_div tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
                 <div class="td_child tt_center" style="width: 10%" v-else>{{v.gold}} 金币</div>
-                <div class="td_child tt_center" style="width: 10%">{{v.version}}</div>
+                <div class="td_child tt_center" style="width: 20%">{{v.version}}</div>
                 <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
                 <div class="td_child tool tt_center" style="width: 10%">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.id}}">

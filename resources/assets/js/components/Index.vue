@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-nav v-if="$route.name !== 'index'"></v-nav>
+        <v-nav v-show="$route.name !== 'index'"></v-nav>
         <div class="main content" :style="$route.name !== 'index' ? 'background-color: #fff' : '' ">
             <!--mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated zoomOutDown"-->
             <transition>
@@ -21,7 +21,7 @@
                 陕ICP备17015228号-1
             </div>
         </div>
-        <div class="tool_bottom">
+        <div class="tool_bottom" v-if="$route.name !== 'index'">
             <div class="feedback hover_hand" @click="feedback_model = true">
                 意见<br>反馈
             </div>
