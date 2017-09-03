@@ -30,6 +30,6 @@ class sendCodeToUser extends Mailable
      */
     public function build()
     {
-        return $this->subject('嘿市网邮箱验证码')->view('email.sendCode');
+        return $this->subject('嘿市网邮箱验证')->view('email.sendCode');
     }
 }

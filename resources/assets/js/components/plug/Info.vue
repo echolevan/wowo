@@ -109,7 +109,7 @@
                         </div>
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
-                            <p>最新版本号：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
+                            <p>最新版本：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
                             <div v-if="plug.author">
                                 <p>插件作者：<span>{{plug.author}}</span></p>
                                 <p>上传者：<span>{{plug.user.nickname}}</span></p>
@@ -175,7 +175,7 @@
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
                         <br>
                         <span v-if="userInfo.gold >= down_plug.gold">
-                             支付成功后，余额：
+                             支付成功后余额：
                             <span class="gold_class" style="font-size: 16px"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                                 {{userInfo.gold - down_plug.gold}}
