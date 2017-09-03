@@ -159,7 +159,7 @@
             </p>
             <div style="text-align:left">
                 <ul>
-                    <li>此资源售价
+                    <li>资源售价
                         <span class="gold_class my_gold" style="font-size: 16px"
                               :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{down_plug.gold}}</span>
                     </li>
