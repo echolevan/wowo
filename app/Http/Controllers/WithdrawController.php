@@ -12,7 +12,7 @@ use Payment\Common\PayException;
 use Payment\Client\Transfer;
 use Payment\Config;
 
-class WithdrawsController extends Controller
+class WithdrawController extends Controller
 {
     //
     public function index (Request $request)

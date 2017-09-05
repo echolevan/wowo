@@ -99,7 +99,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::get("bm/check_download/{id}",'BmController@check_download'); //下载bm
     Route::get("bm/download/{id}",'BmController@download'); //下载bm
     Route::get("user/check_withdraw",'UserController@check_withdraw'); //检查
-    Route::post("withdraws",'WithdrawsController@index'); //提现
+    Route::post("withdraws",'WithdrawController@index'); //提现
     Route::get("find_wechat/{id}",'PayController@find_wechat'); //检查微信支付状态
 
 });
@@ -153,8 +153,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::delete('/tool/game_version/del_game_version/{id}','ToolController@del_game_version')->name('admin.game_version.del'); //删除游戏版本号
 
     Route::post('recharge/list/{page}/{size}','RechargeController@r_list')->name('admin.recharge.list'); // 充值列表
-    Route::post('withdraws/list/{page}/{size}','WithdrawsController@r_list')->name('admin.withdraws.list'); // 提现列表
+    Route::post('withdraws/list/{page}/{size}','WithdrawController@r_list')->name('admin.withdraws.list'); // 提现列表
     Route::delete("plugs/{id}",'PlugController@delete'); //删除
-    Route::get("to_draw/{id}",'WithdrawsController@to_draw'); //转账
+    Route::get("to_draw/{id}",'WithdrawController@to_draw'); //转账
 
 });
