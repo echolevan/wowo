@@ -51,8 +51,9 @@ export const bmDownloadType = {
 export const bmType = {
     1: '影视',
     2: '剧集',
-    3: '软件',
-    4: '其他'
+    3: '综艺',
+	4: '软件',
+    5: '其他'
 }
 
 export const payStatus = {
