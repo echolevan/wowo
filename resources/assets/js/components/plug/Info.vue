@@ -314,6 +314,7 @@
                 wechat_scan_qr: ''
             }
         },
+        
         computed: mapState([
             'userInfo', 'choice_cmap'
         ]),
