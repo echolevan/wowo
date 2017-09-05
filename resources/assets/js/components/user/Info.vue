@@ -66,19 +66,19 @@
                 <span class="val" v-else>{{userInfo.alipay}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">出生日期</span>
+            <li><span class="title">生日</span>
                 <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting">点击立即设置</span>
                 <span class="val" v-else>{{userInfo.birthday}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">户籍地址</span>
+            <li><span class="title">出生地</span>
                 <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''"
                       @click="to_setting">点击立即设置</span>
                 <span class="val"
                       v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">现居地址</span>
+            <li><span class="title">居住地</span>
                 <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''"
                       @click="to_setting">点击立即设置</span>
                 <span class="val"

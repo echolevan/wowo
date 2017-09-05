@@ -1,12 +1,12 @@
 <template>
     <div>
         <Form ref="formTel" :model="formTel" :rules="telCustom" :label-width="100" style="width: 500px">
-            <FormItem label="原始手机" prop="oldTel" v-show="userInfo.tel !== '0'">
+            <FormItem label="原手机号码" prop="oldTel" v-show="userInfo.tel !== '0'">
                 <Input type="text" v-model="userInfo.tel" disabled></Input>
             </FormItem>
-            <FormItem label="新手机" prop="newTel">
+            <FormItem label="新手机号码" prop="newTel">
                 <iCol span="16">
-                    <Input type="text" placeholder="新手机" :maxlength="maxlength" v-model="formTel.newTel"></Input>
+                    <Input type="text" placeholder="新手机号码" :maxlength="maxlength" v-model="formTel.newTel"></Input>
                 </iCol>
                 <iCol span="8" class="pull-right">
                     <Button type="ghost" class="pull-right" :disabled="is_dis" @click="send_msg">
@@ -20,7 +20,7 @@
                 <Input type="text" placeholder="验证码" v-model="formTel.code" :maxlength="maxlengthTwo"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('formTel')">提交</Button>
+                <Button type="primary" @click="handleSubmit('formTel')">确定</Button>
             </FormItem>
         </Form>
     </div>
@@ -39,7 +39,7 @@
                         callback(new Error('请输入正确的手机号码'));
                     }else{
                         if(this.formTel.newTel === this.userInfo.tel){
-                            callback(new Error('新手机不能与原始手机相同'));
+                            callback(new Error('新手机不能与原手机相同'));
                         }else{
                             axios.post('/check/user_tel',{tel: this.formTel.newTel}).then(res => {
                                 if(res.data.sta === 0){
@@ -66,7 +66,7 @@
                 rest_time: 60,
                 telCustom: {
                     newTel: [
-                        { required:true,message:'新手机不能为空',trigger:'blur' },
+                        { required:true,message:'新手机号码不能为空',trigger:'blur' },
                         {validator: validateTel, trigger: 'change'},
                         {validator: validateTel, trigger: 'blur'},
                     ],

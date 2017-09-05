@@ -13,16 +13,16 @@
                 <span>提现</span>
             </p>
             <p>支付宝:{{userInfo.alipay}}</p>
-            请输入需要提现的金额：
+            请输入提现金额：
             <InputNumber :max="Math.floor(userInfo.gold / 10)" :min="1" v-model="drawMoney"
                          @on-change="change_other"></InputNumber>
             <br>
             <p>
                 您将提现 <span class="drawMoney normal_font"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-            >{{drawMoney * 10}}</span> 金币,金币剩余 <span class="drawMoney normal_font"
+            >{{drawMoney * 10}}</span> 金币,金币余额 <span class="drawMoney normal_font"
                                                      :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-            >{{userInfo.gold - drawMoney * 10}}</span>,将会得到 <span class="drawMoney normal_font"
+            >{{userInfo.gold - drawMoney * 10}}</span>,将会获得 <span class="drawMoney normal_font"
                                                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
             >{{drawMoney}}</span> 元
             </p>
