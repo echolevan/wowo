@@ -87,7 +87,7 @@ function send_msg($code , $tel , $msg_template){
     $request_paras = array(
         'ParamString' => '{"code":"'.$code.'"}',
         'RecNum' => (string)$tel,
-        'SignName' =>'熊猫人',
+        'SignName' =>'嘿市',
         'TemplateCode' => $msg_template
     );
     $request_host = "http://sms.market.alicloudapi.com";
