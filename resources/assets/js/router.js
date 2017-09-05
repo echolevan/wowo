@@ -29,6 +29,7 @@ import AdminNicknameSetting from './components/admin/tool/Nickname.vue'
 import AdminGameVersionSetting from './components/admin/tool/GameVersion.vue'
 
 import AdminRechargeList from './components/admin/recharge/List.vue'
+import AdminWithdrawList from './components/admin/withdraw/List.vue'
 
 export default [
     { path: '/',name:'index' , component:Index},
@@ -68,5 +69,6 @@ export default [
     { path: '/admin/game_version/setting',name:'admin.game_version.setting' , component:AdminGameVersionSetting},
 
     { path: '/admin/recharge/list',name:'admin.recharge.list' , component:AdminRechargeList},
+    { path: '/admin/withdraw/list',name:'admin.withdraw.list' , component:AdminWithdrawList},
 
 ]

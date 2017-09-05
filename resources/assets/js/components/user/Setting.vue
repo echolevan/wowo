@@ -63,6 +63,9 @@
             <Tab-pane label="修改手机号码" name="4">
                 <v-tel></v-tel>
             </Tab-pane>
+            <Tab-pane label="修改支付宝" name="5">
+                <v-alipay></v-alipay>
+            </Tab-pane>
         </Tabs>
 
     </div>
@@ -72,6 +75,7 @@
     import AvatarCropper from 'vue-avatar-cropper'
     import VTel from './Tel.vue'
     import VMail from './Mail.vue'
+    import VAlipay from './Alipay.vue'
     import restPassword from '../common/restPassword.vue'
     import {mapState} from 'vuex'
     import VDistpicker from 'v-distpicker'
@@ -226,7 +230,8 @@
             'rest-password': restPassword,
             'v-distpicker': VDistpicker,
             'v-tel': VTel,
-            'v-mail': VMail
+            'v-mail': VMail,
+            'v-alipay': VAlipay,
         }
     }
 </script>

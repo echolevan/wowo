@@ -27,7 +27,7 @@
             </Form-item>
             <Form-item>
             <Select v-model="formS.tagType" clearable placeholder="资源分类"  style="width: 100px;">
-                <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
+                <Option v-for="(v , k) in configPlugType" :value="k" :key="k">{{v}}</Option>
             </Select>
             </Form-item>
             <Form-item>
@@ -145,6 +145,12 @@
                     </Button>
                     <Button type="ghost" size="small" @click="search_his(v.plug_id)">历史版本</Button>
                     <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
+                    <Poptip
+                            confirm
+                            title="您确认删除这条内容吗？"
+                            @on-ok="del_this(v.plug_id)">
+                        <Button size="small" type="error">删除</Button>
+                    </Poptip>
                 </td>
             </tr>
             </tbody>
@@ -298,6 +304,16 @@
                 if (!(/^\d+$/.test(this.list[k].rank))) {
                     this.list[k].rank = Math.round(this.list[k].rank)
                 }
+            },
+            del_this(id) {
+                axios.delete(`/admin/plugs/${id}`).then(res => {
+                    if(res.data.sta === 1){
+                        this.search()
+                        this.$Message.success(res.data.msg)
+                    }else{
+                        this.$Message.error(res.data.msg)
+                    }
+                })
             }
         }
     }

@@ -732,6 +732,36 @@ class PlugController extends Controller
         return ['was'=>$wa,'tmws'=>$tmw,'plugs'=>$plug,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
     }
 
+    public function delete($id)
+    {
+        $ids = Plug::where('plug_id',$id)->pluck('id');
+        $content = Plug::where('plug_id',$id)->pluck('content');
+        $thumbs = Thumb::whereIn('plug_id',$ids)->pluck('thumb');
+         DB::beginTransaction();
+         try{
+             //删除图片
+             foreach ($thumbs as $k => $v){
+                 \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+             }
+             //删除文件
+             if(count($content) > 0){
+                 foreach ($content as $k => $v){
+                     \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+                 }
+             }
+             // 删除thumb数据库
+             Thumb::whereIn('plug_id',$ids)->delete();
+             // 删除plug
+             Plug::where('plug_id',$id)->delete();
+             DB::commit();
+         }catch(\Exception $e){
+             DB::rollBack();
+             return ['sta'=>0 , 'msg'=>'删除失败'];
+         }
+
+        return ['sta'=>1 , 'msg'=>'删除成功'];
+    }
+
     public function plug_list(Request $request , $page , $size)
     {
         $where = Plug::when($request->search['name'] != null, function ($query) use ($request) {

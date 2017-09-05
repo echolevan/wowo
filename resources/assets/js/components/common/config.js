@@ -61,6 +61,13 @@ export const payStatus = {
     9: '支付成功'
 }
 
+export const withdrawStatus = {
+    0: '等待提现',
+    1: '提现失败',
+    9: '提现成功'
+}
+
+
 export const payType = {
     1: '支付宝',
     2: '微信'

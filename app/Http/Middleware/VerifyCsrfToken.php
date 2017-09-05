@@ -13,6 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-        '/aplipay_notify'
+        '/aplipay_notify',
+        'wechat_notify'
     ];
 }

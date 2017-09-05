@@ -15,7 +15,10 @@
         "levan/baidu-stat": "^1.0",
         "mews/captcha": "^2.1",
         "overtrue/laravel-lang": "~3.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "riverslei/payment": "~4.0.0",
+        "yansongda/laravel-pay": "^1.0",
+        "simplesoftwareio/simple-qrcode": "~1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

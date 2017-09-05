@@ -21,7 +21,7 @@
                 陕ICP备17015228号-1
             </div>
         </div>
-        <div class="tool_bottom" v-if="$route.name !== 'index'">
+        <div class="tool_bottom" v-show="$route.name !== 'index'">
             <div class="feedback hover_hand" @click="feedback_model = true">
                 意见<br>反馈
             </div>

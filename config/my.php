@@ -44,8 +44,10 @@ return [
     'down_url' => 'https://down.iwowcn.com/',
 
     'msg_template' => [
-        'rest_password' => 'SMS_91030011',
-        'regiest' => 'SMS_91010005'
+        '1' => 'SMS_91010005',  // rest_password
+        '2' => 'SMS_91030011',  // regiest
+        '3' => 'SMS_91030011',  // 绑定支付宝
+        '4' => 'SMS_91030011'  // 提现
     ]
 
 ];

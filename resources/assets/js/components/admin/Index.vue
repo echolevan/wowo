@@ -46,6 +46,9 @@
                 <router-link to="/admin/recharge/list">
                     <Menu-item name="admin.recharge.list">充值列表</Menu-item>
                 </router-link>
+                <router-link to="/admin/withdraw/list">
+                    <Menu-item name="admin.withdraw.list">提现列表</Menu-item>
+                </router-link>
             </Submenu>
             <Submenu name="2">
                 <template slot="title">

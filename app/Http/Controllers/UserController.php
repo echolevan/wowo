@@ -9,6 +9,7 @@ use App\Plug;
 use App\Recharge;
 use App\Tool;
 use App\User;
+use App\Withdraws;
 use Carbon\Carbon;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
 {
@@ -116,20 +118,18 @@ class UserController extends Controller
             return ['sta'=>0 , 'msg'=>'创建充值订单失败'];
         }
 //
-//        if($rec->recharge_type == 1){
-//            // 支付宝
-//            // todo
-//            $payC = new PayController();
-//            $pay_url = $payC->alipay($rec);
-//        }else if($rec->recharge_type == 2){
-//            // 微信
-//            // todo
-//        }
-
-
-//        $user_info = User::where('id',Auth::id())->first();
-        return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id) , 'out_trade_no'=>$rec->out_trade_no];
-//        return ['sta'=>1 , 'url'=>$pay_url];
+        if($rec->recharge_type == 1){
+            // 支付宝
+            return ['sta'=>1 , 'url'=>route('user.go_to_pay',$rec->id) , 'out_trade_no'=>$rec->out_trade_no,'type'=>'alipay'];
+        }else if($rec->recharge_type == 2){
+            // 微信
+            // todo
+            $payC = new PayController();
+            $pay_url = $payC->wechat_pay($rec);
+            $path = 'qrcodes/'.Auth::id().time().str_random(5).'.png';
+            QrCode::format('png')->size(300)->margin(0)->generate($pay_url, '../public/'.$path);
+            return ['sta'=>1 , 'url'=>$path , 'out_trade_no'=>$rec->out_trade_no,'type'=>'wechat'];
+        }
 
     }
 
@@ -312,23 +312,25 @@ class UserController extends Controller
         $code = rand(100000,999999);
         Mail::to($email)->send(new \App\Mail\sendCodeToUser($code));
         Cache::forget(Auth::id()."_send_code_email");
+        Cache::forget(Auth::id()."_send_email_code");
         Cache::add(Auth::id()."_send_email_code", json_encode(['code'=>$code , 'email'=> $email]), 10);
         Cache::add(Auth::id()."_send_code_email", time(), 1);
         return ['sta'=>1 , 'msg'=>'邮件发送成功'];
     }
 
-    public function send_msg($tel , $type)
+    public function send_msg($tel , $type, $alipay = 0)
     {
         // put in session
-        if (Cache::has(Auth::id()."_send_msg")) {
-            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg")];
+        if (Cache::has(Auth::id()."_send_msg_".$type)) {
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg_".$type)).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg_".$type)];
         }
         $code = rand(100000,999999);
-        $is_true = send_msg($code,$tel,config('my.msg_template.'.($type === 1 ? 'regiest' : 'rest_password').''));
+        $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));
         if($is_true['success']){
-            Cache::forget(Auth::id()."_send_msg");
-            Cache::add(Auth::id()."_send_msg_code", json_encode(['code'=>$code , 'tel'=> $tel]), 10);
-            Cache::add(Auth::id()."_send_msg", time(), 1);
+            Cache::forget(Auth::id()."_send_msg_".$type);
+            Cache::forget(Auth::id()."_send_msg_code_".$type);
+            Cache::add(Auth::id()."_send_msg_code_".$type, json_encode(['code'=>$code , 'tel'=> $tel , 'alipay'=>$alipay]), 10);
+            Cache::add(Auth::id()."_send_msg_".$type, time(), 1);
             return ['sta'=>1 , 'msg'=>'短信发送成功'];
         }
         return ['sta'=>0 , 'msg'=>'短信发送失败'];
@@ -337,10 +339,11 @@ class UserController extends Controller
 
     public function update_tel(Request $request)
     {
-        if (!Cache::has(Auth::id()."_send_msg_code")) {
+        $cache_code = Auth::id()."_send_msg_code_1";
+        if (!Cache::has($cache_code)) {
             return ['sta'=>0 , 'msg'=>'验证码已失效'];
         }
-        $cache = Cache::get(Auth::id()."_send_msg_code");
+        $cache = Cache::get($cache_code);
         $cache = json_decode($cache,true);
         if($request->code != $cache['code'] || $request->tel != $cache['tel']){
             return ['sta'=>0 , 'msg'=>'验证码错误'];
@@ -349,7 +352,7 @@ class UserController extends Controller
             'tel' => $request->tel
         ]);
         if($user){
-            Cache::forget(Auth::id()."_send_msg_code");
+            Cache::forget($cache_code);
             return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
         }
         return ['sta'=>0 , 'msg'=>'更新失败'];
@@ -370,6 +373,28 @@ class UserController extends Controller
         ]);
         if($user){
             Cache::forget(Auth::id()."_send_email_code");
+            return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
+        }
+        return ['sta'=>0 , 'msg'=>'更新失败'];
+    }
+
+    public function update_Alipay(Request $request)
+    {
+        $cache_code = Auth::id()."_send_msg_code_3";
+        if (!Cache::has($cache_code)) {
+            return ['sta'=>0 , 'msg'=>'验证码已失效'];
+        }
+        $cache = Cache::get($cache_code);
+        $cache = json_decode($cache,true);
+        if($request->code != $cache['code'] || Auth::user()->tel != $cache['tel'] || ($cache['alipay'] != 0 && $request->Alipay != $cache['alipay'])){
+            return ['sta'=>0 , 'msg'=>'验证码错误'];
+        }
+        $user = User::where('id',Auth::id())->update([
+            'alipay' => $request->Alipay,
+            'alipay_name' => $request->alipayName
+        ]);
+        if($user){
+            Cache::forget($cache_code);
             return ['sta'=>1 , 'msg'=>'更新成功' ,'info'=>User::find(Auth::id())];
         }
         return ['sta'=>0 , 'msg'=>'更新失败'];
@@ -420,6 +445,18 @@ class UserController extends Controller
         return ['sta'=>1 , 'info'=>$lv ? $lv : ['name'=>'新手','money'=>0,'giving'=>0]];
     }
 
+    public function check_withdraw()
+    {
+        if(Auth::user()->gold < 2000){
+            return ['sta'=>0 , 'msg'=>'当金币数量等同于200人民币时可申请提现'];
+        }else if((time() - strtotime(Auth::user()->created_at)) < (30*60*60*24)){
+            return ['sta'=>0 , 'msg'=>'新注册用户30日内不能提现'];
+        }else if(!Auth::user()->alipay){
+            return ['sta'=>0 , 'msg'=>'请先绑定支付宝'];
+        }
+
+        return ['sta'=>1];
+    }
 
 
     public function user_list(Request $request,$page,$size)
@@ -520,6 +557,13 @@ class UserController extends Controller
             return 0;
         }
         return 1;
+    }
+
+    public function get_withdraws($page, $size)
+    {
+        $count = Withdraws::where('user_id',Auth::id())->count();
+        $res = Withdraws::where('user_id',Auth::id())->skip(($page-1)*$size)->take($size)->orderBy('created_at','desc')->get();
+        return ['count'=>$count , 'res'=>$res];
     }
 
 }

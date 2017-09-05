@@ -174,6 +174,8 @@ return [
         Anchu\Ftp\FtpServiceProvider::class,
         Levan\Baidu\Stat\BaiduStatServiceProvider::class,
         EchoBool\AlipayLaravel\AlipayServiceProvider::class,
+        Yansongda\LaravelPay\PayServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -234,7 +236,9 @@ return [
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
-        'BaiduStat' => Levan\Baidu\Stat\BaiduStatFacade::class
+        'BaiduStat' => Levan\Baidu\Stat\BaiduStatFacade::class,
+        'Pay' => Yansongda\LaravelPay\Facades\Pay::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
     ],
 
 ];

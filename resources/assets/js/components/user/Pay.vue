@@ -7,6 +7,7 @@
                     <div class="panel-body">
                         金币余额 : <span style="font-size: 16px" class="normal_font"
                                      :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{userInfo.gold}}</span>
+                        <v-withdraw style="float: right"></v-withdraw>
                     </div>
                 </div>
 
@@ -199,12 +200,53 @@
                       :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
 
             </Tab-pane>
+            <Tab-pane label="提现记录" name="3" class="pay_his" style="padding: 0 15px">
+
+                <ul class="list" v-if="count > 0">
+                    <li class="my_a_style" v-for="v in withdraws">
+                        <span v-if="v.status === 9" style="color: #d13030">(提现成功)</span>
+                        <span v-else style="color: #d13030">(等待转账)</span>
+                        <strong>提现
+                            <span class="normal_font"
+                                  :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.money}}
+                                </span> 元
+                        </strong>
+                        <span class="time">{{v.created_at}}</span>
+                    </li>
+                </ul>
+
+                <p class="normal_font"
+                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                   v-else>暂无记录</p>
+
+                <Page v-show="count > 0" :total="count" size="small" @on-change="change_draws_page" show-total :key="count"
+                      style="float: right;margin-top: 30px"
+                      :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
+
+            </Tab-pane>
         </Tabs>
+
+        <Modal v-model="wechat_scan" class="download_pay_model" width="500" style="text-align: center">
+            <p slot="header" class="model_title">
+                <span>请扫描二维码</span>
+            </p>
+            <div style="text-align:center">
+                <img :src="wechat_scan_qr" alt="">
+            </div>
+            <div slot="footer">
+                <Button type="primary"
+                        @click="wechat_scan = false">
+                    <span>关闭</span>
+                </Button>
+            </div>
+
+        </Modal>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import VWithDraw from './Withdraw.vue'
 
     export default {
         data() {
@@ -217,7 +259,10 @@
                 page: 1,
                 size: 10,
                 count: 0,
-                lv: {}
+                lv: {},
+                withdraws: [],
+                wechat_scan: false,
+                wechat_scan_qr: ''
             }
         },
         mounted() {
@@ -258,39 +303,80 @@
                         if (res.data.sta === 0) {
                             myDialog(res.data.msg)
                         } else {
-                            myDialog('请在新窗口支付')
-                            let aaa = setInterval(()=>{
-                                axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
-                                    if(res.data.sta === 1){
-                                        clodeMyDialog()
-                                        myDialog('支付成功')
-                                        this.$store.commit('change_userInfo', res.data.info)
-                                        clearInterval(aaa)
-                                    }
-                                })
-                            },1000)
-                            window.open(res.data.url);
+                            if(res.data.type === 'alipay') {
+                                myDialog('请在新窗口支付')
+                                let aaa = setInterval(()=>{
+                                    axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
+                                        if(res.data.sta === 1){
+                                            clodeMyDialog()
+                                            myDialog('支付成功')
+                                            this.$store.commit('change_userInfo', res.data.info)
+                                            clearInterval(aaa)
+                                        }
+                                    })
+                                },1000)
+                                window.open(res.data.url);
+                            }else {
+                                let bbb = setInterval(()=>{
+                                    axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
+                                        if(res.data.sta === 1){
+                                            clodeMyDialog()
+                                            myDialog('支付成功')
+                                            this.$store.commit('change_userInfo', res.data.info)
+                                            clearInterval(bbb)
+                                            this.wechat_scan = false
+                                        }
+                                    })
+                                },1000)
+                                this.wechat_scan = true
+                                this.wechat_scan_qr = res.data.url
+                            }
                         }
                     })
                 }
             },
             change_page(p) {
                 this.page = p
-                this.get_orders_history(2);
+                axios.post(`user/get_orders_history/${this.page}/${this.size}`).then(res => {
+                    this.count = res.data.count
+                    this.orders_history = res.data.res
+                })
+            },
+            change_draws_page(p){
+                this.page = p
+                axios.post(`user/get_withdraws/${this.page}/${this.size}`).then(res => {
+                    this.count = res.data.count
+                    this.withdraws = res.data.res
+                })
             },
             get_orders_history(name) {
                 if (name === '1') {
                     return false
                 }
-                axios.post(`user/get_orders_history/${this.page}/${this.size}`).then(res => {
-                    this.count = res.data.count
-                    this.orders_history = res.data.res
-                })
+                if (name === '2') {
+                    this.page = 1
+                    this.size = 10
+                    axios.post(`user/get_orders_history/${this.page}/${this.size}`).then(res => {
+                        this.count = res.data.count
+                        this.orders_history = res.data.res
+                    })
+                }
+                if (name === '3') {
+                    this.page = 1
+                    this.size = 10
+                    axios.post(`user/get_withdraws/${this.page}/${this.size}`).then(res => {
+                        this.count = res.data.count
+                        this.withdraws = res.data.res
+                    })
+                }
             }
         },
         computed: mapState([
             'userInfo', 'choice_cmap'
-        ])
+        ]),
+        components: {
+            'v-withdraw': VWithDraw
+        }
     }
 </script>
 

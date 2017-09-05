@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Yansongda\Pay\Pay;
 use App\Recharge;
 use App\User;
 use EchoBool\AlipayLaravel\Facades\Alipay;
@@ -13,6 +14,96 @@ use Illuminate\Support\Facades\Log;
 class PayController extends Controller
 {
     //
+
+    protected $config = [];
+
+    public function __construct()
+    {
+        $this->config['alipay'] =  config('pay.alipay');
+        $this->config['wechat'] =  config('pay.wechat');
+    }
+
+    public function wechat_pay($order)
+    {
+        $config_biz = [
+            'out_trade_no' => $order->out_trade_no,
+            'total_fee' => '1', // **单位：分**
+            'body' => '充值'.$order->recharge_gold.'金币',
+            'spbill_create_ip' => request()->getClientIp(),
+            'product_id' =>  $order->id,
+        ];
+
+        $pay = new Pay($this->config);
+
+        return $pay->driver('wechat')->gateway('scan')->pay($config_biz);
+    }
+
+    public function find_wechat($out_trade_no)
+    {
+        $pay = new Pay($this->config);
+        $res =  $pay->driver('wechat')->gateway('scan')->find($out_trade_no);
+        if($res['trade_state'] == 'SUCCESS'){
+            $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
+            if($recharge->status === 9){
+                Log::info('success');
+                return ['sta'=>1 ,'info'=> User::find(Auth::id())];
+            }else {
+                DB::beginTransaction();
+                $gold = User::where('id', $recharge->user_id)->value('gold');
+                try {
+                    Recharge::where('out_trade_no', $out_trade_no)->where('status', '!=', '9')->update([
+                        'status' => 9
+                    ]);
+                    User::where('id', $recharge->user_id)->update([
+                        'gold' => $gold + $recharge->recharge_amount * 10 + $recharge->giving_gold
+                    ]);
+                    Log::info('add_success');
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    Log::error(json_encode([$recharge, $recharge->user_id]));
+                    echo "fail";
+                }
+            }
+            return ['sta'=>0 , 'info' => User::find(Auth::id())];
+        }
+    }
+
+    public function wechat_notify(Request $request)
+    {
+        $pay = new Pay($this->config);
+        $verify = $pay->driver('wechat')->gateway('scan')->verify($request->getContent());
+
+        if ($verify) {
+            $out_trade_no = $verify['out_trade_no'];
+            $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
+            if($recharge->status === 9){
+                Log::info('success');
+                echo "success";
+                exit;
+            }else{
+                DB::beginTransaction();
+                $gold = User::where('id',$recharge->user_id)->value('gold');
+                try{
+                    Recharge::where('out_trade_no',$out_trade_no)->where('status','!=','9')->update([
+                        'status'=>9
+                    ]);
+                    User::where('id',$recharge->user_id)->update([
+                        'gold' => $gold + $recharge->recharge_amount*10 + $recharge->giving_gold
+                    ]);
+                    Log::info('add_success');
+                    DB::commit();
+                }catch(\Exception $e){
+                    DB::rollBack();
+                    Log::error(json_encode([$recharge, $recharge->user_id]));
+                    echo "fail";
+                }
+            }
+        } else {
+            Log::error("收到异步通知\r\n", FILE_APPEND);
+        }
+        echo "success";
+    }
 
     public function alipay($order)
     {
@@ -40,7 +131,7 @@ class PayController extends Controller
             $recharge = Recharge::where('out_trade_no',$out_trade_no)->first();
             if($recharge->status === 9){
                 Log::info('success');
-                return ['sta'=>1 ,'info'=> User::find(Auth::id())];
+                return ['sta'=>1 ,'info'=> User::find($recharge->user_id)];
             }else{
                 DB::beginTransaction();
                 $gold = User::where('id',$recharge->user_id)->value('gold');

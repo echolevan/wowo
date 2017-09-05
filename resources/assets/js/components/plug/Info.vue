@@ -251,6 +251,23 @@
 
         </Modal>
 
+
+        <Modal v-model="wechat_scan" class="download_pay_model" width="500" style="text-align: center">
+            <p slot="header" class="model_title">
+                <span>请扫描二维码</span>
+            </p>
+            <div style="text-align:center">
+                <img :src="wechat_scan_qr" alt="">
+            </div>
+            <div slot="footer">
+                <Button type="primary"
+                        @click="wechat_scan = false">
+                    <span>关闭</span>
+                </Button>
+            </div>
+
+        </Modal>
+
     </div>
 </template>
 
@@ -292,7 +309,9 @@
                     'TMW': 'tmw',
                     'WA': 'wa',
                     '游戏插件': 'plug'
-                }
+                },
+                wechat_scan: false,
+                wechat_scan_qr: ''
             }
         },
         computed: mapState([
@@ -408,18 +427,34 @@
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg)
                     } else {
-                        myDialog('请在新窗口支付')
-                        let aaa = setInterval(()=>{
-                            axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
-                                if(res.data.sta === 1){
-                                    clodeMyDialog()
-                                    myDialog('支付成功')
-                                    this.$store.commit('change_userInfo', res.data.info)
-                                    clearInterval(aaa)
-                                }
-                            })
-                        },1000)
-                        window.open(res.data.url);
+                        if(res.data.type === 'alipay') {
+                            myDialog('请在新窗口支付')
+                            let aaa = setInterval(()=>{
+                                axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
+                                    if(res.data.sta === 1){
+                                        clodeMyDialog()
+                                        myDialog('支付成功')
+                                        this.$store.commit('change_userInfo', res.data.info)
+                                        clearInterval(aaa)
+                                    }
+                                })
+                            },1000)
+                            window.open(res.data.url);
+                        }else {
+                            let bbb = setInterval(()=>{
+                                axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
+                                    if(res.data.sta === 1){
+                                        clodeMyDialog()
+                                        myDialog('支付成功')
+                                        this.$store.commit('change_userInfo', res.data.info)
+                                        clearInterval(bbb)
+                                        this.wechat_scan = false
+                                    }
+                                })
+                            },1000)
+                            this.wechat_scan = true
+                            this.wechat_scan_qr = res.data.url
+                        }
                     }
                 })
                 this.pay_loding = false

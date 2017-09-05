@@ -1996,6 +1996,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2681,6 +2684,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2822,6 +2831,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!/^\d+$/.test(this.list[k].rank)) {
                 this.list[k].rank = Math.round(this.list[k].rank);
             }
+        },
+        del_this: function del_this(id) {
+            var _this5 = this;
+
+            axios.delete('/admin/plugs/' + id).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this5.search();
+                    _this5.$Message.success(res.data.msg);
+                } else {
+                    _this5.$Message.error(res.data.msg);
+                }
+            });
         }
     }
 });
@@ -5337,6 +5358,162 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/withdraw/List.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            page: 1,
+            page_size: 10,
+            total: 0,
+            formS: {
+                name: '',
+                user_id: '',
+                status: ''
+            },
+            list: [],
+            configWithdrawStatus: configWithdrawStatus,
+            loading_s: false
+        };
+    },
+    mounted: function mounted() {
+        var cz_jl_id = localStorage.getItem('cz_jl_id');
+        if (cz_jl_id) {
+            this.formS.user_id = cz_jl_id;
+        }
+        localStorage.removeItem('cz_jl_id');
+        this.search();
+    },
+
+    methods: {
+        toS: function toS() {
+            this.page = 1;
+            this.loading_s = true;
+            this.search();
+        },
+        rest: function rest() {
+            this.formS.name = '';
+            this.formS.user_id = '';
+            this.formS.status = '';
+        },
+        page_c: function page_c(p) {
+            this.page = p;
+            this.search();
+            this.$Loading.start();
+        },
+        size_c: function size_c(s) {
+            this.page_size = s;
+            this.search();
+            this.$Loading.start();
+        },
+        search: function search() {
+            var _this = this;
+
+            axios.post('/admin/withdraws/list/' + this.page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this.total = res.data.count;
+                    _this.list = res.data.list;
+                }
+                _this.$Loading.finish();
+                _this.loading_s = false;
+            });
+        },
+        to_draw: function to_draw(id) {
+            var _this2 = this;
+
+            axios.get('/admin/to_draw/' + id).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this2.search();
+                    _this2.$Message.success(res.data.msg);
+                } else {
+                    _this2.$Message.error(res.data.msg);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/common/Rank.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6781,6 +6958,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6819,7 +7013,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'TMW': 'tmw',
                 'WA': 'wa',
                 '游戏插件': 'plug'
-            }
+            },
+            wechat_scan: false,
+            wechat_scan_qr: ''
         };
     },
 
@@ -6949,18 +7145,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    myDialog('请在新窗口支付');
-                    var aaa = setInterval(function () {
-                        axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
-                            if (res.data.sta === 1) {
-                                clodeMyDialog();
-                                myDialog('支付成功');
-                                _this7.$store.commit('change_userInfo', res.data.info);
-                                clearInterval(aaa);
-                            }
-                        });
-                    }, 1000);
-                    window.open(res.data.url);
+                    if (res.data.type === 'alipay') {
+                        myDialog('请在新窗口支付');
+                        var aaa = setInterval(function () {
+                            axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
+                                if (res.data.sta === 1) {
+                                    clodeMyDialog();
+                                    myDialog('支付成功');
+                                    _this7.$store.commit('change_userInfo', res.data.info);
+                                    clearInterval(aaa);
+                                }
+                            });
+                        }, 1000);
+                        window.open(res.data.url);
+                    } else {
+                        var bbb = setInterval(function () {
+                            axios.get('find_wechat/' + res.data.out_trade_no).then(function (res) {
+                                if (res.data.sta === 1) {
+                                    clodeMyDialog();
+                                    myDialog('支付成功');
+                                    _this7.$store.commit('change_userInfo', res.data.info);
+                                    clearInterval(bbb);
+                                    _this7.wechat_scan = false;
+                                }
+                            });
+                        }, 1000);
+                        _this7.wechat_scan = true;
+                        _this7.wechat_scan_qr = res.data.url;
+                    }
                 }
             });
             this.pay_loding = false;
@@ -7665,6 +7877,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7703,7 +7931,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             plug_key: '',
             pay_type: 1,
             pay_amount: 10,
-            pay_amount_other: 1
+            pay_amount_other: 1,
+            wechat_scan: false,
+            wechat_scan_qr: ''
         };
     },
 
@@ -7853,18 +8083,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (res.data.sta === 0) {
                     myDialog(res.data.msg);
                 } else {
-                    myDialog('请在新窗口支付');
-                    var aaa = setInterval(function () {
-                        axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
-                            if (res.data.sta === 1) {
-                                clodeMyDialog();
-                                myDialog('支付成功');
-                                _this5.$store.commit('change_userInfo', res.data.info);
-                                clearInterval(aaa);
-                            }
-                        });
-                    }, 1000);
-                    window.open(res.data.url);
+                    if (res.data.type === 'alipay') {
+                        myDialog('请在新窗口支付');
+                        var aaa = setInterval(function () {
+                            axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
+                                if (res.data.sta === 1) {
+                                    clodeMyDialog();
+                                    myDialog('支付成功');
+                                    _this5.$store.commit('change_userInfo', res.data.info);
+                                    clearInterval(aaa);
+                                }
+                            });
+                        }, 1000);
+                        window.open(res.data.url);
+                    } else {
+                        var bbb = setInterval(function () {
+                            axios.get('find_wechat/' + res.data.out_trade_no).then(function (res) {
+                                if (res.data.sta === 1) {
+                                    clodeMyDialog();
+                                    myDialog('支付成功');
+                                    _this5.$store.commit('change_userInfo', res.data.info);
+                                    clearInterval(bbb);
+                                    _this5.wechat_scan = false;
+                                }
+                            });
+                        }, 1000);
+                        _this5.wechat_scan = true;
+                        _this5.wechat_scan_qr = res.data.url;
+                    }
                 }
             });
             this.pay_loding = false;
@@ -8270,6 +8516,147 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Alipay.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        var validateAlipay = function validateAlipay(rule, value, callback) {
+            if (value !== '') {
+                if (_this.fromAlipay.newAlipay === _this.userInfo.alipay) {
+                    callback(new Error('新支付宝不能与原始支付宝相同'));
+                } else {
+                    callback();
+                }
+            } else {
+                callback();
+            }
+        };
+        return {
+            fromAlipay: {
+                newAlipay: '',
+                code: '',
+                alipayName: ''
+            },
+            is_dis: false,
+            maxlength: 11,
+            maxlengthTwo: 6,
+            rest_time: 60,
+            AlipayCustom: {
+                newAlipay: [{ required: true, message: '新支付宝不能为空', trigger: 'blur' }, { validator: validateAlipay, trigger: 'blur' }],
+                code: [{ required: true, message: '验证码不能为空', trigger: 'blur' }],
+                alipayName: [{ required: true, message: '姓名不能为空', trigger: 'blur' }]
+            }
+        };
+    },
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
+    methods: {
+        handleSubmit: function handleSubmit(name) {
+            var _this2 = this;
+
+            this.$refs[name].validate(function (valid) {
+                if (valid) {
+                    axios.post('user/update_Alipay', { Alipay: _this2.fromAlipay.newAlipay, code: _this2.fromAlipay.code, alipayName: _this2.fromAlipay.alipayName }).then(function (res) {
+                        if (res.data.sta === 0) {
+                            myDialog(res.data.msg);
+                        } else {
+                            myDialog(res.data.msg);
+                            _this2.$store.commit('change_userInfo', res.data.info);
+                            _this2.fromAlipay.newAlipay = '';
+                            _this2.fromAlipay.alipayName = '';
+                            _this2.fromAlipay.code = '';
+                        }
+                    });
+                }
+            });
+        },
+        send_msg: function send_msg() {
+            var _this3 = this;
+
+            if (this.userInfo.tel === '0') {
+                myDialog('请先绑定手机号');
+                return false;
+            }
+            this.$refs.fromAlipay.validateField('newAlipay', function (v) {
+                if (!v) {
+                    _this3.rest_time = 60;
+                    _this3.is_dis = true;
+                    _this3.sub_time();
+                    axios.get('user/send_msg/' + _this3.userInfo.tel + '/3/' + _this3.fromAlipay.newAlipay).then(function (res) {
+                        if (res.data.sta === 0) {
+                            myDialog(res.data.msg);
+                            if (res.data.timeOut) {
+                                _this3.rest_time = res.data.timeOut;
+                            }
+                        }
+                    });
+                }
+            });
+        },
+        sub_time: function sub_time() {
+            var _this4 = this;
+
+            this.send_msg_djs = setInterval(function () {
+                _this4.rest_time--;
+                _this4.check_is_out();
+            }, 1000);
+        },
+        check_is_out: function check_is_out() {
+            if (this.rest_time <= 0) {
+                clearInterval(this.send_msg_djs);
+                this.is_dis = false;
+            }
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Collect.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8438,6 +8825,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__ = __webpack_require__("./resources/assets/js/components/user/Withdraw.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__);
 //
 //
 //
@@ -8530,6 +8919,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -8587,6 +8992,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.lv = res.data.info;
             });
         }
+    },
+    components: {
+        'v-withdraw': __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue___default.a
     }
 });
 
@@ -8823,6 +9231,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__ = __webpack_require__("./resources/assets/js/components/user/Withdraw.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__);
 //
 //
 //
@@ -9028,6 +9438,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -9042,7 +9494,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             page: 1,
             size: 10,
             count: 0,
-            lv: {}
+            lv: {},
+            withdraws: [],
+            wechat_scan: false,
+            wechat_scan_qr: ''
         };
     },
     mounted: function mounted() {
@@ -9090,39 +9545,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (res.data.sta === 0) {
                         myDialog(res.data.msg);
                     } else {
-                        myDialog('请在新窗口支付');
-                        var aaa = setInterval(function () {
-                            axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
-                                if (res.data.sta === 1) {
-                                    clodeMyDialog();
-                                    myDialog('支付成功');
-                                    _this2.$store.commit('change_userInfo', res.data.info);
-                                    clearInterval(aaa);
-                                }
-                            });
-                        }, 1000);
-                        window.open(res.data.url);
+                        if (res.data.type === 'alipay') {
+                            myDialog('请在新窗口支付');
+                            var aaa = setInterval(function () {
+                                axios.get('user/is_pay_ok/' + res.data.out_trade_no).then(function (res) {
+                                    if (res.data.sta === 1) {
+                                        clodeMyDialog();
+                                        myDialog('支付成功');
+                                        _this2.$store.commit('change_userInfo', res.data.info);
+                                        clearInterval(aaa);
+                                    }
+                                });
+                            }, 1000);
+                            window.open(res.data.url);
+                        } else {
+                            var bbb = setInterval(function () {
+                                axios.get('find_wechat/' + res.data.out_trade_no).then(function (res) {
+                                    if (res.data.sta === 1) {
+                                        clodeMyDialog();
+                                        myDialog('支付成功');
+                                        _this2.$store.commit('change_userInfo', res.data.info);
+                                        clearInterval(bbb);
+                                        _this2.wechat_scan = false;
+                                    }
+                                });
+                            }, 1000);
+                            _this2.wechat_scan = true;
+                            _this2.wechat_scan_qr = res.data.url;
+                        }
                     }
                 });
             }
         },
         change_page: function change_page(p) {
-            this.page = p;
-            this.get_orders_history(2);
-        },
-        get_orders_history: function get_orders_history(name) {
             var _this3 = this;
 
-            if (name === '1') {
-                return false;
-            }
+            this.page = p;
             axios.post('user/get_orders_history/' + this.page + '/' + this.size).then(function (res) {
                 _this3.count = res.data.count;
                 _this3.orders_history = res.data.res;
             });
+        },
+        change_draws_page: function change_draws_page(p) {
+            var _this4 = this;
+
+            this.page = p;
+            axios.post('user/get_withdraws/' + this.page + '/' + this.size).then(function (res) {
+                _this4.count = res.data.count;
+                _this4.withdraws = res.data.res;
+            });
+        },
+        get_orders_history: function get_orders_history(name) {
+            var _this5 = this;
+
+            if (name === '1') {
+                return false;
+            }
+            if (name === '2') {
+                this.page = 1;
+                this.size = 10;
+                axios.post('user/get_orders_history/' + this.page + '/' + this.size).then(function (res) {
+                    _this5.count = res.data.count;
+                    _this5.orders_history = res.data.res;
+                });
+            }
+            if (name === '3') {
+                this.page = 1;
+                this.size = 10;
+                axios.post('user/get_withdraws/' + this.page + '/' + this.size).then(function (res) {
+                    _this5.count = res.data.count;
+                    _this5.withdraws = res.data.res;
+                });
+            }
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap'])
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
+    components: {
+        'v-withdraw': __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue___default.a
+    }
 });
 
 /***/ }),
@@ -9138,11 +9638,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Tel_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Tel_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mail_vue__ = __webpack_require__("./resources/assets/js/components/user/Mail.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Mail_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Mail_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_restPassword_vue__ = __webpack_require__("./resources/assets/js/components/common/restPassword.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_restPassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__common_restPassword_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_distpicker__ = __webpack_require__("./node_modules/_v-distpicker@1.0.6@v-distpicker/dist/v-distpicker.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_v_distpicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_v_distpicker__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Alipay_vue__ = __webpack_require__("./resources/assets/js/components/user/Alipay.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Alipay_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Alipay_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_restPassword_vue__ = __webpack_require__("./resources/assets/js/components/common/restPassword.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_restPassword_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__common_restPassword_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_v_distpicker__ = __webpack_require__("./node_modules/_v-distpicker@1.0.6@v-distpicker/dist/v-distpicker.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_v_distpicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_v_distpicker__);
 //
 //
 //
@@ -9213,6 +9715,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -9350,7 +9856,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
+    computed: Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
     watch: {
         userInfo: function userInfo() {
             this.put_v();
@@ -9365,10 +9871,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     components: {
         'avatar-cropper': __WEBPACK_IMPORTED_MODULE_0_vue_avatar_cropper___default.a,
-        'rest-password': __WEBPACK_IMPORTED_MODULE_3__common_restPassword_vue___default.a,
-        'v-distpicker': __WEBPACK_IMPORTED_MODULE_5_v_distpicker___default.a,
+        'rest-password': __WEBPACK_IMPORTED_MODULE_4__common_restPassword_vue___default.a,
+        'v-distpicker': __WEBPACK_IMPORTED_MODULE_6_v_distpicker___default.a,
         'v-tel': __WEBPACK_IMPORTED_MODULE_1__Tel_vue___default.a,
-        'v-mail': __WEBPACK_IMPORTED_MODULE_2__Mail_vue___default.a
+        'v-mail': __WEBPACK_IMPORTED_MODULE_2__Mail_vue___default.a,
+        'v-alipay': __WEBPACK_IMPORTED_MODULE_3__Alipay_vue___default.a
     }
 });
 
@@ -9629,6 +10136,105 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         show_his: function show_his(id) {
             this.is_show_his = id;
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Withdraw.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            modal1: false,
+            loading: false,
+            drawMoney: 1,
+            maxMoney: 1
+        };
+    },
+
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
+    methods: {
+        withdraw: function withdraw() {
+            var _this = this;
+
+            axios.get('/user/check_withdraw').then(function (res) {
+                if (res.data.sta === 0) {
+                    myDialog(res.data.msg);
+                } else {
+                    _this.drawMoney = 1;
+                    _this.modal1 = true;
+                    // tixian
+                }
+            });
+        },
+        ok: function ok() {
+            var _this2 = this;
+
+            this.loading = true;
+            axios.post('withdraws', { drawMoney: this.drawMoney }).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this2.modal1 = false;
+                    myDialog('提现成功，请等待1-3个工作日');
+                    _this2.$store.commit('change_userInfo', res.data.info);
+                } else {
+                    myDialog(res.data.msg);
+                }
+            });
+            this.loading = false;
+        },
+        change_other: function change_other() {
+            if (!/^\d+$/.test(this.drawMoney)) {
+                this.drawMoney = Math.round(this.drawMoney);
+            }
         }
     }
 });
@@ -12677,7 +13283,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.user_info .info_list li[data-v-18a10b5e] {\n  width: 100%;\n  padding: 10px 0;\n}\n.user_info .info_list li .title[data-v-18a10b5e] {\n  font-size: 16px;\n  width: 8%;\n  float: left;\n  font-weight: bold;\n}\n.user_info .info_list li .val[data-v-18a10b5e] {\n  width: 92%;\n  float: left;\n  font-size: 12px;\n  word-wrap: break-word;\n}\n.user_info .user_info_card[data-v-18a10b5e] {\n  position: relative;\n  width: 960px;\n  height: 540px;\n  border: 1px solid #ddd;\n}\n.user_info .zd[data-v-18a10b5e] {\n  width: 960px;\n  height: 540px;\n  position: absolute;\n  z-index: 1;\n  filter: blur(10px);\n  background: rgba(88,87,86,0.3);\n}\n.user_info img[data-v-18a10b5e] {\n  width: 960px;\n  height: 540px;\n}\n.user_info .info[data-v-18a10b5e] {\n  position: absolute;\n  left: 300px;\n  top: 100px;\n  font-size: 30px;\n  color: #266ec1;\n  z-index: 2;\n}\n.user_info .bac_img_lm[data-v-18a10b5e] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 300px;\n  height: 540px;\n  background: url(\"/images/c1_hover.png\") no-repeat center;\n  background-size: contain;\n}\n.user_info .bac_img_bl[data-v-18a10b5e] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 300px;\n  height: 540px;\n  background: url(\"/images/c2_hover.png\") no-repeat center;\n  background-size: contain;\n}\n.user_info .user_avatar[data-v-18a10b5e] {\n  position: absolute;\n  right: 80px;\n  top: 200px;\n  z-index: 2;\n}\n.user_info .user_avatar img[data-v-18a10b5e] {\n  width: 150px;\n  height: 150px;\n}\n", ""]);
+exports.push([module.i, "\n.user_info .info_list li[data-v-18a10b5e] {\n  width: 100%;\n  padding: 10px 0;\n}\n.user_info .info_list li .title[data-v-18a10b5e] {\n  font-size: 16px;\n  width: 8%;\n  float: left;\n  font-weight: bold;\n}\n.user_info .info_list li .val[data-v-18a10b5e] {\n  float: left;\n  font-size: 12px;\n  word-wrap: break-word;\n}\n.user_info .user_info_card[data-v-18a10b5e] {\n  position: relative;\n  width: 960px;\n  height: 540px;\n  border: 1px solid #ddd;\n}\n.user_info .zd[data-v-18a10b5e] {\n  width: 960px;\n  height: 540px;\n  position: absolute;\n  z-index: 1;\n  filter: blur(10px);\n  background: rgba(88,87,86,0.3);\n}\n.user_info img[data-v-18a10b5e] {\n  width: 960px;\n  height: 540px;\n}\n.user_info .info[data-v-18a10b5e] {\n  position: absolute;\n  left: 300px;\n  top: 100px;\n  font-size: 30px;\n  color: #266ec1;\n  z-index: 2;\n}\n.user_info .bac_img_lm[data-v-18a10b5e] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 300px;\n  height: 540px;\n  background: url(\"/images/c1_hover.png\") no-repeat center;\n  background-size: contain;\n}\n.user_info .bac_img_bl[data-v-18a10b5e] {\n  position: absolute;\n  right: 0;\n  top: 0;\n  width: 300px;\n  height: 540px;\n  background: url(\"/images/c2_hover.png\") no-repeat center;\n  background-size: contain;\n}\n.user_info .user_avatar[data-v-18a10b5e] {\n  position: absolute;\n  right: 80px;\n  top: 200px;\n  z-index: 2;\n}\n.user_info .user_avatar img[data-v-18a10b5e] {\n  width: 150px;\n  height: 150px;\n}\n", ""]);
 
 // exports
 
@@ -12819,6 +13425,21 @@ exports.push([module.i, "\n.user_pay .choice_type a[data-v-45111128] {\n  paddin
 
 /***/ }),
 
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Withdraw.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.drawMoney[data-v-468ed7ba] {\n  font-size: 16px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a6b5246\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/Setting.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12888,6 +13509,21 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 // module
 exports.push([module.i, "\n.download_rank[data-v-5e862cbc] {\n  border-bottom: none !important;\n}\n.download_rank[data-v-5e862cbc],\n.start_rank[data-v-5e862cbc] {\n  border: 1px solid #ddd;\n}\n.download_rank div.title[data-v-5e862cbc],\n.start_rank div.title[data-v-5e862cbc] {\n  color: #333;\n  padding: 5px 15px;\n  font-size: 14px;\n  border-bottom: 1px solid #ddd;\n}\n.download_rank div.title span[data-v-5e862cbc],\n.start_rank div.title span[data-v-5e862cbc] {\n  float: right;\n  color: #999;\n}\n.download_rank ul li[data-v-5e862cbc],\n.start_rank ul li[data-v-5e862cbc] {\n  height: 56px;\n  position: relative;\n}\n.download_rank ul li a[data-v-5e862cbc],\n.start_rank ul li a[data-v-5e862cbc] {\n  color: #333;\n}\n.download_rank ul li a[data-v-5e862cbc]:hover,\n.start_rank ul li a[data-v-5e862cbc]:hover {\n  color: #266ec1;\n}\n.download_rank ul li[data-v-5e862cbc]:after,\n.start_rank ul li[data-v-5e862cbc]:after {\n  content: \"\";\n  height: 24px;\n  width: 2px;\n  position: absolute;\n  top: 16px;\n  left: 0;\n  display: none;\n}\n.download_rank ul li .num[data-v-5e862cbc],\n.start_rank ul li .num[data-v-5e862cbc] {\n  position: absolute;\n  top: 0;\n  left: 2px;\n  width: 30px;\n  text-align: center;\n  height: 100%;\n  line-height: 56px;\n  color: #266ec1;\n}\n.download_rank ul .tit[data-v-5e862cbc],\n.start_rank ul .tit[data-v-5e862cbc] {\n  display: block;\n  position: relative;\n  left: 30px;\n  top: 10px;\n  width: 250px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.download_rank ul .dig[data-v-5e862cbc],\n.start_rank ul .dig[data-v-5e862cbc] {\n  color: #999;\n  display: block;\n  position: relative;\n  top: 10px;\n  height: 20px;\n  left: 30px;\n  width: 210px;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n}\n.download_rank ul .size[data-v-5e862cbc],\n.start_rank ul .size[data-v-5e862cbc] {\n  color: #808080;\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}\n.download_rank ul .score[data-v-5e862cbc],\n.start_rank ul .score[data-v-5e862cbc] {\n  font-size: 20px;\n  color: #266ec1;\n  position: absolute;\n  right: 10px;\n  top: 0;\n  height: 100%;\n  display: block;\n  line-height: 56px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Alipay.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -13053,6 +13689,21 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 // module
 exports.push([module.i, "\n.user_setting #set-avatar[data-v-c617b260] {\n  width: 80px;\n  height: 80px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/withdraw/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/lib/css-base.js")(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -77779,7 +78430,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading(_vm.plug.id)
       }
     }
-  }, [_c('span', [_vm._v("购买")])])], 1)])], 1)
+  }, [_c('span', [_vm._v("购买")])])], 1)]), _vm._v(" "), _c('Modal', {
+    staticClass: "download_pay_model",
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      "width": "500"
+    },
+    model: {
+      value: (_vm.wechat_scan),
+      callback: function($$v) {
+        _vm.wechat_scan = $$v
+      },
+      expression: "wechat_scan"
+    }
+  }, [_c('p', {
+    staticClass: "model_title",
+    slot: "header"
+  }, [_c('span', [_vm._v("请扫描二维码")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.wechat_scan_qr,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.wechat_scan = false
+      }
+    }
+  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -78518,7 +79207,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "my_gold"
-  }, [_vm._v(_vm._s(_vm.userInfo.gold))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('v-withdraw', {
+    staticStyle: {
+      "float": "right"
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -78560,6 +79253,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("点击立即绑定")]) : _c('span', {
     staticClass: "val"
   }, [_vm._v(_vm._s(_vm.userInfo.tel))]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
+  }, [_vm._v("支付宝")]), _vm._v(" "), (!_vm.userInfo.alipay) ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": _vm.to_setting
+    }
+  }, [_vm._v("点击立即绑定")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s(_vm.userInfo.alipay))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -79108,7 +79814,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "admin.recharge.list"
     }
-  }, [_vm._v("充值列表")])], 1)], 2), _vm._v(" "), _c('Submenu', {
+  }, [_vm._v("充值列表")])], 1), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": "/admin/withdraw/list"
+    }
+  }, [_c('Menu-item', {
+    attrs: {
+      "name": "admin.withdraw.list"
+    }
+  }, [_vm._v("提现列表")])], 1)], 2), _vm._v(" "), _c('Submenu', {
     attrs: {
       "name": "2"
     }
@@ -80165,7 +80879,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "primary",
       "loading": _vm.loading
     }
-  }, [_c('span', [_vm._v("购买")])])], 1)], 1)])], 1)
+  }, [_c('span', [_vm._v("购买")])])], 1)], 1)]), _vm._v(" "), _c('Modal', {
+    staticClass: "download_pay_model",
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      "width": "500"
+    },
+    model: {
+      value: (_vm.wechat_scan),
+      callback: function($$v) {
+        _vm.wechat_scan = $$v
+      },
+      expression: "wechat_scan"
+    }
+  }, [_c('p', {
+    staticClass: "model_title",
+    slot: "header"
+  }, [_c('span', [_vm._v("请扫描二维码")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.wechat_scan_qr,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.wechat_scan = false
+      }
+    }
+  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -80523,7 +81275,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.gold))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('v-withdraw', {
+    staticStyle: {
+      "float": "right"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
@@ -80858,13 +81614,194 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-change": _vm.change_page
     }
-  })], 1)], 1)], 1)
+  })], 1), _vm._v(" "), _c('Tab-pane', {
+    staticClass: "pay_his",
+    staticStyle: {
+      "padding": "0 15px"
+    },
+    attrs: {
+      "label": "提现记录",
+      "name": "3"
+    }
+  }, [(_vm.count > 0) ? _c('ul', {
+    staticClass: "list"
+  }, _vm._l((_vm.withdraws), function(v) {
+    return _c('li', {
+      staticClass: "my_a_style"
+    }, [(v.status === 9) ? _c('span', {
+      staticStyle: {
+        "color": "#d13030"
+      }
+    }, [_vm._v("(提现成功)")]) : _c('span', {
+      staticStyle: {
+        "color": "#d13030"
+      }
+    }, [_vm._v("(等待转账)")]), _vm._v(" "), _c('strong', [_vm._v("提现\n                        "), _c('span', {
+      staticClass: "normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v(_vm._s(v.money) + "\n                            ")]), _vm._v(" 元\n                    ")]), _vm._v(" "), _c('span', {
+      staticClass: "time"
+    }, [_vm._v(_vm._s(v.created_at))])])
+  })) : _c('p', {
+    staticClass: "normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v("暂无记录")]), _vm._v(" "), _c('Page', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.count > 0),
+      expression: "count > 0"
+    }],
+    key: _vm.count,
+    class: {
+      'bl_page_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    staticStyle: {
+      "float": "right",
+      "margin-top": "30px"
+    },
+    attrs: {
+      "total": _vm.count,
+      "size": "small",
+      "show-total": ""
+    },
+    on: {
+      "on-change": _vm.change_draws_page
+    }
+  })], 1)], 1), _vm._v(" "), _c('Modal', {
+    staticClass: "download_pay_model",
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      "width": "500"
+    },
+    model: {
+      value: (_vm.wechat_scan),
+      callback: function($$v) {
+        _vm.wechat_scan = $$v
+      },
+      expression: "wechat_scan"
+    }
+  }, [_c('p', {
+    staticClass: "model_title",
+    slot: "header"
+  }, [_c('span', [_vm._v("请扫描二维码")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.wechat_scan_qr,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.wechat_scan = false
+      }
+    }
+  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-45111128", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-468ed7ba\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Withdraw.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Tooltip', {
+    attrs: {
+      "placement": "top-end"
+    }
+  }, [_c('div', {
+    slot: "content"
+  }, [_c('p', [_vm._v("当金币数量等同于200人民币时可申请提现")]), _vm._v(" "), _c('p', [_vm._v("(新注册用户30日内不能提现)")])]), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "text",
+      "size": "small"
+    },
+    on: {
+      "click": _vm.withdraw
+    }
+  }, [_vm._v("提现")])], 1), _vm._v(" "), _c('Modal', {
+    model: {
+      value: (_vm.modal1),
+      callback: function($$v) {
+        _vm.modal1 = $$v
+      },
+      expression: "modal1"
+    }
+  }, [_c('p', {
+    slot: "header"
+  }, [_c('span', [_vm._v("提现")])]), _vm._v(" "), _c('p', [_vm._v("支付宝:" + _vm._s(_vm.userInfo.alipay))]), _vm._v("\n        请输入需要提现的金额：\n        "), _c('InputNumber', {
+    attrs: {
+      "max": Math.floor(_vm.userInfo.gold / 10),
+      "min": 1
+    },
+    on: {
+      "on-change": _vm.change_other
+    },
+    model: {
+      value: (_vm.drawMoney),
+      callback: function($$v) {
+        _vm.drawMoney = $$v
+      },
+      expression: "drawMoney"
+    }
+  }), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("\n            您将提现 "), _c('span', {
+    staticClass: "drawMoney normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v(_vm._s(_vm.drawMoney * 10))]), _vm._v(" 金币,金币剩余 "), _c('span', {
+    staticClass: "drawMoney normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v(_vm._s(_vm.userInfo.gold - _vm.drawMoney * 10))]), _vm._v(",将会得到 "), _c('span', {
+    staticClass: "drawMoney normal_font",
+    class: {
+      'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    }
+  }, [_vm._v(_vm._s(_vm.drawMoney))]), _vm._v(" 元\n        ")]), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [_c('Button', {
+    class: {
+      'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+    },
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.ok()
+      }
+    }
+  }, [_c('span', [_vm._v("确认提现")])])], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-468ed7ba", module.exports)
   }
 }
 
@@ -81582,6 +82519,170 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-5e862cbc", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6d527cfa\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Alipay.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Form', {
+    ref: "fromAlipay",
+    staticStyle: {
+      "width": "500px"
+    },
+    attrs: {
+      "model": _vm.fromAlipay,
+      "rules": _vm.AlipayCustom,
+      "label-width": 100
+    }
+  }, [_c('FormItem', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.userInfo.alipay),
+      expression: "userInfo.alipay"
+    }],
+    attrs: {
+      "label": "原始支付宝",
+      "prop": "oldAlipay"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text",
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.userInfo.alipay),
+      callback: function($$v) {
+        _vm.userInfo.alipay = $$v
+      },
+      expression: "userInfo.alipay"
+    }
+  })], 1), _vm._v(" "), _c('FormItem', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.userInfo.alipay_name),
+      expression: "userInfo.alipay_name"
+    }],
+    attrs: {
+      "label": "原始姓名",
+      "prop": "oldAlipay"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text",
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.userInfo.alipay_name),
+      callback: function($$v) {
+        _vm.userInfo.alipay_name = $$v
+      },
+      expression: "userInfo.alipay_name"
+    }
+  })], 1), _vm._v(" "), _c('FormItem', {
+    attrs: {
+      "label": "新支付宝",
+      "prop": "newAlipay"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "新支付宝",
+      "maxlength": _vm.maxlength
+    },
+    model: {
+      value: (_vm.fromAlipay.newAlipay),
+      callback: function($$v) {
+        _vm.fromAlipay.newAlipay = $$v
+      },
+      expression: "fromAlipay.newAlipay"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1), _vm._v(" "), _c('FormItem', {
+    attrs: {
+      "label": "姓名",
+      "prop": "alipayName"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "姓名"
+    },
+    model: {
+      value: (_vm.fromAlipay.alipayName),
+      callback: function($$v) {
+        _vm.fromAlipay.alipayName = $$v
+      },
+      expression: "fromAlipay.alipayName"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1), _vm._v(" "), _c('FormItem', {
+    attrs: {
+      "label": "验证码",
+      "prop": "code"
+    }
+  }, [_c('iCol', {
+    attrs: {
+      "span": "16"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "验证码",
+      "maxlength": _vm.maxlengthTwo
+    },
+    model: {
+      value: (_vm.fromAlipay.code),
+      callback: function($$v) {
+        _vm.fromAlipay.code = $$v
+      },
+      expression: "fromAlipay.code"
+    }
+  })], 1), _vm._v(" "), _c('iCol', {
+    staticClass: "pull-right",
+    attrs: {
+      "span": "8"
+    }
+  }, [_c('Button', {
+    staticClass: "pull-right",
+    attrs: {
+      "type": "ghost",
+      "disabled": _vm.is_dis
+    },
+    on: {
+      "click": _vm.send_msg
+    }
+  }, [(!_vm.is_dis) ? _c('span', [_vm._v("发送短信验证码")]) : _c('span', [_vm._v(_vm._s(_vm.rest_time) + "s后可再次发送")])])], 1), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1), _vm._v(" "), _c('FormItem', [_c('Button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.handleSubmit('fromAlipay')
+      }
+    }
+  }, [_vm._v("提交")])], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-6d527cfa", module.exports)
   }
 }
 
@@ -82497,7 +83598,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     style: (_vm.$route.name !== 'index' ? 'background-color: #fff' : '')
   }, [_c('transition', [_c('router-view')], 1)], 1), _vm._v(" "), (_vm.$route.name !== 'index') ? _c('div', {
     staticClass: "footer"
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.$route.name !== 'index') ? _c('div', {
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.$route.name !== 'index'),
+      expression: "$route.name !== 'index'"
+    }],
     staticClass: "tool_bottom"
   }, [_c('div', {
     staticClass: "feedback hover_hand",
@@ -82506,7 +83613,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.feedback_model = true
       }
     }
-  }, [_vm._v("\n            意见"), _c('br'), _vm._v("反馈\n        ")]), _vm._v(" "), _vm._m(1)]) : _vm._e(), _vm._v(" "), _c('Modal', {
+  }, [_vm._v("\n            意见"), _c('br'), _vm._v("反馈\n        ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('Modal', {
     model: {
       value: (_vm.feedback_model),
       callback: function($$v) {
@@ -83776,7 +84883,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formS.tagType"
     }
-  }, _vm._l((_vm.configTagType), function(v, k) {
+  }, _vm._l((_vm.configPlugType), function(v, k) {
     return _c('Option', {
       key: k,
       attrs: {
@@ -84082,7 +85189,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.c_rank(v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))])], 1)])
+    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))]), _vm._v(" "), _c('Poptip', {
+      attrs: {
+        "confirm": "",
+        "title": "您确认删除这条内容吗？"
+      },
+      on: {
+        "on-ok": function($event) {
+          _vm.del_this(v.plug_id)
+        }
+      }
+    }, [_c('Button', {
+      attrs: {
+        "size": "small",
+        "type": "error"
+      }
+    }, [_vm._v("删除")])], 1)], 1)])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -84540,13 +85662,178 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "修改手机号码",
       "name": "4"
     }
-  }, [_c('v-tel')], 1)], 1)], 1)
+  }, [_c('v-tel')], 1), _vm._v(" "), _c('Tab-pane', {
+    attrs: {
+      "label": "修改支付宝",
+      "name": "5"
+    }
+  }, [_c('v-alipay')], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-c617b260", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e2db11a2\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/withdraw/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('Breadcrumb', {
+    staticStyle: {
+      "margin-bottom": "15px",
+      "font-size": "12px"
+    }
+  }, [_c('Breadcrumb-item', [_vm._v("主页")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("消费管理")]), _vm._v(" "), _c('Breadcrumb-item', [_vm._v("充值列表")])], 1), _vm._v(" "), _c('Form', {
+    attrs: {
+      "model": _vm.formS,
+      "inline": ""
+    }
+  }, [_c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "用户名"
+    },
+    model: {
+      value: (_vm.formS.name),
+      callback: function($$v) {
+        _vm.formS.name = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.name"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Input', {
+    attrs: {
+      "placeholder": "嘿市ID"
+    },
+    model: {
+      value: (_vm.formS.user_id),
+      callback: function($$v) {
+        _vm.formS.user_id = (typeof $$v === 'string' ? $$v.trim() : $$v)
+      },
+      expression: "formS.user_id"
+    }
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Select', {
+    staticStyle: {
+      "width": "100px"
+    },
+    attrs: {
+      "clearable": "",
+      "placeholder": "提现状态"
+    },
+    model: {
+      value: (_vm.formS.status),
+      callback: function($$v) {
+        _vm.formS.status = $$v
+      },
+      expression: "formS.status"
+    }
+  }, _vm._l((_vm.configWithdrawStatus), function(v, k) {
+    return _c('Option', {
+      key: k,
+      attrs: {
+        "value": k
+      }
+    }, [_vm._v(_vm._s(v))])
+  }))], 1), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "ghost"
+    },
+    on: {
+      "click": _vm.rest
+    }
+  }, [_c('span', [_vm._v("重置")])]), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading_s
+    },
+    on: {
+      "click": _vm.toS
+    }
+  }, [_c('span', [_vm._v("搜索")])])], 1), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered my_admin_table"
+  }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(v.user.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.money))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configWithdrawStatus[v.status]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))]), _vm._v(" "), _c('td', [_c('Poptip', {
+      attrs: {
+        "confirm": "",
+        "title": "您确认吗？"
+      },
+      on: {
+        "on-ok": function($event) {
+          _vm.to_draw(v.wid)
+        }
+      }
+    }, [_c('Button', {
+      attrs: {
+        "size": "small",
+        "type": "ghost",
+        "disabled": v.status === 9
+      }
+    }, [_vm._v("转账")])], 1)], 1)])
+  })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
+    staticClass: "page pull-right"
+  }, [_c('Page', {
+    key: _vm.total,
+    attrs: {
+      "total": _vm.total,
+      "size": "small",
+      "show-elevator": "",
+      "show-sizer": "",
+      "show-total": ""
+    },
+    on: {
+      "on-change": _vm.page_c,
+      "on-page-size-change": _vm.size_c
+    }
+  })], 1)], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("嘿市ID")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("用户名")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("提现金额")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("提现金币")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("提现状态")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("提现时间")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("操作")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', [_c('td', {
+    staticStyle: {
+      "text-align": "center",
+      "font-size": "16px"
+    },
+    attrs: {
+      "colspan": "7"
+    }
+  }, [_vm._v("\n                暂无数据\n            ")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-e2db11a2", module.exports)
   }
 }
 
@@ -88341,6 +89628,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Withdraw.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Withdraw.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("52d3feb7", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Withdraw.vue", function() {
+     var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Withdraw.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a6b5246\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/tool/Setting.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -88466,6 +89780,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e862cbc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Rank.vue", function() {
      var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e862cbc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Rank.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Alipay.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Alipay.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("346255f0", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Alipay.vue", function() {
+     var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Alipay.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -88763,6 +90104,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c617b260\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Setting.vue", function() {
      var newContent = require("!!../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c617b260\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./Setting.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/withdraw/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/withdraw/List.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/lib/addStylesClient.js")("7e64b3c0", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/_css-loader@0.28.4@css-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!../../../../../../node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./List.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -100407,7 +101775,7 @@ window.Vue = __webpack_require__("./node_modules/_vue@2.4.2@vue/dist/vue.common.
 global.configTagType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["l" /* tagType */];
 global.configStatusType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["k" /* statusType */];
 global.configIsForUser = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["f" /* isForUser */];
-global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["m" /* yesOrNo */];
+global.configYesOrNo = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["n" /* yesOrNo */];
 global.configCamp = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["c" /* camp */];
 global.configIsLogin = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["g" /* isLogin */];
 global.configPlugType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["j" /* plugType */];
@@ -100419,6 +101787,7 @@ global.clodeMyDialog = __WEBPACK_IMPORTED_MODULE_6__common_dialog_js__["a" /* cl
 global.configPayType = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["i" /* payType */];
 global.configPayStatus = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["h" /* payStatus */];
 global.configIsActive = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["e" /* isActive */];
+global.configWithdrawStatus = __WEBPACK_IMPORTED_MODULE_5__components_common_config__["m" /* withdrawStatus */];
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */]);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
@@ -101397,6 +102766,51 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/admin/withdraw/List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2db11a2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/admin/withdraw/List.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/admin/withdraw/List.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-e2db11a2\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/admin/withdraw/List.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-e2db11a2",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\admin\\withdraw\\List.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] List.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e2db11a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-e2db11a2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/common/Rank.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101450,7 +102864,7 @@ module.exports = Component.exports
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return statusType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return isForUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isActive; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return yesOrNo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return yesOrNo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return camp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return isLogin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return plugType; });
@@ -101458,6 +102872,7 @@ module.exports = Component.exports
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return bmDownloadType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return bmType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return payStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return withdrawStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return payType; });
 var tagType = {
     1: 'WA/TMW',
@@ -101519,6 +102934,12 @@ var payStatus = {
     0: '未支付',
     1: '支付失败',
     9: '支付成功'
+};
+
+var withdrawStatus = {
+    0: '等待提现',
+    1: '提现失败',
+    9: '提现成功'
 };
 
 var payType = {
@@ -102023,6 +103444,51 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/user/Alipay.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d527cfa\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Alipay.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Alipay.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6d527cfa\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Alipay.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-6d527cfa",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\user\\Alipay.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Alipay.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6d527cfa", Component.options)
+  } else {
+    hotAPI.reload("data-v-6d527cfa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/user/Collect.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -102428,6 +103894,51 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/user/Withdraw.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_vue-style-loader@3.0.1@vue-style-loader/index.js!./node_modules/_css-loader@0.28.4@css-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-468ed7ba\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_stylus-loader@3.0.1@stylus-loader/index.js!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/user/Withdraw.vue")
+}
+var Component = __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/_babel-loader@7.1.1@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/user/Withdraw.vue"),
+  /* template */
+  __webpack_require__("./node_modules/_vue-loader@12.2.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-468ed7ba\",\"hasScoped\":true}!./node_modules/_vue-loader@12.2.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/user/Withdraw.vue"),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-468ed7ba",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "F:\\www\\wowo\\resources\\assets\\js\\components\\user\\Withdraw.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Withdraw.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-468ed7ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-468ed7ba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/router.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -102488,6 +103999,9 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue__ = __webpack_require__("./resources/assets/js/components/admin/recharge/List.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_admin_withdraw_List_vue__ = __webpack_require__("./resources/assets/js/components/admin/withdraw/List.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__components_admin_withdraw_List_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__components_admin_withdraw_List_vue__);
+
 
 
 
@@ -102523,7 +104037,7 @@ module.exports = Component.exports
 /* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type/:active?/:active_pid?', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
 
 //admin
-{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }, { path: '/admin/recharge/list', name: 'admin.recharge.list', component: __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default.a }]);
+{ path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }, { path: '/admin/recharge/list', name: 'admin.recharge.list', component: __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default.a }, { path: '/admin/withdraw/list', name: 'admin.withdraw.list', component: __WEBPACK_IMPORTED_MODULE_28__components_admin_withdraw_List_vue___default.a }]);
 
 /***/ }),
 

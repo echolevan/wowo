@@ -21,15 +21,10 @@ Route::get('/', 'HomeController@index')->name('index');
 //    ]);
 //});
 
-Route::get('/abc', function () {
-//    \Illuminate\Support\Facades\Mail::to('347735313@qq.com')->send(new \App\Mail\sendCodeToUser('123232'));
-//    dd(1);
-//    \Illuminate\Support\Facades\Cache::flush();
-//    $user = \App\User::where('email','347735313@qq.com')->first();
-//    $user->notify(new \App\Notifications\UserCreated($user));
-});
+Route::get('/abc', 'PayController@index');
 
 Route::any('/aplipay_notify', 'PayController@alipay_notify');
+Route::any('/wechat_notify', 'PayController@wechat_notify');
 Route::any('/return', 'PayController@return_url');
 
 Auth::routes();
@@ -78,11 +73,13 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("user/orders/collect/{page}/{size}",'UserController@orders_collect'); //我搜藏的插件
     Route::post("user/orders/upload/{page}/{size}",'UserController@orders_upload'); //我上传的插件
     Route::post("user/get_orders_history/{page}/{size}",'UserController@get_orders_history'); //充值记录
+    Route::post("user/get_withdraws/{page}/{size}",'UserController@get_withdraws'); //提现记录
     Route::get("user/send_mail",'UserController@send_mail'); //发送激活邮件
     Route::get("user/send_email/{email}",'UserController@send_email'); //发送验证码邮件
-    Route::get("user/send_msg/{tel}/{type}",'UserController@send_msg'); //发送短信
+    Route::get("user/send_msg/{tel}/{type}/{alipay?}",'UserController@send_msg'); //发送短信
     Route::post("user/update_tel",'UserController@update_tel'); //更新手机号
     Route::post("user/update_email",'UserController@update_email'); //更新手机号
+    Route::post("user/update_Alipay",'UserController@update_Alipay'); //更新update_Alipay
     Route::post("user/check_password",'UserController@check_password'); // 修改密码时检查密码
     Route::post("user/update_password",'UserController@update_password'); // 更改密码
     Route::get("user/lv",'UserController@get_user_lv'); // 更改密码
@@ -101,6 +98,9 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("bm/list/{page}/{size}",'BmController@bm_list'); //bm列表
     Route::get("bm/check_download/{id}",'BmController@check_download'); //下载bm
     Route::get("bm/download/{id}",'BmController@download'); //下载bm
+    Route::get("user/check_withdraw",'UserController@check_withdraw'); //检查
+    Route::post("withdraws",'WithdrawsController@index'); //提现
+    Route::get("find_wechat/{id}",'PayController@find_wechat'); //检查微信支付状态
 
 });
 
@@ -153,5 +153,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::delete('/tool/game_version/del_game_version/{id}','ToolController@del_game_version')->name('admin.game_version.del'); //删除游戏版本号
 
     Route::post('recharge/list/{page}/{size}','RechargeController@r_list')->name('admin.recharge.list'); // 充值列表
+    Route::post('withdraws/list/{page}/{size}','WithdrawsController@r_list')->name('admin.withdraws.list'); // 提现列表
+    Route::delete("plugs/{id}",'PlugController@delete'); //删除
+    Route::get("to_draw/{id}",'WithdrawsController@to_draw'); //转账
 
 });
