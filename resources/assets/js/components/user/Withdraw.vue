@@ -5,7 +5,7 @@
                 <p>当金币数量等同于200人民币时可申请提现</p>
                 <p>(新注册用户30日内不能提现)</p>
             </div>
-            <Button type="text" size="small" @click="withdraw">提现</Button>
+            <Button type="ghost" size="small" @click="withdraw">提现</Button>
         </Tooltip>
 
         <Modal v-model="modal1">

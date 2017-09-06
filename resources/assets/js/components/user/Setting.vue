@@ -1,6 +1,6 @@
 <template>
     <div class="user_setting">
-        <Tabs value="1" :class="{'bl_tab_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+        <Tabs :value="$route.params.name ? $route.params.name : 1" :class="{'bl_tab_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
             <Tab-pane label="基本信息" name="1">
                 <Form :model="formItem" :label-width="80" ref="formValidate" :rules="ruleValidate" style="width: 500px">
                     <Form-item label="头像">

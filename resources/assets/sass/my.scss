@@ -56,10 +56,10 @@
   color: #fff;
 }
 
-.router-link-exact-active.router-link-active.bl_active_color{
-  background: #d13030 !important;
-  color: #fff;
-}
+//.router-link-exact-active.router-link-active.bl_active_color{
+//  background: #d13030 !important;
+//  color: #fff;
+//}
 .over_div{
   overflow: hidden;
   text-overflow:ellipsis;
@@ -270,9 +270,13 @@
   border-radius: 2px;
 }
 
-.nav_top .router-link-exact-active.router-link-active.bl_active_color{
-  background: #d13030;
-  border-radius: 2px;
+//.nav_top .router-link-exact-active.router-link-active.bl_active_color{
+//  background: #d13030;
+//  border-radius: 2px;
+//}
+
+.nav_link.router-link-active.bl_active_color{
+  background: #d13030 !important;
 }
 
 .ivu-radio-group-button .ivu-radio-wrapper:hover{

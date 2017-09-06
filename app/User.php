@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $appends = ['year_created_at'];
+
     public function like_plug()
     {
         return $this->belongsToMany(Plug::class , 'like_plugs')->withTimestamps();
@@ -56,6 +58,11 @@ class User extends Authenticatable
         }else{
             return $this->habitably = json_decode($habitably,true);
         }
+    }
+
+    public function getYearCreatedAtAttribute($created_at)
+    {
+        return $this->attributes['year_created_at'] = date('Y-m-d',strtotime($this->created_at));
     }
 
 }

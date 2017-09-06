@@ -23,10 +23,11 @@
                             <router-link to="/userInfo" class="my_a_style">{{userInfo.nickname}}</router-link>
                         </span>
                         <span>|</span>
-                        <span style="margin-right: 15px"><a href="javascript:void(0);" class="my_a_style"
+                        <span><a href="javascript:void(0);" class="my_a_style"
                                                             @click="logout">退出登录</a></span>
                     </div>
                 </div>
+                <div style="clear: both"></div>
             </div>
         </div>
         <div class="nav menu">
@@ -92,7 +93,7 @@
         .title
             margin 0 auto
             width 1300px
-            padding 0 30px
+            padding 0 15px 0 30px;
             .logo
                 float left
                 a

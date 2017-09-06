@@ -14,6 +14,7 @@
                     <p v-if="userInfo.camp === 1">为了联盟</p>
                     <p v-else>为了部落</p>
                 </div>
+                <p>注册时间:{{userInfo.year_created_at}}</p>
             </div>
 
             <div class="user_tool">

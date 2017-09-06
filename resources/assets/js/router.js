@@ -41,7 +41,7 @@ export default [
     { path: '/update/:id', name:'update.plug' , component:updatePlug},
     { path: '/userInfo', name:'user.index', redirect:"/userInfo/info" , component:userIndex , children:[
         { path: '/userInfo/info', name:'user.info' , component:userInfo},
-        { path: '/userInfo/setting', name:'user.setting' , component:userSetting},
+        { path: '/userInfo/setting/:name?', name:'user.setting' , component:userSetting},
         { path: '/userInfo/orders', name:'user.orders' , component:userOrders},
         { path: '/userInfo/collect', name:'user.collect' , component:userCollect},
         { path: '/userInfo/upload', name:'user.upload' , component:userUpload},

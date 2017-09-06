@@ -6251,6 +6251,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -8798,6 +8799,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -8954,8 +8956,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])(['userInfo', 'choice_cmap']),
     methods: {
-        to_setting: function to_setting() {
-            this.$router.push('/userInfo/setting');
+        to_setting: function to_setting(name) {
+            this.$router.push('/userInfo/setting/' + name);
         },
         send_mail: function send_mail() {
             var _this = this;
@@ -13344,7 +13346,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1300px;\n  padding: 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1300px;\n  padding: 0 15px 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -79175,10 +79177,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
-  }, [_vm._v("阵营")]), (_vm.userInfo.camp === 1) ? _c('span', {
-    staticClass: "val"
+  }, [_vm._v("阵营")]), _vm._v(" "), (_vm.userInfo.camp === 1) ? _c('span', {
+    staticClass: "val normal_font"
   }, [_vm._v("联盟")]) : _c('span', {
-    staticClass: "val"
+    staticClass: "val bl_font_color"
   }, [_vm._v("部落")]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
@@ -79197,6 +79199,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('li', [_c('span', {
     staticClass: "title"
+  }, [_vm._v("生日")]), _vm._v(" "), (!_vm.userInfo.birthday) ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_setting(1)
+      }
+    }
+  }, [_vm._v("点击立即设置")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s(_vm.userInfo.birthday))]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
   }, [_vm._v("金币")]), _c('span', {
     staticClass: "val normal_font normal_font_hover ",
     class: {
@@ -79210,9 +79227,70 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "my_gold"
   }, [_vm._v(_vm._s(_vm.userInfo.gold))]), _vm._v(" "), _c('v-withdraw', {
     staticStyle: {
+      "margin-left": "15px",
       "float": "right"
     }
   })], 1), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
+  }, [_vm._v("支付宝")]), _vm._v(" "), (!_vm.userInfo.alipay) ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_setting(5)
+      }
+    }
+  }, [_vm._v("点击立即绑定")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s(_vm.userInfo.alipay))]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
+  }, [_vm._v("出生地")]), _vm._v(" "), (!_vm.userInfo.birthplace || _vm.userInfo.birthplace.province === '') ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_setting(1)
+      }
+    }
+  }, [_vm._v("点击立即设置")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s((_vm.userInfo.birthplace.province ? _vm.userInfo.birthplace.province : '未知省') + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
+  }, [_vm._v("居住地")]), _vm._v(" "), (!_vm.userInfo.habitably || _vm.userInfo.habitably.province === '') ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_setting(1)
+      }
+    }
+  }, [_vm._v("点击立即设置")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s((_vm.userInfo.habitably.province ? _vm.userInfo.habitably.province : '未知省') + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })]), _vm._v(" "), _c('li', [_c('span', {
+    staticClass: "title"
+  }, [_vm._v("手机号码")]), _vm._v(" "), (_vm.userInfo.tel === '0') ? _c('span', {
+    staticClass: "val hover_hand",
+    on: {
+      "click": function($event) {
+        _vm.to_setting(4)
+      }
+    }
+  }, [_vm._v("点击立即绑定")]) : _c('span', {
+    staticClass: "val"
+  }, [_vm._v(_vm._s(_vm.userInfo.tel))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -79241,71 +79319,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Tooltip', [_c('div', {
     slot: "content"
   }, [_c('p', [_vm._v("安全邮箱未验证")]), _vm._v(" "), _c('p', [_c('i', [_vm._v("点击重新发送邮件")])])]), _vm._v(" "), (!_vm.is_dis) ? _c('span', [_vm._v(_vm._s(_vm.userInfo.email))]) : _c('span', [_vm._v("邮件已经发送，" + _vm._s(_vm.rest_time) + " s后可再次发送")])])], 1)], 1), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })]), _vm._v(" "), _c('li', [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("手机号码")]), _vm._v(" "), (_vm.userInfo.tel === '0') ? _c('span', {
-    staticClass: "val hover_hand",
-    on: {
-      "click": _vm.to_setting
-    }
-  }, [_vm._v("点击立即绑定")]) : _c('span', {
-    staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.tel))]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })]), _vm._v(" "), _c('li', [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("支付宝")]), _vm._v(" "), (!_vm.userInfo.alipay) ? _c('span', {
-    staticClass: "val hover_hand",
-    on: {
-      "click": _vm.to_setting
-    }
-  }, [_vm._v("点击立即绑定")]) : _c('span', {
-    staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.alipay))]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })]), _vm._v(" "), _c('li', [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("出生日期")]), _vm._v(" "), (!_vm.userInfo.birthday) ? _c('span', {
-    staticClass: "val hover_hand",
-    on: {
-      "click": _vm.to_setting
-    }
-  }, [_vm._v("点击立即设置")]) : _c('span', {
-    staticClass: "val"
-  }, [_vm._v(_vm._s(_vm.userInfo.birthday))]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })]), _vm._v(" "), _c('li', [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("户籍地址")]), _vm._v(" "), (!_vm.userInfo.birthplace || _vm.userInfo.birthplace.province === '') ? _c('span', {
-    staticClass: "val hover_hand",
-    on: {
-      "click": _vm.to_setting
-    }
-  }, [_vm._v("点击立即设置")]) : _c('span', {
-    staticClass: "val"
-  }, [_vm._v(_vm._s((_vm.userInfo.birthplace.province ? _vm.userInfo.birthplace.province : '未知省') + '-' + (_vm.userInfo.birthplace.city ? _vm.userInfo.birthplace.city : '未知市') + '-' + (_vm.userInfo.birthplace.area ? _vm.userInfo.birthplace.area : '未知区')))]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "clear": "both"
-    }
-  })]), _vm._v(" "), _c('li', [_c('span', {
-    staticClass: "title"
-  }, [_vm._v("现居地址")]), _vm._v(" "), (!_vm.userInfo.habitably || _vm.userInfo.habitably.province === '') ? _c('span', {
-    staticClass: "val hover_hand",
-    on: {
-      "click": _vm.to_setting
-    }
-  }, [_vm._v("点击立即设置")]) : _c('span', {
-    staticClass: "val"
-  }, [_vm._v(_vm._s((_vm.userInfo.habitably.province ? _vm.userInfo.habitably.province : '未知省') + '-' + (_vm.userInfo.habitably.city ? _vm.userInfo.habitably.city : '未知市') + '-' + (_vm.userInfo.habitably.area ? _vm.userInfo.habitably.area : '未知区')))]), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -79989,11 +80002,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "to": "/userInfo"
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.nickname))])], 1), _vm._v(" "), _c('span', [_vm._v("|")]), _vm._v(" "), _c('span', {
-    staticStyle: {
-      "margin-right": "15px"
-    }
-  }, [_c('a', {
+  }, [_vm._v(_vm._s(_vm.userInfo.nickname))])], 1), _vm._v(" "), _c('span', [_vm._v("|")]), _vm._v(" "), _c('span', [_c('a', {
     staticClass: "my_a_style",
     attrs: {
       "href": "javascript:void(0);"
@@ -80001,7 +80010,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.logout
     }
-  }, [_vm._v("退出登录")])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("退出登录")])])])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "nav menu"
   }, [_c('v-new-nav')], 1)])
 },staticRenderFns: []}
@@ -81735,7 +81748,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "content"
   }, [_c('p', [_vm._v("当金币数量等同于200人民币时可申请提现")]), _vm._v(" "), _c('p', [_vm._v("(新注册用户30日内不能提现)")])]), _vm._v(" "), _c('Button', {
     attrs: {
-      "type": "text",
+      "type": "ghost",
       "size": "small"
     },
     on: {
@@ -85451,7 +85464,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_tab_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     attrs: {
-      "value": "1"
+      "value": _vm.$route.params.name ? _vm.$route.params.name : 1
     }
   }, [_c('Tab-pane', {
     attrs: {
@@ -86387,7 +86400,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "camp"
   }, [_vm._v("阵营：联盟")]) : _c('p', {
     staticClass: "camp"
-  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间:" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
     staticClass: "user_tool"
   }, [_c('ul', [_c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
@@ -104036,7 +104049,7 @@ module.exports = Component.exports
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type/:active?/:active_pid?', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
+/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/', name: 'index', component: __WEBPACK_IMPORTED_MODULE_0__components_index_Index_vue___default.a }, { path: '/home', name: 'home.index', component: __WEBPACK_IMPORTED_MODULE_1__components_home_Index_vue___default.a }, { path: '/waTmw/:type/:active?/:active_pid?', name: 'waTmw.index', component: __WEBPACK_IMPORTED_MODULE_2__components_plug_WaTmw_vue___default.a }, { path: '/bm', name: 'bm.index', component: __WEBPACK_IMPORTED_MODULE_3__components_plug_Bm_vue___default.a }, { path: '/info/:id', name: 'plug.info', component: __WEBPACK_IMPORTED_MODULE_4__components_plug_Info_vue___default.a }, { path: '/upload/:id?', name: 'upload.plug', component: __WEBPACK_IMPORTED_MODULE_13__components_plug_Upload_vue___default.a }, { path: '/update/:id', name: 'update.plug', component: __WEBPACK_IMPORTED_MODULE_5__components_plug_update_vue___default.a }, { path: '/userInfo', name: 'user.index', redirect: "/userInfo/info", component: __WEBPACK_IMPORTED_MODULE_6__components_user_Index_vue___default.a, children: [{ path: '/userInfo/info', name: 'user.info', component: __WEBPACK_IMPORTED_MODULE_7__components_user_Info_vue___default.a }, { path: '/userInfo/setting/:name?', name: 'user.setting', component: __WEBPACK_IMPORTED_MODULE_8__components_user_Setting_vue___default.a }, { path: '/userInfo/orders', name: 'user.orders', component: __WEBPACK_IMPORTED_MODULE_9__components_user_Order_vue___default.a }, { path: '/userInfo/collect', name: 'user.collect', component: __WEBPACK_IMPORTED_MODULE_10__components_user_Collect_vue___default.a }, { path: '/userInfo/upload', name: 'user.upload', component: __WEBPACK_IMPORTED_MODULE_11__components_user_Upload_vue___default.a }, { path: '/userInfo/pay', name: 'user.pay', component: __WEBPACK_IMPORTED_MODULE_12__components_user_Pay_vue___default.a }] },
 
 //admin
 { path: '/admin', name: 'admin.index', component: __WEBPACK_IMPORTED_MODULE_16__components_admin_index_Index_vue___default.a }, { path: '/admin/tag/list', name: 'admin.tag.list', component: __WEBPACK_IMPORTED_MODULE_14__components_admin_tag_List_vue___default.a }, { path: '/admin/tag/create', name: 'admin.tag.create', component: __WEBPACK_IMPORTED_MODULE_15__components_admin_tag_Create_vue___default.a }, { path: '/admin/user/list', name: 'admin.user.list', component: __WEBPACK_IMPORTED_MODULE_17__components_admin_user_List_vue___default.a }, { path: '/admin/plug/list', name: 'admin.plug.list', component: __WEBPACK_IMPORTED_MODULE_18__components_admin_plug_List_vue___default.a }, { path: '/admin/plug/update/:id', name: 'admin.plug.update', component: __WEBPACK_IMPORTED_MODULE_19__components_admin_plug_Update_vue___default.a }, { path: '/admin/plug/create', name: 'admin.plug.create', component: __WEBPACK_IMPORTED_MODULE_20__components_admin_plug_Upload_vue___default.a }, { path: '/admin/bm/list', name: 'admin.bm.list', component: __WEBPACK_IMPORTED_MODULE_21__components_admin_bm_List_vue___default.a }, { path: '/admin/tool/setting', name: 'admin.tool.setting', component: __WEBPACK_IMPORTED_MODULE_22__components_admin_tool_Setting_vue___default.a }, { path: '/admin/notice/setting', name: 'admin.notice.setting', component: __WEBPACK_IMPORTED_MODULE_23__components_admin_tool_Notice_vue___default.a }, { path: '/admin/lv/setting', name: 'admin.lv.setting', component: __WEBPACK_IMPORTED_MODULE_24__components_admin_tool_Lv_vue___default.a }, { path: '/admin/nickname/setting', name: 'admin.nickname.setting', component: __WEBPACK_IMPORTED_MODULE_25__components_admin_tool_Nickname_vue___default.a }, { path: '/admin/game_version/setting', name: 'admin.game_version.setting', component: __WEBPACK_IMPORTED_MODULE_26__components_admin_tool_GameVersion_vue___default.a }, { path: '/admin/recharge/list', name: 'admin.recharge.list', component: __WEBPACK_IMPORTED_MODULE_27__components_admin_recharge_List_vue___default.a }, { path: '/admin/withdraw/list', name: 'admin.withdraw.list', component: __WEBPACK_IMPORTED_MODULE_28__components_admin_withdraw_List_vue___default.a }]);

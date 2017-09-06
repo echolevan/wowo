@@ -20,23 +20,52 @@
                 </Poptip>
                 <div style="clear: both"></div>
             </li>
-            <li><span class="title">阵营</span><span class="val" v-if="userInfo.camp === 1">联盟</span><span class="val"
-                                                                                                         v-else>部落</span>
+            <li><span class="title">阵营</span>
+                <span class="val normal_font" v-if="userInfo.camp === 1">联盟</span>
+                <span class="val bl_font_color" v-else>部落</span>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">简介</span><span class="val" v-if="userInfo.info">{{userInfo.info}}</span><span
                     class="val" v-else-if="userInfo.camp === 1">为了联盟</span><span class="val" v-else>为了部落</span>
                 <div style="clear: both"></div>
             </li>
+            <li><span class="title">生日</span>
+                <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting(1)">点击立即设置</span>
+                <span class="val" v-else>{{userInfo.birthday}}</span>
+                <div style="clear: both"></div>
+            </li>
             <li><span class="title">金币</span><span style="font-size: 14px;font-weight: bold;"
                                                    class="val normal_font normal_font_hover "
                                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
             ><span class="my_gold">{{userInfo.gold}}</span>
-                <v-withdraw style="float: right"></v-withdraw>
+                <v-withdraw style="margin-left: 15px;float: right"></v-withdraw>
             </span>
                 <div style="clear: both"></div>
             </li>
-
+            <li><span class="title">支付宝</span>
+                <span class="val hover_hand" v-if="!userInfo.alipay" @click="to_setting(5)">点击立即绑定</span>
+                <span class="val" v-else>{{userInfo.alipay}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">出生地</span>
+                <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''"
+                      @click="to_setting(1)">点击立即设置</span>
+                <span class="val"
+                      v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">居住地</span>
+                <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''"
+                      @click="to_setting(1)">点击立即设置</span>
+                <span class="val"
+                      v-else>{{(userInfo.habitably.province ? userInfo.habitably.province : '未知省') + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
+                <div style="clear: both"></div>
+            </li>
+            <li><span class="title">手机号码</span>
+                <span class="val hover_hand" v-if="userInfo.tel === '0'" @click="to_setting(4)">点击立即绑定</span>
+                <span class="val" v-else>{{userInfo.tel}}</span>
+                <div style="clear: both"></div>
+            </li>
             <li><span class="title">安全邮箱</span><span class="val">
                 <Button type="success" size="small" v-if="userInfo.is_active === 1">
                     <Tooltip content="安全邮箱已验证">
@@ -54,35 +83,6 @@
                         </Tooltip>
                     </Button>
                 </span>
-                <div style="clear: both"></div>
-            </li>
-            <li><span class="title">手机号码</span>
-                <span class="val hover_hand" v-if="userInfo.tel === '0'" @click="to_setting">点击立即绑定</span>
-                <span class="val" v-else>{{userInfo.tel}}</span>
-                <div style="clear: both"></div>
-            </li>
-            <li><span class="title">支付宝</span>
-                <span class="val hover_hand" v-if="!userInfo.alipay" @click="to_setting">点击立即绑定</span>
-                <span class="val" v-else>{{userInfo.alipay}}</span>
-                <div style="clear: both"></div>
-            </li>
-            <li><span class="title">出生日期</span>
-                <span class="val hover_hand" v-if="!userInfo.birthday" @click="to_setting">点击立即设置</span>
-                <span class="val" v-else>{{userInfo.birthday}}</span>
-                <div style="clear: both"></div>
-            </li>
-            <li><span class="title">户籍地址</span>
-                <span class="val hover_hand" v-if="!userInfo.birthplace || userInfo.birthplace.province === ''"
-                      @click="to_setting">点击立即设置</span>
-                <span class="val"
-                      v-else>{{(userInfo.birthplace.province ? userInfo.birthplace.province : '未知省') + '-' + (userInfo.birthplace.city ? userInfo.birthplace.city : '未知市') + '-' + (userInfo.birthplace.area ? userInfo.birthplace.area : '未知区')}}</span>
-                <div style="clear: both"></div>
-            </li>
-            <li><span class="title">现居地址</span>
-                <span class="val hover_hand" v-if="!userInfo.habitably || userInfo.habitably.province === ''"
-                      @click="to_setting">点击立即设置</span>
-                <span class="val"
-                      v-else>{{(userInfo.habitably.province ? userInfo.habitably.province : '未知省') + '-' + (userInfo.habitably.city ? userInfo.habitably.city : '未知市') + '-' + (userInfo.habitably.area ? userInfo.habitably.area : '未知区')}}</span>
                 <div style="clear: both"></div>
             </li>
         </ul>
@@ -125,8 +125,8 @@
             'userInfo', 'choice_cmap'
         ]),
         methods: {
-            to_setting() {
-                this.$router.push('/userInfo/setting')
+            to_setting(name) {
+                this.$router.push(`/userInfo/setting/${name}`)
             },
             send_mail() {
                 this.rest_time = 60
