@@ -28,7 +28,7 @@
                 <div style="clear:both"></div>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('fromAlipay')">提交</Button>
+                <Button type="primary" @click="handleSubmit('fromAlipay')">确定</Button>
             </FormItem>
         </Form>
     </div>
@@ -42,7 +42,7 @@
             const validateAlipay = (rule, value, callback) => {
                 if(value !== ''){
                     if(this.fromAlipay.newAlipay === this.userInfo.alipay){
-                        callback(new Error('新支付宝不能与原始支付宝相同'));
+                        callback(new Error('新支付宝不能与原支付宝相同'));
                     }else{
                         callback();
                     }
@@ -97,7 +97,7 @@
             },
             send_msg() {
                 if(this.userInfo.tel === '0'){
-                    myDialog('请先绑定手机号')
+                    myDialog('请先绑定手机号码')
                     return false
                 }
                 this.$refs.fromAlipay.validateField('newAlipay',(v)=>{

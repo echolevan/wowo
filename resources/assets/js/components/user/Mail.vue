@@ -1,7 +1,7 @@
 <template>
     <div>
         <Form ref="fromMail" :model="fromMail" :rules="mailCustom" :label-width="100" style="width: 500px">
-            <FormItem label="原始邮箱" prop="oldTel" v-show="userInfo.email">
+            <FormItem label="原邮箱" prop="oldTel" v-show="userInfo.email">
                 <Input type="text" v-model="userInfo.email" disabled></Input>
             </FormItem>
             <FormItem label="新邮箱" prop="newMail">
@@ -20,7 +20,7 @@
                 <Input type="text" placeholder="验证码" v-model="fromMail.code" :maxlength="maxlengthTwo"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('fromMail')">提交</Button>
+                <Button type="primary" @click="handleSubmit('fromMail')">确定</Button>
             </FormItem>
         </Form>
     </div>
@@ -34,7 +34,7 @@
             const validateTel = (rule, value, callback) => {
                 if(value !== ''){
                     if(this.fromMail.newMail === this.userInfo.email){
-                        callback(new Error('新邮箱不能与原始邮箱相同'));
+                        callback(new Error('新邮箱不能与原邮箱相同'));
                     }else{
                         axios.post('/check/user_email',{email: this.fromMail.newMail , id: this.userInfo.id}).then(res => {
                             if(res.data.sta === 0){

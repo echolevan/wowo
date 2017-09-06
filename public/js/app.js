@@ -8570,7 +8570,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateAlipay = function validateAlipay(rule, value, callback) {
             if (value !== '') {
                 if (_this.fromAlipay.newAlipay === _this.userInfo.alipay) {
-                    callback(new Error('新支付宝不能与原始支付宝相同'));
+                    callback(new Error('新支付宝不能与原支付宝相同'));
                 } else {
                     callback();
                 }
@@ -8621,7 +8621,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             if (this.userInfo.tel === '0') {
-                myDialog('请先绑定手机号');
+                myDialog('请先绑定手机号码');
                 return false;
             }
             this.$refs.fromAlipay.validateField('newAlipay', function (v) {
@@ -9047,7 +9047,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var validateTel = function validateTel(rule, value, callback) {
             if (value !== '') {
                 if (_this.fromMail.newMail === _this.userInfo.email) {
-                    callback(new Error('新邮箱不能与原始邮箱相同'));
+                    callback(new Error('新邮箱不能与原邮箱相同'));
                 } else {
                     axios.post('/check/user_email', { email: _this.fromMail.newMail, id: _this.userInfo.id }).then(function (res) {
                         if (res.data.sta === 0) {
@@ -9932,7 +9932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     callback(new Error('请输入正确的手机号码'));
                 } else {
                     if (_this.formTel.newTel === _this.userInfo.tel) {
-                        callback(new Error('新手机不能与原始手机相同'));
+                        callback(new Error('新手机不能与原手机相同'));
                     } else {
                         axios.post('/check/user_tel', { tel: _this.formTel.newTel }).then(function (res) {
                             if (res.data.sta === 0) {
@@ -9957,7 +9957,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             maxlengthTwo: 6,
             rest_time: 60,
             telCustom: {
-                newTel: [{ required: true, message: '新手机不能为空', trigger: 'blur' }, { validator: validateTel, trigger: 'change' }, { validator: validateTel, trigger: 'blur' }],
+                newTel: [{ required: true, message: '新手机号码不能为空', trigger: 'blur' }, { validator: validateTel, trigger: 'change' }, { validator: validateTel, trigger: 'blur' }],
                 code: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
             }
         };
@@ -78610,7 +78610,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "userInfo.email"
     }],
     attrs: {
-      "label": "原始邮箱",
+      "label": "原邮箱",
       "prop": "oldTel"
     }
   }, [_c('Input', {
@@ -78691,7 +78691,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.handleSubmit('fromMail')
       }
     }
-  }, [_vm._v("提交")])], 1)], 1)], 1)
+  }, [_vm._v("确定")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -79618,7 +79618,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "userInfo.tel !== '0'"
     }],
     attrs: {
-      "label": "原始手机",
+      "label": "原手机号码",
       "prop": "oldTel"
     }
   }, [_c('Input', {
@@ -79635,7 +79635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('FormItem', {
     attrs: {
-      "label": "新手机",
+      "label": "新手机号码",
       "prop": "newTel"
     }
   }, [_c('iCol', {
@@ -79645,7 +79645,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Input', {
     attrs: {
       "type": "text",
-      "placeholder": "新手机",
+      "placeholder": "新手机号码",
       "maxlength": _vm.maxlength
     },
     model: {
@@ -79700,7 +79700,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.handleSubmit('formTel')
       }
     }
-  }, [_vm._v("提交")])], 1)], 1)], 1)
+  }, [_vm._v("确定")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -81764,7 +81764,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('p', {
     slot: "header"
-  }, [_c('span', [_vm._v("提现")])]), _vm._v(" "), _c('p', [_vm._v("支付宝:" + _vm._s(_vm.userInfo.alipay))]), _vm._v("\n        请输入需要提现的金额：\n        "), _c('InputNumber', {
+  }, [_c('span', [_vm._v("提现")])]), _vm._v(" "), _c('p', [_vm._v("支付宝:" + _vm._s(_vm.userInfo.alipay))]), _vm._v("\n        请输入提现金额：\n        "), _c('InputNumber', {
     attrs: {
       "max": Math.floor(_vm.userInfo.gold / 10),
       "min": 1
@@ -81784,12 +81784,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_vm._v(_vm._s(_vm.drawMoney * 10))]), _vm._v(" 金币,金币剩余 "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.drawMoney * 10))]), _vm._v(" 金币,金币余额 "), _c('span', {
     staticClass: "drawMoney normal_font",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
-  }, [_vm._v(_vm._s(_vm.userInfo.gold - _vm.drawMoney * 10))]), _vm._v(",将会得到 "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.userInfo.gold - _vm.drawMoney * 10))]), _vm._v(",将会获得 "), _c('span', {
     staticClass: "drawMoney normal_font",
     class: {
       'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
@@ -82690,7 +82690,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.handleSubmit('fromAlipay')
       }
     }
-  }, [_vm._v("提交")])], 1)], 1)], 1)
+  }, [_vm._v("确定")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
