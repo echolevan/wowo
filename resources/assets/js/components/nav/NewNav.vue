@@ -13,21 +13,21 @@
                     </li>
 
                     <li class="has-dropdown links" data-content="wa">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'wa'}}"
+                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'wa'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             WA
                         </router-link>
                     </li>
 
                     <li class="has-dropdown links" data-content="tmw">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'tmw'}}"
+                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'tmw'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             TMW
                         </router-link>
                     </li>
 
                     <li class="has-dropdown links" data-content="plug">
-                        <router-link class="nav_link" :to="{name:'waTmw.index' , params:{'type':'plug'}}"
+                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'plug'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             游戏插件
                         </router-link>
@@ -65,14 +65,14 @@
                                             <router-link
                                                     class="normal_font_import"
                                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                                    :to="{name:'waTmw.index' , params:{'type':'wa' , 'active': vv.value , 'active_pid': 0}}">
+                                                    :to="{name:'watmw.index' , params:{'type':'wa' , 'active': vv.value , 'active_pid': 0}}">
                                                 {{vv.label}}
                                             </router-link>
                                         </h2>
                                         <ul class="links-list">
                                             <li class="hover_hand" v-for="vvv in vv.children">
                                                 <router-link
-                                                        :to="{name:'waTmw.index' , params:{'type':'wa' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                        :to="{name:'watmw.index' , params:{'type':'wa' , 'active': vvv.value , 'active_pid': vv.value}}">
                                                     {{vvv.label}}
                                                 </router-link>
                                             </li>
@@ -90,14 +90,14 @@
                                             <router-link
                                                     class="normal_font_import"
                                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                                    :to="{name:'waTmw.index' , params:{'type':'tmw' , 'active': vv.value , 'active_pid': 0}}">
+                                                    :to="{name:'watmw.index' , params:{'type':'tmw' , 'active': vv.value , 'active_pid': 0}}">
                                                 {{vv.label}}
                                             </router-link>
                                         </h2>
                                         <ul class="links-list">
                                             <li class="hover_hand" v-for="vvv in vv.children">
                                                 <router-link
-                                                        :to="{name:'waTmw.index' , params:{'type':'tmw' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                        :to="{name:'watmw.index' , params:{'type':'tmw' , 'active': vvv.value , 'active_pid': vv.value}}">
                                                     {{vvv.label}}
                                                 </router-link>
                                             </li>
@@ -116,14 +116,14 @@
                                             <router-link
                                                     class="normal_font_import"
                                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                                    :to="{name:'waTmw.index' , params:{'type':'plug' , 'active': vv.value , 'active_pid': 0}}">
+                                                    :to="{name:'watmw.index' , params:{'type':'plug' , 'active': vv.value , 'active_pid': 0}}">
                                                 {{vv.label}}
                                             </router-link>
                                         </h2>
                                         <ul class="links-list">
                                             <li class="hover_hand" v-for="vvv in vv.children">
                                                 <router-link
-                                                        :to="{name:'waTmw.index' , params:{'type':'plug' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                        :to="{name:'watmw.index' , params:{'type':'plug' , 'active': vvv.value , 'active_pid': vv.value}}">
                                                     {{vvv.label}}
                                                 </router-link>
                                             </li>

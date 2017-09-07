@@ -8,15 +8,17 @@
 
         <Form :model="formS" inline>
             <Form-item>
-                <Input v-model.trim="formS.name" placeholder="分类"></Input>
+                <Input v-model.trim="formS.name" placeholder="名称"></Input>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.type" clearable  placeholder="分类" style="width: 100px;">
-                    <Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>
-                </Select>
+                <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formS.type" change-on-select
+                          @on-change="on_formS_sel"></Cascader>
+                <!--<Select v-model="formS.type" clearable placeholder="分类" style="width: 100px;">-->
+                    <!--<Option v-for="(v , k) in configTagType" :value="k" :key="k">{{v}}</Option>-->
+                <!--</Select>-->
             </Form-item>
             <Form-item>
-                <Select v-model="formS.status" clearable  placeholder="状态" style="width: 100px;">
+                <Select v-model="formS.status" clearable placeholder="状态" style="width: 100px;">
                     <Option v-for="(v , k) in config_status_type" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -56,25 +58,41 @@
             <tbody v-if="list.length > 0">
             <tr v-for="(v, k) in list">
                 <td>{{v.name}}</td>
-                <td><img-view :img="v.thumb"></img-view></td>
+                <td>
+                    <img-view :img="v.thumb"></img-view>
+                </td>
                 <td>{{v.parent ? v.parent.name : '一级'}}</td>
                 <td>{{tag_type(v.type)}}</td>
                 <td>
-                    <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'" @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{status_type(v.status)}}</Tag>
+                    <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'"
+                         @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{status_type(v.status)}}
+                    </Tag>
                 </td>
                 <td>
-                    <Tag type="dot" :color="v.is_for_user === 1 ? 'blue' : 'red'" @click.native="change_is_for_user(v.is_for_user === 1 ? 0 : 1 , v.id, k)">{{is_for_user(v.is_for_user)}}</Tag>
+                    <Tag type="dot" :color="v.is_for_user === 1 ? 'blue' : 'red'"
+                         @click.native="change_is_for_user(v.is_for_user === 1 ? 0 : 1 , v.id, k)">
+                        {{is_for_user(v.is_for_user)}}
+                    </Tag>
                 </td>
                 <td>
-                    <Input-number style="width: 50px" :max="99" :min="0" v-model="v.rank" @on-change="change_other(k)" :disabled="is_disabled === k ? false : true"></Input-number>
+                    <Input-number style="width: 50px" :max="99" :min="0" v-model="v.rank" @on-change="change_other(k)"
+                                  :disabled="is_disabled === k ? false : true"></Input-number>
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
-                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'排序' }}</Button>
+                    <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">
+                        {{ is_disabled === k ? '确定' : '排序' }}
+                    </Button>
+                    <Poptip
+                            confirm
+                            title="您确认删除这条内容吗？"
+                            @on-ok="del_this(v.id)">
+                        <Button size="small" type="error">删除</Button>
+                    </Poptip>
                 </td>
             </tr>
             </tbody>
-            <tbody  v-else>
+            <tbody v-else>
             <tr>
                 <td style="text-align: center;font-size: 16px" colspan="8">
                     暂无数据
@@ -84,19 +102,21 @@
         </table>
 
         <div class="page pull-right">
-            <Page :total="total" size="small"  show-elevator show-sizer show-total @on-change="page_c" @on-page-size-change="size_c"  :key="total"></Page>
+            <Page :total="total" size="small" show-elevator show-sizer show-total @on-change="page_c"
+                  @on-page-size-change="size_c" :key="total"></Page>
         </div>
 
         <Modal
                 v-model="modal_edit"
                 title="编辑分类"
                 @on-ok="ok('formItem')">
-            <Form :model="formItem" :label-width="80" class="div_center form_main"ref="formItem" :rules="ruleValidate">
+            <Form :model="formItem" :label-width="80" class="div_center form_main" ref="formItem" :rules="ruleValidate">
                 <Form-item label="名称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"></Input>
                 </Form-item>
                 <Form-item label="类型" prop="type">
-                    <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type" change-on-select  @on-change="on_sel"></Cascader>
+                    <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type" change-on-select
+                              @on-change="on_sel"></Cascader>
                 </Form-item>
                 <Form-item label="标签图标" prop="thumb" v-show="formItem.type.length === 1">
                     <!--// see img-->
@@ -139,14 +159,15 @@
 
 <script>
     import imgView from '../../common/imgView.vue'
+
     export default {
         data() {
             const validateUploadList = (rule, value, callback) => {
                 setTimeout(() => {
                     if (this.formItem.type.length === 1) {
-                        if(this.formItem.thumb === ''){
+                        if (this.formItem.thumb === '') {
                             callback(new Error('请上传插件截图'));
-                        }else{
+                        } else {
                             callback();
                         }
                     } else {
@@ -169,7 +190,7 @@
                 list: [],
                 formS: {
                     name: '',
-                    type: '',
+                    type: [],
                     status: '',
                     is_for_user: '',
                 },
@@ -180,7 +201,7 @@
                 loading_edit: false,
                 modal_edit: false,
                 visible: false,
-                csrfToken : window.Laravel.csrfToken,
+                csrfToken: window.Laravel.csrfToken,
                 is_disabled: '',
                 imgName: '',
                 formItem: {
@@ -206,20 +227,23 @@
         },
         mounted() {
             this.search()
+            axios.get('/admin/plug_all_info').then(res => {
+                this.plug_tags = res.data.res
+            })
         },
         methods: {
-            c_rank(id, k){
-                if(this.is_disabled === k){
+            c_rank(id, k) {
+                if (this.is_disabled === k) {
                     // 确定
-                    if(this.list[k].rank === 0){
+                    if (this.list[k].rank === 0) {
                         this.$Message.error('请输入数字(1~99)')
                         return false
                     }
                     axios.get(`/admin/tag/change_rank/${id}/${this.list[k].rank}`).then(res => {
-                        if(res.data.sta === 1){
+                        if (res.data.sta === 1) {
                             this.$Message.success(res.data.msg)
                             this.is_disabled = ''
-                        }else{
+                        } else {
                             this.$Message.error(res.data.msg)
                         }
                     })
@@ -239,7 +263,7 @@
             },
             rest() {
                 this.formS.name = ''
-                this.formS.type = ''
+                this.formS.type = []
                 this.formS.status = ''
                 this.formS.is_for_user = ''
             },
@@ -254,37 +278,37 @@
             },
             change_status(v, id, k) {
                 axios.get(`/admin/tag/change_status/${id}/${v}`).then(res => {
-                    if(res.data.sta === 1){
+                    if (res.data.sta === 1) {
                         this.list[k].status = v
                         this.$Message.success(res.data.msg)
-                    }else{
+                    } else {
                         this.$Message.error(res.data.msg)
                     }
                 })
             },
             change_is_for_user(v, id, k) {
                 axios.get(`/admin/tag/change_is_for_user/${id}/${v}`).then(res => {
-                    if(res.data.sta === 1){
+                    if (res.data.sta === 1) {
                         this.list[k].is_for_user = v
                         this.$Message.success(res.data.msg)
-                    }else{
+                    } else {
                         this.$Message.error(res.data.msg)
                     }
                 })
             },
-            page_c(p){
+            page_c(p) {
                 this.page = p
                 this.search()
                 this.$Loading.start()
             },
-            size_c(s){
+            size_c(s) {
                 this.page_size = s;
                 this.search()
                 this.$Loading.start();
             },
             search() {
-                axios.post(`/admin/tag/list/${this.page}/${this.page_size}`,{search:this.formS}).then(res => {
-                    if(res.data.sta === 1){
+                axios.post(`/admin/tag/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
+                    if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.list
                     }
@@ -294,45 +318,45 @@
             },
             edit(info, k) {
                 this.edit_k = k
-                axios.get('/admin/plug_all_info').then(res=>{
-                    this.plug_tags = res.data.res
-                })
                 this.formItem.name = info.name
                 this.formItem.thumb = info.thumb
                 this.formItem.id = info.id
-                if(info.type === 1) {
+                if (info.type === 1) {
                     let dataStrArr = [1, info.pid]
                     let dataIntArr = [];
                     dataStrArr.forEach(function (data, index, arr) {
-                        if(data > 0){
+                        if (data > 0) {
                             dataIntArr.push(+data);
                         }
                     });
                     this.formItem.type = dataIntArr
-                }else{
+                } else {
                     this.formItem.type = [3]
                 }
                 this.modal_edit = true
             },
-            handleSuccess (res, file) {
+            handleSuccess(res, file) {
                 this.formItem.thumb = res.url
             },
-            handleView (name) {
+            handleView(name) {
                 this.imgName = name;
                 this.visible = true;
             },
-            handleRemove(){
+            handleRemove() {
                 this.formItem.thumb = ''
             },
             on_sel(v) {
                 this.formItem.type = v
             },
+            on_formS_sel(v){
+                this.formS.type = v
+            },
             ok(name) {
                 this.loading_edit = true
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.put(`/admin/tag/update/${this.formItem.id}`,{data:this.formItem}).then(res=>{
-                            if(res.data.sta === 1){
+                        axios.put(`/admin/tag/update/${this.formItem.id}`, {data: this.formItem}).then(res => {
+                            if (res.data.sta === 1) {
                                 this.$Message.success('编辑成功');
                                 this.formItem.name = ''
                                 this.formItem.type = []
@@ -345,6 +369,16 @@
                     }
                 })
                 this.loading_edit = false
+            },
+            del_this(id) {
+                axios.delete(`/admin/tag/${id}`).then(res => {
+                    if(res.data.sta === 1){
+                        this.search()
+                        this.$Message.success(res.data.msg)
+                    }else{
+                        this.$Message.error(res.data.msg)
+                    }
+                })
             }
         },
         components: {
@@ -354,7 +388,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-    .small-upload-list{
+    .small-upload-list {
         display: inline-block;
         width: 60px;
         height: 60px;
@@ -365,26 +399,30 @@
         overflow: hidden;
         background: #fff;
         position: relative;
-        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
         margin-right: 4px;
     }
-    .small-upload-list img{
+
+    .small-upload-list img {
         width: 100%;
         height: 100%;
     }
-    .small-upload-list-cover{
+
+    .small-upload-list-cover {
         display: none;
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(0,0,0,.6);
+        background: rgba(0, 0, 0, .6);
     }
-    .small-upload-list:hover .small-upload-list-cover{
+
+    .small-upload-list:hover .small-upload-list-cover {
         display: block;
     }
-    .small-upload-list-cover i{
+
+    .small-upload-list-cover i {
         color: #fff;
         font-size: 20px;
         cursor: pointer;

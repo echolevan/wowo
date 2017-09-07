@@ -11,7 +11,7 @@ class TagController extends Controller
     public function index ($type)
     {
         $type = config('my.tag_type')[$type];
-        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank','desc')->latest()->get();
+        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank', 'desc')->latest()->get();
         return $tags;
     }
 
@@ -64,8 +64,19 @@ class TagController extends Controller
         $where = Tag::when($request->search['name'] != null, function ($query) use ($request) {
             return $query->where('name', 'like', '%' . $request->search['name'] . '%');
         })
-            ->when($request->search['type'] != null, function ($query) use ($request) {
-                return $query->where('type', $request->search['type']);
+            ->when(isset($request->search['type'][0]) && $request->search['type'][0] != null, function ($query) use ($request) {
+                $type = $request->search['type'][0] == 3 ? 2 : $request->search['type'][0];
+                return $query->where('type', $type);
+            })
+            ->when(isset($request->search['type'][1]) && $request->search['type'][1] != null, function ($query) use ($request) {
+                if($request->search['type'][0] == 3){
+                    return $query->where('id', $request->search['type'][1]);
+                }else{
+                    return $query->where('pid', $request->search['type'][1]);
+                }
+            })
+            ->when(isset($request->search['type'][2]) && $request->search['type'][2] != null, function ($query) use ($request) {
+                return $query->where('id', $request->search['type'][2]);
             })
             ->when($request->search['is_for_user'] != null, function ($query) use ($request) {
                 return $query->where('is_for_user', $request->search['is_for_user']);
@@ -98,14 +109,41 @@ class TagController extends Controller
         return ['sta' => 0, 'msg' => '更新失败'];
     }
 
-    public function change_rank($id, $rank)
+    public function change_rank ($id, $rank)
     {
-        $plug = Tag::where('id',$id)->update([
+        $plug = Tag::where('id', $id)->update([
             'rank' => $rank
         ]);
-        if($plug)
-            return ['sta'=>1,'msg'=>'编辑成功'];
-        return ['sta'=>0,'msg'=>'编辑失败'];
+        if ($plug)
+            return ['sta' => 1, 'msg' => '编辑成功'];
+        return ['sta' => 0, 'msg' => '编辑失败'];
+    }
+
+    public function check_tag_name (Request $request, $id = 0)
+    {
+        $check = Tag::where('name', $request->name)->where('pid', $request->pid)->when($id != 0, function ($query) use ($id) {
+            $query->where('id', '!=', $id);
+        })->count();
+        if ($check > 0)
+            return ['sta' => 0];
+        return ['sta' => 1];
+    }
+
+    public function delete ($id)
+    {
+        $info = Tag::find($id);
+
+        if($info->pid === 0 ){
+            $count = Tag::where('pid',$id)->count();
+            if($count > 0){
+                return ['sta' => 0, 'msg' => '删除失败,请先删除他的子集'];
+            }
+        }
+
+        $is = Tag::where('id', $id)->delete();
+        if ($is)
+            return ['sta' => 1, 'msg' => '删除成功'];
+        return ['sta' => 0, 'msg' => '删除失败'];
     }
 
 

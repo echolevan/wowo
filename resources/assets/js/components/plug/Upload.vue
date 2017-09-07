@@ -303,7 +303,7 @@
 //                                    this.$router.push('/admin/plug/list')
                                 }else{
                                     this.$router.go(-1)
-//                                    this.$router.push('/waTmw/wa')
+//                                    this.$router.push('/watmw/wa')
                                 }
                             }
                         })

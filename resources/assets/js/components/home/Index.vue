@@ -122,7 +122,7 @@
                 <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>WeakAuras</strong>
-                        <router-link to="/waTmw/wa" class="pull-right my_a_style"
+                        <router-link to="/watmw/wa" class="pull-right my_a_style"
                                      style="padding-right: 10px;font-size: 12px;width: 40px">更多
                         </router-link>
                     </div>
@@ -147,7 +147,7 @@
                 <div class="div_block my_card_hover">
                     <div class="tool_user title">
                         <strong>TellMeWhen</strong>
-                        <router-link to="/waTmw/tmw" class="pull-right my_a_style"
+                        <router-link to="/watmw/tmw" class="pull-right my_a_style"
                                      style="padding-right: 10px;font-size: 12px;width: 40px">更多
                         </router-link>
                     </div>
@@ -195,7 +195,7 @@
                 <div class="div_block my_card_hover" style="margin-left: 0">
                     <div class="tool_user title">
                         <strong>游戏插件</strong>
-                        <router-link to="/waTmw/plug" class="pull-right my_a_style"
+                        <router-link to="/watmw/plug" class="pull-right my_a_style"
                                      style="padding-right: 10px;font-size: 12px;width:40px">更多
                         </router-link>
                     </div>
@@ -219,7 +219,7 @@
             <div class="div_block my_card_hover">
                 <div class="tool_user title">
                     <strong>易游</strong>
-                    <router-link to="/waTmw/plug" class="pull-right my_a_style"
+                    <router-link to="/watmw/plug" class="pull-right my_a_style"
                                  style="padding-right: 10px;font-size: 12px;width: 40px">更多
                     </router-link>
                 </div>

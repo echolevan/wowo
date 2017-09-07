@@ -10,16 +10,16 @@
                         <strong>{{plug.title}}</strong>
                         <p>
                             <span>
-                                <router-link :to="{name: 'waTmw.index' , params:{type: configUrl[plug.type_name]}}">
+                                <router-link :to="{name: 'watmw.index' , params:{type: configUrl[plug.type_name]}}">
                                     {{plug.type_name}}
                                 </router-link>
                             </span>
                             <span class="hover_hand">
-                                <router-link :to="{name:'waTmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_one.id , 'active_pid': 0}}">{{plug.tag_one ? plug.tag_one.name : ''}}</router-link>
+                                <router-link :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_one.id , 'active_pid': 0}}">{{plug.tag_one ? plug.tag_one.name : ''}}</router-link>
                             </span>
                             <span v-if="plug.tag_two"> > </span>
                             <span  class="hover_hand" v-if="plug.tag_two">
-                                <router-link :to="{name:'waTmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
+                                <router-link :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
                             </span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗

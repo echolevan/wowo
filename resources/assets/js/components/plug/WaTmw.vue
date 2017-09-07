@@ -515,7 +515,7 @@
         ul
             width 100% !important
             li
-                padding 12px 24px
+                padding 8px 24px
                 &:hover
                     cursor pointer
                     color #266ec1

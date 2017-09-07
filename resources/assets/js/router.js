@@ -1,6 +1,6 @@
 import Index from './components/index/Index.vue'
 import Home from './components/home/Index.vue'
-import WaTmw from './components/plug/WaTmw.vue'
+import watmw from './components/plug/waTmw.vue'
 import Bm from './components/plug/Bm.vue'
 import Info from './components/plug/Info.vue'
 import updatePlug from './components/plug/update.vue'
@@ -34,7 +34,7 @@ import AdminWithdrawList from './components/admin/withdraw/List.vue'
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
-    { path: '/waTmw/:type/:active?/:active_pid?', name:'waTmw.index' , component:WaTmw},
+    { path: '/watmw/:type/:active?/:active_pid?', name:'watmw.index' , component:watmw},
     { path: '/bm', name:'bm.index' , component:Bm},
     { path: '/info/:id', name:'plug.info' , component:Info},
     { path: '/upload/:id?', name:'upload.plug' , component:uploadPlug},
