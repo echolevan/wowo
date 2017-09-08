@@ -4312,7 +4312,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (valid) {
                     axios.put('/admin/tag/update/' + _this7.formItem.id, { data: _this7.formItem }).then(function (res) {
                         if (res.data.sta === 1) {
-                            _this7.$Message.success('编辑成功');
+                            _this7.$Message.success('更新成功');
                             _this7.formItem.name = '';
                             _this7.formItem.type = [];
                             _this7.formItem.thumb = '';

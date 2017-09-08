@@ -82,9 +82,9 @@ class ToolController extends Controller
             'giving' => $request->data['giving'],
         ]);
         if($lv){
-            return ['sta'=>1 , 'msg'=>'编辑成功'];
+            return ['sta'=>1 , 'msg'=>'更新成功'];
         }
-        return ['sta'=>0 , 'msg'=>'编辑失败'];
+        return ['sta'=>0 , 'msg'=>'更新失败'];
     }
 
     public function check_name($name,$id)
@@ -188,7 +188,7 @@ class ToolController extends Controller
             'tel' => $request->data['tel'],
         ]);
         if($fed)
-            return ['sta'=>1 , 'msg'=>'感谢您的建议'];
+            return ['sta'=>1 , 'msg'=>'感谢您的建议！'];
         return ['sta'=>0 , 'msg'=>'提交失败'];
     }
 

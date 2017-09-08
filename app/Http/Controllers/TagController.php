@@ -115,8 +115,8 @@ class TagController extends Controller
             'rank' => $rank
         ]);
         if ($plug)
-            return ['sta' => 1, 'msg' => '编辑成功'];
-        return ['sta' => 0, 'msg' => '编辑失败'];
+            return ['sta' => 1, 'msg' => '更新成功'];
+        return ['sta' => 0, 'msg' => '更新失败'];
     }
 
     public function check_tag_name (Request $request, $id = 0)
@@ -136,7 +136,7 @@ class TagController extends Controller
         if($info->pid === 0 ){
             $count = Tag::where('pid',$id)->count();
             if($count > 0){
-                return ['sta' => 0, 'msg' => '删除失败,请先删除他的子集'];
+                return ['sta' => 0, 'msg' => '删除失败！请先删除他的子集'];
             }
         }
 

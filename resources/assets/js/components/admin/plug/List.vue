@@ -74,7 +74,7 @@
             </Button>
 
             <router-link to="/admin/plug/create">
-                <Button type="primary" class="pull-right">添加插件</Button>
+                <Button type="primary" class="pull-right">添加资源</Button>
             </router-link>
         </Form>
 
@@ -85,7 +85,7 @@
                 <th>作者</th>
                 <th>售价</th>
                 <th>资源分类</th>
-                <th>资源内容</th>
+                <th>资源查看</th>
                 <th>是否最新</th>
                 <th>下载次数</th>
                 <th>推荐次数</th>
@@ -147,7 +147,7 @@
                     <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
                     <Poptip
                             confirm
-                            title="您确认删除这条内容吗？"
+                            title="您确认删除这条记录吗？"
                             @on-ok="del_this(v.plug_id)">
                         <Button size="small" type="error">删除</Button>
                     </Poptip>

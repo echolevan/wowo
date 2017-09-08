@@ -70,7 +70,7 @@
                 if (value !== '') {
                     axios.post('/admin/check_tag_name',{name: value, pid: this.formItem.type[1]}).then(res =>{
                         if(res.data.sta === 0){
-                            callback(new Error('名称重复了'));
+                            callback(new Error('名称已存在'));
                         }else{
                             callback();
                         }
@@ -93,8 +93,8 @@
                 plug_tags: [],
                 ruleValidate: {
                     name: [
-                        {required: true, message: '标题不能为空', trigger: 'blur'},
-                        {max: 30, message: '标题最长30', trigger: 'change'},
+                        {required: true, message: '名称不能为空', trigger: 'blur'},
+                        {max: 30, message: '标题最长30字符', trigger: 'change'},
                         {validator: validateName, required: true, trigger: 'blur'}
                     ],
                     type: [

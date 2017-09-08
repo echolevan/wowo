@@ -50,8 +50,8 @@ class BmController extends Controller
         ]);
 
         if ($bm)
-            return ['sta' => 1, 'msg' => '新增成功'];
-        return ['sta' => 0, 'msg' => '新增失败'];
+            return ['sta' => 1, 'msg' => '添加成功'];
+        return ['sta' => 0, 'msg' => '添加失败'];
     }
 
     public function update (Request $request, $id)
@@ -64,8 +64,8 @@ class BmController extends Controller
             'gold' => !$request->data['is_free'] ? 0 : $request->data['gold'],
         ]);
         if ($bm)
-            return ['sta' => 1, 'msg' => '编辑成功'];
-        return ['sta' => 0, 'msg' => '编辑失败'];
+            return ['sta' => 1, 'msg' => '更新成功'];
+        return ['sta' => 0, 'msg' => '更新失败'];
     }
 
     public function change_rank ($id, $rank)
@@ -74,8 +74,8 @@ class BmController extends Controller
             'rank' => $rank
         ]);
         if ($plug)
-            return ['sta' => 1, 'msg' => '编辑成功'];
-        return ['sta' => 0, 'msg' => '编辑失败'];
+            return ['sta' => 1, 'msg' => '更新成功'];
+        return ['sta' => 0, 'msg' => '更新失败'];
     }
 
     public function change_status ($id, $v)
@@ -103,7 +103,7 @@ class BmController extends Controller
                 return ['sta' => 1];
             }
             if ($bm->gold > Auth::user()->gold) {
-                return ['sta' => 9 , 'msg'=>'金币不够'];
+                return ['sta' => 9 , 'msg'=>'金币不足'];
             } else {
                 return ['sta' => 2 , 'msg'=>'金币充足，请确认'];
             }

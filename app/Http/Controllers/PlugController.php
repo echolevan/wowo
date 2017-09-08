@@ -522,7 +522,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '上传失败'];
         }
 
-        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '分享成功' : '分享成功,请等待审核'];
+        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '分享成功' : '分享成功，请等待审核！'];
     }
 
     public function update_plug (Request $request, $id)
@@ -569,7 +569,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '编辑失败'];
         }
 
-        return ['sta' => 1, 'msg' => '编辑成功'];
+        return ['sta' => 1, 'msg' => '更新成功'];
     }
 
 
@@ -810,8 +810,8 @@ class PlugController extends Controller
            'rank' => $rank
         ]);
         if($plug)
-            return ['sta'=>1,'msg'=>'编辑成功'];
-        return ['sta'=>0,'msg'=>'编辑失败'];
+            return ['sta'=>1,'msg'=>'更新成功'];
+        return ['sta'=>0,'msg'=>'更新失败'];
     }
 
 

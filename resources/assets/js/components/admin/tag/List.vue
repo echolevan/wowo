@@ -85,7 +85,7 @@
                     </Button>
                     <Poptip
                             confirm
-                            title="您确认删除这条内容吗？"
+                            title="您确认删除这条记录吗？"
                             @on-ok="del_this(v.id)">
                         <Button size="small" type="error">删除</Button>
                     </Poptip>
@@ -213,7 +213,7 @@
                 plug_tags: [],
                 ruleValidate: {
                     name: [
-                        {required: true, message: '标题不能为空', trigger: 'blur'},
+                        {required: true, message: '名称不能为空', trigger: 'blur'},
                         {max: 30, message: '标题最长30字符', trigger: 'change'}
                     ],
                     type: [
@@ -357,7 +357,7 @@
                     if (valid) {
                         axios.put(`/admin/tag/update/${this.formItem.id}`, {data: this.formItem}).then(res => {
                             if (res.data.sta === 1) {
-                                this.$Message.success('编辑成功');
+                                this.$Message.success('更新成功');
                                 this.formItem.name = ''
                                 this.formItem.type = []
                                 this.formItem.thumb = ''
