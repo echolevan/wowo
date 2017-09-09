@@ -37,7 +37,7 @@
                       >[<span class="my_gold"><s>{{v.gold}}</s></span>]</span>
                                 <span class="normal_font my_gold"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                      v-else>{{v.gold}}</span>
+                                      v-else>[{{v.gold}}]</span>
                                 <span v-if="v.order" style="color: #d13030">[已购买]</span>
                 </span>
             </strong>
@@ -66,12 +66,12 @@
             <div class="dialog__content  animated fadeIn" style="border-radius: 2px">
                 <h2>确定购买?</h2>
                 <div>
-                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#fff;color:#333;"
+                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#fff;color:#333;border: 1px solid #333"
                             @click="download_model = false">取消
                     </button>
                     <button type="button" class="close_dialog ivu-btn-primary"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            style="border-radius: 2px" @click="go_download(down_id, down_k)">确定
+                            style="border-radius: 2px;border: 1px solid #266ec1" @click="go_download(down_id, down_k)">确定
                     </button>
                 </div>
             </div>

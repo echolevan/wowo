@@ -42,7 +42,7 @@
                         <svg height="45" width="150">
                             <rect class="button_one" height="45" width="150"></rect>
                         </svg>
-                        <div class="button_one_text">下载</div>
+                        <div class="button_one_text">{{plug.type === 3 ? '下载' : '获取'}}</div>
                     </div>
                 </iCol>
             </Row>
@@ -88,7 +88,7 @@
                                     <tr v-for="v in plug.historys">
                                         <td>
                                             <router-link :to="{name:'plug.info' , params:{id: v.id}}">
-                                                <a href="" class="link_a">{{v.type}} - {{ v.version }}</a>
+                                                <a href="" class="link_a">{{v.name}}-{{ v.version }}</a>
                                             </router-link>
                                         </td>
                                         <td>{{ v.version }}</td>

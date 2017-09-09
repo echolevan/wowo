@@ -57,6 +57,7 @@
                 >
                     <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
                 </Upload>
+                <span v-if="formItem.plug_url">已上传</span>
             </Form-item>
 
             <Form-item label="上传截图" prop="uploadList">
@@ -96,11 +97,13 @@
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
             </Form-item>
 
-            <Button type="primary" :loading="loading" @click="toLoading('formItem')" class="pull-right">
-                <span v-if="!loading">确定</span>
-                <span v-else>Loading...</span>
-            </Button>
-
+            <div class="my_ok_button">
+                <Button type="primary" :loading="loading"  @click="toLoading('formItem')">
+                    <span v-if="!loading">确定</span>
+                    <span v-else>Loading...</span>
+                </Button>
+            </div>
+            <div style="clear: both"></div>
         </Form>
 
         <Modal title="查看截图" v-model="visible">
@@ -265,7 +268,7 @@
         },
         methods: {
             keyUp() {
-                this.content = this.content.replace(/[\u4E00-\u9FA5]/g,"")
+                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
 //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading (name) {

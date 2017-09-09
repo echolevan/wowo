@@ -135,6 +135,9 @@
                             this.formItem.type = []
                             this.formItem.thumb = ''
                             this.formItem.is_for_user = true
+                            axios.get('/admin/plug_all_info').then(res=>{
+                                this.plug_tags = res.data.res
+                            })
                         })
                     }
                     this.loading = false;
