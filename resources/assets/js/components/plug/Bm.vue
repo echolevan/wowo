@@ -35,9 +35,9 @@
                       <span v-if="v.order" class="normal_font "
                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                       >[<span class="my_gold"><s>{{v.gold}}</s></span>]</span>
-                                <span class="normal_font my_gold"
+                                <span class="normal_font"
                                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                      v-else>[{{v.gold}}]</span>
+                                      v-else>[<span class="my_gold">{{v.gold}}</span>]</span>
                                 <span v-if="v.order" style="color: #d13030">[已购买]</span>
                 </span>
             </strong>
@@ -155,6 +155,7 @@
             },
             get_plugs() {
                 axios.post(`/bm/list/${this.this_page}/${this.page_size}`, {search: this.formS}).then(res => {
+                    console.log(res)
                     this.plugs_count = res.data.count
                     this.list = res.data.list
                     this.today = res.data.today

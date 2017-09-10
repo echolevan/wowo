@@ -31,7 +31,7 @@ class BmController extends Controller
             });
         $count = $where->count();
         $list = $where->with(['user'])->with(['order'=>function($query){
-            $query->where('orders.type',4);
+            $query->where('orders.type',4)->where('user_id',Auth::id());
         }])->skip(($page - 1) * $size)->take($size)->get();
 
         $today = date('Y-m-d');

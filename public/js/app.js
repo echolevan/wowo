@@ -6727,6 +6727,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('/bm/list/' + this.this_page + '/' + this.page_size, { search: this.formS }).then(function (res) {
+                console.log(res);
                 _this.plugs_count = res.data.count;
                 _this.list = res.data.list;
                 _this.today = res.data.today;
@@ -79538,11 +79539,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("["), _c('span', {
       staticClass: "my_gold"
     }, [_c('s', [_vm._v(_vm._s(v.gold))])]), _vm._v("]")]) : _c('span', {
-      staticClass: "normal_font my_gold",
+      staticClass: "normal_font",
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v("[" + _vm._s(v.gold) + "]")]), _vm._v(" "), (v.order) ? _c('span', {
+    }, [_vm._v("["), _c('span', {
+      staticClass: "my_gold"
+    }, [_vm._v(_vm._s(v.gold))]), _vm._v("]")]), _vm._v(" "), (v.order) ? _c('span', {
       staticStyle: {
         "color": "#d13030"
       }
