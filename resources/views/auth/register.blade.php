@@ -72,11 +72,11 @@
                    @if ($errors->has('nickname'))
                        <p>{{ $errors->first('nickname') }}</p>
                    @endif
-                       <input type="password"  name="password" placeholder="密码(必须有大小写+数字，不少于8位)" @input="p_len" v-model="password" />
+                       <input type="password"  name="password" placeholder="密码(大小写字母+数字，不少于8位)" @input="p_len" v-model="password" />
                        <div class="lnu_container">
+						   <p v-bind:class="{ uppercase_valid: contains_uppercase }"  style="padding-left: 0">大写字母</p>
                            <p v-bind:class="{ lovercase_valid: contains_lovercase }" style="padding-left: 0">小写字母</p>
                            <p v-bind:class="{ number_valid: contains_number }"  style="padding-left: 0">数字</p>
-                           <p v-bind:class="{ uppercase_valid: contains_uppercase }"  style="padding-left: 0">大写字母</p>
                            <p v-bind:class="{ uppercase_valid: valid_password_length }"  style="padding-left: 0">8位</p>
                        </div>
 

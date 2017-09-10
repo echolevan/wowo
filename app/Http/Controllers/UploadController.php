@@ -53,11 +53,9 @@ class UploadController extends Controller
 
     public function upload_plug_info_plug (Request $request)
     {
-
         if (!in_array(strtolower($request->file('file')->getClientOriginalExtension()), config('my.upload_plug_type'))) {
             return ['sta' => 0, 'msg' => '请上传zip、rar、7z格式的文件'];
         }
-
         if(isset($request->tag_one) && $request->tag_one === '整合界面'){
             if ($request->file('file')->getSize() > 1024 * 1024*150) {
                 return ['sta' => 0, 'msg' => '请上传小于150M的压缩包'];
