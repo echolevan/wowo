@@ -153,4 +153,23 @@ class BmController extends Controller
         }
     }
 
+
+    public function delete($id)
+    {
+        $content = Bm::where('id',$id)->value('url');
+        DB::beginTransaction();
+        try{
+            //删除文件
+            \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$content));
+            // 删除plug
+            Bm::where('id',$id)->delete();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return ['sta'=>0 , 'msg'=>'删除失败'];
+        }
+
+        return ['sta'=>1 , 'msg'=>'删除成功'];
+    }
+
 }

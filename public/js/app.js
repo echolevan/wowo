@@ -2330,6 +2330,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2481,6 +2487,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this5.$Loading.finish();
                 _this5.loading_s = false;
             });
+        },
+        del_this: function del_this(id) {
+            var _this6 = this;
+
+            axios.delete('/admin/bms/' + id).then(function (res) {
+                if (res.data.sta === 1) {
+                    _this6.search();
+                    _this6.$Message.success(res.data.msg);
+                } else {
+                    _this6.$Message.error(res.data.msg);
+                }
+            });
         }
     },
     components: {
@@ -2517,8 +2535,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_clipboard__ = __webpack_require__("./node_modules/_clipboard@1.7.1@clipboard/lib/clipboard.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_clipboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_clipboard__);
-//
-//
 //
 //
 //
@@ -2982,6 +2998,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3114,7 +3134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "");
             //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
@@ -3378,6 +3398,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3512,7 +3536,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "");
             //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
@@ -3864,7 +3888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (value !== '') {
                 axios.post('/admin/check_tag_name', { name: value, pid: _this.formItem.type[1] }).then(function (res) {
                     if (res.data.sta === 0) {
-                        callback(new Error('名称重复了'));
+                        callback(new Error('名称已存在'));
                     } else {
                         callback();
                     }
@@ -3886,7 +3910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrfToken: window.Laravel.csrfToken,
             plug_tags: [],
             ruleValidate: {
-                name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30', trigger: 'change' }, { validator: validateName, required: true, trigger: 'blur' }],
+                name: [{ required: true, message: '名称不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30字符', trigger: 'change' }, { validator: validateName, required: true, trigger: 'blur' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }]
             }
 
@@ -3928,6 +3952,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         _this3.formItem.type = [];
                         _this3.formItem.thumb = '';
                         _this3.formItem.is_for_user = true;
+                        axios.get('/admin/plug_all_info').then(function (res) {
+                            _this3.plug_tags = res.data.res;
+                        });
                     });
                 }
                 _this3.loading = false;
@@ -4161,7 +4188,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             plug_tags: [],
             ruleValidate: {
-                name: [{ required: true, message: '标题不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30字符', trigger: 'change' }],
+                name: [{ required: true, message: '名称不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30字符', trigger: 'change' }],
                 type: [{ validator: validateType, required: true, trigger: 'change' }],
                 thumb: [{ validator: validateUploadList, required: true, trigger: 'change' }]
             }
@@ -7364,6 +7391,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -7512,7 +7541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "");
             //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
@@ -7780,6 +7809,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -7911,7 +7943,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         keyUp: function keyUp() {
-            this.content = this.content.replace(/[\u4E00-\u9FA5]/g, "");
+            this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "");
             //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
         },
         toLoading: function toLoading(name) {
@@ -13398,7 +13430,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1300px;\n  padding: 0 15px 0 30px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
+exports.push([module.i, "/*@import \"../../../common/nav.css\"*/\n/*@import \"../../../common/demo.css\"*/\n#nav[data-v-2dd6f13a] {\n  width: 100%;\n  height: 35px;\n  line-height: 35px;\n  background-color: #266ec1;\n  border-bottom: 1px solid #f5f5f5;\n}\n#nav .title[data-v-2dd6f13a] {\n  margin: 0 auto;\n  width: 1300px;\n  padding: 0 27px 0 40px;\n}\n#nav .title .logo[data-v-2dd6f13a] {\n  float: left;\n}\n#nav .title .logo a[data-v-2dd6f13a] {\n  color: #fff;\n}\n#nav .title .login[data-v-2dd6f13a] {\n  float: right;\n}\n#nav .title .login span[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n#nav .title .login a[data-v-2dd6f13a] {\n  color: #fff;\n  padding: 0 7px;\n}\n.nav.menu[data-v-2dd6f13a] {\n  background-color: #fff;\n  margin: 0 auto;\n  width: 1240px;\n  border-bottom: 1px solid #f5f5f5;\n}\n", ""]);
 
 // exports
 
@@ -13833,7 +13865,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "/* --------------------------------\r\n\r\n Header\r\n\r\n-------------------------------- */\r\n.cd-morph-dropdown {\r\n    position: relative;\r\n    height: 60px;\r\n    background-color: #fff;\r\n}\r\n\r\n.cd-morph-dropdown::before {\r\n    /* never visible - used in JS to check mq */\r\n    content: 'mobile';\r\n    display: none;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger {\r\n    /* menu icon - visible on small screens only */\r\n    position: absolute;\r\n    top: 35px;\r\n    right: 0;\r\n    height: 40px;\r\n    width: 60px;\r\n    /* replace text with icon */\r\n    overflow: hidden;\r\n    text-indent: 100%;\r\n    white-space: nowrap;\r\n    color: transparent;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span, .cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\r\n    /* these are the 3 lines of the menu icon */\r\n    position: absolute;\r\n    background-color: #1A1A1A;\r\n    height: 3px;\r\n    width: 26px;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span {\r\n    left: 50%;\r\n    top: 50%;\r\n    bottom: auto;\r\n    right: auto;\r\n    -webkit-transform: translateX(-50%) translateY(-50%);\r\n    -ms-transform: translateX(-50%) translateY(-50%);\r\n    transform: translateX(-50%) translateY(-50%);\r\n    -webkit-transition: background-color .3s;\r\n    transition: background-color .3s;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\r\n    content: '';\r\n    left: 0;\r\n    -webkit-transition: -webkit-transform .3s;\r\n    transition: -webkit-transform .3s;\r\n    transition: transform .3s;\r\n    transition: transform .3s, -webkit-transform .3s;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::before {\r\n    -webkit-transform: translateY(-9px);\r\n    -ms-transform: translateY(-9px);\r\n    transform: translateY(-9px);\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::after {\r\n    -webkit-transform: translateY(9px);\r\n    -ms-transform: translateY(9px);\r\n    transform: translateY(9px);\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span {\r\n    background-color: transparent;\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span::before {\r\n    -webkit-transform: rotate(45deg);\r\n    -ms-transform: rotate(45deg);\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span::after {\r\n    -webkit-transform: rotate(-45deg);\r\n    -ms-transform: rotate(-45deg);\r\n    transform: rotate(-45deg);\r\n}\r\n\r\n.cd-morph-dropdown .main-nav {\r\n    display: none;\r\n}\r\n\r\n.cd-morph-dropdown .morph-dropdown-wrapper {\r\n    display: none;\r\n    position: absolute;\r\n    top: 60px;\r\n    left: 0;\r\n    width: 100%;\r\n    padding: 1.2em 5%;\r\n    box-shadow: inset 0 1px 0 #e6e6e6;\r\n    background-color: #fff;\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .morph-dropdown-wrapper {\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .dropdown-list > ul > li {\r\n    margin-bottom: 3.3em;\r\n}\r\n\r\n.cd-morph-dropdown .label {\r\n    display: block;\r\n    font-size: 2.2rem;\r\n    color: #1A1A1A;\r\n    margin-bottom: .8em;\r\n}\r\n\r\n.cd-morph-dropdown .content li::after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content li {\r\n    margin-bottom: 1.4em;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a {\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a::before {\r\n    /* icon on the left */\r\n    content: '';\r\n    display: inline-block;\r\n    float: left;\r\n    height: 54px;\r\n    width: 54px;\r\n    margin-right: .6em;\r\n    background: red;\r\n    border-radius: 50%;\r\n    -webkit-transition: background .2s;\r\n    transition: background .2s;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a span, .cd-morph-dropdown .gallery .content a em {\r\n    display: block;\r\n    line-height: 1.2;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a em {\r\n    font-size: 1.8rem;\r\n    padding: .4em 0 .2em;\r\n    color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a span {\r\n    font-size: 1.4rem;\r\n    color: #a6a6a6;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a:hover::before {\r\n    background-color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .links-list a,\r\n.cd-morph-dropdown .btn {\r\n    display: block;\r\n    margin-left: 14px;\r\n    font-size: 12px;\r\n    line-height: 1.6;\r\n}\r\n\r\n.cd-morph-dropdown .links-list a:hover,\r\n.cd-morph-dropdown .btn:hover {\r\n    color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .content h2 {\r\n    color: #a6a6a6;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    font-size: 1.3rem;\r\n    margin: 20px 0 10px 14px;\r\n}\r\n\r\n@media only screen and (min-width: 1000px) {\r\n    .cd-morph-dropdown {\r\n        position: absolute;\r\n        height: 40px;\r\n        left: 0;\r\n        top: 35px;\r\n        z-index: 99;\r\n        width: 100%;\r\n        padding: 0;\r\n        text-align: center;\r\n        background-color: transparent;\r\n    }\r\n\r\n    .cd-morph-dropdown::before {\r\n        content: 'desktop';\r\n    }\r\n\r\n    .cd-morph-dropdown .nav-trigger {\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav {\r\n        display: inline-block;\r\n        width: 1240px;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav > ul > li {\r\n        display: inline-block;\r\n        float: left;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav > ul > li > a {\r\n        display: block;\r\n        padding: 0 1.8em;\r\n        height: 40px;\r\n        line-height: 40px;\r\n        color: #333;\r\n        font-size: 16px;\r\n        font-weight: bold;\r\n        -webkit-font-smoothing: antialiased;\r\n        -moz-osx-font-smoothing: grayscale;\r\n        -webkit-transition: opacity .2s;\r\n        transition: opacity .2s;\r\n    }\r\n\r\n\r\n\r\n    .cd-morph-dropdown .morph-dropdown-wrapper {\r\n        /* dropdown wrapper - used to create the slide up/slide down effect when dropdown is revealed/hidden */\r\n        display: block;\r\n        top: 58px;\r\n        /* overwrite mobile style */\r\n        width: auto;\r\n        padding: 0;\r\n        box-shadow: none;\r\n        background-color: transparent;\r\n        /* Force Hardware acceleration */\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform;\r\n        -webkit-transform: translateY(20px);\r\n        -ms-transform: translateY(20px);\r\n        transform: translateY(20px);\r\n        -webkit-transition: -webkit-transform .3s;\r\n        transition: -webkit-transform .3s;\r\n        transition: transform .3s;\r\n        transition: transform .3s, -webkit-transform .3s;\r\n    }\r\n\r\n    .main-nav li:hover a{\r\n        background-color: #266ec1;\r\n        color: #fff !important;\r\n    }\r\n\r\n\r\n    .main-nav li:hover a.bl_active_color{\r\n        background-color: #d13030;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .has-dropdown.active a{\r\n        background-color: #266ec1;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .has-dropdown.active a.bl_active_color{\r\n        background-color: #d13030;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .morph-dropdown-wrapper {\r\n        -webkit-transform: translateY(0);\r\n        -ms-transform: translateY(0);\r\n        transform: translateY(0);\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list {\r\n        position: absolute;\r\n        top: -10px;\r\n        left: 0;\r\n        visibility: hidden;\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform, width, height;\r\n        -webkit-transition: visibility .3s;\r\n        transition: visibility .3s;\r\n        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);\r\n    }\r\n\r\n    .no-csstransitions .cd-morph-dropdown .dropdown-list {\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list::before {\r\n        /* dropdown top triangle */\r\n        content: '';\r\n        position: absolute;\r\n        bottom: 100%;\r\n        left: 50%;\r\n        right: auto;\r\n        -webkit-transform: translateX(-50%);\r\n        -ms-transform: translateX(-50%);\r\n        transform: translateX(-50%);\r\n        height: 0;\r\n        width: 0;\r\n        border: 12px solid transparent;\r\n        border-bottom-color: #266ec1;\r\n        opacity: 0;\r\n        -webkit-transition: opacity .3s;\r\n        transition: opacity .3s;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list.bl_dropdown_list::before{\r\n        border-bottom-color: #d13030;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list > ul {\r\n        position: relative;\r\n        z-index: 1;\r\n        height: 100%;\r\n        width: 100%;\r\n        overflow: hidden;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list {\r\n        border-radius: 5px;\r\n        visibility: visible;\r\n        -webkit-transition: width .3s, height .3s, -webkit-transform .3s;\r\n        transition: width .3s, height .3s, -webkit-transform .3s;\r\n        transition: transform .3s, width .3s, height .3s;\r\n        transition: transform .3s, width .3s, height .3s, -webkit-transform .3s;\r\n        border-top: 5px solid #266ec1 !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list.bl_dropdown_list{\r\n        border-top: 5px solid #d13030 !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list::before {\r\n        opacity: 1;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown {\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        opacity: 0;\r\n        visibility: hidden;\r\n        width: 100%;\r\n        -webkit-transition: opacity .3s, visibility .3s;\r\n        transition: opacity .3s, visibility .3s;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.active {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.move-left .content {\r\n        -webkit-transform: translateX(-100px);\r\n        -ms-transform: translateX(-100px);\r\n        transform: translateX(-100px);\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.move-right .content {\r\n        -webkit-transform: translateX(100px);\r\n        -ms-transform: translateX(100px);\r\n        transform: translateX(100px);\r\n    }\r\n\r\n    .cd-morph-dropdown .label {\r\n        /* hide the label on bigger devices */\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .content {\r\n        padding: 2.2em 1.8em;\r\n        -webkit-transition: -webkit-transform .3s;\r\n        transition: -webkit-transform .3s;\r\n        transition: transform .3s;\r\n        transition: transform .3s, -webkit-transform .3s;\r\n        text-align: left;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul::after {\r\n        clear: both;\r\n        content: \"\";\r\n        display: block;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul{\r\n        display: flex;\r\n        flex-direction: row;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul > li{\r\n        width: 60px;\r\n        margin-right: 5px;\r\n    }\r\n\r\n    .cd-morph-dropdown .gallery .content {\r\n        /* you need to set a width for the .content elements because they have a position absolute */\r\n        width: 510px;\r\n        padding-bottom: .8em;\r\n    }\r\n\r\n    .cd-morph-dropdown .gallery .content li {\r\n        margin-bottom: 1.8em;\r\n    }\r\n\r\n    .cd-morph-dropdown .links .content > ul > li {\r\n        margin-top: 0;\r\n        margin-bottom: 1em;\r\n    }\r\n    .cd-morph-dropdown .links .content,\r\n    .cd-morph-dropdown .button .content {\r\n        width: 500px;\r\n    }\r\n\r\n    .cd-morph-dropdown .links-list a {\r\n        font-size: 12px;\r\n        margin-left: 0;\r\n    }\r\n\r\n    .cd-morph-dropdown .btn {\r\n        display: block;\r\n        width: 100%;\r\n        height: 60px;\r\n        margin: 1.5em 0 0;\r\n        font-size: 1.8rem;\r\n        text-align: center;\r\n        color: #fff;\r\n        line-height: 60px;\r\n        background: #DB6356;\r\n        -webkit-font-smoothing: antialiased;\r\n        -moz-osx-font-smoothing: grayscale;\r\n    }\r\n\r\n    .cd-morph-dropdown .btn:hover {\r\n        background: #1A1A1A;\r\n        color: #fff;\r\n    }\r\n\r\n\r\n    .cd-morph-dropdown .content h2 {\r\n        font-size: 14px;\r\n        text-transform: none;\r\n        font-weight: normal;\r\n        color: #266ec1;\r\n        margin: 0 0 .6em;\r\n    }\r\n    .cd-morph-dropdown .bg-layer {\r\n        /* morph dropdown background */\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        height: 1px;\r\n        width: 1px;\r\n        background: #fff;\r\n        opacity: 0;\r\n        -webkit-transition: opacity .3s;\r\n        transition: opacity .3s;\r\n        -webkit-transform-origin: top left;\r\n        -ms-transform-origin: top left;\r\n        transform-origin: top left;\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform;\r\n        -webkit-backface-visibility: hidden;\r\n        backface-visibility: hidden;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .bg-layer {\r\n        opacity: 1;\r\n        -webkit-transition: opacity .3s, -webkit-transform .3s;\r\n        transition: opacity .3s, -webkit-transform .3s;\r\n        transition: transform .3s, opacity .3s;\r\n        transition: transform .3s, opacity .3s, -webkit-transform .3s;\r\n    }\r\n}\r\n", ""]);
+exports.push([module.i, "/* --------------------------------\r\n\r\n Header\r\n\r\n-------------------------------- */\r\n.cd-morph-dropdown {\r\n    position: relative;\r\n    height: 60px;\r\n    background-color: #fff;\r\n}\r\n\r\n.cd-morph-dropdown::before {\r\n    /* never visible - used in JS to check mq */\r\n    content: 'mobile';\r\n    display: none;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger {\r\n    /* menu icon - visible on small screens only */\r\n    position: absolute;\r\n    top: 35px;\r\n    right: 0;\r\n    height: 40px;\r\n    width: 60px;\r\n    /* replace text with icon */\r\n    overflow: hidden;\r\n    text-indent: 100%;\r\n    white-space: nowrap;\r\n    color: transparent;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span, .cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\r\n    /* these are the 3 lines of the menu icon */\r\n    position: absolute;\r\n    background-color: #1A1A1A;\r\n    height: 3px;\r\n    width: 26px;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span {\r\n    left: 50%;\r\n    top: 50%;\r\n    bottom: auto;\r\n    right: auto;\r\n    -webkit-transform: translateX(-50%) translateY(-50%);\r\n    -ms-transform: translateX(-50%) translateY(-50%);\r\n    transform: translateX(-50%) translateY(-50%);\r\n    -webkit-transition: background-color .3s;\r\n    transition: background-color .3s;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::after, .cd-morph-dropdown .nav-trigger span::before {\r\n    content: '';\r\n    left: 0;\r\n    -webkit-transition: -webkit-transform .3s;\r\n    transition: -webkit-transform .3s;\r\n    transition: transform .3s;\r\n    transition: transform .3s, -webkit-transform .3s;\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::before {\r\n    -webkit-transform: translateY(-9px);\r\n    -ms-transform: translateY(-9px);\r\n    transform: translateY(-9px);\r\n}\r\n\r\n.cd-morph-dropdown .nav-trigger span::after {\r\n    -webkit-transform: translateY(9px);\r\n    -ms-transform: translateY(9px);\r\n    transform: translateY(9px);\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span {\r\n    background-color: transparent;\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span::before {\r\n    -webkit-transform: rotate(45deg);\r\n    -ms-transform: rotate(45deg);\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .nav-trigger span::after {\r\n    -webkit-transform: rotate(-45deg);\r\n    -ms-transform: rotate(-45deg);\r\n    transform: rotate(-45deg);\r\n}\r\n\r\n.cd-morph-dropdown .main-nav {\r\n    display: none;\r\n}\r\n\r\n.cd-morph-dropdown .morph-dropdown-wrapper {\r\n    display: none;\r\n    position: absolute;\r\n    top: 60px;\r\n    left: 0;\r\n    width: 100%;\r\n    padding: 1.2em 5%;\r\n    box-shadow: inset 0 1px 0 #e6e6e6;\r\n    background-color: #fff;\r\n}\r\n\r\n.cd-morph-dropdown.nav-open .morph-dropdown-wrapper {\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .dropdown-list > ul > li {\r\n    margin-bottom: 3.3em;\r\n}\r\n\r\n.cd-morph-dropdown .label {\r\n    display: block;\r\n    font-size: 2.2rem;\r\n    color: #1A1A1A;\r\n    margin-bottom: .8em;\r\n}\r\n\r\n.cd-morph-dropdown .content li::after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content li {\r\n    margin-bottom: 1.4em;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a {\r\n    display: block;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a::before {\r\n    /* icon on the left */\r\n    content: '';\r\n    display: inline-block;\r\n    float: left;\r\n    height: 54px;\r\n    width: 54px;\r\n    margin-right: .6em;\r\n    background: red;\r\n    border-radius: 50%;\r\n    -webkit-transition: background .2s;\r\n    transition: background .2s;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a span, .cd-morph-dropdown .gallery .content a em {\r\n    display: block;\r\n    line-height: 1.2;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a em {\r\n    font-size: 1.8rem;\r\n    padding: .4em 0 .2em;\r\n    color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a span {\r\n    font-size: 1.4rem;\r\n    color: #a6a6a6;\r\n}\r\n\r\n.cd-morph-dropdown .gallery .content a:hover::before {\r\n    background-color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .links-list a,\r\n.cd-morph-dropdown .btn {\r\n    display: block;\r\n    margin-left: 14px;\r\n    font-size: 12px;\r\n    line-height: 1.6;\r\n}\r\n\r\n.cd-morph-dropdown .links-list a:hover,\r\n.cd-morph-dropdown .btn:hover {\r\n    color: #1A1A1A;\r\n}\r\n\r\n.cd-morph-dropdown .content h2 {\r\n    color: #a6a6a6;\r\n    text-transform: uppercase;\r\n    font-weight: bold;\r\n    font-size: 1.3rem;\r\n    margin: 20px 0 10px 14px;\r\n}\r\n\r\n@media only screen and (min-width: 1000px) {\r\n    .cd-morph-dropdown {\r\n        position: absolute;\r\n        height: 40px;\r\n        left: 0;\r\n        top: 35px;\r\n        z-index: 99;\r\n        width: 100%;\r\n        padding: 0;\r\n        text-align: center;\r\n        background-color: transparent;\r\n    }\r\n\r\n    .cd-morph-dropdown::before {\r\n        content: 'desktop';\r\n    }\r\n\r\n    .cd-morph-dropdown .nav-trigger {\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav {\r\n        display: inline-block;\r\n        width: 1240px;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav > ul > li {\r\n        display: inline-block;\r\n        float: left;\r\n    }\r\n\r\n    .cd-morph-dropdown .main-nav > ul > li > a {\r\n        display: block;\r\n        padding: 0 1.8em;\r\n        height: 40px;\r\n        line-height: 40px;\r\n        color: #333;\r\n        font-size: 16px;\r\n        font-weight: bold;\r\n        -webkit-font-smoothing: antialiased;\r\n        -moz-osx-font-smoothing: grayscale;\r\n        -webkit-transition: opacity .2s;\r\n        transition: opacity .2s;\r\n    }\r\n\r\n\r\n\r\n    .cd-morph-dropdown .morph-dropdown-wrapper {\r\n        /* dropdown wrapper - used to create the slide up/slide down effect when dropdown is revealed/hidden */\r\n        display: block;\r\n        top: 58px;\r\n        /* overwrite mobile style */\r\n        width: auto;\r\n        padding: 0;\r\n        box-shadow: none;\r\n        background-color: transparent;\r\n        /* Force Hardware acceleration */\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform;\r\n        -webkit-transform: translateY(20px);\r\n        -ms-transform: translateY(20px);\r\n        transform: translateY(20px);\r\n        -webkit-transition: -webkit-transform .3s;\r\n        transition: -webkit-transform .3s;\r\n        transition: transform .3s;\r\n        transition: transform .3s, -webkit-transform .3s;\r\n    }\r\n\r\n    .main-nav li:hover a{\r\n        background-color: #266ec1;\r\n        color: #fff !important;\r\n    }\r\n\r\n\r\n    .main-nav li:hover a.bl_active_color{\r\n        background-color: #d13030;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .has-dropdown.active a{\r\n        background-color: #266ec1;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .has-dropdown.active a.bl_active_color{\r\n        background-color: #d13030;\r\n        color: #fff !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .morph-dropdown-wrapper {\r\n        -webkit-transform: translateY(0);\r\n        -ms-transform: translateY(0);\r\n        transform: translateY(0);\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list {\r\n        position: absolute;\r\n        top: -10px;\r\n        left: 0;\r\n        visibility: hidden;\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform, width, height;\r\n        -webkit-transition: visibility .3s;\r\n        transition: visibility .3s;\r\n        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);\r\n    }\r\n\r\n    .no-csstransitions .cd-morph-dropdown .dropdown-list {\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list::before {\r\n        /* dropdown top triangle */\r\n        content: '';\r\n        position: absolute;\r\n        bottom: 100%;\r\n        left: 50%;\r\n        right: auto;\r\n        -webkit-transform: translateX(-50%);\r\n        -ms-transform: translateX(-50%);\r\n        transform: translateX(-50%);\r\n        height: 0;\r\n        width: 0;\r\n        border: 12px solid transparent;\r\n        border-bottom-color: #266ec1;\r\n        opacity: 0;\r\n        -webkit-transition: opacity .3s;\r\n        transition: opacity .3s;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list.bl_dropdown_list::before{\r\n        border-bottom-color: #d13030;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown-list > ul {\r\n        position: relative;\r\n        z-index: 1;\r\n        height: 100%;\r\n        width: 100%;\r\n        overflow: hidden;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list {\r\n        border-radius: 5px;\r\n        visibility: visible;\r\n        -webkit-transition: width .3s, height .3s, -webkit-transform .3s;\r\n        transition: width .3s, height .3s, -webkit-transform .3s;\r\n        transition: transform .3s, width .3s, height .3s;\r\n        transition: transform .3s, width .3s, height .3s, -webkit-transform .3s;\r\n        border-top: 5px solid #266ec1 !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list.bl_dropdown_list{\r\n        border-top: 5px solid #d13030 !important;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .dropdown-list::before {\r\n        opacity: 1;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown {\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        opacity: 0;\r\n        visibility: hidden;\r\n        width: 100%;\r\n        -webkit-transition: opacity .3s, visibility .3s;\r\n        transition: opacity .3s, visibility .3s;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.active {\r\n        opacity: 1;\r\n        visibility: visible;\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.move-left .content {\r\n        -webkit-transform: translateX(-100px);\r\n        -ms-transform: translateX(-100px);\r\n        transform: translateX(-100px);\r\n    }\r\n\r\n    .cd-morph-dropdown .dropdown.move-right .content {\r\n        -webkit-transform: translateX(100px);\r\n        -ms-transform: translateX(100px);\r\n        transform: translateX(100px);\r\n    }\r\n\r\n    .cd-morph-dropdown .label {\r\n        /* hide the label on bigger devices */\r\n        display: none;\r\n    }\r\n\r\n    .cd-morph-dropdown .content {\r\n        padding: 2.2em 1.8em;\r\n        -webkit-transition: -webkit-transform .3s;\r\n        transition: -webkit-transform .3s;\r\n        transition: transform .3s;\r\n        transition: transform .3s, -webkit-transform .3s;\r\n        text-align: left;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul::after {\r\n        clear: both;\r\n        content: \"\";\r\n        display: block;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul{\r\n        display: flex;\r\n        flex-direction: row;\r\n        flex-wrap: wrap;\r\n    }\r\n\r\n    .cd-morph-dropdown .content > ul > li{\r\n        min-width: 60px;\r\n        margin-right: 5px;\r\n    }\r\n\r\n    .cd-morph-dropdown .gallery .content {\r\n        /* you need to set a width for the .content elements because they have a position absolute */\r\n        width: 510px;\r\n        padding-bottom: .8em;\r\n    }\r\n\r\n    .cd-morph-dropdown .gallery .content li {\r\n        margin-bottom: 1.8em;\r\n    }\r\n\r\n    .cd-morph-dropdown .links .content > ul > li {\r\n        margin-top: 0;\r\n        margin-bottom: 1em;\r\n    }\r\n    .cd-morph-dropdown .links .content,\r\n    .cd-morph-dropdown .button .content {\r\n        width: 500px;\r\n    }\r\n\r\n    .cd-morph-dropdown .links-list a {\r\n        font-size: 12px;\r\n        margin-left: 0;\r\n    }\r\n\r\n    .cd-morph-dropdown .btn {\r\n        display: block;\r\n        width: 100%;\r\n        height: 60px;\r\n        margin: 1.5em 0 0;\r\n        font-size: 1.8rem;\r\n        text-align: center;\r\n        color: #fff;\r\n        line-height: 60px;\r\n        background: #DB6356;\r\n        -webkit-font-smoothing: antialiased;\r\n        -moz-osx-font-smoothing: grayscale;\r\n    }\r\n\r\n    .cd-morph-dropdown .btn:hover {\r\n        background: #1A1A1A;\r\n        color: #fff;\r\n    }\r\n\r\n\r\n    .cd-morph-dropdown .content h2 {\r\n        font-size: 14px;\r\n        text-transform: none;\r\n        font-weight: normal;\r\n        color: #266ec1;\r\n        margin: 0 0 .6em;\r\n    }\r\n    .cd-morph-dropdown .bg-layer {\r\n        /* morph dropdown background */\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        height: 1px;\r\n        width: 1px;\r\n        background: #fff;\r\n        opacity: 0;\r\n        -webkit-transition: opacity .3s;\r\n        transition: opacity .3s;\r\n        -webkit-transform-origin: top left;\r\n        -ms-transform-origin: top left;\r\n        transform-origin: top left;\r\n        -webkit-transform: translateZ(0);\r\n        transform: translateZ(0);\r\n        will-change: transform;\r\n        -webkit-backface-visibility: hidden;\r\n        backface-visibility: hidden;\r\n    }\r\n\r\n    .cd-morph-dropdown.is-dropdown-visible .bg-layer {\r\n        opacity: 1;\r\n        -webkit-transition: opacity .3s, -webkit-transform .3s;\r\n        transition: opacity .3s, -webkit-transform .3s;\r\n        transition: transform .3s, opacity .3s;\r\n        transition: transform .3s, opacity .3s, -webkit-transform .3s;\r\n    }\r\n}\r\n", ""]);
 
 // exports
 
@@ -77395,7 +77427,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -77499,8 +77531,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.info"
     }
-  })], 1), _vm._v(" "), _c('Button', {
-    staticClass: "pull-right",
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "my_ok_button"
+  }, [_c('Button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -77510,7 +77543,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "查看截图"
     },
@@ -78065,7 +78102,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "button_one_text"
-  }, [_vm._v("下载")])])])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.plug.type === 3 ? '下载' : '获取'))])])])], 1), _vm._v(" "), _c('div', {
     staticClass: "thumb_view"
   }, [_c('div', {
     staticClass: "title",
@@ -78159,7 +78196,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": ""
       }
-    }, [_vm._v(_vm._s(v.type) + " - " + _vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
+    }, [_vm._v(_vm._s(v.name) + "-" + _vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
   }))])])], 1)], 1), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
@@ -79079,7 +79116,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_c('span', {
+      staticClass: "my_gold"
+    }, [_vm._v(_vm._s(v.gold))])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
         "width": "20%"
@@ -79503,7 +79542,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       class: {
         'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
       }
-    }, [_vm._v(_vm._s(v.gold))]), _vm._v(" "), (v.order) ? _c('span', {
+    }, [_vm._v("[" + _vm._s(v.gold) + "]")]), _vm._v(" "), (v.order) ? _c('span', {
       staticStyle: {
         "color": "#d13030"
       }
@@ -79573,7 +79612,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "border-radius": "2px",
       "background": "#fff",
-      "color": "#333"
+      "color": "#333",
+      "border": "1px solid #333"
     },
     attrs: {
       "type": "button"
@@ -79589,7 +79629,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_button_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     staticStyle: {
-      "border-radius": "2px"
+      "border-radius": "2px",
+      "border": "1px solid #266ec1"
     },
     attrs: {
       "type": "button"
@@ -80547,7 +80588,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.c_rank(v.id, k)
         }
       }
-    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))])], 1)])
+    }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))]), _vm._v(" "), _c('Poptip', {
+      attrs: {
+        "confirm": "",
+        "title": "您确认删除这条记录吗？"
+      },
+      on: {
+        "on-ok": function($event) {
+          _vm.del_this(v.id)
+        }
+      }
+    }, [_c('Button', {
+      attrs: {
+        "size": "small",
+        "type": "error"
+      }
+    }, [_vm._v("删除")])], 1)], 1)])
   })) : _c('tbody', [_vm._m(1)])]), _vm._v(" "), _c('div', {
     staticClass: "page pull-right"
   }, [_c('Page', {
@@ -81305,7 +81361,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.gold) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_c('span', {
+      staticClass: "my_gold"
+    }, [_vm._v(_vm._s(v.gold))])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
@@ -83020,7 +83078,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -83124,8 +83182,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.info"
     }
-  })], 1), _vm._v(" "), _c('Button', {
-    staticClass: "pull-right",
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "my_ok_button"
+  }, [_c('Button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -83135,7 +83194,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -83435,7 +83494,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -83539,8 +83598,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.info"
     }
-  })], 1), _vm._v(" "), _c('Button', {
-    staticClass: "pull-right",
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "my_ok_button"
+  }, [_c('Button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -83550,7 +83610,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])]), _vm._v(" "), _c('div', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('div', {
     staticStyle: {
       "clear": "both"
     }
@@ -84015,7 +84075,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1)], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -84119,8 +84179,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "formItem.info"
     }
-  })], 1), _vm._v(" "), _c('Button', {
-    staticClass: "pull-right",
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "my_ok_button"
+  }, [_c('Button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -84130,7 +84191,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toLoading('formItem')
       }
     }
-  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1), _vm._v(" "), _c('Modal', {
+  }, [(!_vm.loading) ? _c('span', [_vm._v("确定")]) : _c('span', [_vm._v("Loading...")])])], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "查看截图"
     },
@@ -85105,7 +85166,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "primary"
     }
-  }, [_vm._v("添加插件")])], 1)], 1), _vm._v(" "), _c('table', {
+  }, [_vm._v("添加资源")])], 1)], 1), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered my_admin_table"
   }, [_vm._m(0), _vm._v(" "), (_vm.list.length > 0) ? _c('tbody', _vm._l((_vm.list), function(v, k) {
     return _c('tr', [_c('td', {
@@ -85147,30 +85208,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(_vm.configPlugType[v.type] + (v.tag_one ? '/' + v.tag_one.name : '') + (v.tag_two ? '/' + v.tag_two.name : ''))
       }
-    })])])], 1), _vm._v(" "), _c('td', [(v.type < 3) ? _c('Button', {
+    })])])], 1), _vm._v(" "), _c('td', [(v.type < 3) ? _c('Tag', {
       staticClass: "clipboard",
       attrs: {
-        "type": "text",
-        "size": "small",
+        "type": "border",
+        "color": "blue",
         "data-clipboard-text": v.content
       },
-      on: {
-        "click": _vm.clipboard
+      nativeOn: {
+        "click": function($event) {
+          _vm.clipboard($event)
+        }
       }
-    }, [_vm._v("复制")]) : _c('Button', {
-      attrs: {
-        "type": "text",
-        "size": "small"
-      }
-    }, [_c('a', {
+    }, [_vm._v("复制")]) : _c('a', {
       attrs: {
         "href": v.content,
         "target": "_blank"
       }
-    }, [_vm._v("下载")])])], 1), _vm._v(" "), _c('td', [_c('Tag', {
+    }, [_c('Tag', {
       attrs: {
         "type": "border",
-        "color": v.is_new === 1 ? 'blue' : 'red'
+        "color": "red"
+      }
+    }, [_vm._v("下载")])], 1)], 1), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "border",
+        "color": "blue"
       }
     }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_new]))])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.download_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.like_num))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.collect_num))]), _vm._v(" "), _c('td', {
       staticStyle: {
@@ -85258,7 +85321,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.is_disabled === k ? '确定' : '推荐'))]), _vm._v(" "), _c('Poptip', {
       attrs: {
         "confirm": "",
-        "title": "您确认删除这条内容吗？"
+        "title": "您确认删除这条记录吗？"
       },
       on: {
         "on-ok": function($event) {
@@ -85288,7 +85351,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("资源分类")]), _vm._v(" "), _c('th', [_vm._v("资源内容")]), _vm._v(" "), _c('th', [_vm._v("是否最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("插件名称")]), _vm._v(" "), _c('th', [_vm._v("作者")]), _vm._v(" "), _c('th', [_vm._v("售价")]), _vm._v(" "), _c('th', [_vm._v("资源分类")]), _vm._v(" "), _c('th', [_vm._v("资源查看")]), _vm._v(" "), _c('th', [_vm._v("是否最新")]), _vm._v(" "), _c('th', [_vm._v("下载次数")]), _vm._v(" "), _c('th', [_vm._v("推荐次数")]), _vm._v(" "), _c('th', [_vm._v("收藏次数")]), _vm._v(" "), _c('th', [_vm._v("状态")]), _vm._v(" "), _c('th', [_vm._v("审核")]), _vm._v(" "), _c('th', [_vm._v("排序")]), _vm._v(" "), _c('th', [_vm._v("操作")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('td', {
     staticStyle: {
@@ -85406,10 +85469,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "width": "10%"
       }
-    }, [_vm._v(_vm._s(v.plug.gold) + " 金币")]), _vm._v(" "), _c('div', {
+    }, [_c('span', {
+      staticClass: "my_gold"
+    }, [_vm._v(_vm._s(v.plug.gold))])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
-        "width": "10%"
+        "width": "20%"
       }
     }, [_vm._v(_vm._s(v.plug.version))]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
@@ -85419,7 +85484,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.plug.game_version))]), _vm._v(" "), _c('div', {
       staticClass: "td_child tool tt_center",
       staticStyle: {
-        "width": "30%",
+        "width": "20%",
         "position": "relative"
       }
     }, [_c('router-link', {
@@ -85481,7 +85546,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("售价")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
     staticStyle: {
-      "width": "10%"
+      "width": "20%"
     }
   }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
@@ -85491,7 +85556,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
     staticStyle: {
-      "width": "30%"
+      "width": "20%"
     }
   }, [_vm._v("操作")])])
 }]}
@@ -85516,7 +85581,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_tab_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     },
     attrs: {
-      "value": _vm.$route.params.name ? _vm.$route.params.name : 1
+      "value": _vm.$route.params.name != '' ? _vm.$route.params.name : 1
     }
   }, [_c('Tab-pane', {
     attrs: {
@@ -86180,7 +86245,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                    " + _vm._s(_vm.is_disabled === k ? '确定' : '排序') + "\n                ")]), _vm._v(" "), _c('Poptip', {
       attrs: {
         "confirm": "",
-        "title": "您确认删除这条内容吗？"
+        "title": "您确认删除这条记录吗？"
       },
       on: {
         "on-ok": function($event) {

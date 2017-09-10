@@ -93,7 +93,7 @@
         .title
             margin 0 auto
             width 1300px
-            padding 0 15px 0 30px;
+            padding 0 27px 0 40px;
             .logo
                 float left
                 a

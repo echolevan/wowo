@@ -159,4 +159,5 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::post("check_tag_name/{id?}",'TagController@check_tag_name'); //检查tag name
     Route::delete("tag/{id}",'TagController@delete'); //删除 tag
+    Route::delete("bms/{id}",'BmController@delete'); //删除 bm
 });

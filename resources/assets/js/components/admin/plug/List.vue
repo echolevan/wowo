@@ -119,13 +119,11 @@
                     </Tooltip>
                 </td>
                 <td>
-                    <Button type="text" size="small" v-if="v.type < 3" class="clipboard" :data-clipboard-text="v.content" @click="clipboard">复制</Button>
-                    <Button type="text" size="small" v-else>
-                        <a :href="v.content" target="_blank">下载</a>
-                    </Button>
+                    <Tag type="border" color="blue" v-if="v.type < 3" class="clipboard" :data-clipboard-text="v.content" @click.native="clipboard">复制</Tag>
+                    <a :href="v.content" target="_blank"  v-else><Tag type="border" color="red">下载</Tag></a>
                 </td>
                 <td>
-                    <Tag type="border" :color="v.is_new === 1 ? 'blue' : 'red'">{{configYesOrNo[v.is_new]}}</Tag>
+                    <Tag type="border" color="blue">{{configYesOrNo[v.is_new]}}</Tag>
                 </td>
                 <td>{{v.download_num}}</td>
                 <td>{{v.like_num}}</td>

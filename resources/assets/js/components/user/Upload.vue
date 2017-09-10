@@ -16,7 +16,7 @@
                     </Poptip>
                 </div>
                 <div class="td_child tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
-                <div class="td_child tt_center" style="width: 10%" v-else>{{v.gold}} 金币</div>
+                <div class="td_child tt_center" style="width: 10%" v-else><span class="my_gold">{{v.gold}}</span></div>
                 <div class="td_child tt_center" style="width: 10%">{{v.is_check === 1 ? '已审核' : '待审核'}}</div>
                 <div class="td_child hover_hand tt_center" style="width: 10%">
                     <Poptip :content="v.version" trigger="hover"  placement="bottom">

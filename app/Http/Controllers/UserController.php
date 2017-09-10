@@ -450,7 +450,7 @@ class UserController extends Controller
         if(Auth::user()->gold < 2000){
             return ['sta'=>0 , 'msg'=>'当金币数量等同于200人民币时可申请提现'];
         }else if((time() - strtotime(Auth::user()->created_at)) < (30*60*60*24)){
-            return ['sta'=>0 , 'msg'=>'新注册用户30日内不能提现'];
+            return ['sta'=>0 , 'msg'=>'新注册用户 <span style="color: #d13030;font-size: 20px;font-weight: bold">30</span> 日内不能提现'];
         }else if(!Auth::user()->alipay){
             return ['sta'=>0 , 'msg'=>'请先绑定支付宝'];
         }

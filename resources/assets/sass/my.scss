@@ -18,7 +18,13 @@
   color: #266ec1 !important;
 }
 
-
+.my_ok_button{
+  width: 100%;
+  text-align: center;
+}
+.my_ok_button button{
+  width: 300px;
+}
 .bl_hover_line_color:hover{
   color: #d13030 !important;
 }

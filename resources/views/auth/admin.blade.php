@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>嘿市</title>
+    <title>嘿市 - 分享快乐 愉悦他人</title>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),

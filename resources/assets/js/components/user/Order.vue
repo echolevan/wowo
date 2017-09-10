@@ -4,9 +4,9 @@
             <div class="td_head_div">
                 <div style="width: 40%">资源名称</div>
                 <div class="tt_center" style="width: 10%">售价</div>
-                <div class="tt_center" style="width: 10%">版本</div>
+                <div class="tt_center" style="width: 20%">版本</div>
                 <div class="tt_center" style="width: 10%">游戏版本</div>
-                <div class="tt_center" style="width: 30%">操作</div>
+                <div class="tt_center" style="width: 20%">操作</div>
 
             </div>
             <div class="td_div" v-for="(v,k) in orders">
@@ -16,10 +16,10 @@
                     </Poptip>
                 </div>
                 <div class="td_child tt_center" style="width: 10%" v-if="v.plug.gold === 0">免费</div>
-                <div class="td_child tt_center" style="width: 10%" v-else>{{v.plug.gold}} 金币</div>
-                <div class="td_child tt_center" style="width: 10%">{{v.plug.version}}</div>
+                <div class="td_child tt_center" style="width: 10%" v-else><span class="my_gold">{{v.plug.gold}}</span></div>
+                <div class="td_child tt_center" style="width: 20%">{{v.plug.version}}</div>
                 <div class="td_child tt_center" style="width: 10%">{{v.plug.game_version}}</div>
-                <div class="td_child tool tt_center" style="width: 30%;position: relative">
+                <div class="td_child tool tt_center" style="width: 20%;position: relative">
                     <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.plug.id}}">
                         查看详情
                     </router-link>

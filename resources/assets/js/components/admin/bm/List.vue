@@ -87,6 +87,12 @@
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
                     <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
+                    <Poptip
+                            confirm
+                            title="您确认删除这条记录吗？"
+                            @on-ok="del_this(v.id)">
+                        <Button size="small" type="error">删除</Button>
+                    </Poptip>
                 </td>
             </tr>
             </tbody>
@@ -249,6 +255,16 @@
                     }
                     this.$Loading.finish()
                     this.loading_s = false
+                })
+            },
+            del_this(id) {
+                axios.delete(`/admin/bms/${id}`).then(res => {
+                    if(res.data.sta === 1){
+                        this.search()
+                        this.$Message.success(res.data.msg)
+                    }else{
+                        this.$Message.error(res.data.msg)
+                    }
                 })
             }
         },

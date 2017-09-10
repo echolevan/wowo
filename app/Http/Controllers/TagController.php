@@ -11,7 +11,7 @@ class TagController extends Controller
     public function index ($type)
     {
         $type = config('my.tag_type')[$type];
-        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank', 'desc')->latest()->get();
+        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank', 'asc')->latest()->get();
         return $tags;
     }
 

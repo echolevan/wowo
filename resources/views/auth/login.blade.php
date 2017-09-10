@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <title>嘿市</title>
+    <title>嘿市 - 分享快乐 愉悦他人</title>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -24,16 +24,19 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
     <style>
-        .lm_button{
+        .lm_button {
             background: #266ec1;
         }
-        .bl_button{
+
+        .bl_button {
             background: #d13030;
         }
-        body{
+
+        body {
             font-family: Small Head !important;
         }
-        button, input, select, textarea{
+
+        button, input, select, textarea {
             font-family: Small Head !important;
         }
     </style>
@@ -65,7 +68,7 @@
                         <p>{{ $errors->first('password') }}</p>
                     @endif
                     <br>
-                    <input type="text"  name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
+                    <input type="text" name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
                     <div style="margin: 15px 0 15px 20px; float: left;" class="captcha">{!! captcha_img() !!}</div>
                     <div style="clear: both"></div>
                     @if ($errors->has('captcha'))
@@ -78,7 +81,12 @@
                     @endif
                 </form>
                 <span>没有帐号？
-        <a href="{{route('register')}}" style="color: #fff">点击注册</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
+        <a href="{{route('register')}}" style="color: #fff">点击注册</a>
+            <p>
+                <a href="/password/reset" style="color: #fff">忘记密码</a>
+                <span>|</span>
+                <a href="{{route('index')}}"
+                   style="color: #fff">返回首页</a></p>
         </span>
             </div>
         </div>
@@ -101,15 +109,15 @@
             delay: 20
         });
 
-        $(".captcha").click(function(){
+        $(".captcha").click(function () {
             let url = '{{captcha_src()}}' + Math.random();
-            $(this).find('img').attr('src',url)
+            $(this).find('img').attr('src', url)
         })
 
         $(".input_e").focus(function () {
-            if(this_camp === 1 || this_camp === 2 || this_camp === 0){
+            if (this_camp === 1 || this_camp === 2 || this_camp === 0) {
 
-            }else{
+            } else {
                 $(".my-button").removeClass('lm_button bl_button');
                 this_camp = 0
                 window.myFlux.showImage(0);
@@ -117,9 +125,9 @@
         })
 
         $(".input_p").focus(function () {
-            if(this_camp === 1 || this_camp === 2 || this_camp === 3){
+            if (this_camp === 1 || this_camp === 2 || this_camp === 3) {
 
-            }else{
+            } else {
                 $(".my-button").removeClass('lm_button bl_button');
                 this_camp = 3
                 window.myFlux.showImage(3);
@@ -130,22 +138,22 @@
             $.ajax({
                 url: "/check_login_email",
                 type: 'post',
-                data: {email: $("input[name='email']").val() , '_token': "{{csrf_token()}}"},
+                data: {email: $("input[name='email']").val(), '_token': "{{csrf_token()}}"},
                 success: function (res) {
                     console.log(res)
-                    if(res.sta === 1){
-                        if(this_camp === res.camp){
+                    if (res.sta === 1) {
+                        if (this_camp === res.camp) {
                             return false
-                        }else{
+                        } else {
                             this_camp = res.camp;
                         }
                         $(".my-button").removeClass('lm_button bl_button');
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
                         window.myFlux.showImage(res.camp);
-                    }else{
-                        if(this_camp === 0 || this_camp === 3){
+                    } else {
+                        if (this_camp === 0 || this_camp === 3) {
 
-                        }else{
+                        } else {
                             this_camp = 0
                             window.myFlux.showImage(0);
                         }

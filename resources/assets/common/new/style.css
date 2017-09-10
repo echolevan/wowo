@@ -403,7 +403,7 @@
     }
 
     .cd-morph-dropdown .content > ul > li{
-        width: 60px;
+        min-width: 60px;
         margin-right: 5px;
     }
 
