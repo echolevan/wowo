@@ -218,9 +218,6 @@
                     ],
                     type: [
                         {validator: validateType, required: true, trigger: 'change'}
-                    ],
-                    thumb: [
-                        {validator: validateUploadList, required: true, trigger: 'change'},
                     ]
                 }
             }

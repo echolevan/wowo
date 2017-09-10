@@ -331,7 +331,7 @@
         },
         mounted() {
             $(document).on("click", ".down", function () {
-                $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
+                $(this).siblings(".child").toggle(300).parent().siblings().children(".child").hide();
             })
             this._init()
         },

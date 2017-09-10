@@ -59,6 +59,7 @@
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
                 <Upload action="/upload_plug_info_plug"
+                        :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -224,6 +225,7 @@
                     plug_url: '',
                     name: ''
                 },
+                selectedDataName: '',
                 imgName: '',
                 visible: false,
                 loading: false,
@@ -309,6 +311,7 @@
                 this.formItem.gold = 1
             },
             on_sel(v) {
+                this.selectedDataName = selectedData[1].label
                 this.formItem.type = v
                 this.formItem.content = ''
                 this.formItem.is_free = false

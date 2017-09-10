@@ -12,6 +12,12 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <style>
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px white inset !important;
+            -webkit-text-fill-color: #333 !important;
+        }
+    </style>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body>

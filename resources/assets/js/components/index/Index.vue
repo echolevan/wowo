@@ -8,7 +8,7 @@
                 <img :src="c1" @mouseenter="enter(1)" @mouseleave="leave(1)" @click="choice(1)" alt="">
             </div>
             <div class="c_two">
-                <img :src="c2" @mouseenter="enter(2)" @mouseleave="leave(2)"  @click="choice(2)" alt="">
+                <img :src="c2" @mouseenter="enter(2)" @mouseleave="leave(2)"  @click="choice(2)" alt="" style="height: 388px">
             </div>
         </div>
     </div>

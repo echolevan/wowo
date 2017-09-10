@@ -43,10 +43,10 @@ class AdminController extends Controller
         Cache::put($cache_name , $num+1 , 1);
 
         $message = [
-          'captcha.required' => '验证码不能为空',
-          'captcha.captcha' => '验证码错误',
-          'email.required' => '帐号不能为空',
-          'email.string' => '帐号错误',
+          'captcha.required' => '验证码 不能为空',
+          'captcha.captcha' => '验证码 错误',
+          'email.required' => '帐号 不能为空',
+          'email.string' => '帐号 错误',
         ];
         $this->validate($request, [
             'email' => 'required|string',

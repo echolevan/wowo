@@ -49,6 +49,7 @@
 
             <Form-item label="上传插件" v-show="formItem.type[0] === 3" prop="plug_url">
                 <Upload action="/upload_plug_info_plug"
+                        :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -208,6 +209,7 @@
                     plug_url: '',
                     name: ''
                 },
+                selectedDataName: '',
                 upload_type: '',
                 imgName: '',
                 visible: false,
@@ -316,7 +318,8 @@
             swi() {
                 this.formItem.gold = 1
             },
-            on_sel(v) {
+            on_sel(v, selectedData) {
+                this.selectedDataName = selectedData[1].label
                 this.formItem.type = v
                 this.formItem.content = ''
                 this.formItem.is_free = false
@@ -335,6 +338,7 @@
 
                 let type = localStorage.getItem('upload_type')
                 let tag_name = localStorage.getItem('upload_type_name')
+                this.selectedDataName = tag_name
                 localStorage.removeItem('upload_type')
                 localStorage.removeItem('upload_type_name')
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {

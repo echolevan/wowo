@@ -15,7 +15,13 @@
                     </Poptip>
                 </div>
                 <div class="td_child hidden_div tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
-                <div class="td_child tt_center" style="width: 10%" v-else><span class="my_gold">{{v.gold}}</span></div>
+                <div class="td_child tt_center" style="width: 10%" v-else>
+                    <span class="my_gold normal_font"
+                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                    >
+                    {{v.gold}}
+                </span>
+                </div>
                 <div class="td_child tt_center" style="width: 20%">{{v.version}}</div>
                 <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
                 <div class="td_child tool tt_center" style="width: 10%">

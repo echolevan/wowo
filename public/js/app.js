@@ -3002,6 +3002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -3100,6 +3101,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 plug_url: '',
                 name: ''
             },
+            selectedDataName: '',
             imgName: '',
             visible: false,
             del_plug_sta: 1,
@@ -3159,6 +3161,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
+            this.selectedDataName = selectedData[1].label;
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
@@ -3402,6 +3405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -3501,6 +3505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 plug_url: '',
                 name: ''
             },
+            selectedDataName: '',
             imgName: '',
             visible: false,
             loading: false,
@@ -3561,6 +3566,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
+            this.selectedDataName = selectedData[1].label;
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
@@ -4189,8 +4195,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             plug_tags: [],
             ruleValidate: {
                 name: [{ required: true, message: '名称不能为空', trigger: 'blur' }, { max: 30, message: '标题最长30字符', trigger: 'change' }],
-                type: [{ validator: validateType, required: true, trigger: 'change' }],
-                thumb: [{ validator: validateUploadList, required: true, trigger: 'change' }]
+                type: [{ validator: validateType, required: true, trigger: 'change' }]
             }
         };
     },
@@ -7394,6 +7399,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -7492,6 +7498,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 plug_url: '',
                 name: ''
             },
+            selectedDataName: '',
             upload_type: '',
             imgName: '',
             visible: false,
@@ -7572,7 +7579,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         swi: function swi() {
             this.formItem.gold = 1;
         },
-        on_sel: function on_sel(v) {
+        on_sel: function on_sel(v, selectedData) {
+            this.selectedDataName = selectedData[1].label;
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
@@ -7592,6 +7600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var type = localStorage.getItem('upload_type');
             var tag_name = localStorage.getItem('upload_type_name');
+            this.selectedDataName = tag_name;
             localStorage.removeItem('upload_type');
             localStorage.removeItem('upload_type_name');
             axios.get('plug_all_info_type/' + type + '/' + tag_name).then(function (res) {
@@ -7813,6 +7822,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -7912,6 +7925,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             imgName: '',
             visible: false,
+            selectedDataName: '',
             del_plug_sta: 1,
             loading: false,
             csrfToken: window.Laravel.csrfToken,
@@ -7975,6 +7989,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.formItem.gold = 1;
         },
         on_sel: function on_sel(v) {
+            this.selectedDataName = selectedData[1].label;
             this.formItem.type = v;
             this.formItem.content = '';
             this.formItem.is_free = false;
@@ -8420,7 +8435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         $(document).on("click", ".down", function () {
-            $(this).siblings(".child").show('300').parent().siblings().children(".child").hide();
+            $(this).siblings(".child").toggle(300).parent().siblings().children(".child").hide();
         });
         this._init();
     },
@@ -8750,6 +8765,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9263,6 +9284,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10112,6 +10142,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -77416,6 +77452,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
+      "data": {
+        'tag_one': _vm.selectedDataName
+      },
       "headers": {
         "X-CSRF-TOKEN": _vm.csrfToken
       },
@@ -77428,7 +77467,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v(_vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传'))])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.formItem.plug_url === '' ? '上传文件' : '重新上传') + "\n                ")])], 1), _vm._v(" "), (_vm.formItem.plug_url) ? _c('span', [_vm._v("已上传")]) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "上传截图",
       "prop": "uploadList"
@@ -78197,7 +78236,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": ""
       }
-    }, [_vm._v(_vm._s(v.name) + "-" + _vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
+    }, [_vm._v(_vm._s(v.name ? v.name : v.title) + "-" + _vm._s(v.version))])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))])])
   }))])])], 1)], 1), _vm._v(" "), _c('iCol', {
     attrs: {
       "span": "6"
@@ -79058,6 +79097,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('div', {
     staticClass: "c_two"
   }, [_c('img', {
+    staticStyle: {
+      "height": "388px"
+    },
     attrs: {
       "src": _vm.c2,
       "alt": ""
@@ -79118,8 +79160,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "10%"
       }
     }, [_c('span', {
-      staticClass: "my_gold"
-    }, [_vm._v(_vm._s(v.gold))])]), _vm._v(" "), _c('div', {
+      staticClass: "my_gold normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v("\n                " + _vm._s(v.gold) + "\n            ")])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
         "width": "20%"
@@ -81365,8 +81410,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "10%"
       }
     }, [_c('span', {
-      staticClass: "my_gold"
-    }, [_vm._v(_vm._s(v.gold))])]), _vm._v(" "), _c('div', {
+      staticClass: "my_gold normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v("\n                " + _vm._s(v.gold) + "\n            ")])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
         "width": "10%"
@@ -81374,7 +81422,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.is_check === 1 ? '已审核' : '待审核'))]), _vm._v(" "), _c('div', {
       staticClass: "td_child hover_hand tt_center",
       staticStyle: {
-        "width": "10%"
+        "width": "13%"
       }
     }, [_c('Poptip', {
       attrs: {
@@ -81390,7 +81438,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(v.game_version))]), _vm._v(" "), _c('div', {
       staticClass: "td_child tool",
       staticStyle: {
-        "width": "40%"
+        "width": "37%"
       }
     }, [_c('router-link', {
       staticClass: "my_a_style",
@@ -81564,7 +81612,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("状态")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
     staticStyle: {
-      "width": "10%"
+      "width": "13%"
     }
   }, [_vm._v("版本")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
@@ -81574,7 +81622,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("游戏版本")]), _vm._v(" "), _c('div', {
     staticClass: "tt_center",
     staticStyle: {
-      "width": "40%"
+      "width": "37%"
     }
   }, [_vm._v("操作")])])
 }]}
@@ -83069,6 +83117,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
+      "data": {
+        'tag_one': _vm.selectedDataName
+      },
       "headers": {
         "X-CSRF-TOKEN": _vm.csrfToken
       },
@@ -83485,6 +83536,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
+      "data": {
+        'tag_one': _vm.selectedDataName
+      },
       "headers": {
         "X-CSRF-TOKEN": _vm.csrfToken
       },
@@ -83825,7 +83879,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "foot"
-  }, [_c('ul', [_c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("加入我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("商务合作")])]), _vm._v("\n            Copyright © 2017 陕西熊猫人网络科技有限公司 嘿市网 版权所有\n            "), _c('br'), _vm._v("\n            陕ICP备17015228号-1\n        ")])
+  }, [_c('ul', [_c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_vm._v("加入我们")]), _vm._v(" "), _c('li', [_vm._v("|")]), _vm._v(" "), _c('li', [_c('a', {
+    attrs: {
+      "href": "mailto: shangwu@iwowcn.com"
+    }
+  }, [_vm._v("商务合作")])])]), _vm._v("\n            Copyright © 2017 陕西熊猫人网络科技有限公司 嘿市网 版权所有\n            "), _c('br'), _vm._v("\n            陕ICP备17015228号-1\n        ")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "goTop hover_hand"
@@ -84066,6 +84124,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "uploadPlug",
     attrs: {
       "action": "/upload_plug_info_plug",
+      "data": {
+        'tag_one': _vm.selectedDataName
+      },
       "headers": {
         "X-CSRF-TOKEN": _vm.csrfToken
       },
@@ -85473,8 +85534,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "10%"
       }
     }, [_c('span', {
-      staticClass: "my_gold"
-    }, [_vm._v(_vm._s(v.plug.gold))])]), _vm._v(" "), _c('div', {
+      staticClass: "my_gold normal_font",
+      class: {
+        'bl_font_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
+      }
+    }, [_vm._v("\n                " + _vm._s(v.plug.gold) + "\n            ")])]), _vm._v(" "), _c('div', {
       staticClass: "td_child tt_center",
       staticStyle: {
         "width": "20%"
