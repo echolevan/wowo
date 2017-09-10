@@ -61,7 +61,7 @@
         data() {
             const validateType = (rule, value, callback) => {
                 if (value.length === 0) {
-                    callback(new Error('插件分类不能为空'));
+                    callback(new Error('分类不能为空'));
                 } else {
                     callback();
                 }
@@ -70,7 +70,7 @@
                 if (value !== '') {
                     axios.post('/admin/check_tag_name',{name: value, pid: this.formItem.type[1]}).then(res =>{
                         if(res.data.sta === 0){
-                            callback(new Error('名称已存在'));
+                            callback(new Error('分类已存在'));
                         }else{
                             callback();
                         }

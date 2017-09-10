@@ -58,11 +58,11 @@ class UploadController extends Controller
         }
         if(isset($request->tag_one) && $request->tag_one === '整合界面'){
             if ($request->file('file')->getSize() > 1024 * 1024*150) {
-                return ['sta' => 0, 'msg' => '请上传小于150M的压缩包'];
+                return ['sta' => 0, 'msg' => '请上传小于150M的文件'];
             }
         }else{
             if ($request->file('file')->getSize() > 1024 * 1024 *10) {
-                return ['sta' => 0, 'msg' => '请上传小于10M的压缩包'];
+                return ['sta' => 0, 'msg' => '请上传小于10M的文件'];
             }
         }
 
