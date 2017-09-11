@@ -80,13 +80,13 @@
                         <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
                     @endif
                 </form>
-                <span>没有帐号？
-        <a href="{{route('register')}}" style="color: #fff">点击注册</a>
-            <p>
-                <a href="/password/reset" style="color: #fff">忘记密码</a>
-                <span>|</span>
+                <span>
+                                    <a href="/password/reset" style="color: #fff">忘记密码</a>
+                                    <span>|</span>
+                            <a href="{{route('register')}}" style="color: #fff">点击注册</a>
+                    <br>
                 <a href="{{route('index')}}"
-                   style="color: #fff">返回首页</a></p>
+                   style="color: #fff">返回首页</a>
         </span>
             </div>
         </div>

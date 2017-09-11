@@ -138,7 +138,7 @@
                 <span>{{down_plug.title}}</span>
             </p>
             <div>
-                <p class="plug_info" v-html="down_plug.content"></p>
+                <p class="plug_info info_hh" v-html="down_plug.content"></p>
             </div>
             <div slot="footer">
                 <div class="my_btn_wrapper clipboard"

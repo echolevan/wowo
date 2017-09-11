@@ -336,6 +336,8 @@ input:-webkit-autofill {
 
 .info_hh {
   width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
   word-wrap: break-word;
   word-break: break-all;
 }
@@ -446,7 +448,7 @@ a, a:active, a:focus, a:hover {
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+  width: 2px;
   height: 0;
 }
 

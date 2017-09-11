@@ -3885,7 +3885,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var validateType = function validateType(rule, value, callback) {
             if (value.length === 0) {
-                callback(new Error('插件分类不能为空'));
+                callback(new Error('分类不能为空'));
             } else {
                 callback();
             }
@@ -3894,7 +3894,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (value !== '') {
                 axios.post('/admin/check_tag_name', { name: value, pid: _this.formItem.type[1] }).then(function (res) {
                     if (res.data.sta === 0) {
-                        callback(new Error('名称已存在'));
+                        callback(new Error('分类已存在'));
                     } else {
                         callback();
                     }
@@ -76752,7 +76752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "w_input",
     attrs: {
       "data": _vm.plug_tags,
-      "placeholder": "请选择职业分类"
+      "placeholder": "请选择插件分类"
     },
     on: {
       "on-change": _vm.on_sel
@@ -78295,7 +78295,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     slot: "header"
   }, [_c('span', [_vm._v(_vm._s(_vm.down_plug.title))])]), _vm._v(" "), _c('div', [_c('p', {
-    staticClass: "plug_info",
+    staticClass: "plug_info info_hh",
     domProps: {
       "innerHTML": _vm._s(_vm.down_plug.content)
     }
@@ -84691,25 +84691,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "padding": "10px 0"
     }
-  }, [_vm._v("\n        显示个人简介\n        "), _c('i-switch', {
-    model: {
-      value: (_vm.show_info),
-      callback: function($$v) {
-        _vm.show_info = $$v
-      },
-      expression: "show_info"
-    }
-  }, [_c('Icon', {
-    attrs: {
-      "type": "android-done"
-    },
-    slot: "open"
-  }), _vm._v(" "), _c('Icon', {
-    attrs: {
-      "type": "android-close"
-    },
-    slot: "close"
-  })], 1), _vm._v("\n        显示安全邮箱\n        "), _c('i-switch', {
+  }, [_vm._v("\n        显示安全邮箱\n        "), _c('i-switch', {
     model: {
       value: (_vm.show_email),
       callback: function($$v) {
@@ -84752,6 +84734,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.show_l_at = $$v
       },
       expression: "show_l_at"
+    }
+  }, [_c('Icon', {
+    attrs: {
+      "type": "android-done"
+    },
+    slot: "open"
+  }), _vm._v(" "), _c('Icon', {
+    attrs: {
+      "type": "android-close"
+    },
+    slot: "close"
+  })], 1), _vm._v("\n        显示个人简介\n        "), _c('i-switch', {
+    model: {
+      value: (_vm.show_info),
+      callback: function($$v) {
+        _vm.show_info = $$v
+      },
+      expression: "show_info"
     }
   }, [_c('Icon', {
     attrs: {
@@ -86625,7 +86625,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "camp"
   }, [_vm._v("阵营：联盟")]) : _c('p', {
     staticClass: "camp"
-  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间：" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间:" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
     staticClass: "user_tool"
   }, [_c('ul', [_c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
@@ -103166,9 +103166,8 @@ var bmType = {
     1: '影视',
     2: '剧集',
     3: '综艺',
-	4: '字幕',
-    5: '软件',
-    6: '其他'
+    4: '软件',
+    5: '其他'
 };
 
 var payStatus = {

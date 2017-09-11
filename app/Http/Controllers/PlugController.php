@@ -326,6 +326,13 @@ class PlugController extends Controller
                 'gold' => $user->gold - $plug->gold
             ]);
 
+
+            $author = User::where('id', $plug->user_id)->first();
+
+            User::where('id', $author->id)->update([
+                'gold' => $author->gold + $plug->gold
+            ]);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

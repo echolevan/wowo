@@ -97,8 +97,8 @@
                    @endif
                    <button type="submit" class="btn_login my-button">注册</button>
                </form>
-               <span>已有帐号？
-        <a href="{{route('login')}}" style="color: #fff">点击登录</a>  OR <a href="{{route('index')}}" style="color: #fff">返回首页</a>
+               <span>
+        <a href="{{route('login')}}" style="color: #fff">点击登录</a>  | <a href="{{route('index')}}" style="color: #fff">返回首页</a>
         </span>
            </div>
         </div>
