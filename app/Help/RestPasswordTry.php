@@ -77,7 +77,7 @@ trait RestPasswordTry
     {
 
         $messages = [
-            'password.is_pass' => '密码 必须有大小写字母+数字',
+            'password.is_pass' => '大小写字母+数字，不少于8位',
         ];
         return $messages;
     }
