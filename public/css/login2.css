@@ -282,6 +282,17 @@ body {
     display: block;
 }
 
+.nice-select .list li{
+    font-weight: bold;
+}
+
+.nice-select .list li:nth-child(2){
+    color: #266ec1;
+}
+
+.nice-select .list li:last-child{
+    color: #d13030;
+}
 .captcha img {
     width: 100%;
     height: 44px;

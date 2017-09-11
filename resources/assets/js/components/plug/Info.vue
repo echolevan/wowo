@@ -259,11 +259,14 @@
             <div style="text-align:center">
                 <img :src="wechat_scan_qr" alt="">
             </div>
-            <div slot="footer">
+            <div slot="footer" style="text-align: center">
+                <span style="font-size: 16px;margin-left: 15px;font-weight: bold;">熊猫人 - 嘿市</span>
                 <Button type="primary"
+                        class="pull-right"
                         @click="wechat_scan = false">
                     <span>关闭</span>
                 </Button>
+                <div style="clear: both"></div>
             </div>
 
         </Modal>

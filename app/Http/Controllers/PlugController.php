@@ -827,7 +827,8 @@ class PlugController extends Controller
 
     public function change_is_check($id, $v)
     {
-        $tag = Plug::where('id',$id)->update([
+        $plug = Plug::find($id);
+        $tag = $plug->update([
             'is_check' =>$v
         ]);
         if($tag)

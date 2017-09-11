@@ -64,7 +64,6 @@ trait RestPasswordTry
     {
         return [
             'token' => 'required',
-            'email' => 'required|email',
             'password' => 'required|string|min:8|is_pass|confirmed',
         ];
     }

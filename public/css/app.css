@@ -37110,6 +37110,12 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #333;
 }
 
+.info_hh {
+  width: 100%;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
 a,
 a:active,
 a:focus,

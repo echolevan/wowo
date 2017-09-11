@@ -105,7 +105,7 @@
                             <Icon type="arrow-down-b"></Icon>
                         </a>
                         <Dropdown-menu slot="list">
-                            <Dropdown-item ><a href="/#/userInfo/setting" target="_blank">修改密码</a></Dropdown-item>
+                            <Dropdown-item ><a href="/#/userInfo/setting/2" target="_blank">修改密码</a></Dropdown-item>
                             <Dropdown-item ><span @click="logout">退出登陆</span></Dropdown-item>
                         </Dropdown-menu>
                     </Dropdown>

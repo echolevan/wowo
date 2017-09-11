@@ -14,7 +14,7 @@
                                 <img :src="tag.thumb" alt="">
                                 {{tag.name}}
                             </li>
-                            <div class="child" v-if="tag.tags.length > 0">
+                            <div class="child" :class="{'child_active': tag_active === tag.id || (tag_active_pid !== 0 && tag_active_pid === tag.id)}"   v-if="tag.tags.length > 0">
                                 <li v-for="child in tag.tags "
                                     :class="{'active':tag_active === child.id, 'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                     @click="change_tag(child.id , child.pid)">{{child.name}}
@@ -137,7 +137,7 @@
                 >{{down_plug.title}}</span>
             </p>
             <div>
-                <p class="plug_info" v-html="down_plug.content"></p>
+                <p class="plug_info info_hh" v-html="down_plug.content"></p>
             </div>
             <div slot="footer">
                 <div class="my_btn_wrapper clipboard"
@@ -263,11 +263,14 @@
             <div style="text-align:center">
                 <img :src="wechat_scan_qr" alt="">
             </div>
-            <div slot="footer">
+            <div slot="footer" style="text-align: center">
+                <span style="font-size: 16px;margin-left: 15px;font-weight: bold;">熊猫人 - 嘿市</span>
                 <Button type="primary"
+                        class="pull-right"
                         @click="wechat_scan = false">
                     <span>关闭</span>
                 </Button>
+                <div style="clear: both"></div>
             </div>
 
         </Modal>
@@ -318,7 +321,8 @@
                 pay_amount: 10,
                 pay_amount_other: 1,
                 wechat_scan: false,
-                wechat_scan_qr: ''
+                wechat_scan_qr: '',
+                hc: 0
             }
         },
         computed: mapState([
@@ -330,9 +334,6 @@
             }
         },
         mounted() {
-            $(document).on("click", ".down", function () {
-                $(this).siblings(".child").toggle(300).parent().siblings().children(".child").hide();
-            })
             this._init()
         },
         methods: {
@@ -350,6 +351,8 @@
                 this.get_plugs()
             },
             change_tag(id, pid) {
+                console.log(id)
+                console.log(pid)
                 let old_tag_id = this.tag_active
                 this.tag_active = id
                 this.tag_active_pid = pid
@@ -382,9 +385,6 @@
                     this.plugs_count = res.data.count
                     this.this_page = 1
                 })
-                setTimeout(() => {
-                    $('li.active').parent('.child').show('300')
-                }, 600)
             },
 
             upload_plug(type, tag_name = 0) {
@@ -524,6 +524,8 @@
                     border-right 2px solid #266ec1
             .child
                 display none
+                &.child_active
+                    display block
                 li
                     padding-left 48px !important
 

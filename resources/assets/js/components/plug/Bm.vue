@@ -66,7 +66,7 @@
             <div class="dialog__content  animated fadeIn" style="border-radius: 2px">
                 <h2>确定购买?</h2>
                 <div>
-                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#fff;color:#333;border: 1px solid #333"
+                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#393d49;color:#fff;border: 1px solid #393d49"
                             @click="download_model = false">取消
                     </button>
                     <button type="button" class="close_dialog ivu-btn-primary"

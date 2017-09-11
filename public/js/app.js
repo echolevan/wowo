@@ -5123,8 +5123,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -7061,6 +7059,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -8383,6 +8384,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -8423,7 +8427,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pay_amount: 10,
             pay_amount_other: 1,
             wechat_scan: false,
-            wechat_scan_qr: ''
+            wechat_scan_qr: '',
+            hc: 0
         };
     },
 
@@ -8434,9 +8439,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        $(document).on("click", ".down", function () {
-            $(this).siblings(".child").toggle(300).parent().siblings().children(".child").hide();
-        });
         this._init();
     },
 
@@ -8457,6 +8459,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.get_plugs();
         },
         change_tag: function change_tag(id, pid) {
+            console.log(id);
+            console.log(pid);
             var old_tag_id = this.tag_active;
             this.tag_active = id;
             this.tag_active_pid = pid;
@@ -8494,9 +8498,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.plugs_count = res.data.count;
                 _this2.this_page = 1;
             });
-            setTimeout(function () {
-                $('li.active').parent('.child').show('300');
-            }, 600);
         },
         upload_plug: function upload_plug(type) {
             var tag_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -9351,6 +9352,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/_vuex@2.3.1@vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__ = __webpack_require__("./resources/assets/js/components/user/Withdraw.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Withdraw_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Withdraw_vue__);
+//
+//
+//
 //
 //
 //
@@ -13647,7 +13651,7 @@ exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.
 
 
 // module
-exports.push([module.i, "\n.tool_plug[data-v-6ff88ed2] {\n  padding-right: 15px;\n/*border 1px solid #f2f2f2*/\n}\n.tool_plug h3[data-v-6ff88ed2] {\n  font-size: 18px;\n  padding: 15px 0;\n}\n.tool_plug img[data-v-6ff88ed2] {\n  background-color: #333;\n  width: 25px;\n  height: 25px;\n}\n.tool_plug ul[data-v-6ff88ed2] {\n  width: 100% !important;\n}\n.tool_plug ul li[data-v-6ff88ed2] {\n  padding: 8px 24px;\n}\n.tool_plug ul li[data-v-6ff88ed2]:hover {\n  cursor: pointer;\n  color: #266ec1;\n}\n.tool_plug ul li.active[data-v-6ff88ed2] {\n  color: #266ec1;\n  border-right: 2px solid #266ec1;\n}\n.tool_plug ul .child[data-v-6ff88ed2] {\n  display: none;\n}\n.tool_plug ul .child li[data-v-6ff88ed2] {\n  padding-left: 48px !important;\n}\n.plug_content[data-v-6ff88ed2] {\n  padding: 0 15px;\n}\n.plug_content .sel[data-v-6ff88ed2] {\n  margin-bottom: 15px;\n}\n.plug_content .content[data-v-6ff88ed2] {\n  width: 100%;\n  padding: 15px 0;\n  display: flex;\n  border-bottom: 1px solid #ddd;\n}\n.plug_content .content a[data-v-6ff88ed2] {\n  color: #555;\n}\n.plug_content .content a[data-v-6ff88ed2]:hover {\n  color: #266ec1;\n}\n.plug_content .content .img_view[data-v-6ff88ed2] {\n  width: 60px;\n  height: 60px;\n  margin-right: 15px;\n}\n.plug_content .content .img_view img[data-v-6ff88ed2] {\n  width: 60px;\n  height: 60px;\n}\n.plug_content .content .content_main[data-v-6ff88ed2] {\n  flex: 1;\n}\n.plug_content .content .content_main strong[data-v-6ff88ed2],\n.plug_content .content .content_main i[data-v-6ff88ed2] {\n  margin: 5px 0;\n  font-size: 16px;\n  padding-right: 5px;\n}\n.plug_content .content .content_main span[data-v-6ff88ed2] {\n  padding-right: 15px;\n}\n.plug_content .content .content_main button[data-v-6ff88ed2] {\n  float: right;\n}\n.plug_content .content .content_main p[data-v-6ff88ed2] {\n  width: 100%;\n  word-wrap: break-word;\n  word-break: break-all;\n}\n.plug_content .sel_bottom[data-v-6ff88ed2] {\n  margin-top: 15px;\n}\n.tool_right[data-v-6ff88ed2] {\n  padding-left: 15px;\n}\n.tool_right .search[data-v-6ff88ed2] {\n  margin-bottom: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.tool_plug[data-v-6ff88ed2] {\n  padding-right: 15px;\n/*border 1px solid #f2f2f2*/\n}\n.tool_plug h3[data-v-6ff88ed2] {\n  font-size: 18px;\n  padding: 15px 0;\n}\n.tool_plug img[data-v-6ff88ed2] {\n  background-color: #333;\n  width: 25px;\n  height: 25px;\n}\n.tool_plug ul[data-v-6ff88ed2] {\n  width: 100% !important;\n}\n.tool_plug ul li[data-v-6ff88ed2] {\n  padding: 8px 24px;\n}\n.tool_plug ul li[data-v-6ff88ed2]:hover {\n  cursor: pointer;\n  color: #266ec1;\n}\n.tool_plug ul li.active[data-v-6ff88ed2] {\n  color: #266ec1;\n  border-right: 2px solid #266ec1;\n}\n.tool_plug ul .child[data-v-6ff88ed2] {\n  display: none;\n}\n.tool_plug ul .child.child_active[data-v-6ff88ed2] {\n  display: block;\n}\n.tool_plug ul .child li[data-v-6ff88ed2] {\n  padding-left: 48px !important;\n}\n.plug_content[data-v-6ff88ed2] {\n  padding: 0 15px;\n}\n.plug_content .sel[data-v-6ff88ed2] {\n  margin-bottom: 15px;\n}\n.plug_content .content[data-v-6ff88ed2] {\n  width: 100%;\n  padding: 15px 0;\n  display: flex;\n  border-bottom: 1px solid #ddd;\n}\n.plug_content .content a[data-v-6ff88ed2] {\n  color: #555;\n}\n.plug_content .content a[data-v-6ff88ed2]:hover {\n  color: #266ec1;\n}\n.plug_content .content .img_view[data-v-6ff88ed2] {\n  width: 60px;\n  height: 60px;\n  margin-right: 15px;\n}\n.plug_content .content .img_view img[data-v-6ff88ed2] {\n  width: 60px;\n  height: 60px;\n}\n.plug_content .content .content_main[data-v-6ff88ed2] {\n  flex: 1;\n}\n.plug_content .content .content_main strong[data-v-6ff88ed2],\n.plug_content .content .content_main i[data-v-6ff88ed2] {\n  margin: 5px 0;\n  font-size: 16px;\n  padding-right: 5px;\n}\n.plug_content .content .content_main span[data-v-6ff88ed2] {\n  padding-right: 15px;\n}\n.plug_content .content .content_main button[data-v-6ff88ed2] {\n  float: right;\n}\n.plug_content .content .content_main p[data-v-6ff88ed2] {\n  width: 100%;\n  word-wrap: break-word;\n  word-break: break-all;\n}\n.plug_content .sel_bottom[data-v-6ff88ed2] {\n  margin-top: 15px;\n}\n.tool_right[data-v-6ff88ed2] {\n  padding-left: 15px;\n}\n.tool_right .search[data-v-6ff88ed2] {\n  margin-bottom: 15px;\n}\n", ""]);
 
 // exports
 
@@ -78590,8 +78594,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": ""
     }
   })]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    },
     slot: "footer"
-  }, [_c('Button', {
+  }, [_c('span', {
+    staticStyle: {
+      "font-size": "16px",
+      "margin-left": "15px",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("熊猫人 - 嘿市")]), _vm._v(" "), _c('Button', {
+    staticClass: "pull-right",
     attrs: {
       "type": "primary"
     },
@@ -78600,7 +78614,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.wechat_scan = false
       }
     }
-  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
+  }, [_c('span', [_vm._v("关闭")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -79659,9 +79677,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "close_dialog",
     staticStyle: {
       "border-radius": "2px",
-      "background": "#fff",
-      "color": "#333",
-      "border": "1px solid #333"
+      "background": "#393d49",
+      "color": "#fff",
+      "border": "1px solid #393d49"
     },
     attrs: {
       "type": "button"
@@ -80064,7 +80082,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "list"
   }, [_c('Dropdown-item', [_c('a', {
     attrs: {
-      "href": "/#/userInfo/setting",
+      "href": "/#/userInfo/setting/2",
       "target": "_blank"
     }
   }, [_vm._v("修改密码")])]), _vm._v(" "), _c('Dropdown-item', [_c('span', {
@@ -80226,12 +80244,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type"
     }
   }) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.type.length === 1),
-      expression: "formItem.type.length === 1"
-    }],
     attrs: {
       "label": "标签图标",
       "prop": "thumb"
@@ -81191,8 +81203,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": ""
     }
   })]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    },
     slot: "footer"
-  }, [_c('Button', {
+  }, [_c('span', {
+    staticStyle: {
+      "font-size": "16px",
+      "margin-left": "15px",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("熊猫人 - 嘿市")]), _vm._v(" "), _c('Button', {
+    staticClass: "pull-right",
     attrs: {
       "type": "primary"
     },
@@ -81201,7 +81223,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.wechat_scan = false
       }
     }
-  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
+  }, [_c('span', [_vm._v("关闭")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -82220,7 +82246,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "alt": ""
       }
     }), _vm._v("\n                            " + _vm._s(tag.name) + "\n                        ")]), _vm._v(" "), (tag.tags.length > 0) ? _c('div', {
-      staticClass: "child"
+      staticClass: "child",
+      class: {
+        'child_active': _vm.tag_active === tag.id || (_vm.tag_active_pid !== 0 && _vm.tag_active_pid === tag.id)
+      }
     }, _vm._l((tag.tags), function(child) {
       return _c('li', {
         class: {
@@ -82536,7 +82565,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'bl_model_span_color': (_vm.userInfo && _vm.userInfo.camp && _vm.userInfo.camp === 2) || (!_vm.userInfo && _vm.choice_cmap === '2')
     }
   }, [_vm._v(_vm._s(_vm.down_plug.title))])]), _vm._v(" "), _c('div', [_c('p', {
-    staticClass: "plug_info",
+    staticClass: "plug_info info_hh",
     domProps: {
       "innerHTML": _vm._s(_vm.down_plug.content)
     }
@@ -82841,8 +82870,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": ""
     }
   })]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "center"
+    },
     slot: "footer"
-  }, [_c('Button', {
+  }, [_c('span', {
+    staticStyle: {
+      "font-size": "16px",
+      "margin-left": "15px",
+      "font-weight": "bold"
+    }
+  }, [_vm._v("熊猫人 - 嘿市")]), _vm._v(" "), _c('Button', {
+    staticClass: "pull-right",
     attrs: {
       "type": "primary"
     },
@@ -82851,7 +82890,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.wechat_scan = false
       }
     }
-  }, [_c('span', [_vm._v("关闭")])])], 1)])], 1)
+  }, [_c('span', [_vm._v("关闭")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "clear": "both"
+    }
+  })], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -84735,16 +84778,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "5%"
     }
   }, [_vm._v("头像")]), _vm._v(" "), _c('th', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.show_info),
-      expression: "show_info"
-    }],
     staticStyle: {
-      "width": "10%"
+      "width": "5%"
     }
-  }, [_vm._v("签名")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("阵营")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "5%"
+    }
+  }, [_vm._v("金币")]), _vm._v(" "), _c('th', {
+    staticStyle: {
+      "width": "5%"
+    }
+  }, [_vm._v("发布资源数")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "7%"
     }
@@ -84762,15 +84807,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "5%"
     }
-  }, [_vm._v("阵营")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "width": "5%"
-    }
-  }, [_vm._v("金币")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "width": "5%"
-    }
-  }, [_vm._v("发布资源数")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("安全邮箱验证")]), _vm._v(" "), _c('th', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -84790,15 +84827,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("最近登陆")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "width": "7%"
-    }
-  }, [_vm._v("手机")]), _vm._v(" "), _c('th', {
-    staticStyle: {
-      "width": "5%"
-    }
-  }, [_vm._v("安全邮箱验证")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("最近登录")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "5%"
     }
@@ -84807,6 +84836,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "8%"
     }
   }, [_vm._v("是否管理员")]), _vm._v(" "), _c('th', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.show_info),
+      expression: "show_info"
+    }],
+    staticStyle: {
+      "width": "10%"
+    }
+  }, [_vm._v("签名")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "12%"
     }
@@ -84821,6 +84860,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "img": v.avatar
       }
     })], 1), _vm._v(" "), _c('td', {
+      style: ({
+        'color': v.camp === 1 ? '#266ec1' : '#d13030'
+      })
+    }, [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机号码' : v.tel))]), _vm._v(" "), _c('td', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.show_email),
+        expression: "show_email"
+      }]
+    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "border",
+        "color": v.is_active === 1 ? 'blue' : 'red'
+      }
+    }, [_vm._v(_vm._s(_vm.configIsActive[v.is_active]))])], 1), _vm._v(" "), _c('td', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.show_c_at),
+        expression: "show_c_at"
+      }]
+    }, [_vm._v(_vm._s(v.created_at))]), _vm._v(" "), _c('td', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.show_l_at),
+        expression: "show_l_at"
+      }]
+    }, [_vm._v(_vm._s(v.login_at))]), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "dot",
+        "color": v.status === 1 ? 'blue' : 'red'
+      },
+      nativeOn: {
+        "click": function($event) {
+          _vm.change_status(v.status === 1 ? 0 : 1, v.id, k)
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.configIsLogin[v.status]) + "\n                ")])], 1), _vm._v(" "), _c('td', [_c('Tag', {
+      attrs: {
+        "type": "dot",
+        "color": v.is_admin === 1 ? 'blue' : 'red'
+      },
+      nativeOn: {
+        "click": function($event) {
+          _vm.change_is_admin(v.is_admin === 1 ? 0 : 1, v.id, k)
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_admin]) + "\n                ")])], 1), _vm._v(" "), _c('td', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -84843,57 +84932,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "innerHTML": _vm._s(v.info)
       }
-    })])])], 1), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机号码' : v.tel))]), _vm._v(" "), _c('td', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.show_email),
-        expression: "show_email"
-      }]
-    }, [_vm._v(_vm._s(v.email))]), _vm._v(" "), _c('td', {
-      style: ({
-        'color': v.camp === 1 ? '#266ec1' : '#d13030'
-      })
-    }, [_vm._v(_vm._s(_vm.configCamp[v.camp]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.plugs.length))]), _vm._v(" "), _c('td', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.show_c_at),
-        expression: "show_c_at"
-      }]
-    }, [_vm._v(_vm._s(v.created_at))]), _vm._v(" "), _c('td', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.show_l_at),
-        expression: "show_l_at"
-      }]
-    }, [_vm._v(_vm._s(v.login_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.tel === '0' ? '未绑定手机' : v.tel))]), _vm._v(" "), _c('td', [_c('Tag', {
-      attrs: {
-        "type": "border",
-        "color": v.is_active === 1 ? 'blue' : 'red'
-      }
-    }, [_vm._v(_vm._s(_vm.configIsActive[v.is_active]))])], 1), _vm._v(" "), _c('td', [_c('Tag', {
-      attrs: {
-        "type": "dot",
-        "color": v.status === 1 ? 'blue' : 'red'
-      },
-      nativeOn: {
-        "click": function($event) {
-          _vm.change_status(v.status === 1 ? 0 : 1, v.id, k)
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.configIsLogin[v.status]) + "\n                ")])], 1), _vm._v(" "), _c('td', [_c('Tag', {
-      attrs: {
-        "type": "dot",
-        "color": v.is_admin === 1 ? 'blue' : 'red'
-      },
-      nativeOn: {
-        "click": function($event) {
-          _vm.change_is_admin(v.is_admin === 1 ? 0 : 1, v.id, k)
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.configYesOrNo[v.is_admin]) + "\n                ")])], 1), _vm._v(" "), _c('td', [_c('Button', {
+    })])])], 1), _vm._v(" "), _c('td', [_c('Button', {
       attrs: {
         "type": "ghost",
         "size": "small"
@@ -86401,12 +86440,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "formItem.type"
     }
   }) : _vm._e()], 1), _vm._v(" "), _c('Form-item', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.formItem.type.length === 1),
-      expression: "formItem.type.length === 1"
-    }],
     attrs: {
       "label": "标签图标",
       "prop": "thumb"
@@ -86592,7 +86625,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "camp"
   }, [_vm._v("阵营：联盟")]) : _c('p', {
     staticClass: "camp"
-  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间：" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间:" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
     staticClass: "user_tool"
   }, [_c('ul', [_c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
@@ -103133,9 +103166,8 @@ var bmType = {
     1: '影视',
     2: '剧集',
     3: '综艺',
-	3: '字幕',
-    5: '软件',
-    6: '其他'
+    4: '软件',
+    5: '其他'
 };
 
 var payStatus = {

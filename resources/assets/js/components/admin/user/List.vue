@@ -73,18 +73,17 @@
                 <th style="width: 5%">嘿市ID</th>
                 <th style="width: 5%">用户名</th>
                 <th style="width: 5%">头像</th>
-                <th style="width: 10%" v-show="show_info">签名</th>
-                <th style="width: 7%">手机号码</th>
-                <th style="width: 8%" v-show="show_email">安全邮箱</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
                 <th style="width: 5%">发布资源数</th>
-                <th style="width: 10%" v-show="show_c_at">注册时间</th>
-                <th style="width: 10%" v-show="show_l_at">最近登陆</th>
-                <th style="width: 7%">手机</th>
+                <th style="width: 7%">手机号码</th>
+                <th style="width: 8%" v-show="show_email">安全邮箱</th>
                 <th style="width: 5%">安全邮箱验证</th>
+                <th style="width: 10%" v-show="show_c_at">注册时间</th>
+                <th style="width: 10%" v-show="show_l_at">最近登录</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否管理员</th>
+                <th style="width: 10%" v-show="show_info">签名</th>
                 <th style="width: 12%">操作</th>
             </tr>
             </thead>
@@ -95,25 +94,16 @@
                 <td>
                     <img-view :img="v.avatar"></img-view>
                 </td>
-                <td v-show="show_info" class="hover_hand">
-                    <Tooltip placement="bottom-start">
-                        <span class="toolTip" v-html="v.info"></span>
-                        <div slot="content">
-                            <p v-html="v.info"></p>
-                        </div>
-                    </Tooltip>
-                </td>
-                <td>{{v.tel === '0' ? '未绑定手机号码' : v.tel}}</td>
-                <td v-show="show_email">{{v.email}}</td>
                 <td :style="{'color': v.camp === 1 ? '#266ec1' : '#d13030'}">{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
                 <td>{{v.plugs.length}}</td>
-                <td v-show="show_c_at">{{v.created_at}}</td>
-                <td v-show="show_l_at">{{v.login_at}}</td>
-                <td>{{v.tel === '0' ? '未绑定手机' : v.tel}}</td>
+                <td>{{v.tel === '0' ? '未绑定手机号码' : v.tel}}</td>
+                <td v-show="show_email">{{v.email}}</td>
                 <td>
                     <Tag type="border" :color="v.is_active === 1 ? 'blue' : 'red'">{{configIsActive[v.is_active]}}</Tag>
                 </td>
+                <td v-show="show_c_at">{{v.created_at}}</td>
+                <td v-show="show_l_at">{{v.login_at}}</td>
                 <td>
                     <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'"
                          @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{configIsLogin[v.status]}}
@@ -123,6 +113,14 @@
                     <Tag type="dot" :color="v.is_admin === 1 ? 'blue' : 'red'"
                          @click.native="change_is_admin(v.is_admin === 1 ? 0 : 1 , v.id, k)">{{configYesOrNo[v.is_admin]}}
                     </Tag>
+                </td>
+                <td v-show="show_info" class="hover_hand">
+                    <Tooltip placement="bottom-start">
+                        <span class="toolTip" v-html="v.info"></span>
+                        <div slot="content">
+                            <p v-html="v.info"></p>
+                        </div>
+                    </Tooltip>
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>

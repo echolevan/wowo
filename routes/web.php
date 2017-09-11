@@ -21,7 +21,10 @@ Route::get('/', 'HomeController@index')->name('index');
 //    ]);
 //});
 
-Route::get('/abc', 'PayController@index');
+Route::get('/password/sms', function (){
+    return view('auth.passwords.sms');
+});
+Route::post('/send_rest_sms', 'UserController@send_rest_sms');
 
 Route::any('/aplipay_notify', 'PayController@alipay_notify');
 Route::any('/wechat_notify', 'PayController@wechat_notify');
@@ -30,6 +33,10 @@ Route::any('/return', 'PayController@return_url');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/user/password/email', 'UserController@password_email')->name('user.password.email');
+Route::post('/user/password/tel', 'UserController@password_tel')->name('user.password.tel');
+Route::post('/user/password/request_sms', 'UserController@request_sms')->name('password.request_sms');
 
 
 Route::get('user/check_email/{token}' , 'UserController@check_email')->name('user.check_email');

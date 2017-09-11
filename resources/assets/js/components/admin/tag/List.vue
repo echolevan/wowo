@@ -118,7 +118,7 @@
                     <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type" change-on-select
                               @on-change="on_sel"></Cascader>
                 </Form-item>
-                <Form-item label="标签图标" prop="thumb" v-show="formItem.type.length === 1">
+                <Form-item label="标签图标" prop="thumb">
                     <!--// see img-->
                     <div class="small-upload-list" v-show="formItem.thumb !== ''">
                         <img :src="formItem.thumb">

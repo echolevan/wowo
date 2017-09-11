@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\userLogin;
 use App\Lv;
+use App\Notifications\SendPasswordRestMail;
 use App\Order;
 use App\Plug;
 use App\Recharge;
@@ -208,7 +209,6 @@ class UserController extends Controller
             $arr = [
                 'nickname' => $request->nickname,
                 'info' => is_null($request->info) ? '' : $request->info,
-                'update_camp_at' => time(),
                 'sex' => $request->sex,
                 'birthday' => $request->birthday ? Carbon::createFromTimestamp(strtotime($request->birthday))->toDateString() : '',
                 'birthplace' => json_encode($birthplace),
@@ -564,6 +564,140 @@ class UserController extends Controller
         $count = Withdraws::where('user_id',Auth::id())->count();
         $res = Withdraws::where('user_id',Auth::id())->skip(($page-1)*$size)->take($size)->orderBy('created_at','desc')->get();
         return ['count'=>$count , 'res'=>$res];
+    }
+
+
+    public function password_email(Request $request)
+    {
+        $messages = [
+            'captcha.required' => '验证码 不能为空',
+            'captcha.captcha' => '验证码 输入错误'
+        ];
+        $this->validate($request, ['email' => 'required|email' , 'name' => 'required|string' , 'captcha'=>'required|captcha'],$messages);
+
+        $name = User::where('email',$request->email)->value('name');
+        if(!$name){
+            return back()->withInput($request->input())->withErrors(['email'=>'不存在此邮箱']);
+        }else{
+            if($name != $request->name){
+                return back()->withInput($request->input())->withErrors(['name'=>'用户名不匹配']);
+            }
+        }
+
+        //xieru shujuku
+        $token = str_random(60);
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $user = User::where('email',$request->email)->first();
+        $user->notify(new SendPasswordRestMail($token));
+        $request->session()->flash('status', '邮件发送成功');
+        return back();
+    }
+
+    public function send_rest_sms(Request $request)
+    {
+        if(!$request->name){
+            return ['sta'=>0 , 'msg'=>'名称不能为空'];
+        }
+
+        if(!$request->tel){
+            return ['sta'=>0 , 'msg'=>'手机号不能为空'];
+        }
+
+        $name = User::where('tel',$request->tel)->value('name');
+        if(!$name){
+            return ['sta'=>0 , 'msg'=>'手机号不存在'];
+        }else{
+            if($name != $request->name){
+                return ['sta'=>0 , 'msg'=>'用户名不匹配'];
+            }
+        }
+
+        //send——code
+
+        $tel = $request->tel;
+        $type = 2;
+        if (Cache::has($tel."_send_msg_".$type)) {
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get($tel."_send_msg_".$type)).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get($tel."_send_msg_".$type)];
+        }
+        $code = rand(100000,999999);
+        $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));
+        if($is_true['success']){
+            Cache::forget($tel."_send_msg_".$type);
+            Cache::forget($tel."_send_msg_code_".$type);
+            Cache::add($tel."_send_msg_code_".$type, json_encode(['code'=>$code , 'tel'=> $tel]), 10);
+            Cache::add($tel."_send_msg_".$type, time(), 1);
+            return ['sta'=>1 , 'msg'=>'短信发送成功'];
+        }
+        return ['sta'=>0 , 'msg'=>'短信发送失败'];
+    }
+
+
+    public function password_tel(Request $request)
+    {
+        $messages = [
+            'tel.required' => '手机号 不能为空',
+        ];
+
+        $this->validate($request, ['tel' => 'required' , 'name' => 'required|string'],$messages);
+
+        $name = User::where('tel',$request->tel)->value('name');
+
+        if(!$name){
+            return back()->withInput($request->input())->withErrors(['tel'=>'手机号不存在']);
+        }else{
+            if($name != $request->name){
+                return back()->withInput($request->input())->withErrors(['name'=>'用户名不匹配']);
+            }
+        }
+
+        //check_code
+        $tel = $request->tel;
+        $type = 2;
+        if (!Cache::has($tel."_send_msg_".$type)) {
+            return back()->withInput($request->input())->withErrors(['code'=>'验证码已失效']);
+        }
+
+        $code = Cache::get($tel."_send_msg_code_".$type);
+        $code = json_decode($code,true);
+        if($code['code'] == $request->code && $code['tel'] == $request->tel){
+            // ok
+            $token = str_random(60);
+            DB::table('password_resets')->insert([
+                'email' => $request->tel,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+            return redirect(route('password.reset', $token));
+        }else{
+            return back()->withInput($request->input())->withErrors(['code'=>'验证码错误']);
+        }
+    }
+
+    public function request_sms(Request $request)
+    {
+        $messages = [
+            'password.is_pass' => '密码 必须有大小写字母+数字',
+        ];
+        $this->validate($request, ['token' => 'required' , 'password' => 'required|string|min:8|is_pass|confirmed'],$messages);
+
+        $email = DB::table('password_resets')->where('token',$request->token)->latest()->value('email');
+
+        $user = User::where('email',$email)->orWhere('tel',$email)->first();
+
+        $user->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        Auth::guard()->login($user);
+
+        DB::table('password_resets')->where('email', $email)->delete();
+
+        return redirect('/');
     }
 
 }
