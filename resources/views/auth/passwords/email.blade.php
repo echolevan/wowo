@@ -66,12 +66,10 @@
                                 </div>
                             </div>
 
-
-
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary pull-right">
-                                        发送邮箱
+                                        发送邮件
                                     </button>
                                 </div>
                                 <div class="col-md-6 col-md-offset-4">
@@ -81,7 +79,6 @@
                                     </span>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>

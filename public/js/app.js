@@ -85995,7 +85995,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('tr', [_c('td', [_vm._v(_vm._s(v.user.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.user.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.money))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.gold))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.configWithdrawStatus[v.status]))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(v.created_at))]), _vm._v(" "), _c('td', [_c('Poptip', {
       attrs: {
         "confirm": "",
-        "title": "您确认吗？"
+        "title": "您确认转账吗？"
       },
       on: {
         "on-ok": function($event) {

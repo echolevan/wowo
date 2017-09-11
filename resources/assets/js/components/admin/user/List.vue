@@ -45,12 +45,7 @@
         </Form>
 
         <div style="padding: 10px 0">
-            显示签名
-            <i-switch v-model="show_info">
-                <Icon type="android-done" slot="open"></Icon>
-                <Icon type="android-close" slot="close"></Icon>
-            </i-switch>
-            显示邮箱
+            显示安全邮箱
             <i-switch v-model="show_email">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
@@ -62,6 +57,11 @@
             </i-switch>
             显示登陆时间
             <i-switch v-model="show_l_at">
+                <Icon type="android-done" slot="open"></Icon>
+                <Icon type="android-close" slot="close"></Icon>
+            </i-switch>
+            显示个人简介
+            <i-switch v-model="show_info">
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
             </i-switch>
