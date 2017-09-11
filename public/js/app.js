@@ -76752,7 +76752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "w_input",
     attrs: {
       "data": _vm.plug_tags,
-      "placeholder": "请选择插件分类"
+      "placeholder": "请选择职业分类"
     },
     on: {
       "on-change": _vm.on_sel
