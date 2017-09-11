@@ -51,19 +51,19 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $messages = [
-            'email.unique' => '邮箱 已经存在',
-            'camp.required' => '阵营 不能为空',
-            'captcha.required' => '验证码 不能为空',
-            'captcha.captcha' => '验证码 输入错误',
-            'name.is_num' => '用户名 不能为纯数字',
-            'name.is_name_zw' => '用户名 不能为汉字',
-            'password.is_pass' => '密码 必须有大小写字母+数字',
-            'nickname.required' => '昵称 不能为空',
-            'nickname.max' => '昵称 最长为10字符',
-            'nickname.unique' => '昵称 已经存在',
-            'nickname.alpha_num' => '昵称 不能含有符号',
-            'name.is_admin_name' => '用户名 违规',
-            'nickname.is_admin_name' => '昵称 违规',
+            'email.unique' => '邮箱已存在',
+            'camp.required' => '阵营不能为空',
+            'captcha.required' => '验证码不能为空',
+            'captcha.captcha' => '验证码输入错误',
+            'name.is_num' => '用户名不能为纯数字',
+            'name.is_name_zw' => '用户名不能为汉字',
+            'password.is_pass' => '大小写字母+数字，不少于8位',
+            'nickname.required' => '昵称不能为空',
+            'nickname.max' => '昵称最长为10字符',
+            'nickname.unique' => '昵称已存在',
+            'nickname.alpha_num' => '昵称不能含有符号',
+            'name.is_admin_name' => '用户名违规',
+            'nickname.is_admin_name' => '昵称违规',
         ];
 
         return Validator::make($data, [

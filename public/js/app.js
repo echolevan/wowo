@@ -84845,7 +84845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "width": "10%"
     }
-  }, [_vm._v("签名")]), _vm._v(" "), _c('th', {
+  }, [_vm._v("个人简介")]), _vm._v(" "), _c('th', {
     staticStyle: {
       "width": "12%"
     }

@@ -47,7 +47,7 @@ class SendPasswordRestMail extends Notification
             ->subject('嘿市网密码重置')
             ->line('您收到此邮件是因为我们收到了一个密码重置请求')
             ->action('重置密码', url(config('app.url').route('password.reset', $this->token, false)))
-            ->line('如果您没有请求重新设置密码，请忽略');
+            ->line('如果非本人操作，请忽略此邮件。');
     }
 
     /**

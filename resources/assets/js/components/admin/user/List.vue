@@ -83,7 +83,7 @@
                 <th style="width: 10%" v-show="show_l_at">最近登录</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否管理员</th>
-                <th style="width: 10%" v-show="show_info">签名</th>
+                <th style="width: 10%" v-show="show_info">个人简介</th>
                 <th style="width: 12%">操作</th>
             </tr>
             </thead>
