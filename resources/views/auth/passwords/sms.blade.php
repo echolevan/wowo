@@ -37,7 +37,7 @@
                                 <div class="col-md-6">
                                     <input id="phone" type="text" class="form-control" name="tel"
                                            value="{{ old('tel') }}"
-                                           placeholder="请输入手机号">
+                                           placeholder="请输入手机号码">
 
                                     @if ($errors->has('tel'))
                                         <span class="help-block">
