@@ -74,7 +74,9 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <span class="pull-right">
                                         <br>
-                                        <a href="/password/reset">通过邮箱找回</a>
+                                          <a  href="/password/reset" class="btn btn-default pull-right">
+                                        通过邮箱找回
+                                            </a>
                                     </span>
                                 </div>
                             </div>
