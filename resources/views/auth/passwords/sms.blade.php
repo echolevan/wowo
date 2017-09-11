@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">手机号</label>
+                                <label for="email" class="col-md-4 control-label">手机号码</label>
                                 <div class="col-md-6">
                                     <input id="phone" type="text" class="form-control" name="tel"
                                            value="{{ old('tel') }}"
@@ -68,13 +68,13 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary pull-right">
-                                        提交
+                                        确定
                                     </button>
                                 </div>
                                 <div class="col-md-6 col-md-offset-4">
                                     <span class="pull-right">
                                         <br>
-                                        <a href="/password/reset">通过邮箱号找回</a>
+                                        <a href="/password/reset">通过邮箱找回</a>
                                     </span>
                                 </div>
                             </div>

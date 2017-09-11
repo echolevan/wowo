@@ -37,7 +37,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">邮箱地址</label>
+                                <label for="email" class="col-md-4 control-label">安全邮箱</label>
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email"
                                            value="{{ old('email') }}"  placeholder="请输入邮箱地址">
@@ -75,7 +75,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <span class="pull-right">
                                         <br>
-                                        <a href="/password/sms">通过手机号找回</a>
+                                        <a href="/password/sms">通过手机找回</a>
                                     </span>
                                 </div>
                             </div>
