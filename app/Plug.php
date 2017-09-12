@@ -16,6 +16,7 @@ class Plug extends Model
         'created' => CreatePlug::class,
         'updated' => UpdatePlug::class,
     ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      * // 截图

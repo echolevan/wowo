@@ -60,7 +60,7 @@ class User extends Authenticatable
         }
     }
 
-    public function getYearCreatedAtAttribute($created_at)
+    public function getYearCreatedAtAttribute()
     {
         return $this->attributes['year_created_at'] = date('Y-m-d',strtotime($this->created_at));
     }

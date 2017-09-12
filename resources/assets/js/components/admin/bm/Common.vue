@@ -22,6 +22,7 @@
                     >
                         <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.url === '' ? '上传文件' : '重新上传'}}</Button>
                     </Upload>
+                    <span v-if="formItem.url"  style="color: #d13030">已上传</span>
                 </Form-item>
 
                 <Form-item label="资源类型" prop="zy_type">

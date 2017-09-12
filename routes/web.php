@@ -167,4 +167,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post("check_tag_name/{id?}",'TagController@check_tag_name'); //检查tag name
     Route::delete("tag/{id}",'TagController@delete'); //删除 tag
     Route::delete("bms/{id}",'BmController@delete'); //删除 bm
+
+    // charts
+    Route::post("charts/userCreated",'ChartController@userCreated');
+    Route::post("charts/plugCreated",'ChartController@plugCreated');
+    Route::post("charts/orderCharts",'ChartController@orderCharts');
+    Route::post("charts/recharge",'ChartController@recharge');
 });

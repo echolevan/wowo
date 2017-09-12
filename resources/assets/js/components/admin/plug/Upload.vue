@@ -68,7 +68,7 @@
                 >
                     <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
                 </Upload>
-                <span v-if="formItem.plug_url">已上传</span>
+                <span v-if="formItem.plug_url"  style="color: #d13030">已上传</span>
             </Form-item>
 
 
