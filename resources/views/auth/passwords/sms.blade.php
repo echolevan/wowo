@@ -53,7 +53,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control code"  name="code" placeholder="请输入验证码"
                                            style="width: 60%;float: left">
-                                    <button type="button" class="btn btn-default pull-right send_code">发送验证码</button>
+                                    <button type="button" class="btn ivu-btn-ghost pull-right send_code">发送验证码</button>
                                     <div style="clear: both"></div>
                                     @if ($errors->has('code'))
                                         <span class="help-block">
@@ -74,7 +74,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <span class="pull-right">
                                         <br>
-                                          <a  href="/password/reset" class="btn btn-default pull-right">
+                                          <a  href="/password/reset" class="btn ivu-btn-ghost pull-right">
                                         通过邮箱找回
                                             </a>
                                     </span>

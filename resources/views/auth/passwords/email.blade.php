@@ -75,7 +75,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <span class="pull-right">
                                         <br>
-                                           <a  href="/password/sms" class="btn btn-default pull-right">
+                                           <a  href="/password/sms" class="btn ivu-btn-ghost pull-right">
                                         通过手机找回
                                             </a>
                                     </span>
