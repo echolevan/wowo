@@ -52,8 +52,9 @@ export const bmType = {
     1: '影视',
     2: '剧集',
     3: '综艺',
-	4: '软件',
-    5: '其他'
+    4: '字幕',
+	5: '软件',
+    6: '其他'
 }
 
 export const payStatus = {

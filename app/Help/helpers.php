@@ -24,7 +24,7 @@ function upload_plug($file , $path , $name){
 function upload_bm($file , $path){
     $url = \Illuminate\Support\Facades\Storage::put($path, $file);
 
-    $url = ftp_file($url,'media');
+    $url = ftp_file($url,'market');
 
     if($url)
         return $url;

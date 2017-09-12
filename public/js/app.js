@@ -76752,7 +76752,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "w_input",
     attrs: {
       "data": _vm.plug_tags,
-      "placeholder": "请选择职业分类"
+      "placeholder": "请选择插件分类"
     },
     on: {
       "on-change": _vm.on_sel
@@ -103166,7 +103166,7 @@ var bmType = {
     1: '影视',
     2: '剧集',
     3: '综艺',
-	4: '字幕',
+    4: '字幕',
     5: '软件',
     6: '其他'
 };

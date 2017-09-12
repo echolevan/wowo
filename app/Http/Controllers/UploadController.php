@@ -87,7 +87,7 @@ class UploadController extends Controller
             }
         }
 
-        $path = "media/";
+        $path = "market/";
         $url = upload_bm($request->file('file'), $path);
         return ['sta' => 1, 'url' => $url];
     }
