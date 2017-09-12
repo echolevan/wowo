@@ -7,14 +7,14 @@
             </div>
             <div class="member-info">
                 <p class="nickname" style="margin-bottom: 5px">{{userInfo.nickname}}</p>
-                <p class="camp normal_font"  style="margin-bottom: 5px" v-if="userInfo.camp === 1">阵营：联盟</p>
-                <p class="camp bl_font_color"  style="margin-bottom: 5px" v-else>阵营：部落</p>
+                <p class="camp "  style="margin-bottom: 5px" v-if="userInfo.camp === 1">阵营：<span class="normal_font">联盟</span></p>
+                <p class="camp "  style="margin-bottom: 5px" v-else>阵营：<span class="bl_font_color">部落</span></p>
                 <p  style="margin-bottom: 5px" v-if="userInfo.info">{{userInfo.info}}</p>
                 <div  style="margin-bottom: 5px" v-else>
                     <p class="" v-if="userInfo.camp === 1">为了联盟</p>
                     <p class="" v-else>为了部落</p>
                 </div>
-                <p>注册时间:{{userInfo.year_created_at}}</p>
+                <p>注册时间：{{userInfo.year_created_at}}</p>
             </div>
 
             <div class="user_tool">
