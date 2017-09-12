@@ -86625,7 +86625,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "camp"
   }, [_vm._v("阵营：联盟")]) : _c('p', {
     staticClass: "camp"
-  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间:" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("阵营：部落")]), _vm._v(" "), (_vm.userInfo.info) ? _c('p', [_vm._v(_vm._s(_vm.userInfo.info))]) : _c('div', [(_vm.userInfo.camp === 1) ? _c('p', [_vm._v("为了联盟")]) : _c('p', [_vm._v("为了部落")])]), _vm._v(" "), _c('p', [_vm._v("注册时间：" + _vm._s(_vm.userInfo.year_created_at))])]), _vm._v(" "), _c('div', {
     staticClass: "user_tool"
   }, [_c('ul', [_c('li', [_c('router-link', {
     staticClass: "r-l my_a_style",
