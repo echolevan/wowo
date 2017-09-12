@@ -45,8 +45,8 @@ class AdminController extends Controller
         $message = [
           'captcha.required' => '验证码不能为空',
           'captcha.captcha' => '验证码错误',
-          'email.required' => '帐号不能为空',
-          'email.string' => '帐号错误',
+          'email.required' => '用户名不能为空',
+          'email.string' => '用户名错误',
         ];
         $this->validate($request, [
             'email' => 'required|string',
