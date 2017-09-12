@@ -97,7 +97,7 @@ class ChartController extends Controller
 
     public function recharge(Request $request)
     {
-        $columns = ['时间' , '充值次数', '充值总数'];
+        $columns = ['时间' , '充值次数', '充值金额'];
 
         $s = Carbon::createFromTimestamp(strtotime($request->time[0]));
         $e = Carbon::createFromTimestamp(strtotime($request->time[1]) + 60*60*24);
@@ -113,7 +113,7 @@ class ChartController extends Controller
         foreach ($res as $k => $v){
             $data[$num]['时间'] = $v->date;
             $data[$num]['充值次数'] = $v->count;
-            $data[$num]['充值总数'] = $v->sum;
+            $data[$num]['充值金额'] = $v->sum;
             $num++;
         }
         return ['columns' => $columns , 'data' => $data];

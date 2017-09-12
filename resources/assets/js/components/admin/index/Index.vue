@@ -2,22 +2,22 @@
     <div>
         <Row>
             <iCol span="12">
-                <p class="title_charts">用户注册统计</p>
+                <p class="title_charts">用户注册</p>
                 <user-created></user-created>
             </iCol>
             <iCol span="12">
-                <p class="title_charts">资源发布统计</p>
+                <p class="title_charts">资源发布</p>
                 <plug-created></plug-created>
             </iCol>
         </Row>
 
         <Row>
             <iCol span="12">
-                <p class="title_charts">资源购买统计</p>
+                <p class="title_charts">资源购买</p>
                 <order-charts></order-charts>
             </iCol>
             <iCol span="12">
-                <p class="title_charts">充值统计</p>
+                <p class="title_charts">充值</p>
                 <recharge-charts></recharge-charts>
             </iCol>
         </Row>
