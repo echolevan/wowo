@@ -191,6 +191,9 @@
   transition: transform 0.3s, opacity 0.2s;
 }
 
+.ivu-notice{
+  top: 40px !important;
+}
 .my_a_style::before {
   position: absolute;
   margin-left: -10px;

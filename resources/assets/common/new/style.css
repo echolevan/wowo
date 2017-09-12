@@ -166,7 +166,6 @@
 
 .cd-morph-dropdown .links-list a,
 .cd-morph-dropdown .btn {
-    display: block;
     margin-left: 14px;
     font-size: 12px;
     line-height: 1.6;
@@ -404,7 +403,10 @@
 
     .cd-morph-dropdown .content > ul > li{
         min-width: 60px;
-        margin-right: 5px;
+    }
+
+    .my_a_style{
+        padding: 0 7px;
     }
 
     .cd-morph-dropdown .gallery .content {

@@ -36972,6 +36972,10 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   transition: transform 0.3s, opacity 0.2s, -webkit-transform 0.3s;
 }
 
+.ivu-notice {
+  top: 40px !important;
+}
+
 .my_a_style::before {
   position: absolute;
   margin-left: -10px;
