@@ -140,7 +140,7 @@
                         this.$store.commit('change_userInfo',res.data.info)
                         if(res.data.info.is_active === 0){
                             this.$Notice.open({
-                                title: '您的安全邮箱未验证',
+                                title: '请验证您的安全邮箱',
                                 desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                                 duration: 0
                             });

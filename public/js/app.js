@@ -2022,7 +2022,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.$store.commit('change_userInfo', res.data.info);
                     if (res.data.info.is_active === 0) {
                         _this.$Notice.open({
-                            title: '您的安全邮箱未验证',
+                            title: '请验证您的安全邮箱',
                             desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + '>点击验证</a>。',
                             duration: 0
                         });
@@ -102083,13 +102083,13 @@ axios.get('/user/info').then(function (res) {
         if (res.data.info.is_active === 0) {
             if (res.data.info.camp === 1) {
                 __WEBPACK_IMPORTED_MODULE_2_iview___default.a.Notice.info({
-                    title: '您的安全邮箱未验证',
+                    title: '请验证您的安全邮箱',
                     desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#266ec1">点击验证</a>。',
                     duration: 0
                 });
             } else {
                 __WEBPACK_IMPORTED_MODULE_2_iview___default.a.Notice.error({
-                    title: '您的安全邮箱未验证',
+                    title: '请验证您的安全邮箱',
                     desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#d13030">点击验证</a>。',
                     duration: 0
                 });
