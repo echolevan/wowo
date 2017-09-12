@@ -36,7 +36,6 @@
                     <div style="clear: both"></div>
                 </div>
             </iCol>
-
             <!--最新主题-->
             <iCol span="19" style="padding-right: 15px">
                 <div class="div_block my_card_hover" style="margin-left: 0">

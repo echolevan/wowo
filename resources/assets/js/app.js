@@ -90,13 +90,13 @@ axios.get('/user/info').then(res => {
         if (res.data.info.is_active === 0) {
             if(res.data.info.camp === 1){
                 iView.Notice.info({
-                    title: '验证您的安全邮箱',
+                    title: '请验证您的安全邮箱',
                     desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#266ec1">点击验证</a>。',
                     duration: 0
                 });
             }else{
                 iView.Notice.error({
-                    title: '验证您的安全邮箱',
+                    title: '请验证您的安全邮箱',
                     desc: '已发送验证邮件到您邮箱，<a target="_blank" href=' + res.data.email + ' style="font-weight: bold;color:#d13030">点击验证</a>。',
                     duration: 0
                 });
