@@ -15,7 +15,7 @@
                     <iCol span="5">
                         <div  style="width: 250px;margin:0 auto;height: 193px;position: relative">
                             <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="type"
-                                      @on-change="on_sel" placeholder="请选择分类" class="w_input"></Cascader>
+                                      @on-change="on_sel" placeholder="请选择职业分类" class="w_input"></Cascader>
 
                             <Button type="ghost" class="pull-right"
                                     style="margin-top:15px;font-size: 15px;"
