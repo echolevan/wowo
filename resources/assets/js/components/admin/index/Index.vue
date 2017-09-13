@@ -22,6 +22,15 @@
             </iCol>
         </Row>
 
+        <Row>
+            <iCol span="12">
+                <p class="title_charts">用户登录</p>
+                <login-charts></login-charts>
+            </iCol>
+            <iCol span="12">
+            </iCol>
+        </Row>
+
     </div>
 </template>
 
@@ -30,12 +39,13 @@
     import PlugCreated from '../charts/PlugCreated'
     import OrderCharts from '../charts/OrderCharts'
     import RechargeCharts from '../charts/RechargeCharts'
+    import LoginCharts from '../charts/LoginCharts'
 
     export default {
         data() {
             return {}
         },
-        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts}
+        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts, LoginCharts}
     }
 </script>
 

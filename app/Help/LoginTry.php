@@ -1,8 +1,11 @@
 <?php
 namespace App\Help;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 trait LoginTry
 {
@@ -47,11 +50,30 @@ trait LoginTry
             return $this->sendLockoutResponse($request);
         }
 
+
+
         if ($this->attemptLogin($request)) {
+            // update users login_at
+            User::where('id',Auth::id())->update([
+                'login_at' => Carbon::now()
+            ]);
+            // create to login at
+            $c = DB::table('login')->where('time',date('Y-m-d'))->first();
+            if($c){
+                DB::table('login')->where('time',date('Y-m-d'))->increment('num');
+            }else{
+                DB::table('login')->insert([
+                  'time' => date('Y-m-d'),
+                    'num' => 1,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+            }
+            Cache::forget($cache_name);
             return $this->sendLoginResponse($request);
         }
 
-        Cache::forget($cache_name);
+
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
