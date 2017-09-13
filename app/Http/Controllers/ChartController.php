@@ -16,7 +16,7 @@ class ChartController extends Controller
     public function userCreated(Request $request)
     {
 
-        $columns = ['时间' , '用户数'];
+        $columns = ['时间' , '用户数量'];
 
         $s = Carbon::createFromTimestamp(strtotime($request->time[0]));
         $e = Carbon::createFromTimestamp(strtotime($request->time[1]) + 60*60*24);
@@ -32,7 +32,7 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = date('y/m/d',strtotime($k));
-            $data[$num]['用户数'] = count($v);
+            $data[$num]['用户数量'] = count($v);
             $num++;
         }
 
@@ -42,7 +42,7 @@ class ChartController extends Controller
 
     public function plugCreated(Request $request)
     {
-        $columns = ['时间' , '资源数'];
+        $columns = ['时间' , '资源数量'];
 
 
         $s = Carbon::createFromTimestamp(strtotime($request->time[0]));
@@ -60,7 +60,7 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = date('y/m/d',strtotime($k));
-            $data[$num]['资源数'] = count($v);
+            $data[$num]['资源数量'] = count($v);
             $num++;
         }
 
@@ -70,7 +70,7 @@ class ChartController extends Controller
     public function orderCharts(Request $request)
     {
 
-        $columns = ['时间' , '资源购买数'];
+        $columns = ['时间' , '资源购买量'];
 
         $s = Carbon::createFromTimestamp(strtotime($request->time[0]));
         $e = Carbon::createFromTimestamp(strtotime($request->time[1]) + 60*60*24);
@@ -87,7 +87,7 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = date('y/m/d',strtotime($k));
-            $data[$num]['资源购买数'] = count($v);
+            $data[$num]['资源购买量'] = count($v);
             $num++;
         }
 
@@ -121,7 +121,7 @@ class ChartController extends Controller
 
     public function login(Request $request)
     {
-        $columns = ['时间' , '登录次数'];
+        $columns = ['时间' , '登录人次'];
 
         $s = date('Y-m-d',strtotime($request->time[0]));
         $e = date('Y-m-d',strtotime($request->time[1]) +  60*60*24);
@@ -134,7 +134,7 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = $v->time;
-            $data[$num]['登录次数'] = $v->num;
+            $data[$num]['登录人次'] = $v->num;
             $num++;
         }
         return ['columns' => $columns , 'data' => $data];
