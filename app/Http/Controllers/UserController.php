@@ -307,7 +307,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_code_email")) {
-            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_code_email")];
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_code_email")];
         }
         $code = rand(100000,999999);
         Mail::to($email)->send(new \App\Mail\sendCodeToUser($code));
@@ -322,7 +322,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_msg_".$type)) {
-            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg_".$type)).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg_".$type)];
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg_".$type)).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg_".$type)];
         }
         $code = rand(100000,999999);
         $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));
@@ -570,14 +570,14 @@ class UserController extends Controller
     public function password_email(Request $request)
     {
         $messages = [
-            'captcha.required' => '验证码 不能为空',
-            'captcha.captcha' => '验证码 输入错误'
+            'captcha.required' => '验证码不能为空',
+            'captcha.captcha' => '验证码输入错误'
         ];
         $this->validate($request, ['email' => 'required|email' , 'name' => 'required|string' , 'captcha'=>'required|captcha'],$messages);
 
         $name = User::where('email',$request->email)->value('name');
         if(!$name){
-            return back()->withInput($request->input())->withErrors(['email'=>'不存在此邮箱']);
+            return back()->withInput($request->input())->withErrors(['email'=>'此邮箱不存在']);
         }else{
             if($name != $request->name){
                 return back()->withInput($request->input())->withErrors(['name'=>'用户名不匹配']);
@@ -601,16 +601,16 @@ class UserController extends Controller
     public function send_rest_sms(Request $request)
     {
         if(!$request->name){
-            return ['sta'=>0 , 'msg'=>'名称不能为空'];
+            return ['sta'=>0 , 'msg'=>'用户名不能为空'];
         }
 
         if(!$request->tel){
-            return ['sta'=>0 , 'msg'=>'手机号不能为空'];
+            return ['sta'=>0 , 'msg'=>'手机号码不能为空'];
         }
 
         $name = User::where('tel',$request->tel)->value('name');
         if(!$name){
-            return ['sta'=>0 , 'msg'=>'手机号不存在'];
+            return ['sta'=>0 , 'msg'=>'手机号码不存在'];
         }else{
             if($name != $request->name){
                 return ['sta'=>0 , 'msg'=>'用户名不匹配'];
@@ -622,7 +622,7 @@ class UserController extends Controller
         $tel = $request->tel;
         $type = 2;
         if (Cache::has($tel."_send_msg_".$type)) {
-            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get($tel."_send_msg_".$type)).'S后再次发送' , 'timeOut'=> 60 - time() + Cache::get($tel."_send_msg_".$type)];
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get($tel."_send_msg_".$type)).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get($tel."_send_msg_".$type)];
         }
         $code = rand(100000,999999);
         $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));
@@ -640,7 +640,7 @@ class UserController extends Controller
     public function password_tel(Request $request)
     {
         $messages = [
-            'tel.required' => '手机号 不能为空',
+            'tel.required' => '手机号码不能为空',
         ];
 
         $this->validate($request, ['tel' => 'required' , 'name' => 'required|string'],$messages);
@@ -648,7 +648,7 @@ class UserController extends Controller
         $name = User::where('tel',$request->tel)->value('name');
 
         if(!$name){
-            return back()->withInput($request->input())->withErrors(['tel'=>'手机号不存在']);
+            return back()->withInput($request->input())->withErrors(['tel'=>'手机号码不存在']);
         }else{
             if($name != $request->name){
                 return back()->withInput($request->input())->withErrors(['name'=>'用户名不匹配']);
@@ -681,7 +681,7 @@ class UserController extends Controller
     public function request_sms(Request $request)
     {
         $messages = [
-            'password.is_pass' => '密码 必须有大小写字母+数字',
+            'password.is_pass' => '大小写字母+数字，不少于8位',
         ];
         $this->validate($request, ['token' => 'required' , 'password' => 'required|string|min:8|is_pass|confirmed'],$messages);
 

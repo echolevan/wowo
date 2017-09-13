@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'nickname.required' => '昵称不能为空',
             'nickname.max' => '昵称最长为10字符',
             'nickname.unique' => '昵称已存在',
-            'nickname.alpha_num' => '昵称不能含有符号',
+            'nickname.alpha_num' => '昵称不能含有特殊符号',
             'name.is_admin_name' => '用户名违规',
             'nickname.is_admin_name' => '昵称违规',
         ];
