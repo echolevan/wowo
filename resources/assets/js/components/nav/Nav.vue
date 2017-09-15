@@ -19,7 +19,7 @@
                     </div>
                     <div v-else>
                          <span>
-                            <a href="javascript:void(0);">欢迎回来</a>&nbsp;&nbsp;&nbsp;
+                            <span>欢迎回来</span>&nbsp;&nbsp;&nbsp;
                             <router-link to="/userInfo" class="my_a_style">{{userInfo.nickname}}</router-link>
                         </span>
                         <span>|</span>

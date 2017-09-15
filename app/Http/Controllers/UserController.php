@@ -434,7 +434,7 @@ class UserController extends Controller
         $recharge = Recharge::where('user_id',Auth::id())->where('status',9)->sum('recharge_amount');
         $type = Lv::get();
         if(count($type) === 0){
-            $type = ['name'=>'新手','money'=>0,'giving'=>0];
+            $type = collect([['name'=>'新手','money'=>0,'giving'=>0]]);
         }
         $lv = [];
         foreach ($type as $k => $v){
@@ -442,7 +442,7 @@ class UserController extends Controller
                 $lv = $type[$k];
             }
         }
-        return ['sta'=>1 , 'info'=>$lv ? $lv : ['name'=>'新手','money'=>0,'giving'=>0]];
+        return ['sta'=>1 , 'info'=>$lv ? $lv : collect([['name'=>'新手','money'=>0,'giving'=>0]])];
     }
 
     public function check_withdraw()

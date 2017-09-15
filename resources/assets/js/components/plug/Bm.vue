@@ -64,14 +64,18 @@
         <div class="dialog dialog--open" v-show="download_model">
             <div class="dialog__overlay"></div>
             <div class="dialog__content  animated fadeIn" style="border-radius: 2px">
+                <h2   class="normal_font"
+                      style="margin-bottom: 5px;padding: 0"
+                      :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{list[down_k].title}}</h2>
                 <h2>确定购买?</h2>
                 <div>
-                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#393d49;color:#fff;border: 1px solid #393d49"
+                    <button type="button" class="close_dialog" style="border-radius: 2px;background:#393d49;color:#fff;"
                             @click="download_model = false">取消
                     </button>
                     <button type="button" class="close_dialog ivu-btn-primary"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            style="border-radius: 2px;border: 1px solid #266ec1" @click="go_download(down_id, down_k)">确定
+                            style="border-radius: 2px" @click="go_download(down_id, down_k)">确定
                     </button>
                 </div>
             </div>
@@ -226,7 +230,6 @@
                 width 100px
                 height 30px
                 font-size: 14px
-                border 1px solid #f1f1f1
                 line-height 30px
                 margin 0 5px
                 border-radius 3px

@@ -405,7 +405,11 @@
         min-width: 60px;
     }
 
-    .my_a_style{
+    .normal_font_import.my_a_style{
+        padding: 0 7px;
+    }
+
+    .hover_hand .my_a_style{
         padding: 0 7px;
     }
 

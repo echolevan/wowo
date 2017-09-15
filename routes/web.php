@@ -174,4 +174,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post("charts/orderCharts",'ChartController@orderCharts');
     Route::post("charts/recharge",'ChartController@recharge');
     Route::post("charts/login",'ChartController@login');
+    Route::post("charts/draws",'ChartController@draws');
+    Route::get("charts/index",'ChartController@index');
+    Route::get("charts/service_info",'ChartController@service_info');
+    Route::get("charts/GetBrowser",'ChartController@GetBrowser');
 });

@@ -33,7 +33,8 @@
                         axisSite: {
                             right: ['充值总数']
                         },
-                        yAxisName: ['充值次数', '充值总数']
+                        yAxisName: ['充值次数', '充值总数'],
+                        area: true
                     }
                 })
             }
