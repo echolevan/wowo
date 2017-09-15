@@ -27,7 +27,7 @@
             <tr>
                 <th style="width: 10%">等级名称</th>
                 <th style="width: 10%">等级</th>
-                <th style="width: 10%">最低充值金额</th>
+                <th style="width: 10%">升级条件(元)</th>
                 <th style="width: 10%">赠送比例(%)</th>
                 <th style="width: 10%">操作</th>
             </tr>
@@ -72,7 +72,7 @@
                 <Form-item label="名称" prop="name">
                     <Input v-model="formItem.name" placeholder="请输入"></Input>
                 </Form-item>
-                <Form-item label="满足条件" prop="money">
+                <Form-item label="升级条件(元)" prop="money">
                     <Input-number :min="0" v-model="formItem.money" @on-change="change_other"></Input-number>
                 </Form-item>
                 <Form-item label="赠送比例(%)" prop="giving">
