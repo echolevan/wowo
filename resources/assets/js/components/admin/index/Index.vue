@@ -55,7 +55,8 @@
 
                             <div v-for="(v, k) in lv" style="float: left;padding: 0 5px">
                                 <small class="stat-label">Lv{{k + 1}}</small>
-                                <h4>{{info.lv[k].length}}</h4>
+                                <h4 v-if='info.lv[k]'>{{info.lv[k].length}}</h4>
+                                <h4 v-else>0</h4>
                             </div>
                             <div style="clear: both"></div>
                         </div><!-- stat -->
