@@ -193,12 +193,10 @@
                 <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
                     <Radio-group v-model="pay_type" type="button"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                        <Radio label="1" style="height:56px"><img src="/images/pay/002.jpg" alt=""></Radio>
-                        <Radio label="2" style="height:56px"><img src="/images/pay/001.jpg" alt=""></Radio>
+                        <Radio label="2" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/001.jpg" alt=""></Radio>
+                        <Radio label="1" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/002.jpg" alt=""></Radio>
                     </Radio-group>
-
                     <p></p>
-
                     <Radio-group v-model="pay_amount" type="button" style="margin-top: 15px"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                         <Radio label="30">￥30 --- 300金币</Radio>
@@ -317,7 +315,7 @@
                 },
                 plug_id: '',
                 plug_key: '',
-                pay_type: 1,
+                pay_type: '',
                 pay_amount: 10,
                 pay_amount_other: 1,
                 wechat_scan: false,

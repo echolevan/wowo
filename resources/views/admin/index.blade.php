@@ -24,6 +24,8 @@
 <div id="app">
     <v-admin></v-admin>
 </div>
+{{--import {twnJs} from '../../../../common/tween.js'--}}
+<script src="{{ asset('/js/tween.js') }}"></script>
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

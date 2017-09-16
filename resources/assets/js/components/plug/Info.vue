@@ -53,7 +53,7 @@
                     截图预览
                 </div>
                 <div style="clear:both"></div>
-                <img class="preview-img" v-for="(item, index) in list" :src="item.src" width="100" height="100"
+                <img class="preview-img"  v-for="(item, index) in list" :src="item.src"   width="100" height="100"
                      @click="$preview.open(index, list)">
             </div>
 
@@ -193,8 +193,8 @@
                 <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
                     <Radio-group v-model="pay_type" type="button"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                        <Radio label="1" style="height:56px"><img src="/images/pay/002.jpg" alt=""></Radio>
-                        <Radio label="2" style="height:56px"><img src="/images/pay/001.jpg" alt=""></Radio>
+                        <Radio label="2" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/001.jpg" alt=""></Radio>
+                        <Radio label="1" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/002.jpg" alt=""></Radio>
                     </Radio-group>
 
                     <p></p>
@@ -295,6 +295,7 @@
                         id: 0
                     }
                 },
+
                 updated_infos: [],
                 download_model: false,
                 download_pay_model: false,
@@ -304,7 +305,7 @@
                     title: '',
                     content: ''
                 },
-                pay_type: 1,
+                pay_type: '',
                 pay_amount: 10,
                 pay_amount_other: 1,
                 lv: {},
@@ -334,6 +335,7 @@
             setTimeout(() => {
                 $(".plug_info_div img").attr("style", "max-width:100%")
             }, 1000)
+
         },
         methods: {
             _init() {

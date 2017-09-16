@@ -29,11 +29,11 @@
                     }
                     this.chartSettings = {
                         dimension: ['时间'],
-                        metrics: [ '充值次数', '充值总数'],
+                        metrics: [ '充值次数', '充值金额'],
                         axisSite: {
-                            right: ['充值总数']
+                            right: ['充值金额']
                         },
-                        yAxisName: ['充值次数', '充值总数'],
+                        yAxisName: ['充值次数', '充值金额'],
                         area: true
                     }
                 })

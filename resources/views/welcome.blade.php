@@ -27,6 +27,7 @@
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/dialog.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/simple.slide.css') }}">
     <style>
         body {
             background-color:#f5f5f5;

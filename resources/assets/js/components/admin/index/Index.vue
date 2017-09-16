@@ -1,15 +1,14 @@
 <template>
     <div>
         <div class="row">
-
             <div class="col-sm-6 col-md-3">
-                <div class="panel panel-success panel-stat" >
+                <div class="panel panel-success panel-stat">
                     <div class="panel-heading" style="color: #fff;">
 
                         <div class="stat">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <img src="images/admin/is-user.png" alt="">
+                                    <img src="/images/admin/is-user.png" alt="">
                                 </div>
                                 <div class="col-xs-8">
                                     <small class="stat-label">用户总数</small>
@@ -44,7 +43,7 @@
                         <div class="stat">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <img src="images/admin/is-user.png" alt="">
+                                    <img src="/images/admin/is-user.png" alt="">
                                 </div>
                                 <div class="col-xs-8">
                                     <small class="stat-label">付费用户</small>
@@ -55,7 +54,7 @@
                             <br/>
 
                             <div v-for="(v, k) in lv" style="float: left;padding: 0 5px">
-                                <small class="stat-label">Lv{{k+1}}</small>
+                                <small class="stat-label">Lv{{k + 1}}</small>
                                 <h4>{{info.lv[k].length}}</h4>
                             </div>
                             <div style="clear: both"></div>
@@ -74,7 +73,7 @@
                         <div class="stat">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <img src="images/admin/is-document.png" alt="">
+                                    <img src="/images/admin/is-document.png" alt="">
                                 </div>
                                 <div class="col-xs-8">
                                     <small class="stat-label">资源总数</small>
@@ -111,7 +110,7 @@
                         <div class="stat">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <img src="images/admin/is-money.png" alt="">
+                                    <img src="/images/admin/is-money.png" alt="">
                                 </div>
                                 <div class="col-xs-8">
                                     <small class="stat-label">资金总额</small>
@@ -193,16 +192,18 @@
     export default {
         data() {
             return {
-                info: [],
-                lv: []
+                info: {
+
+                },
+                lv: [],
             }
         },
         mounted() {
-          this._init()
+            this._init()
         },
         methods: {
-            _init(){
-                axios.get('/admin/charts/index').then(res=>{
+            _init() {
+                axios.get('/admin/charts/index').then(res => {
                     console.log(res)
                     this.info = res.data.res
                     this.lv = res.data.lv
@@ -229,9 +230,9 @@
         box-shadow: none;
         background: #fcfcfc;
         border: 0;
-        -moz-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
-        -webkit-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
-        box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+        -moz-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+        -webkit-box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
+        box-shadow: 0 3px 0 rgba(12, 12, 12, 0.03);
     }
 
     .panel-heading,

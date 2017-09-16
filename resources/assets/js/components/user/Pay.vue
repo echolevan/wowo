@@ -15,14 +15,14 @@
                     <div class="panel-body">
                         <div class="choice_type">
                             <Radio-group v-model="type">
-                                <Radio label="1">
-                                    <a href="javascript:void(0);" @click="choice_type(1)">
-                                        <i class="zfb"></i>
-                                    </a>
-                                </Radio>
                                 <Radio label="2">
                                     <a href="javascript:void(0);" @click="choice_type(2)">
                                         <i class="wx"></i>
+                                    </a>
+                                </Radio>
+                                <Radio label="1">
+                                    <a href="javascript:void(0);" @click="choice_type(1)">
+                                        <i class="zfb"></i>
                                     </a>
                                 </Radio>
                             </Radio-group>

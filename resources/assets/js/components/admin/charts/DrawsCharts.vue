@@ -13,6 +13,7 @@
         data() {
             return {
                 chartData: [],
+                chartSettings: {},
                 time: ''
             }
         },
