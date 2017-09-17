@@ -241,7 +241,7 @@ class ChartController extends Controller
         $e = date('Y-m-d',strtotime($request->time[1]) +  60*60*24);
 
         $res = Withdraws::select(DB::raw("date_format(created_at , '%y/%m/%d') as date , sum(money) as sum"))->when($request->time != '' && $request->time[0] , function($query) use ($e, $s) {
-            return $query->where('time' ,'>=' ,  $s)->where('time' ,'<=' ,  $e);
+            return $query->where('created_at' ,'>=' ,  $s)->where('created_at' ,'<=' ,  $e);
         })->where('status',9)->orderBy('date')->groupBy('date')->get();
 
         $data = [];

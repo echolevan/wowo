@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'HomeController@index')->name('index');
+
 //Route::get('/make_users', function () {
 //    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
 //});

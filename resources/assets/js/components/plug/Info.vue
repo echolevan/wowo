@@ -271,6 +271,20 @@
 
         </Modal>
 
+        <div class="wechat_pay" v-show="is_wechat_pay" @click="is_wechat_pay = false">
+            <div class="wechat_all">
+                <div class="top">
+                    <img src="/images/pay/zy1.png" style="margin-bottom: 30px" alt="">
+                    <div class="wechat_qr">
+                        <img :src="wechat_scan_qr" alt="">
+                    </div>
+                </div>
+                <div class="wechat_logo">
+                    <p><a href="https://www.iwowcn.com" target="_blank" style="font-size: 14px;font-weight: bold">嘿市</a></p>
+                    <p style="font-size: 12px;font-weight: bold">陕西熊猫人网络科技有限公司</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -315,7 +329,8 @@
                     '游戏插件': 'plug'
                 },
                 wechat_scan: false,
-                wechat_scan_qr: ''
+                wechat_scan_qr: '',
+                is_wechat_pay: false
             }
         },
         
@@ -447,6 +462,7 @@
                             },1000)
                             window.open(res.data.url);
                         }else {
+                            clearInterval(bbb)
                             let bbb = setInterval(()=>{
                                 axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
                                     if(res.data.sta === 1){
@@ -454,16 +470,16 @@
                                         myDialog('支付成功')
                                         this.$store.commit('change_userInfo', res.data.info)
                                         clearInterval(bbb)
-                                        this.wechat_scan = false
+                                        this.is_wechat_pay = false
                                     }
                                 })
                             },1000)
-                            this.wechat_scan = true
+                            this.is_wechat_pay = true
                             this.wechat_scan_qr = res.data.url
                         }
                     }
+                    this.pay_loding = false
                 })
-                this.pay_loding = false
 
             },
             change_other() {
@@ -560,4 +576,54 @@
     .table_tr
         background #266ec1
         color #fff
+
+    .wechat_pay
+        position absolute
+        z-index 99999
+        height 100%
+        width 100%
+        left 0
+        top 0
+        display flex
+        align-items center
+        justify-content center
+        .wechat_all
+            border-radius 15px
+            text-align center
+            width 300px
+            -webkit-box-shadow 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            box-shadow 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+            -webkit-transition all .2s ease-in-out
+            .top
+                border-top-right-radius 15px
+                border-top-left-radius 15px
+                background #23ac38
+                padding 30px 0
+                .wechat_close
+                    position absolute
+                    top 8px
+                    right 8px
+                    color #fff
+                    font-size 16px
+                .title
+                    font-size 18px
+                    color #fff
+                    letter-spacing 2px
+                    margin-bottom 30px
+                    span
+                        font-weight bold
+                .wechat_qr
+                    width 200px
+                    margin 0 auto
+                    background #fff
+                    padding 5px
+                    img
+                        width 180px
+                        height 180px
+            .wechat_logo
+                width 100%
+                padding 15px 0
+                border-bottom-right-radius 15px
+                border-bottom-left-radius 15px
+                background-color #fff
 </style>
