@@ -180,11 +180,11 @@
             },
             updateUserAvatar(res) {
                 if(res.sta === 1){
-                    myDialog('头像更新成功')
+                    myDialog('头像更新成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.formItem.avatar = res.info.avatar
                     this.$store.commit('change_userInfo',res.info)
                 }else {
-                    myDialog(res.msg)
+                    myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
             },
             handleSubmit (name) {
@@ -201,10 +201,10 @@
                         }).then(res=>{
                             if(res.data.sta === 1){
                                 this.check_is_camp()
-                                myDialog('信息更新成功')
+                                myDialog('信息更新成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 this.$store.commit('change_userInfo',res.data.info)
                             }else{
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }
                         })
                     }

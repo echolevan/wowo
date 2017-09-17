@@ -80,9 +80,9 @@
                     if (valid) {
                         axios.post('user/update_password', {password: this.formPassword.password}).then((res) => {
                             if (res.data.sta === 0) {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             } else {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 this.formPassword.old_password = ''
                                 this.formPassword.password = ''
                                 this.formPassword.passwordCheck = ''
@@ -90,7 +90,7 @@
                             this.loading = false;
                         }).catch((err) => {
                             this.loading = false;
-                            myDialog('出错了，请联系管理员')
+                            myDialog('出错了，请联系管理员',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         });
                     } else {
                         this.loading = false;

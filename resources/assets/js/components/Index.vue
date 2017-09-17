@@ -56,6 +56,7 @@
 
 <script>
     import Nav from './nav/Nav.vue'
+    import {mapState} from 'vuex'
 
     export default {
         data() {
@@ -75,6 +76,9 @@
                 }
             }
         },
+        computed: mapState([
+            'userInfo', 'choice_cmap'
+        ]),
         mounted() {
             let redirect = localStorage.getItem('redirect');
             if (redirect && redirect !== "/") {
@@ -108,16 +112,16 @@
                     if (valid) {
                         axios.put('/feedback',{data: this.formCustom}).then(res => {
                             if(res.data.sta === 1){
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }else{
-                                myDialog('感谢您的建议')
+                                myDialog('感谢您的建议',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }
                             this.feedback_model = false
                             this.formCustom.feedback = ''
                             this.formCustom.name = ''
                             this.formCustom.tel = ''
                         }).catch(err => {
-                            myDialog('感谢您的建议')
+                            myDialog('感谢您的建议',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             this.feedback_model = false
                             this.formCustom.feedback = ''
                             this.formCustom.name = ''

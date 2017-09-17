@@ -140,7 +140,7 @@
                 this.sub_time()
                 axios.get('user/send_mail').then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         if (res.data.timeOut) {
                             this.rest_time = res.data.timeOut
                         }

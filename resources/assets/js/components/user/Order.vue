@@ -79,9 +79,9 @@
             rate_score(id, k) {
                 axios.post(`rate_score/${id}`, {score: this.score[k]}).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         this.orders[k].score.push({score: this.score[k] * 2})
                     }
                 })

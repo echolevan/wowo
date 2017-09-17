@@ -20,7 +20,9 @@
                 <Input type="text" placeholder="验证码" v-model="formTel.code" :maxlength="maxlengthTwo"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('formTel')">确定</Button>
+                <Button type="primary" @click="handleSubmit('formTel')"
+                        class="pull-right"   :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >确定</Button>
             </FormItem>
         </Form>
     </div>
@@ -85,9 +87,9 @@
                     if (valid) {
                         axios.post('user/update_tel', {tel: this.formTel.newTel, code: this.formTel.code}).then(res => {
                             if(res.data.sta === 0){
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }else {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 this.$store.commit('change_userInfo', res.data.info)
                                 this.formTel.newTel = ''
                                 this.formTel.code = ''
@@ -104,7 +106,7 @@
                         this.sub_time()
                         axios.get(`user/send_msg/${this.formTel.newTel}/1`).then(res=>{
                             if(res.data.sta === 0){
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 if(res.data.timeOut){
                                     this.rest_time = res.data.timeOut
                                 }

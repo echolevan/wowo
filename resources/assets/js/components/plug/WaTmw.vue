@@ -133,7 +133,7 @@
                style="text-align:center">
                 <span
                         class="normal_font"
-                        :class="{'bl_model_span_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >{{down_plug.title}}</span>
             </p>
             <div>
@@ -415,7 +415,7 @@
             download(id, k) {
                 axios.get(`download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.plug_id = id
                         this.plug_key = k
@@ -438,7 +438,7 @@
                 const clipboard = new Clipboard('.clipboard')
                 clipboard.on('success', function (e) {
                 })
-                myDialog('复制成功')
+                myDialog('复制成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             login() {
                 localStorage.setItem('redirect', this.$route.path)
@@ -448,7 +448,7 @@
                 this.loading = true
                 axios.post('to_pay_plug', {id: id}).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.download_pay_model = false
                         this.plugs[this.plug_key].is_pay = 1
@@ -466,15 +466,15 @@
                     recharge_amount_other: this.pay_amount_other
                 }).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg)
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         if(res.data.type === 'alipay') {
-                            myDialog('请在新窗口支付')
+                            myDialog('请在新窗口支付',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             let aaa = setInterval(()=>{
                                 axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
                                     if(res.data.sta === 1){
                                         clodeMyDialog()
-                                        myDialog('支付成功')
+                                        myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
                                         clearInterval(aaa)
                                     }
@@ -487,7 +487,7 @@
                                 axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
                                     if(res.data.sta === 1){
                                         clodeMyDialog()
-                                        myDialog('支付成功')
+                                        myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
                                         clearInterval(bbb)
                                         this.is_wechat_pay = false

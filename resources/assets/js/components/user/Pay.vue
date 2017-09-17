@@ -309,9 +309,9 @@
             },
             pay(money, recharge_amount_other = 1) {
                 if (!isNaN(money) && !(/^\d+$/.test(this.pay_amount_other))) {
-                    myDialog('请选择充值金额')
+                    myDialog('请选择充值金额' , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else if (!this.type) {
-                    myDialog('请选择支付方式')
+                    myDialog('请选择支付方式', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
                     axios.post('user/recharge', {
                         recharge_type: this.type,
@@ -319,15 +319,15 @@
                         recharge_amount_other: recharge_amount_other
                     }).then(res => {
                         if (res.data.sta === 0) {
-                            myDialog(res.data.msg)
+                            myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         } else {
                             if(res.data.type === 'alipay') {
-                                myDialog('请在新窗口支付')
+                                myDialog('请在新窗口支付',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 let aaa = setInterval(()=>{
                                     axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
                                         if(res.data.sta === 1){
                                             clodeMyDialog()
-                                            myDialog('支付成功')
+                                            myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                             this.$store.commit('change_userInfo', res.data.info)
                                             clearInterval(aaa)
                                         }
@@ -340,7 +340,7 @@
                                     axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
                                         if(res.data.sta === 1){
                                             clodeMyDialog()
-                                            myDialog('支付成功')
+                                            myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                             this.$store.commit('change_userInfo', res.data.info)
                                             clearInterval(bbb)
                                             this.is_wechat_pay = false

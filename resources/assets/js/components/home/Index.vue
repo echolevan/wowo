@@ -313,12 +313,12 @@
                     return false
                 }
                 if (this.content === '') {
-                    myDialog('请输入字符串(不能包含中文)')
+                    myDialog('请输入字符串(不能包含中文)',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
 
                 if (this.type.length === 0) {
-                    myDialog('请选择分类')
+                    myDialog('请选择分类',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
                 localStorage.setItem('quick_share_content', this.content)

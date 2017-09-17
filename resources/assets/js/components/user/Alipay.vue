@@ -28,7 +28,9 @@
                 <div style="clear:both"></div>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('fromAlipay')">确定</Button>
+                <Button type="primary"
+                        class="pull-right"   :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        @click="handleSubmit('fromAlipay')">确定</Button>
             </FormItem>
         </Form>
     </div>
@@ -83,9 +85,9 @@
                     if (valid) {
                         axios.post('user/update_Alipay', {Alipay: this.fromAlipay.newAlipay, code: this.fromAlipay.code, alipayName: this.fromAlipay.alipayName}).then(res => {
                             if(res.data.sta === 0){
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }else {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 this.$store.commit('change_userInfo', res.data.info)
                                 this.fromAlipay.newAlipay = ''
                                 this.fromAlipay.alipayName = ''
@@ -97,7 +99,7 @@
             },
             send_msg() {
                 if(this.userInfo.tel === '0'){
-                    myDialog('请先绑定手机号码')
+                    myDialog('请先绑定手机号码',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
                 this.$refs.fromAlipay.validateField('newAlipay',(v)=>{
@@ -107,7 +109,7 @@
                         this.sub_time()
                         axios.get(`user/send_msg/${this.userInfo.tel}/3/${this.fromAlipay.newAlipay}`).then(res=>{
                             if(res.data.sta === 0){
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 if(res.data.timeOut){
                                     this.rest_time = res.data.timeOut
                                 }

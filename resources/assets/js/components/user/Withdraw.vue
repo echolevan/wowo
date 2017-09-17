@@ -70,7 +70,7 @@
                 axios.post('withdraws',{drawMoney: this.drawMoney}).then(res => {
                     if(res.data.sta === 1){
                         this.modal1 = false
-                        myDialog('提现成功，请等待1-3个工作日')
+                        myDialog('提现成功，请等待1-3个工作日',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         this.$store.commit('change_userInfo', res.data.info)
                     }else{
                         myDialog(res.data.msg , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')

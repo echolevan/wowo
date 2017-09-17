@@ -288,9 +288,9 @@
                     if (valid) {
                         axios.put(`update_plug/${this.$route.params.id}`, {data: this.formItem}).then(res => {
                             if (res.data.sta === 0) {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             } else {
-                                myDialog(res.data.msg)
+                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 if (this.$route.name === 'admin.plug.create') {
                                     this.$router.go(-1)
 //                                    this.$router.push('/admin/plug/list')
@@ -353,7 +353,7 @@
                 })
                     .then((result) => {
                         if (result.data.sta === 0) {
-                            myDialog(result.data.msg)
+                            myDialog(result.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         } else {
                             let url = result.data.url
                             Editor.insertEmbed(cursorLocation, 'image', url);
@@ -377,7 +377,7 @@
             },
             handleSuccess(res, file) {
                 if (res.sta === 0) {
-                    myDialog(res.msg)
+                    myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
                     this.formItem.uploadList.push({
                         url: res.url,
@@ -388,7 +388,7 @@
             },
             handlePlugSuccess(res, file) {
                 if (res.sta === 0) {
-                    myDialog(res.msg)
+                    myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
                     this.$refs.uploadPlug.clearFiles()
                     this.formItem.plug_url = res.url
