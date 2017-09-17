@@ -134,7 +134,7 @@ class ChartController extends Controller
 
     public function plugCreated(Request $request)
     {
-        $columns = ['时间' , '资源数量'];
+        $columns = ['时间' , '资源发布量'];
 
 
         $s = Carbon::createFromTimestamp(strtotime($request->time[0]));
@@ -152,7 +152,7 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = date('y/m/d',strtotime($k));
-            $data[$num]['资源数量'] = count($v);
+            $data[$num]['资源发布量'] = count($v);
             $num++;
         }
 
