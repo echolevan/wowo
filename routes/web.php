@@ -12,6 +12,8 @@
 */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/abc', function (){
+    error_reporting(0); //抑制所有错误信息
+
     $dt = round(@disk_total_space(".")/(1024*1024*1024),3); //总
     $df = round(@disk_free_space(".")/(1024*1024*1024),3); //可用
     $du = $dt-$df; //已用
@@ -175,58 +177,6 @@ function sys_linux()
 
 
     return $res;
-
-}
-
-function GetWMI($wmi,$strClass, $strValue = array())
-{
-
-    $arrData = array();
-
-
-    $objWEBM = $wmi->Get($strClass);
-
-    $arrProp = $objWEBM->Properties_;
-
-    $arrWEBMCol = $objWEBM->Instances_();
-
-    foreach($arrWEBMCol as $objItem)
-    {
-
-        @reset($arrProp);
-
-        $arrInstance = array();
-
-        foreach($arrProp as $propItem)
-        {
-
-            eval("\$value = \$objItem->" . $propItem->Name . ";");
-
-            if (empty($strValue))
-            {
-
-                $arrInstance[$propItem->Name] = trim($value);
-
-            }
-            else
-            {
-
-                if (in_array($propItem->Name, $strValue))
-                {
-
-                    $arrInstance[$propItem->Name] = trim($value);
-
-                }
-
-            }
-
-        }
-
-        $arrData[] = $arrInstance;
-
-    }
-
-    return $arrData;
 
 }
 
