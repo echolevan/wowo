@@ -188,7 +188,7 @@
             const validateversion = (rule, value, callback) => {
                 if (this.formItem.type[0] === 3) {
                     if (value === '') {
-                        callback(new Error('插件版本不能为空'));
+                        callback(new Error('插件版本号不能为空'));
                     } else {
                         callback();
                     }
