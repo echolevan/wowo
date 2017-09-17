@@ -225,9 +225,9 @@ class UserController extends Controller
 
     public function check_is_camp()
     {
-        if( !Auth::user()->update_camp_at || time() - Auth::user()->update_camp_at > 30*60*60*24 )
+        if( !Auth::user()->update_camp_at || strtotime(date('Y-m-d 00:00:00',time())) - strtotime(date('Y-m-d 00:00:00',Auth::user()->update_camp_at)) > 30*60*60*24 )
             return ['sta'=> 1];
-        return ['sta'=> 0 , 'time'=> 30 - floor( (time()- Auth::user()->update_camp_at) / (60*60*24) )];
+        return ['sta'=> 0 , 'time'=> 30 - floor( (strtotime(date('Y-m-d 00:00:00',time())) - strtotime(date('Y-m-d 00:00:00',Auth::user()->update_camp_at))) / (60*60*24) )];
     }
 
 
