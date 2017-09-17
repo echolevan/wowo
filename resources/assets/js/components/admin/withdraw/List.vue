@@ -50,7 +50,7 @@
                 <td>
                     <Poptip
                             confirm
-                            title="您确认转账吗？"
+                            title="您确定转账吗？"
                             @on-ok="to_draw(v.wid)">
                         <Button size="small" type="ghost" :disabled="v.status === 9">转账</Button>
                     </Poptip>
