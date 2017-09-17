@@ -222,7 +222,6 @@
                 <Page v-show="count > 0" :total="count" size="small" @on-change="change_draws_page" show-total :key="count"
                       style="float: right;margin-top: 30px"
                       :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
-
             </Tab-pane>
         </Tabs>
 
