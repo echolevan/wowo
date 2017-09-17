@@ -145,7 +145,7 @@
                     <Button :type="is_disabled === k ? 'success' : 'ghost'" size="small" @click="c_rank(v.id, k)">{{ is_disabled === k ? '确定':'推荐' }}</Button>
                     <Poptip
                             confirm
-                            title="您确认删除这条记录吗？"
+                            title="您确定删除这条记录吗？"
                             @on-ok="del_this(v.plug_id)">
                         <Button size="small" type="error">删除</Button>
                     </Poptip>

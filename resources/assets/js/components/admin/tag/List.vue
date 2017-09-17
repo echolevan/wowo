@@ -85,7 +85,7 @@
                     </Button>
                     <Poptip
                             confirm
-                            title="您确认删除这条记录吗？"
+                            title="您确定删除这条记录吗？"
                             @on-ok="del_this(v.id)">
                         <Button size="small" type="error">删除</Button>
                     </Poptip>
