@@ -1,18 +1,18 @@
 <template>
     <div>
-        <tbody>
+        <tbody v-if="info">
         <tr>
             <th colspan="6">服务器实时数据</th>
         </tr>
         <tr>
             <td width="13%">服务器当前时间</td>
-            <td width="37%"><span id="stime">2017-09-17 22:30:57</span></td>
+            <td width="37%"><span id="stime">{{info.sysinfo.time}}</span></td>
             <td width="13%">服务器已运行时间</td>
             <td width="37%" colspan="3"><span id="uptime">{{info.sysinfo.uptime}}</span></td>
         </tr>
         <tr>
-            <td width="13%">CPU型号 [{{info.sysinfo.cpu.num}}核]</td>
-            <td width="87%" colspan="5">{{info.sysinfo.cpu.model}}
+            <td width="13%" v-if="info.sysinfo.cpu">CPU型号 [{{info.sysinfo.cpu.num}}核]</td>
+            <td width="87%" colspan="5" v-if="info.sysinfo.cpu">{{info.sysinfo.cpu.model}}
             </td>
         </tr>
         <tr>
@@ -76,7 +76,12 @@
         data() {
             return {}
         },
-        props: ['info']
+        props: ['info'],
+        mounted () {
+            setTimeout(()=>{
+                console.log(this.info)
+            },5000)
+        }
     }
 </script>
 

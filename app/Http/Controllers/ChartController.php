@@ -225,6 +225,8 @@ class ChartController extends Controller
             $sysInfo[$v] = $sysInfo[$v] ? $sysInfo[$v] : 0;
 
         }
+
+        $sysInfo['time'] = date('Y-m-d H:i:s');
         return ['dt'=>$dt , 'df'=>$df , 'du'=>$du , 'hdp'=>$hdPercent , 'sysinfo' => $sysInfo];
     }
 

@@ -141,7 +141,7 @@
             </div><!-- col-sm-6 -->
         </div>
 
-        <info-charts></info-charts>
+        <info-charts :info="info.service_info"></info-charts>
 
         <Row>
             <iCol span="12">
@@ -173,7 +173,7 @@
             </iCol>
             <iCol span="12">
                 <p class="title_charts">提现</p>
-                <draws-charts :info="info.service_info"></draws-charts>
+                <draws-charts></draws-charts>
             </iCol>
         </Row>
 
