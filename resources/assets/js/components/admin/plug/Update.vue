@@ -164,7 +164,7 @@
             const validateContent = (rule, value, callback) => {
                 if (value === '') {
                     if(this.formItem.type[0] === 1 || this.formItem.type[0] === 2){
-                        callback(new Error('内容不能为空'));
+                        callback(new Error('字符串不能为空'));
                     }else{
                         callback();
                     }
@@ -176,7 +176,7 @@
                 setTimeout(() =>  {
                     if (this.formItem.plug_url === '') {
                         if(this.formItem.type[0] === 3){
-                            callback(new Error('内容不能为空'));
+                            callback(new Error('字符串不能为空'));
                         }else{
                             callback();
                         }
