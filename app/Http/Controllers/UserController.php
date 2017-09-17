@@ -128,7 +128,7 @@ class UserController extends Controller
             $payC = new PayController();
             $pay_url = $payC->wechat_pay($rec);
             $path = 'qrcodes/'.Auth::id().time().str_random(5).'.png';
-            QrCode::format('png')->size(180)->margin(0)->merge('../public/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, '../public/'.$path);
+            QrCode::format('png')->size(180)->margin(0)->merge('/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, '../public/'.$path);
             return ['sta'=>1 , 'url'=>$path , 'out_trade_no'=>$rec->out_trade_no,'type'=>'wechat'];
         }
 
