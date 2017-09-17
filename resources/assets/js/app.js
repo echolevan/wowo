@@ -53,7 +53,8 @@ const store = new Vuex.Store({
         tools: {
             'bm': 0,
             'notice': '',
-            'bm_notice': ''
+            'bm_notice': '',
+            'fc': 100
         },
         lv: {
             'name': '新手','money':0,'giving':0
@@ -70,6 +71,7 @@ const store = new Vuex.Store({
             state.tools.bm = tools['bm'] ? tools['bm'].value : 1
             state.tools.notice = tools['notice'] ? tools['notice'].value : ''
             state.tools.bm_notice = tools['bm_notice'] ? tools['bm_notice'].value : ''
+            state.tools.fc = tools['fc'] ? parseInt(tools['fc'].value) : 100
         },
         change_tag (state, tools) {
             state.change_s_tag = Math.random()
@@ -81,6 +83,7 @@ const store = new Vuex.Store({
 })
 
 axios.get('/user/info').then(res => {
+    console.log(res)
     store.commit('change_tools', res.data.tools)
     if (res.data.sta === '1') {
         console.log(res)

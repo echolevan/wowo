@@ -282,8 +282,8 @@
                     </div>
                 </div>
                 <div class="wechat_logo">
-                    <p><a href="https://www.iwowcn.com" target="_blank" style="font-size: 14px;font-weight: bold">嘿市</a></p>
-                    <p style="font-size: 12px;font-weight: bold">陕西熊猫人网络科技有限公司</p>
+                    <p><a href="https://www.iwowcn.com" target="_blank" style="font-size: 24px;font-weight: bold">嘿市</a></p>
+                    <p style="font-size: 14px;color:#ABABAB;font-weight: bold">陕西熊猫人网络科技有限公司</p>
                 </div>
             </div>
         </div>
@@ -583,7 +583,6 @@
         padding-left 15px
         .search
             margin-bottom 15px
-
     .wechat_pay
         position absolute
         z-index 99999
@@ -597,7 +596,7 @@
         .wechat_all
             border-radius 15px
             text-align center
-            width 300px
+            width 400px
             -webkit-box-shadow 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
             box-shadow 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
             -webkit-transition all .2s ease-in-out
@@ -620,13 +619,13 @@
                     span
                         font-weight bold
                 .wechat_qr
-                    width 200px
+                    width 310px
                     margin 0 auto
                     background #fff
                     padding 5px
                     img
-                        width 180px
-                        height 180px
+                        width 300px
+                        height 300px
             .wechat_logo
                 width 100%
                 padding 15px 0

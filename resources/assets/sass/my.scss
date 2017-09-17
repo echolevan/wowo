@@ -36,6 +36,19 @@
   border-color: #d13030 !important;
 }
 
+.sb_index .panel-heading{
+  border-radius: 5px !important;
+}
+
+.lv_c .ivu-tooltip-inner{
+  background: #fff !important;
+  color: #333 !important;
+}
+
+.ivu-icon-search:hover{
+  cursor: pointer;
+}
+
 .ivu-notice-with-info:after {
   background: #266ec1;
 }

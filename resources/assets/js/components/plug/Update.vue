@@ -36,6 +36,8 @@
                         :min="1"
                         v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
+                <span v-if="formItem.gold === 1">(用户购买插件，您将获得 {{tools.fc}} % 的金币 , 即 1 金币)</span>
+                <span v-else>(用户购买插件，您将获得 {{tools.fc}} % 的金币 , 即 {{ Math.floor( formItem.gold * tools.fc / 100 )}} 金币)</span>
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
@@ -119,6 +121,7 @@
 
 <script>
     import {VueEditor} from 'vue2-editor'
+    import { mapState } from 'vuex'
 
     export default {
         data() {
@@ -260,6 +263,9 @@
                 }
             }
         },
+        computed: mapState([
+            'userInfo', 'choice_cmap' , 'tools'
+        ]),
         mounted() {
             this._init()
         },

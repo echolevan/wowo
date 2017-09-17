@@ -15,9 +15,15 @@
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">等级</span>
-                <Poptip v-if="lv" trigger="hover" :content="`充值将获赠 ${lv.giving}% 金币`" placement="bottom">
+                <Tooltip class="lv_c" v-if="lv" trigger="hover"  placement="bottom">
                     <span class="hover_hand">{{lv.name}}</span>
-                </Poptip>
+                    <div slot="content">
+                        <p>充值将获赠 <span
+                                class="normal_font"
+                                :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                        >{{lv.giving}}%</span> 金币</p>
+                    </div>
+                </Tooltip>
                 <div style="clear: both"></div>
             </li>
             <li><span class="title">阵营</span>

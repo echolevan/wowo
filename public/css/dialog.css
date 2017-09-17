@@ -67,3 +67,42 @@
 	font-size: 1.5em;
 	padding: 0 0 2em;
 }
+
+
+.dialog_sb,
+.dialog__overlay {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.dialog_sb {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.close_dialog{
+	padding: 0.51em 2em;
+	outline: none;
+	font-weight: 600;
+	border: none;
+}
+
+/* Content */
+.dialog_sb h2 {
+	margin: 0;
+	font-weight: 400;
+	font-size: 1.5em;
+	padding: 0 0 2em;
+}

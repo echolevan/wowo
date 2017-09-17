@@ -128,7 +128,7 @@ class UserController extends Controller
             $payC = new PayController();
             $pay_url = $payC->wechat_pay($rec);
             $path = 'qrcodes/'.Auth::id().time().str_random(5).'.png';
-            QrCode::format('png')->size(180)->margin(0)->merge('/public/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, '../public/'.$path);
+            QrCode::format('png')->size(300)->margin(0)->merge('/public/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, '../public/'.$path);
             return ['sta'=>1 , 'url'=>$path , 'out_trade_no'=>$rec->out_trade_no,'type'=>'wechat'];
         }
 
@@ -447,10 +447,11 @@ class UserController extends Controller
 
     public function check_withdraw()
     {
+        $color = Auth::user()->camp === 1 ? '#266ec1' : '#d13030';
         if(Auth::user()->gold < 2000){
-            return ['sta'=>0 , 'msg'=>'当金币数量等同于200人民币时可申请提现'];
+            return ['sta'=>0 , 'msg'=>'当金币数量等同于 <span style="color: '.$color.';font-size: 20px;font-weight: bold">200</span> 人民币时可申请提现'];
         }else if((time() - strtotime(Auth::user()->created_at)) < (30*60*60*24)){
-            return ['sta'=>0 , 'msg'=>'新注册用户 <span style="color: #d13030;font-size: 20px;font-weight: bold">30</span> 日内不能提现'];
+            return ['sta'=>0 , 'msg'=>'新注册用户 <span style="color: '.$color.';font-size: 20px;font-weight: bold">30</span> 日内不能提现'];
         }else if(!Auth::user()->alipay){
             return ['sta'=>0 , 'msg'=>'请先绑定支付宝'];
         }

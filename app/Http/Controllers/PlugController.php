@@ -329,8 +329,20 @@ class PlugController extends Controller
 
             $author = User::where('id', $plug->user_id)->first();
 
+            $fc = Tool::where('name','fc')->value('value');
+
+            if($fc){
+                if($plug->gold === 1){
+                    $gold_to_author = 1;
+                }else{
+                    $gold_to_author = floor( $plug->gold * $fc / 100 );
+                }
+            }else{
+                $gold_to_author = $plug->gold;
+            }
+
             User::where('id', $author->id)->update([
-                'gold' => $author->gold + $plug->gold
+                'gold' => $author->gold + $gold_to_author
             ]);
 
             DB::commit();

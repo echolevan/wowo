@@ -61,10 +61,10 @@
         <div style="clear:both"></div>
 
 
-        <div class="dialog dialog--open" v-show="download_model">
+        <div class="dialog_sb dialog--open" v-show="download_model">
             <div class="dialog__overlay"></div>
             <div class="dialog__content  animated fadeIn" style="border-radius: 2px">
-                <h2   class="normal_font"
+                <h2 v-if="down_k"   class="normal_font"
                       style="margin-bottom: 5px;padding: 0"
                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                 >{{list[down_k].title}}</h2>
@@ -81,7 +81,7 @@
             </div>
         </div>
 
-        <div class="dialog dialog--open" v-show="!is_show_this">
+        <div class="dialog_sb dialog--open" v-show="!is_show_this">
             <div class="dialog__overlay"></div>
             <div class="dialog__content dialog__tell_you animated fadeIn" style="border-radius: 2px">
                 <div class="title_one">
@@ -123,7 +123,7 @@
                 },
                 download_model: false,
                 down_id: 0,
-                down_k: 0,
+                down_k: '',
                 today: '',
                 is_show_this: ''
             }
@@ -170,6 +170,7 @@
             },
             down_bm(id, k) {
                 axios.get(`bm/check_download/${id}`).then(res => {
+                    console.log(res)
                     if (res.data.sta === 1) {
                         this.go_download(id, k)
                     } else if (res.data.sta === 9) {

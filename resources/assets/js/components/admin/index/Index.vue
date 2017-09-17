@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row sb_index">
             <div class="col-sm-6 col-md-3">
                 <div class="panel panel-success panel-stat">
                     <div class="panel-heading" style="color: #fff;">
@@ -53,7 +53,7 @@
                             <div class="mb15"></div>
                             <br/>
 
-                            <div v-for="(v, k) in lv" style="float: left;padding: 0 5px">
+                            <div v-for="(v, k) in lv" style="float: left;padding: 0 15px">
                                 <small class="stat-label">Lv{{k + 1}}</small>
                                 <h4 v-if='info.lv[k]'>{{info.lv[k].length}}</h4>
                                 <h4 v-else>0</h4>
