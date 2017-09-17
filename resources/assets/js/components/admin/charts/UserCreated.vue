@@ -1,7 +1,7 @@
 <template>
     <div>
         <DatePicker type="daterange" placeholder="选择日期" v-model="time"></DatePicker>
-        <Button type="primary" @click="_init">确认</Button>
+        <Button type="primary" @click="_init">确定</Button>
         <ve-line :data="chartData" :settings="chartSettings"></ve-line>
     </div>
 </template>
