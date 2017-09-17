@@ -11,7 +11,7 @@
                                     <img src="/images/admin/is-user.png" alt="">
                                 </div>
                                 <div class="col-xs-8">
-                                    <small class="stat-label">用户总数</small>
+                                    <small class="stat-label">注册用户</small>
                                     <h1>{{info.user_count}}</h1>
                                 </div>
                             </div><!-- row -->
