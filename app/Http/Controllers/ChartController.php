@@ -225,7 +225,7 @@ class ChartController extends Controller
             $sysInfo[$v] = $sysInfo[$v] ? $sysInfo[$v] : 0;
 
         }
-        return [$dt , $df , $du , $hdPercent , $sysInfo];
+        return ['dt'=>$dt , 'df'=>$df , 'du'=>$du , 'hdp'=>$hdPercent , 'sysinfo' => $sysInfo];
     }
 
     function GetBrowser(){

@@ -141,9 +141,7 @@
             </div><!-- col-sm-6 -->
         </div>
 
-        <ul>
-            <li v-for="(v , k) in info.service_info">{{k}} - {{v}}</li>
-        </ul>
+        <info-charts></info-charts>
 
         <Row>
             <iCol span="12">
@@ -175,7 +173,7 @@
             </iCol>
             <iCol span="12">
                 <p class="title_charts">提现</p>
-                <draws-charts></draws-charts>
+                <draws-charts :info="info.service_info"></draws-charts>
             </iCol>
         </Row>
 
@@ -189,6 +187,7 @@
     import RechargeCharts from '../charts/RechargeCharts'
     import LoginCharts from '../charts/LoginCharts'
     import DrawsCharts from '../charts/DrawsCharts'
+    import InfoCharts from '../charts/InfoCharts'
 
     export default {
         data() {
@@ -211,7 +210,7 @@
                 })
             }
         },
-        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts, LoginCharts, DrawsCharts}
+        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts, LoginCharts, DrawsCharts,InfoCharts}
     }
 </script>
 
