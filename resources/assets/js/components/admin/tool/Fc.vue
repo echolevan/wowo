@@ -7,7 +7,7 @@
         </Breadcrumb>
         <div>
             <Form ref="formItem" :model="formItem" :label-width="100" style="width:800px">
-                <Form-item label=插件分成>
+                <Form-item label=作者分成>
                     <InputNumber :max="100" :min="0" v-model="formItem.fc"></InputNumber>%
                 </Form-item>
 
