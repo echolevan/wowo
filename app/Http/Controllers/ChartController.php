@@ -497,7 +497,7 @@ class ChartController extends Controller
 
     public function draws(Request $request)
     {
-        $columns = ['时间' , '提现金额' , '提现次数'];
+        $columns = ['时间' , '提现次数' , '提现金额' ];
 
         $s = date('Y-m-d',strtotime($request->time[0]));
         $e = date('Y-m-d',strtotime($request->time[1]) +  60*60*24);
@@ -511,8 +511,8 @@ class ChartController extends Controller
         $num = 0;
         foreach ($res as $k => $v){
             $data[$num]['时间'] = $v->date;
-            $data[$num]['提现金额'] = $v->sum;
             $data[$num]['提现次数'] = $v->count;
+            $data[$num]['提现金额'] = $v->sum;
             $num++;
         }
         return ['columns' => $columns , 'data' => $data];

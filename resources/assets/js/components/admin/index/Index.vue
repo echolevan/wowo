@@ -143,7 +143,8 @@
 
         <Row>
             <iCol span="12">
-                <Button type="primary" @click="ref_s" style="margin-bottom: 30px">刷新服务器状态</Button>
+                <Button type="primary" @click="ref_s" class="pull-right" style="margin-bottom: 30px">刷新服务器状态</Button>
+                <div style="clear: both"></div>
                 <info-charts :info="info.service_info"></info-charts>
             </iCol>
             <iCol span="6">
