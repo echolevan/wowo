@@ -67,6 +67,27 @@
             <td>系统平均负载</td>
             <td colspan="5" class="w_number"><span id="loadAvg">{{info.sysinfo.loadAvg}}</span></td>
         </tr>
+
+        <tr>
+
+            <td width="13%">{{info.network.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{info.network.NetInput[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{info.network.NetInputSpeed[2]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{info.network.NetOut[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{info.network.NetOutSpeed[2]}}B/s</span></font></td>
+
+        </tr>
+
+        <tr>
+
+            <td width="13%">{{info.network.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{info.network.NetInput[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{info.network.NetInputSpeed[3]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{info.network.NetOut[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{info.network.NetOutSpeed[3]}}B/s</span></font></td>
+
+        </tr>
+
         </tbody>
     </div>
 </template>

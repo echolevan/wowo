@@ -58,6 +58,7 @@ class ChartController extends Controller
         $res['ff'] = count($user_lv);
 
         $res['service_info'] = $this->service_info();
+        $res['network'] = $this->getNetInfo();
         return ['res'=>$res , 'lv'=>$lv];
     }
 
@@ -228,6 +229,49 @@ class ChartController extends Controller
 
         $sysInfo['time'] = date('Y-m-d H:i:s');
         return ['dt'=>$dt , 'df'=>$df , 'du'=>$du , 'hdp'=>$hdPercent , 'sysinfo' => $sysInfo];
+    }
+
+    function getNetInfo(){
+        error_reporting(0); //抑制所有错误信息
+        $strs = @file("/proc/net/dev");
+        for ($i = 2; $i < count($strs); $i++ )
+        {
+            preg_match_all( "/([^\s]+):[\s]{0,}(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/", $strs[$i], $info );
+            $NetOutSpeed[$i] = $info[10][0];
+            $NetInputSpeed[$i] = $info[2][0];
+            $NetInput[$i] = $this->formatsize($info[2][0]);
+            $NetOut[$i]  = $this->formatsize($info[10][0]);
+        }
+        return ['info'=>$info,'NetOutSpeed' => $NetOutSpeed, 'NetInputSpeed' => $NetInputSpeed,'NetInput' => $NetInput,'NetOut'=>$NetOut];
+    }
+
+    //单位转换
+    function formatsize($size)
+    {
+        error_reporting(0); //抑制所有错误信息
+        $danwei=array(' B ',' K ',' M ',' G ',' T ');
+        $allsize=array();
+        $i=0;
+
+        for($i = 0; $i <5; $i++)
+        {
+            if(floor($size/pow(1024,$i))==0){break;}
+        }
+
+        for($l = $i-1; $l >=0; $l--)
+        {
+            $allsize1[$l]=floor($size/pow(1024,$l));
+            $allsize[$l]=$allsize1[$l]-$allsize1[$l+1]*1024;
+        }
+
+        $len=count($allsize);
+
+        $fsize = '';
+        for($j = $len-1; $j >=0; $j--)
+        {
+            $fsize=$fsize.$allsize[$j].$danwei[$j];
+        }
+        return $fsize;
     }
 
     function GetBrowser(){
