@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'password.min' => '密码不少于8位',
             'email.unique' => '邮箱已存在',
             'email.max' => '邮箱最长为255字符',
+            'email.email' => '邮箱不是一个合法的邮箱',
 
             'camp.required' => '阵营不能为空',
             'captcha.required' => '验证码不能为空',
