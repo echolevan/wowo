@@ -141,7 +141,21 @@
             </div><!-- col-sm-6 -->
         </div>
 
-        <info-charts :info="info.service_info"></info-charts>
+        <Row>
+            <iCol span="12">
+                <Button type="primary" @click="ref_s" style="margin-bottom: 50px">刷新服务器状态</Button>
+                <info-charts :info="info.service_info"></info-charts>
+            </iCol>
+            <iCol span="6">
+                <p class="title_charts">设备类型</p>
+                <sys-charts></sys-charts>
+            </iCol>
+            <iCol span="6">
+                <p class="title_charts">浏览器类型</p>
+                <bro-charts></bro-charts>
+            </iCol>
+        </Row>
+
 
         <Row>
             <iCol span="12">
@@ -188,6 +202,8 @@
     import LoginCharts from '../charts/LoginCharts'
     import DrawsCharts from '../charts/DrawsCharts'
     import InfoCharts from '../charts/InfoCharts'
+    import SysCharts from '../charts/SysCharts'
+    import BroCharts from '../charts/BroCharts'
 
     export default {
         data() {
@@ -204,13 +220,17 @@
         methods: {
             _init() {
                 axios.get('/admin/charts/index').then(res => {
-                    console.log(res)
                     this.info = res.data.res
                     this.lv = res.data.lv
                 })
+            },
+            ref_s(){
+                axios.get('/admin/charts/service_info').then(res => {
+                    this.info.service_info = res.data
+                })
             }
         },
-        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts, LoginCharts, DrawsCharts,InfoCharts}
+        components: {UserCreated, PlugCreated, OrderCharts, RechargeCharts, LoginCharts, DrawsCharts,InfoCharts,SysCharts,BroCharts}
     }
 </script>
 

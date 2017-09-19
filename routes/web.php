@@ -11,20 +11,6 @@
 |
 */
 Route::get('/', 'HomeController@index')->name('index');
-Route::get('/abc', function (){
-    $strs = @file("/proc/net/dev");
-    return $strs;
-    dd($strs);
-    for ($i = 2; $i < count($strs); $i++ )
-    {
-        preg_match_all( "/([^\s]+):[\s]{0,}(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/", $strs[$i], $info );
-        $NetOutSpeed[$i] = $info[10][0];
-        $NetInputSpeed[$i] = $info[2][0];
-        $NetInput[$i] = formatsize($info[2][0]);
-        $NetOut[$i]  = formatsize($info[10][0]);
-    }
-    return $NetOut;
-});
 
 //Route::get('/make_users', function () {
 //    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
@@ -193,5 +179,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("charts/index",'ChartController@index');
     Route::get("charts/service_info",'ChartController@service_info');
     Route::get("charts/GetBrowser",'ChartController@GetBrowser');
-    Route::get("charts/networkinfo",'ChartController@getNetInfo');
+    Route::get("charts/service_info",'ChartController@service_info');
+    Route::get("charts/bro_charts",'ChartController@bro_charts');
+    Route::get("charts/sys_charts",'ChartController@sys_charts');
 });

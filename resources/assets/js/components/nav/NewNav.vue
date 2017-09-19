@@ -165,7 +165,6 @@
         },
         mounted() {
             axios.get('plug_all_info_nav').then(res => {
-                console.log(res)
                 this.nav_tags = res.data.res
             })
         },

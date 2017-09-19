@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lv;
 use App\Plug;
 use App\Recharge;
+use App\Statistic;
 use App\User;
 use App\Order;
 use App\Withdraws;
@@ -293,6 +294,63 @@ class ChartController extends Controller
         }else{return "获取浏览器信息失败！";}
     }
 
+    function getAgentInfo(){
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        $brower = array(
+            'MSIE' => 1,
+            'Firefox' => 2,
+            'QQBrowser' => 3,
+            'UCBrowser' => 4,
+            'Edge' => 5,
+            'Chrome' => 6,
+            'Opera' => 7,
+            'Safari' => 8,
+            'MicroMessenger' => 9,
+        );
+        $system = array(
+            'Windows' => 1,
+            'Android' => 2,
+            'iPhone' => 3,
+            'Windows Phone' => 4,
+            'iPad' => 5
+        );
+        $system_type = '其他';//未知
+        $browser_type = '其他';//未知
+        foreach($brower as $bro => $val){
+            if(stripos($agent, $bro) !== false){
+                $browser_type = $bro;
+                break;
+            }
+        }
+        foreach($system as $sys => $val){
+            if(stripos($agent, $sys) !== false){
+                $system_type = $sys;
+                break;
+            }
+        }
+        $sys_db = Statistic::where('name',$system_type)->where('type',2)->first();
+        if($sys_db){
+            $sys_db->increment('num');
+        }else{
+            Statistic::create([
+                'name' => $system_type,
+                'num' => 1,
+                'type' => 2
+            ]);
+        }
+
+        $bro_db = Statistic::where('name',$browser_type)->where('type',1)->first();
+        if($bro_db){
+            $bro_db->increment('num');
+        }else{
+            Statistic::create([
+                'name' => $browser_type,
+                'num' => 1,
+                'type' => 1
+            ]);
+        }
+        return array('sys' => $system_type, 'bro' => $browser_type);
+    }
 
     public function userCreated(Request $request)
     {
@@ -438,6 +496,35 @@ class ChartController extends Controller
         foreach ($res as $k => $v){
             $data[$num]['时间'] = $v->date;
             $data[$num]['提现金额'] = $v->sum;
+            $num++;
+        }
+        return ['columns' => $columns , 'data' => $data];
+    }
+
+
+    public function sys_charts()
+    {
+        $columns = ['类型' , '数量'];
+        $res = Statistic::select('name','num')->where('type',2)->get();
+        $data = [];
+        $num = 0;
+        foreach ($res as $k => $v){
+            $data[$num]['类型'] = $v->name;
+            $data[$num]['数量'] = $v->num;
+            $num++;
+        }
+        return ['columns' => $columns , 'data' => $data];
+    }
+
+    public function bro_charts()
+    {
+        $columns = ['类型' , '数量'];
+        $res = Statistic::select('name','num')->where('type',1)->get();
+        $num = 0;
+        $data = [];
+        foreach ($res as $k => $v){
+            $data[$num]['类型'] = $v->name;
+            $data[$num]['数量'] = $v->num;
             $num++;
         }
         return ['columns' => $columns , 'data' => $data];

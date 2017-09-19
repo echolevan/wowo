@@ -71,7 +71,6 @@
             },
             get_orders() {
                 axios.post(`user/orders/pay/${this.page}/${this.size}`).then(res => {
-                    console.log(res)
                     this.count = res.data.count
                     this.orders = res.data.res
                 })

@@ -83,10 +83,8 @@ const store = new Vuex.Store({
 })
 
 axios.get('/user/info').then(res => {
-    console.log(res)
     store.commit('change_tools', res.data.tools)
     if (res.data.sta === '1') {
-        console.log(res)
         store.commit('change_userInfo', res.data.info)
         store.commit('change_lv', res.data.lv)
         sessionStorage.setItem('loginUserInfoId',[res.data.info.id , res.data.info.is_active])

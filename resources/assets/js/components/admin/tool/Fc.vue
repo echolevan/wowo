@@ -38,7 +38,6 @@
         methods: {
             _init() {
                 axios.get('/admin/tool/index').then(res => {
-                    console.log(res)
                     this.formItem.fc = res.data.tools['fc'] ? parseInt(res.data.tools['fc'].value) : 0
                 })
             },

@@ -100,6 +100,13 @@
                 $("html, body").animate({scrollTop: 0}, 500);
             })
 
+
+            let is_getAgentInfo = localStorage.getItem('getAgentInfo');
+            if(!is_getAgentInfo){
+                axios.get('/getAgentInfo')
+                localStorage.setItem('getAgentInfo', "1")
+            }
+
         },
         watch: {
             '$route'(to, from) {
