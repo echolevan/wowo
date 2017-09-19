@@ -3,8 +3,8 @@ table{width:100%;clear:both;padding: 0; margin: 0 0 10px;border-collapse:collaps
     -moz-box-shadow: 1px 1px 1px #CCC;
     -webkit-box-shadow: 1px 1px 1px #CCC;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#CCCCCC')";}
-th{padding: 3px 6px; font-weight:bold;background:#dedede;color:#626262;border:1px solid #cccccc; text-align:left;}
-tr{padding: 0; background:#FFFFFF;}
+th{padding: 3px 6px; font-weight:bold;color:#626262;border:1px solid #cccccc; text-align:left;}
+tr{padding: 0; }
 td{padding: 3px 6px;}
 .bar {border:1px solid #999999; background:#FFFFFF; height:5px; font-size:2px; width:89%; margin:2px 0 5px 0;padding:1px; overflow: hidden;}
 .bar_1 {border:1px dotted #999999; background:#FFFFFF; height:5px; font-size:2px; width:89%; margin:2px 0 5px 0;padding:1px; overflow: hidden;}

@@ -37,19 +37,19 @@
             @if ($errors->has('login'))
                 <p class="error_l">{{ $errors->first('login') }}</p>
             @endif
-            <dd class="user_icon">
+            <dd>
                 <input type="text" placeholder="用户名/嘿市ID" name="email" class="login_txtbx" style="color: #fff">
             </dd>
             @if ($errors->has('email'))
                 <p class="error_l">{{ $errors->first('email') }}</p>
             @endif
-            <dd class="pwd_icon">
+            <dd>
                 <input type="password" placeholder="密码" name="password" class="login_txtbx"  style="color: #fff">
             </dd>
             @if ($errors->has('password'))
                 <p class="error_l">{{ $errors->first('password') }}</p>
             @endif
-            <dd class="val_icon">
+            <dd>
                 <div class="checkcode">
                     <input type="text" name="captcha" id="J_codetext" style="width: 50%;color: #fff" placeholder="验证码" maxlength="4" class="login_txtbx">
                     <img style="width: 47%;height: 45px;border-radius: 2px;" class="captcha" src="{{captcha_src()}}" alt="">

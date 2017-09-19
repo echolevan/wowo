@@ -234,7 +234,7 @@ small, weak {
     line-height: 26px;
     padding: 8px 5%;
     width: 90%;
-    text-indent: 2em;
+    /*text-indent: 2em;*/
     border: none;
     border-radius: 5px;
     background: rgba(0,0,0,0.7);
@@ -308,7 +308,7 @@ small, weak {
     padding: 3px;
     outline: none;
     border: none;
-    text-indent: 2.8em;
+    text-indent: 0.8em;
 }
 
 .admin_login dd .checkcode canvas {

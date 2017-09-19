@@ -32,8 +32,11 @@ class ChartController extends Controller
         $res['plug_tmw'] = isset($plug[2]) ? count($plug[2]) : 0;
         $res['plug_plug'] = isset($plug[3]) ? count($plug[3]) : 0;
 
-        $res['recharge'] = Recharge::where('status',9)->sum('recharge_amount');
-        $res['draws'] = Withdraws::where('status',9)->sum('money');
+        $r = Recharge::where('status',9)->sum('recharge_amount');
+        $w = Withdraws::where('status',9)->sum('money');
+        $res['recharge'] = $this->doFormatMoney((string)$r);
+        $res['draws'] = $this->doFormatMoney((string)$w);
+        $res['total'] = $this->doFormatMoney((string)($r - $w));
 
         $lv = Lv::orderBy('money')->get();
         $user_lv = Recharge::select(DB::raw("sum(recharge_amount) as sum , user_id"))->where('status',9)->groupBy('user_id')->get();
@@ -60,6 +63,18 @@ class ChartController extends Controller
 
         $res['service_info'] = $this->service_info();
         return ['res'=>$res , 'lv'=>$lv];
+    }
+
+    function doFormatMoney($money){
+        $tmp_money = strrev($money);
+        $format_money = "";
+        for($i = 3;$i<strlen($money);$i+=3){
+            $format_money .= substr($tmp_money,0,3).",";
+            $tmp_money = substr($tmp_money,3);
+        }
+        $format_money .=$tmp_money;
+        $format_money = strrev($format_money);
+        return $format_money;
     }
 
     function sys_linux()
@@ -481,12 +496,13 @@ class ChartController extends Controller
 
     public function draws(Request $request)
     {
-        $columns = ['时间' , '提现金额'];
+        $columns = ['时间' , '提现金额' , '提现次数'];
 
         $s = date('Y-m-d',strtotime($request->time[0]));
         $e = date('Y-m-d',strtotime($request->time[1]) +  60*60*24);
 
-        $res = Withdraws::select(DB::raw("date_format(created_at , '%y/%m/%d') as date , sum(money) as sum"))->when($request->time != '' && $request->time[0] , function($query) use ($e, $s) {
+        $res = Withdraws::select(DB::raw("date_format(created_at , '%y/%m/%d') as date , sum(money) as sum , count(*) as count"))
+            ->when($request->time != '' && $request->time[0] , function($query) use ($e, $s) {
             return $query->where('created_at' ,'>=' ,  $s)->where('created_at' ,'<=' ,  $e);
         })->where('status',9)->orderBy('date')->groupBy('date')->get();
 
@@ -495,6 +511,7 @@ class ChartController extends Controller
         foreach ($res as $k => $v){
             $data[$num]['时间'] = $v->date;
             $data[$num]['提现金额'] = $v->sum;
+            $data[$num]['提现次数'] = $v->count;
             $num++;
         }
         return ['columns' => $columns , 'data' => $data];

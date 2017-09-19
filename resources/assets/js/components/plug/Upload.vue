@@ -36,8 +36,20 @@
                         :min="1"
                         v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
-                <span v-if="formItem.gold === 1">(用户购买插件，您将获得 {{tools.fc}} % 的金币 , 即 1 金币)</span>
-                <span v-else>(用户购买插件，您将获得 {{tools.fc}} % 的金币 , 即 {{ Math.floor( formItem.gold * tools.fc / 100 )}} 金币)</span>
+                <span v-if="formItem.gold === 1">(用户购买插件，您将获得 <span
+                        class="normal_font"
+                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{tools.fc}}</span> % 的金币 , 即 <span
+                        class="normal_font"
+                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >1</span> 金币)</span>
+                <span v-else>(用户购买插件，您将获得 <span
+                        class="normal_font"
+                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{tools.fc}}</span> % 的金币 , 即 <span
+                        class="normal_font"
+                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                >{{ Math.floor( formItem.gold * tools.fc / 100 )}}</span> 金币)</span>
 
             </Form-item>
 

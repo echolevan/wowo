@@ -76,7 +76,9 @@
                     </Tooltip>
                 </td>
                 <td>{{v.gold === 0 ? '免费' : v.gold}}</td>
-                <td><a :href="v.url" target="_blank">点击下载</a></td>
+                <td>
+                    <a :href="v.url" target="_blank"><Tag type="border" color="red">下载</Tag></a>
+                </td>
                 <td>{{v.download_num}}</td>
                 <td>
                     <Tag type="dot" :color="v.status === 1 ? 'blue' : 'red'" @click.native="change_status(v.status === 1 ? 0 : 1 , v.id, k)">{{configStatusType[v.status]}}</Tag>

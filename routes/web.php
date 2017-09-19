@@ -12,6 +12,20 @@
 */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
+Route::get('/abc', function (){
+    $money = 10000000;
+    $tmp_money = strrev($money);
+    $format_money = "￥";
+    for($i = 3;$i<strlen($money);$i+=3){
+        $format_money .= substr($tmp_money,0,3).",";
+        $tmp_money = substr($tmp_money,3);
+    }
+    $format_money .=$tmp_money;
+    $format_money = strrev($format_money);
+    return $format_money;
+});
+
+
 
 //Route::get('/make_users', function () {
 //    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');

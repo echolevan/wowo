@@ -365,6 +365,12 @@
                 this.get_plugs()
             },
             change_tag(id, pid) {
+                if(this.tag_active === id){
+                    this.tag_active = ''
+                    this.tag_active_pid = ''
+                    this.get_plugs();
+                    return false
+                }
                 let old_tag_id = this.tag_active
                 this.tag_active = id
                 this.tag_active_pid = pid

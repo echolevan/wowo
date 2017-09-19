@@ -63,6 +63,8 @@
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo', '')
                         sessionStorage.removeItem('loginUserInfoId')
+                        localStorage.setItem('redirect', "/")
+                        window.location.href = "/#/home"
                     }
                 })
             },

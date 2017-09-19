@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <small class="stat-label">资金总额</small>
-                                    <h1>{{info.recharge - info.draws}}</h1>
+                                    <h1>{{info.total}}</h1>
                                 </div>
                             </div><!-- row -->
 
