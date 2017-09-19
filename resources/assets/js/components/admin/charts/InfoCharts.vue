@@ -41,10 +41,10 @@
                     </div>
                 </div>
 
-                Cache化内存为 <span id="CachedMemory">{{Math.floor(info.sysinfo.memCached / 1024)}} G</span>
+                Cache化内存为 <span id="CachedMemory">{{ (info.sysinfo.memCached / 1024).toFixed(2) }} G</span>
                 , 使用率
                 <span id="memCachedPercent">{{info.sysinfo.memCachedPercent}}</span>
-                %	| Buffers缓冲为  <span id="Buffers">{{ Math.floor(info.sysinfo.memBuffers / 1024) }} G</span>
+                %	| Buffers缓冲为  <span id="Buffers">{{ (info.sysinfo.memBuffers / 1024).toFixed(2) }} G</span>
                 <div class="bar">
                     <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">
                         &nbsp;
@@ -52,9 +52,9 @@
                 </div>
 
                 真实内存使用
-                <span id="memRealUsed">{{Math.floor(info.sysinfo.memRealUsed / 1024)}} G</span>
+                <span id="memRealUsed">{{(info.sysinfo.memRealUsed / 1024).toFixed(2)}} G</span>
                 , 真实内存空闲
-                <span id="memRealFree">{{Math.floor(info.sysinfo.memRealFree / 1024)}} G</span>
+                <span id="memRealFree">{{(info.sysinfo.memRealFree / 1024).toFixed(2)}} G</span>
                 , 使用率
                 <span id="memRealPercent">{{info.sysinfo.memRealPercent}}</span>
                 %
