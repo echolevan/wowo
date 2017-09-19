@@ -117,31 +117,30 @@
                     console.log(res)
                     if (NetInputSpeed_2 === 0) {
                         this.NetInputSpeed_2 = 0
-                        NetInputSpeed_2 = res.data.NetInputSpeed[2]
                     } else {
                         this.NetInputSpeed_2 = res.data.NetInputSpeed[2] - NetInputSpeed_2
                     }
-
+                    NetInputSpeed_2 = res.data.NetInputSpeed[2]
                     if (NetInputSpeed_3 === 0) {
                         this.NetInputSpeed_3 = 0
-                        NetInputSpeed_3 = res.data.NetInputSpeed[3]
                     } else {
                         this.NetInputSpeed_3 = res.data.NetInputSpeed[3] - NetInputSpeed_3
                     }
+                    NetInputSpeed_3 = res.data.NetInputSpeed[3]
 
                     if (NetOut_2 === 0) {
                         this.NetOut_2 = 0
-                        NetOut_2 = res.data.NetOut[2]
                     } else {
                         this.NetOut_2 = res.data.NetOut[2] - NetOut_2
                     }
+                    NetOut_2 = res.data.NetOut[2]
 
                     if (NetOut_3 === 0) {
                         this.NetOut_3 = 0
                     } else {
-                        NetOut_3 = res.data.NetOut[3]
                         this.NetOut_3 = res.data.NetOut[3] - NetOut_3
                     }
+                    NetOut_3 = res.data.NetOut[3]
 
                     this.networkinfo = res.data
                 })
