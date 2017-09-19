@@ -97,7 +97,7 @@
         data() {
             return {}
         },
-        props: ['info' , network],
+        props: ['info' , 'network'],
         mounted () {
             setTimeout(()=>{
                 console.log(this.info)
