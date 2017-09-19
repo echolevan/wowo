@@ -141,7 +141,7 @@
             </div><!-- col-sm-6 -->
         </div>
 
-        <info-charts :info="info.service_info" :network="info.network"></info-charts>
+        <info-charts :info="info.service_info" :networkinfo="info.network"></info-charts>
 
         <Row>
             <iCol span="12">

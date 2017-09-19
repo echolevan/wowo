@@ -70,21 +70,21 @@
 
         <tr>
 
-            <td width="13%">{{network.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{network.NetInput[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetInputSpeed[2]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{network.NetOut[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetOutSpeed[2]}}B/s</span></font></td>
+            <td width="13%">{{networkinfo.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetInputSpeed[2]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{networkinfo.NetOut[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetOutSpeed[2]}}B/s</span></font></td>
 
         </tr>
 
         <tr>
 
-            <td width="13%">{{network.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{network.NetInput[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetInputSpeed[3]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{network.NetOut[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetOutSpeed[3]}}B/s</span></font></td>
+            <td width="13%">{{networkinfo.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetInputSpeed[3]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{networkinfo.NetOut[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetOutSpeed[3]}}B/s</span></font></td>
 
         </tr>
 
@@ -97,7 +97,7 @@
         data() {
             return {}
         },
-        props: ['info' , 'network'],
+        props: ['info' , 'networkinfo'],
         mounted () {
             setTimeout(()=>{
                 console.log(this.info)
