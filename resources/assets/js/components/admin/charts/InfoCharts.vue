@@ -70,21 +70,21 @@
 
         <tr>
 
-            <td width="13%">{{network.network.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{network.network.NetInput[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.network.NetInputSpeed[2]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{network.network.NetOut[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.network.NetOutSpeed[2]}}B/s</span></font></td>
+            <td width="13%">{{network.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{network.NetInput[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetInputSpeed[2]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{network.NetOut[2]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetOutSpeed[2]}}B/s</span></font></td>
 
         </tr>
 
         <tr>
 
-            <td width="13%">{{network.network.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{network.network.NetInput[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{network.network.NetInputSpeed[3]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{network.network.NetOut[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{networkv.network.NetOutSpeed[3]}}B/s</span></font></td>
+            <td width="13%">{{network.info[2][1]}} : </td>
+            <td width="29%">入网: <font color='#CC0000'><span>{{network.NetInput[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetInputSpeed[3]}}B/s</span></font></td>
+            <td width="29%">出网: <font color='#CC0000'><span>{{network.NetOut[3]}}</span></font></td>
+            <td width="14%">实时: <font color='#CC0000'><span>{{network.NetOutSpeed[3]}}B/s</span></font></td>
 
         </tr>
 
