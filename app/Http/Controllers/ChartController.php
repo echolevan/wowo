@@ -297,10 +297,9 @@ class ChartController extends Controller
     function getAgentInfo(){
         $agent = $_SERVER['HTTP_USER_AGENT'];
         $brower = array(
+            'Maxthon' => 10,
             'MSIE' => 1,
             'Firefox' => 2,
-            'QQBrowser' => 3,
-            'UCBrowser' => 4,
             'Edge' => 5,
             'Chrome' => 6,
             'Opera' => 7,

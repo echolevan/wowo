@@ -3,13 +3,10 @@
     <div>
         <tbody v-if="info">
         <tr>
-            <th colspan="6">服务器实时数据</th>
-        </tr>
-        <tr>
-            <td width="13%">服务器当前时间</td>
-            <td width="37%"><span id="stime">{{info.sysinfo.time}}</span></td>
-            <td width="13%">服务器已运行时间</td>
-            <td width="37%" colspan="3"><span id="uptime">{{info.sysinfo.uptime}}</span></td>
+            <td width="20%">服务器当前时间</td>
+            <td width="20%"><span id="stime">{{info.sysinfo.time}}</span></td>
+            <td width="20%">服务器已运行时间</td>
+            <td width="30%" colspan="3"><span id="uptime">{{info.sysinfo.uptime}}</span></td>
         </tr>
         <tr>
             <td width="13%" v-if="info.sysinfo.cpu">CPU型号 [{{info.sysinfo.cpu.num}}核]</td>
@@ -43,18 +40,18 @@
                     <div id="barmemPercent" class="barli_green" :style="`width:${info.sysinfo.memPercent}%`">&nbsp;</div>
                 </div>
 
-                Cache化内存为 <span id="CachedMemory">{{info.sysinfo.memCached}} G</span>
+                Cache化内存为 <span id="CachedMemory">{{Math.floor( info.sysinfo.memCached / 1024 )}} G</span>
                 , 使用率
                 <span id="memCachedPercent">{{info.sysinfo.memCachedPercent}}</span>
-                %	| Buffers缓冲为  <span id="Buffers">{{info.sysinfo.memBuffers}} G</span>
+                %	| Buffers缓冲为  <span id="Buffers">{{ Math.floor(info.sysinfo.memBuffers / 1024) }} G</span>
                 <div class="bar">
                     <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">&nbsp;</div>
                 </div>
 
                 真实内存使用
-                <span id="memRealUsed">{{info.sysinfo.memRealUsed}} G</span>
+                <span id="memRealUsed">{{Math.floor(info.sysinfo.memRealUsed / 1024)}} G</span>
                 , 真实内存空闲
-                <span id="memRealFree">{{info.sysinfo.memRealFree}} G</span>
+                <span id="memRealFree">{{Math.floor(info.sysinfo.memRealFree / 1024)}} G</span>
                 , 使用率
                 <span id="memRealPercent">{{info.sysinfo.memRealPercent}}</span>
                 %

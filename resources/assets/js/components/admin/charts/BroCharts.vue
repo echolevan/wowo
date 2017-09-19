@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
+        <ve-pie :data="chartData" :settings="chartSettings" :legend-visible="false"></ve-pie>
     </div>
 </template>
 
@@ -31,7 +31,7 @@
                         selectedMode: 'single',
                         hoverAnimation: false,
                         radius: 100,
-                        offsetY: 200
+                        offsetY: 130
                     }
                     console.log(this.chartData)
                 })
