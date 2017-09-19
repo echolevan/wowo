@@ -29,11 +29,11 @@
             <td>内存使用状况</td>
             <td colspan="5">
                 物理内存：共
-                <font color="#CC0000">{{info.sysinfo.memtotal}} G </font>
+                <font color="#CC0000">{{info.sysinfo.memTotal}} G </font>
                 , 已用
                 <font color="#CC0000"><span id="UsedMemory">{{info.sysinfo.memUsed}} G</span></font>
                 , 空闲
-                <font color="#CC0000"><span id="FreeMemory">{{info.sysinfo.Free}} G</span></font>
+                <font color="#CC0000"><span id="FreeMemory">{{info.sysinfo.memFree}} G</span></font>
                 , 使用率
                 <span id="memPercent">{{info.sysinfo.memPercent}}</span>
                 <div class="bar">
