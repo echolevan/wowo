@@ -91,6 +91,8 @@ trait LoginTry
     protected function validateLogin(Request $request)
     {
         $messages = [
+            'email.required' => '名称不能为空',
+            'password.required' => '密码不能为空',
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '验证码输入错误'
         ];

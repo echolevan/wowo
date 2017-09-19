@@ -51,7 +51,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $messages = [
+            'name.required' => '用户名不能为空',
+            'name.max' => '用户名最长为10字符',
+            'name.unique' => '用户名已存在',
+            'name.alpha_num' => '用户名只能由字母和数字组成',
+
+            'email.required' => '邮箱不能为空',
+            'password.required' => '密码不能为空',
+            'password.min' => '密码不少于8位',
             'email.unique' => '邮箱已存在',
+            'email.max' => '邮箱最长为255字符',
+
             'camp.required' => '阵营不能为空',
             'captcha.required' => '验证码不能为空',
             'captcha.captcha' => '验证码输入错误',
