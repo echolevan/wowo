@@ -112,7 +112,7 @@
             const NetOut_2 = 0
             const NetOut_3 = 0
             let getNet = setInterval(()=>{
-                axios.get('/admin/get/networkinfo').then(res => {
+                axios.get('/admin/charts/networkinfo').then(res => {
                     console.log(res)
                     if(NetInputSpeed_2 === 0){
                         this.NetInputSpeed_2 = 0
@@ -140,7 +140,7 @@
 
                     this.networkinfo = res.data
                 })
-            })
+            } , 2000)
         }
     }
 </script>
