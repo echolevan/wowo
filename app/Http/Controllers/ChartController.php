@@ -58,7 +58,6 @@ class ChartController extends Controller
         $res['ff'] = count($user_lv);
 
         $res['service_info'] = $this->service_info();
-        $res['network'] = $this->getNetInfo();
         return ['res'=>$res , 'lv'=>$lv];
     }
 
@@ -231,7 +230,7 @@ class ChartController extends Controller
         return ['dt'=>$dt , 'df'=>$df , 'du'=>$du , 'hdp'=>$hdPercent , 'sysinfo' => $sysInfo];
     }
 
-    function networkinfo(){
+    function getNetInfo(){
         error_reporting(0); //抑制所有错误信息
         $strs = @file("/proc/net/dev");
         for ($i = 2; $i < count($strs); $i++ )
