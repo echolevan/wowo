@@ -312,22 +312,22 @@ class ChartController extends Controller
     function getAgentInfo(){
         $agent = $_SERVER['HTTP_USER_AGENT'];
         $brower = array(
-            'Maxthon' => 10,
-            'MSIE' => 1,
-            'Firefox' => 2,
+			'Chrome' => 1,
+			'Firefox' => 2,
+            'Opera' => 3,
+            'MSIE' => 4,
             'Edge' => 5,
-            'Chrome' => 6,
-            'Opera' => 7,
-            'Safari' => 8,
-            'MicroMessenger' => 9,
+            'Safari' => 6,
+            'Maxthon' => 7,
+            'MicroMessenger' => 8
         );
         $system = array(
             'Windows' => 1,
-            'Android' => 2,
-            'iPhone' => 3,
-            'Windows Phone' => 4,
-            'iPad' => 5,
-            'Macintosh'=> 6
+            'Windows Phone' => 2,
+            'Android' => 3,
+            'Mac'=> 4,
+            'iPhone' => 5,
+            'iPad' => 6
         );
         $system_type = '其他';//未知
         $browser_type = '其他';//未知
