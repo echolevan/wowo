@@ -31,9 +31,9 @@
                 物理内存：共
                 <font color="#CC0000">{{info.sysinfo.memTotal}} G </font>
                 , 已用
-                <font color="#CC0000"><span id="UsedMemory">{{info.sysinfo.memUsed}} G</span></font>
+                <font color="#CC0000"><span id="UsedMemory">{{ (info.sysinfo.memUsed / 1024).toFixed(2) }} G</span></font>
                 , 空闲
-                <font color="#CC0000"><span id="FreeMemory">{{info.sysinfo.memFree}} G</span></font>
+                <font color="#CC0000"><span id="FreeMemory">{{ (info.sysinfo.memFree / 1024).toFixed(2)}} G</span></font>
                 , 使用率
                 <span id="memPercent">{{info.sysinfo.memPercent}}</span>
                 <div class="bar">
