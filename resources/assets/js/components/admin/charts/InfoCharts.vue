@@ -68,23 +68,23 @@
             <td colspan="5" class="w_number"><span id="loadAvg">{{info.sysinfo.loadAvg}}</span></td>
         </tr>
 
-        <tr>
+        <tr v-if="networkinfo">
 
-            <td width="13%">{{networkinfo.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetInputSpeed[2]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{networkinfo.NetOut[2]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetOutSpeed[2]}}B/s</span></font></td>
+            <td width="13%" v-if="networkinfo.info">{{networkinfo.info[1][0]}} : </td>
+            <td width="29%" v-if="networkinfo.NetInput">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[2]}}</span></font></td>
+            <td width="14%" v-if="networkinfo.NetInputSpeed">实时: <font color='#CC0000'><span>{{NetInputSpeed_2}}B/s</span></font></td>
+            <td width="29%" v-if="networkinfo.NetOut">出网: <font color='#CC0000'><span>{{NetOut_2}}</span></font></td>
+            <td width="14%" v-if="networkinfo.NetOutSpeed">实时: <font color='#CC0000'><span>{{networkinfo.NetOutSpeed[2]}}B/s</span></font></td>
 
         </tr>
 
-        <tr>
+        <tr v-if="networkinfo">
 
-            <td width="13%">{{networkinfo.info[2][1]}} : </td>
-            <td width="29%">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetInputSpeed[3]}}B/s</span></font></td>
-            <td width="29%">出网: <font color='#CC0000'><span>{{networkinfo.NetOut[3]}}</span></font></td>
-            <td width="14%">实时: <font color='#CC0000'><span>{{networkinfo.NetOutSpeed[3]}}B/s</span></font></td>
+            <td width="13%" v-if="networkinfo.info">{{networkinfo.info[1][0]}} : </td>
+            <td width="29%" v-if="networkinfo.NetInput">入网: <font color='#CC0000'><span>{{networkinfo.NetInput[3]}}</span></font></td>
+            <td width="14%" v-if="networkinfo.NetInput">实时: <font color='#CC0000'><span>{{NetInputSpeed_3}}B/s</span></font></td>
+            <td width="29%" v-if="networkinfo.NetInput">出网: <font color='#CC0000'><span>{{networkinfo.NetOut[3]}}</span></font></td>
+            <td width="14%" v-if="networkinfo.NetInput">实时: <font color='#CC0000'><span>{NetOut_3}}B/s</span></font></td>
 
         </tr>
 
@@ -95,13 +95,52 @@
 <script>
     export default {
         data() {
-            return {}
+           return {
+               networkinfo: {
+
+               },
+               NetInputSpeed_2: 0,
+               NetInputSpeed_3: 0,
+               NetOut_2: 0,
+               NetOut_3: 0,
+           }
         },
-        props: ['info' , 'networkinfo'],
+        props: ['info'],
         mounted () {
-            setTimeout(()=>{
-                console.log(this.info)
-            },5000)
+            const NetInputSpeed_2 = 0
+            const NetInputSpeed_3 = 0
+            const NetOut_2 = 0
+            const NetOut_3 = 0
+            let getNet = setInterval(()=>{
+                axios.get('/admin/get/networkinfo').then(res => {
+                    console.log(res)
+                    if(NetInputSpeed_2 === 0){
+                        this.NetInputSpeed_2 = 0
+                    }else{
+                        this.NetInputSpeed_2 = res.data.NetInputSpeed[2] - NetInputSpeed_2
+                    }
+
+                    if(NetInputSpeed_3 === 0){
+                        this.NetInputSpeed_3 = 0
+                    }else{
+                        this.NetInputSpeed_3 = res.data.NetInputSpeed[3] - NetInputSpeed_3
+                    }
+
+                    if(NetOut_2 === 0){
+                        this.NetOut_2 = 0
+                    }else{
+                        this.NetOut_2 = res.data.NetOut[2] - NetOut_2
+                    }
+
+                    if(NetOut_3 === 0){
+                        this.NetOut_3 = 0
+                    }else{
+                        this.NetOut_3 = res.data.NetOut[2] - NetOut_3
+                    }
+
+                    this.networkinfo = res.data
+                })
+            })
         }
     }
 </script>

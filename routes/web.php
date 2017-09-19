@@ -193,4 +193,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("charts/index",'ChartController@index');
     Route::get("charts/service_info",'ChartController@service_info');
     Route::get("charts/GetBrowser",'ChartController@GetBrowser');
+    Route::get("charts/networkinfo",'ChartController@networkinfo');
 });

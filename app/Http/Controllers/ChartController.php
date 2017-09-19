@@ -231,7 +231,7 @@ class ChartController extends Controller
         return ['dt'=>$dt , 'df'=>$df , 'du'=>$du , 'hdp'=>$hdPercent , 'sysinfo' => $sysInfo];
     }
 
-    function getNetInfo(){
+    function networkinfo(){
         error_reporting(0); //抑制所有错误信息
         $strs = @file("/proc/net/dev");
         for ($i = 2; $i < count($strs); $i++ )
