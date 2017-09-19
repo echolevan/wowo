@@ -326,7 +326,8 @@ class ChartController extends Controller
             'Android' => 2,
             'iPhone' => 3,
             'Windows Phone' => 4,
-            'iPad' => 5
+            'iPad' => 5,
+            'Macintosh'=> 6
         );
         $system_type = '其他';//未知
         $browser_type = '其他';//未知

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ve-pie :data="chartData" :settings="chartSettings" :legend-visible="false"></ve-pie>
+        <ve-pie :data="chartData" :settings="chartSettings" :legend-visible="false" :height="'250px'"></ve-pie>
     </div>
 </template>
 
