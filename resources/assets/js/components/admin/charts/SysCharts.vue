@@ -19,7 +19,6 @@
         methods: {
             _init() {
                 axios.get('/admin/charts/sys_charts').then(res => {
-                    console.log(res)
                     this.chartData = {
                         columns: res.data.columns,
                         rows: res.data.data

@@ -37,15 +37,18 @@
                 , 使用率
                 <span id="memPercent">{{info.sysinfo.memPercent}}</span>
                 <div class="bar">
-                    <div id="barmemPercent" class="barli_green" :style="`width:${info.sysinfo.memPercent}%`">&nbsp;</div>
+                    <div id="barmemPercent" class="barli_green" :style="`width:${info.sysinfo.memPercent}%`">&nbsp;
+                    </div>
                 </div>
 
-                Cache化内存为 <span id="CachedMemory">{{Math.floor( info.sysinfo.memCached / 1024 )}} G</span>
+                Cache化内存为 <span id="CachedMemory">{{Math.floor(info.sysinfo.memCached / 1024)}} G</span>
                 , 使用率
                 <span id="memCachedPercent">{{info.sysinfo.memCachedPercent}}</span>
                 %	| Buffers缓冲为  <span id="Buffers">{{ Math.floor(info.sysinfo.memBuffers / 1024) }} G</span>
                 <div class="bar">
-                    <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">&nbsp;</div>
+                    <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">
+                        &nbsp;
+                    </div>
                 </div>
 
                 真实内存使用
@@ -56,7 +59,9 @@
                 <span id="memRealPercent">{{info.sysinfo.memRealPercent}}</span>
                 %
                 <div class="bar_1">
-                    <div id="barmemRealPercent" class="barli_1" :style="`width:${info.sysinfo.memRealPercent}%`">&nbsp;</div>
+                    <div id="barmemRealPercent" class="barli_1" :style="`width:${info.sysinfo.memRealPercent}%`">
+                        &nbsp;
+                    </div>
                 </div>
 
             </td>
@@ -72,18 +77,19 @@
 <script>
     export default {
         data() {
-           return {
-               networkinfo: {
-
-               },
-               NetInputSpeed_2: 0,
-               NetInputSpeed_3: 0,
-               NetOut_2: 0,
-               NetOut_3: 0,
-           }
+            return {
+                networkinfo: {},
+                NetInputSpeed_2: 0,
+                NetInputSpeed_3: 0,
+                NetOut_2: 0,
+                NetOut_3: 0,
+            }
         },
         props: ['info'],
-        mounted: function () {
+        mounted() {
+            setTimeout(() => {
+                console.log(this.info)
+            },3000)
         }
     }
 </script>
