@@ -66,6 +66,8 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
+                        :format="['zip','7z','rar']"
+                        :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
                         :before-upload="handlePlugUpload"
@@ -90,6 +92,7 @@
                         ref="upload"
                         :show-upload-list="false"
                         :before-upload="handleBeforeUpload"
+                        :default-file-list="defaultList"
                         :on-success="handleSuccess"
                         multiple
                         type="drag"
@@ -100,7 +103,7 @@
                         <i class="ivu-icon ivu-icon-ios-cloud-upload" style="font-size: 52px">
                         </i>
                         <p style="font-size:16px">
-                            点击或将文件拖拽到这里上传
+                            点击或将文件拖拽到这里上传(最多20张)
                         </p>
                     </div>
                 </Upload>
@@ -227,6 +230,7 @@
                     plug_url: '',
                     name: ''
                 },
+                defaultList: [],
                 imgName: '',
                 visible: false,
                 selectedDataName: '',
@@ -290,6 +294,9 @@
             }
         },
         methods: {
+            handleFormatError(){
+                myDialog('请上传rar,zip,7z格式的插件',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            },
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
 //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
@@ -342,6 +349,7 @@
                     this.formItem.gold = res.data.plug.gold
                     this.formItem.plug_url = res.data.plug.content
                     this.formItem.uploadList = res.data.plug.thumbs
+                    this.defaultList = res.data.plug.thumbs
                 }).catch(error => {
                     history.go(-1)
                 })
@@ -377,8 +385,11 @@
                     })
             },
             handleBeforeUpload() {
-                this.$Message.info('正在上传')
-                this.$Loading.start()
+                const check = this.$refs.upload.fileList.length < 20;
+                if (!check) {
+                    myDialog('最多只能上传 20 张图片。',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                }
+                return check;
             },
             handleView(name) {
                 this.imgName = name;
@@ -386,8 +397,10 @@
             },
             handleRemove(k) {
                 this.formItem.uploadList.splice(k, 1)
+                this.$refs.upload.fileList.splice(k, 1);
             },
             handleSuccess(res, file) {
+                console.log(res)
                 if (res.sta === 0) {
                     myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {

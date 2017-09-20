@@ -43,7 +43,7 @@
                 </strong>
                 <span class="pull-right" style="padding-left: 5px">
                 <span :style="today === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span>
-                </span> <span class="pull-right">{{v.user.name}} - {{v.download_num}}次下载 - </span>
+                </span> <span class="pull-right">{{v.user.nickname}} - {{v.download_num}}次下载 - </span>
                 <br>
                 <div style="clear:both"></div>
             </li>

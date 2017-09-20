@@ -14,3 +14,7 @@ td{padding: 3px 6px;}
 .barli_black{background:#333; height:5px; margin:0px; padding:0;}
 .barli_1{background:#999999; height:5px; margin:0px; padding:0;}
 .barli{background:#36b52a; height:5px; margin:0px; padding:0;}
+
+.use_class{
+    font-weight: bold !important;
+}

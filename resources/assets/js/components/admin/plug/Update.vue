@@ -61,6 +61,8 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
+                        :format="['zip','7z','rar']"
+                        :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
                         :before-upload="handlePlugUpload"
@@ -84,6 +86,7 @@
                         ref="upload"
                         :show-upload-list="false"
                         :before-upload="handleBeforeUpload"
+                        :default-file-list="defaultList"
                         :on-success="handleSuccess"
                         multiple
                         type="drag"
@@ -94,7 +97,7 @@
                         <i class="ivu-icon ivu-icon-ios-cloud-upload" style="font-size: 52px">
                         </i>
                         <p style="font-size:16px">
-                            点击或将文件拖拽到这里上传
+                            点击或将文件拖拽到这里上传(最多20张)
                         </p>
                     </div>
                 </Upload>
@@ -131,6 +134,7 @@
 
 <script>
     import {VueEditor} from 'vue2-editor'
+    import { mapState } from 'vuex'
 
     export default {
         data() {
@@ -176,7 +180,7 @@
                 setTimeout(() =>  {
                     if (this.formItem.plug_url === '') {
                         if(this.formItem.type[0] === 3){
-                            callback(new Error('字符串不能为空'));
+                            callback(new Error('请上传插件'));
                         }else{
                             callback();
                         }
@@ -225,6 +229,7 @@
                     plug_url: '',
                     name: ''
                 },
+                defaultList: [],
                 selectedDataName: '',
                 imgName: '',
                 visible: false,
@@ -284,6 +289,9 @@
                 this.$router.go(-1)
             }
         },
+        computed: mapState([
+            'userInfo', 'choice_cmap'
+        ]),
         methods: {
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
@@ -308,6 +316,9 @@
             swi() {
                 this.formItem.gold = 1
             },
+            handleFormatError(){
+                this.$Message.error('请上传rar,zip,7z格式的插件')
+            },
             on_sel(v) {
                 this.selectedDataName = selectedData[1].label
                 this.formItem.type = v
@@ -315,8 +326,11 @@
                 this.formItem.is_free = false
             },
             handleBeforeUpload(){
-                this.$Message.info('正在上传')
-                this.$Loading.start()
+                const check = this.$refs.upload.fileList.length < 20;
+                if (!check) {
+                    this.$Message.error('最多只能上传 20 张图片。')
+                }
+                return check;
             },
             _init(){
                 axios.get(`/update_plugInfo/${this.$route.params.id}`).then(res=>{
@@ -336,6 +350,7 @@
                     this.formItem.name = res.data.plug.name
                     this.formItem.plug_url = res.data.plug.content
                     this.formItem.uploadList = res.data.plug.thumbs
+                    this.defaultList = res.data.plug.thumbs
                 }).catch(error=>{
                     history.go(-1)
                 })
