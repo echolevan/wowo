@@ -28,7 +28,7 @@ class CreatePlugsTable extends Migration
             $table->integer('type_two')->default(0)->comment('插件标签的2级分类');
             $table->text('content')->comment('插件下载地址或者字符串');
             $table->tinyInteger('is_new')->comment('插件是否是最新 0是历史版本 1是最新版本')->default(1);
-            $table->string('updated_info',150)->comment('更新说明');
+            $table->string('updated_info',310)->comment('更新说明');
             $table->string('version',20)->comment('插件版本号');
             $table->string('game_version',20)->comment('插件对应游戏版本号');
             $table->integer('download_num')->default(0)->comment('插件下载次数');

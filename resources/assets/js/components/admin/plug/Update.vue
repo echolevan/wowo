@@ -255,8 +255,8 @@
                     ],
                     updated_info: [
                         {required: true, message: '更新日志不能为空', trigger: 'blur'},
-                        {max: 150, message: '更新日志最长150字符', trigger: 'change'},
-                        {max: 150, message: '更新日志最长150字符', trigger: 'blur'},
+                        {max: 300, message: '更新日志最长300字符', trigger: 'change'},
+                        {max: 300, message: '更新日志最长300字符', trigger: 'blur'},
                     ],
                     uploadList: [
                         {validator: validateUploadList, required: true, trigger: 'change'},
