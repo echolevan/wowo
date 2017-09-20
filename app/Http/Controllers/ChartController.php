@@ -487,7 +487,7 @@ class ChartController extends Controller
         $data = [];
         $num = 0;
         foreach ($res as $k => $v){
-            $data[$num]['时间'] = $v->time;
+            $data[$num]['时间'] = date('y/m/d',strtotime($v->time));
             $data[$num]['登录人次'] = $v->num;
             $num++;
         }

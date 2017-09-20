@@ -142,12 +142,12 @@
         </div>
 
         <Row>
-            <iCol span="12" style="    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 15px;">
-                <Button type="primary" @click="ref_s" class="pull-right" style="margin-bottom: 30px">刷新服务器状态</Button>
-                <div style="clear: both"></div>
-                <info-charts :info="info.service_info"></info-charts>
+            <iCol span="12" style="padding-right: 15px;">
+                <div style="padding: 15px;border: 2px solid #c41f3b;border-radius: 15px;">
+                    <Button type="primary" @click="ref_s" class="pull-right" style="margin-bottom: 30px">刷新服务器状态</Button>
+                    <div style="clear: both"></div>
+                    <info-charts :info="info.service_info"></info-charts>
+                </div>
             </iCol>
             <iCol span="6">
                 <p class="title_charts">设备类型</p>
