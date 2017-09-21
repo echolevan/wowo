@@ -340,7 +340,12 @@ class ChartController extends Controller
         }
         foreach($system as $sys => $val){
             if(stripos($agent, $sys) !== false){
-                $system_type = $sys === 'Macintosh' ? 'Mac' : $sys;
+                if($sys === 'Macintosh')
+                    $sys = 'Mac';
+                else if($sys === 'linux')
+                    $sys = 'Linux';
+                
+                $system_type = $sys;
                 break;
             }
         }
