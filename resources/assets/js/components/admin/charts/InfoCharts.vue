@@ -19,7 +19,7 @@
                 总空间 <span style="color: #CC0000">{{info.dt.toFixed(3)}}&nbsp;</span>G，
                 已用 <font color="#CC0000"><span id="useSpace">{{info.du.toFixed(3)}}</span></font>&nbsp;G，
                 空闲 <font color="#CC0000"><span id="freeSpace">{{info.df.toFixed(3)}}</span></font>&nbsp;G，
-                使用率 <span id="hdPercent" class="use_class" style="color: #CC0000">{{info.hdp}}</span>%
+                使用率 <span id="hdPercent" class="use_class" style="color: #CC0000">{{info.hdp}}</span> %
                 <div id="barhdPercent" class="barli_black" :style="`width:${info.hdp}%`">&nbsp;</div>
             </td>
         </tr>
@@ -33,7 +33,7 @@
                 , 空闲
                 <font color="#CC0000"><span id="FreeMemory">{{ (info.sysinfo.memFree / 1024).toFixed(3)}} </span></font>G
                 , 使用率
-                <span id="memPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memPercent}}</span>%
+                <span id="memPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memPercent}}</span> %
                     <div id="barmemPercent" class="barli_green" :style="`width:${info.sysinfo.memPercent}%`">&nbsp;
                     </div>
 
