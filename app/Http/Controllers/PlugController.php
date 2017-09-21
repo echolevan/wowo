@@ -565,6 +565,7 @@ class PlugController extends Controller
         $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
+        $Plug->is_check = !$req['is_free'] ? 1 : 0;
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->version = $type['type'][0] === 3 ? $req['version'] : $Plug->version;
         $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
@@ -588,7 +589,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '编辑失败'];
         }
 
-        return ['sta' => 1, 'msg' => '更新成功'];
+        return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '更新成功' : '更新成功，请等待审核！'];
     }
 
 

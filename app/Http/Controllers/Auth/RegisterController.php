@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
         $messages = [
             'name.required' => '用户名不能为空',
-            'name.max' => '用户名最长为10字符',
+            'name.max' => '用户名最长为15字符',
             'name.unique' => '用户名已存在',
             'name.alpha_num' => '用户名只能由字母和数字组成',
 
@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'name.is_name_zw' => '用户名不能为汉字',
             'password.is_pass' => '大小写字母+数字，不少于8位',
             'nickname.required' => '昵称不能为空',
-            'nickname.max' => '昵称最长为10字符',
+            'nickname.max' => '昵称最长为20字符',
             'nickname.unique' => '昵称已存在',
             'nickname.alpha_num' => '昵称不能含有特殊符号',
             'name.is_admin_name' => '用户名违规',
@@ -78,9 +78,9 @@ class RegisterController extends Controller
         ];
 
         return Validator::make($data, [
-            'name' => 'required|string|max:10|unique:users|alpha_num|is_num|is_admin_name|is_name_zw',
+            'name' => 'required|string|max:15|unique:users|alpha_num|is_num|is_admin_name|is_name_zw',
             'email' => 'required|string|email|max:255|unique:users',
-            'nickname' => 'required|string|max:10|unique:users|alpha_num|is_admin_name',
+            'nickname' => 'required|string|max:20|unique:users|alpha_num|is_admin_name',
             'password' => 'required|string|min:8|is_pass|confirmed',
             'captcha' => 'required|captcha',
             'camp' => 'required'
