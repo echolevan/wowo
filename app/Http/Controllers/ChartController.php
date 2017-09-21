@@ -325,10 +325,10 @@ class ChartController extends Controller
             'Windows' => 1,
             'Windows Phone' => 2,
             'Android' => 3,
-            'Macintosh'=> 4,
+            'Mac'=> 4,
             'iPhone' => 5,
             'iPad' => 6,
-            'linux'=>7
+            'Linux'=>7
         );
         $system_type = '其他';//未知
         $browser_type = '其他';//未知
@@ -340,11 +340,6 @@ class ChartController extends Controller
         }
         foreach($system as $sys => $val){
             if(stripos($agent, $sys) !== false){
-                if($sys === 'Macintosh')
-                    $sys = 'Mac';
-                else if($sys === 'linux')
-                    $sys = 'Linux';
-                
                 $system_type = $sys;
                 break;
             }
