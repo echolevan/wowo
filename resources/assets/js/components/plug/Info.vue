@@ -242,11 +242,15 @@
 
             </div>
             <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
-                <Button type="primary" :loading="loading"
-                        :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                        @click="toLoading(plug.id)">
-                    <span>购买</span>
-                </Button>
+                <Poptip
+                        confirm
+                        title="您确认购买吗？"
+                        @on-ok="toLoading(plug.id)">
+                    <Button type="primary" :loading="loading"
+                            :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                        <span>购买</span>
+                    </Button>
+                </Poptip>
             </div>
 
         </Modal>
