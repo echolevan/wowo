@@ -3,13 +3,13 @@
     <div>
         <tbody v-if="info">
         <tr>
-            <td width="10%">服务器当前时间</td>
-            <td width="20%"><span id="stime">{{info.sysinfo.time}}</span></td>
+            <td width="20%">服务器当前时间</td>
+            <td width="32.51%"><span id="stime">{{info.sysinfo.time}}</span></td>
             <td width="20%">服务器运行时间</td>
-            <td width="30%" colspan="3"><span id="uptime">{{info.sysinfo.uptime}}</span></td>
+            <td width="30%" colspan="3"><span id="uptime" style="color: #CC0000">{{info.sysinfo.uptime}}</span></td>
         </tr>
         <tr>
-            <td width="13%" v-if="info.sysinfo.cpu">CPU型号 [{{info.sysinfo.cpu.num}}核]</td>
+            <td width="13%" v-if="info.sysinfo.cpu">CPU型号 [ <span style="color: #CC0000">{{info.sysinfo.cpu.num}}</span> 核]</td>
             <td width="87%" colspan="5" v-if="info.sysinfo.cpu">{{info.sysinfo.cpu.model}}
             </td>
         </tr>
@@ -19,10 +19,8 @@
                 总空间 <span style="color: #CC0000">{{info.dt.toFixed(3)}}&nbsp;</span>G，
                 已用 <font color="#CC0000"><span id="useSpace">{{info.du.toFixed(3)}}</span></font>&nbsp;G，
                 空闲 <font color="#CC0000"><span id="freeSpace">{{info.df.toFixed(3)}}</span></font>&nbsp;G，
-                使用率 <span id="hdPercent" class="use_class">{{info.hdp}}</span>%
-                <div class="bar">
-                    <div id="barhdPercent" class="barli_black" :style="`width:${info.hdp}%`">&nbsp;</div>
-                </div>
+                使用率 <span id="hdPercent" class="use_class" style="color: #CC0000">{{info.hdp}}</span>%
+                <div id="barhdPercent" class="barli_black" :style="`width:${info.hdp}%`">&nbsp;</div>
             </td>
         </tr>
         <tr>
@@ -35,13 +33,13 @@
                 , 空闲
                 <font color="#CC0000"><span id="FreeMemory">{{ (info.sysinfo.memFree / 1024).toFixed(3)}} </span></font>G
                 , 使用率
-                <span id="memPercent " class="use_class">{{info.sysinfo.memPercent}}%</span>
+                <span id="memPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memPercent}}</span>%
                     <div id="barmemPercent" class="barli_green" :style="`width:${info.sysinfo.memPercent}%`">&nbsp;
                     </div>
 
                 Cache化内存为 <span id="CachedMemory">{{ (info.sysinfo.memCached / 1024).toFixed(3) }} </span>G
                 , 使用率
-                <span id="memCachedPercent " class="use_class">{{info.sysinfo.memCachedPercent}}</span>
+                <span id="memCachedPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memCachedPercent}}</span>
                 %	| Buffers缓冲为  <span id="Buffers">{{ (info.sysinfo.memBuffers / 1024).toFixed(3) }} </span>G
                     <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">
                         &nbsp;
@@ -52,7 +50,7 @@
                 , 真实内存空闲
                 <span id="memRealFree">{{(info.sysinfo.memRealFree / 1024).toFixed(3)}} </span>G
                 , 使用率
-                <span id="memRealPercent " class="use_class">{{info.sysinfo.memRealPercent}}</span>
+                <span id="memRealPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memRealPercent}}</span>
                 %
                 <div id="barmemRealPercent" class="barli_1" :style="`width:${info.sysinfo.memRealPercent}%`">
                     &nbsp;
@@ -90,5 +88,4 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
     @import "../../../../common/table.css"
-
 </style>

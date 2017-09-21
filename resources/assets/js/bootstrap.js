@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 
 window._ = require('lodash');
 

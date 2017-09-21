@@ -64,7 +64,7 @@
                         this.$store.commit('change_userInfo', '')
                         sessionStorage.removeItem('loginUserInfoId')
                         localStorage.setItem('redirect', "/")
-                        window.location.href = "/#/home"
+                        window.location.href = "/"
                     }
                 })
             },

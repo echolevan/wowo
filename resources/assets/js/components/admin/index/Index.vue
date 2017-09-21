@@ -141,9 +141,9 @@
             </div><!-- col-sm-6 -->
         </div>
 
-        <Row>
+        <Row style="margin-bottom: 15px;">
             <iCol span="12" style="padding-right: 15px;">
-                <div style="padding: 15px;border: 2px solid #c41f3b;border-radius: 15px;">
+                <div style="padding: 15px;border: 2px solid #c41f3b;border-radius: 6px;">
                    <div style="width: 100%;text-align: center">
                        <Button type="primary" @click="ref_s"  style="margin-bottom: 30px">刷新服务器状态</Button>
                    </div>

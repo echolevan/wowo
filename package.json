@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "animate.css": "^3.5.2",
+    "babel-polyfill": "^6.26.0",
     "iview": "^2.2.0",
     "region-picker": "0.0.17",
     "stylus": "^0.54.5",
