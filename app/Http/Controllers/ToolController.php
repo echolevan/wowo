@@ -188,7 +188,7 @@ class ToolController extends Controller
             'tel' => $request->data['tel'],
         ]);
         if($fed)
-            return ['sta'=>1 , 'msg'=>'感谢您的建议！'];
+            return ['sta'=>1 , 'msg'=>'感谢您的反馈！'];
         return ['sta'=>0 , 'msg'=>'提交失败'];
     }
 
