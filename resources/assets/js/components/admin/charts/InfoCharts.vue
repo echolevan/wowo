@@ -6,7 +6,7 @@
             <td width="20%">服务器当前时间</td>
             <td width="32.51%"><span id="stime">{{info.sysinfo.time}}</span></td>
             <td width="20%">服务器运行时间</td>
-            <td width="30%" colspan="3"><span id="uptime">{{info.sysinfo.uptime}}</span></td>
+            <td width="30%" colspan="3"><span id="uptime" >{{info.sysinfo.uptime}}</span></td>
         </tr>
         <tr>
             <td width="13%" v-if="info.sysinfo.cpu">CPU型号 [ <span style="color: #CC0000">{{info.sysinfo.cpu.num}}</span> 核]</td>
