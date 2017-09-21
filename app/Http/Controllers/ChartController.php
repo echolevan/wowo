@@ -156,11 +156,11 @@ class ChartController extends Controller
 
         $min = floor($min - ($days * 60 * 24) - ($hours * 60));
 
-        if ($days !== 0) $res['uptime'] = $days."天";
+        if ($days !== 0) $res['uptime'] = '<span  style="color: #CC0000">'.$days.'</span>'."天";
 
-        if ($hours !== 0) $res['uptime'] .= $hours."小时";
+        if ($hours !== 0) $res['uptime'] .= '<span  style="color: #CC0000">'.$hours.'</span>'."小时";
 
-        $res['uptime'] .= $min."分钟";
+        $res['uptime'] .= '<span  style="color: #CC0000">'.$min.'</span>'."分钟";
 
 
         // MEMORY
