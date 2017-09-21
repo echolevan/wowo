@@ -73,12 +73,17 @@ class UserController extends Controller
     public function check_email($token)
     {
 
-        User::where('token',$token)->update([
-            'is_active' => 1,
-            'token' => ''
-        ]);
+        $user = User::where('token',$token)->first();
+        if($user){
+            User::where('token',$token)->update([
+                'is_active' => 1,
+                'token' => ''
+            ]);
+            return redirect('/#/home')->withErrors(['is_active_ok' => $user->camp]);
+        }else{
+            return redirect('/#/home');
+        }
 
-        return redirect(route('index'));
     }
 
     /**

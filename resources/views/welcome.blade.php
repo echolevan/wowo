@@ -32,13 +32,50 @@
         body {
             background-color:#f5f5f5;
         }
+        .show_is_active{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(55, 58, 71, 0.9);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+        }
+
+        .show_is_active .center_is_active{
+            width: 500px;
+            height: 150px;
+            background: #fff;
+            padding: 3em;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .show_is_active .center_is_active p{
+            color: #333;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
 <div id="app">
+    @if ($errors->has('is_active_ok'))
+        <div class="show_is_active">
+            <div class="center_is_active">
+                <p>邮箱激活成功</p>
+                <br>
+                <button class="close_dialog  ivu-btn-primary {{$errors->first('is_active_ok') == 2 ? 'bl_button_color' : ''}}" onclick="$('.show_is_active').remove()">确定</button>
+            </div>
+        </div>
+    @endif
     <v-index></v-index>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
+
+<script>
+</script>
 @if($tool === 1)
     <script>
         var xlm_wid = "{{$xlm_wid}}";
