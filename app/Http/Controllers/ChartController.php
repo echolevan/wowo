@@ -328,7 +328,7 @@ class ChartController extends Controller
             'Macintosh'=> 4,
             'iPhone' => 5,
             'iPad' => 6,
-            'linux'=>7
+            'Linux'=>7
         );
         $system_type = '其他';//未知
         $browser_type = '其他';//未知
