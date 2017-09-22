@@ -45,7 +45,7 @@
     <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
 </p>
 <p>
-    <span>主题名称：</span><span style="color: #ed3f14">{{$plug->title}}</span>
+    <span>主题名称：</span><span style="color: #c41f3b">{{$plug->title}}</span>
 </p>
 <div class="content">
    <div class="main">
