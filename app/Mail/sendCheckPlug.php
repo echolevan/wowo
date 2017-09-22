@@ -33,6 +33,6 @@ class sendCheckPlug extends Mailable
     public function build()
     {
         Log::info(json_encode($this->plug));
-        return $this->subject('嘿市网插件审核主题通知')->view('email.sendMsg');
+        return $this->subject('嘿市网待审核主题通知')->view('email.sendMsg');
     }
 }
