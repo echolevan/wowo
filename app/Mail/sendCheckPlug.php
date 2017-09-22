@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 
 class sendCheckPlug extends Mailable
 {
@@ -31,6 +32,7 @@ class sendCheckPlug extends Mailable
      */
     public function build()
     {
-        return $this->subject('嘿市网插件等待审核')->view('email.sendMsg');
+        Log::info(json_encode($this->plug));
+        return $this->subject('嘿市网插件审核主题通知')->view('email.sendMsg');
     }
 }

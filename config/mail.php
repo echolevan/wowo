@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'admin@iwowcn.com'),
-        'name' => env('MAIL_FROM_NAME', 'iwowcn'),
+        'name' => env('MAIL_FROM_NAME', '嘿市网'),
     ],
 
     /*
