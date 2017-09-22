@@ -85,8 +85,8 @@
                 ruleCustom: {
                     feedback: [
                         {required: true, message: '建议不能为空', trigger: 'blur'},
-                        {max: 180, message: '建议最长180字符', trigger: 'blur'},
-                        {max: 180, message: '建议最长180字符', trigger: 'blur'},
+                        {max: 300, message: '建议最长300字符', trigger: 'blur'},
+                        {max: 300, message: '建议最长300字符', trigger: 'blur'},
                     ]
                 }
             }
