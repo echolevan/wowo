@@ -132,7 +132,7 @@
             },
             p_del(id){
                 axios.get(`p_del/${id}`).then(res => {
-                    myDialog('24小时之后删除，24小时内可以撤回',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog('24小时之后自动删除，24小时内可以撤销',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.get_orders()
                 })
             },
