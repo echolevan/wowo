@@ -2,7 +2,7 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 50%">资源名称</div>
+                <div style="width: 50%">资源标题</div>
                 <div style="width: 10%" class="tt_center">售价</div>
                 <div style="width: 20%" class="tt_center">版本</div>
                 <div style="width: 10%" class="tt_center">游戏版本</div>

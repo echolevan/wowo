@@ -242,7 +242,7 @@
             <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
                 <Poptip
                         confirm
-                        title="您确认购买吗？"
+                        title="您确定购买吗？"
                         @on-ok="toLoading(plug_id)">
                     <Button type="primary" :loading="loading"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">

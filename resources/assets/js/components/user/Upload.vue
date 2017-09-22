@@ -2,7 +2,7 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 20%">资源名称</div>
+                <div style="width: 20%">资源标题</div>
                 <div class="tt_center" style="width: 10%">售价</div>
                 <div class="tt_center" style="width: 10%">状态</div>
                 <div class="tt_center" style="width: 13%">版本</div>
@@ -42,7 +42,7 @@
                     </router-link>
                     <Poptip
                             confirm
-                            title="您确认申请删除吗？"
+                            title="您确定删除吗？"
                             @on-ok="p_no_del(v.plug_id)" v-if="v.is_del">
                         <a href="javascript:void(0)" class="my_a_style normal_font"
                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
@@ -51,7 +51,7 @@
 
                     <Poptip
                             confirm
-                            title="您确认申请删除吗？"
+                            title="您确定删除吗？"
                             @on-ok="p_del(v.plug_id)" v-else>
                         <a href="javascript:void(0)" class="my_a_style">申请删除</a>
                     </Poptip>
@@ -132,7 +132,7 @@
             },
             p_del(id){
                 axios.get(`p_del/${id}`).then(res => {
-                    myDialog('24小时之后自动删除，24小时内可以撤销',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog('24小时内可撤销，过时将自动删除！',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.get_orders()
                 })
             },
