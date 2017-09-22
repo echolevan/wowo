@@ -41,15 +41,14 @@
 <div class="header">
     <a href="{{env('APP_URL')}}">陕西熊猫人网络科技有限公司</a>
 </div>
-
+<p>
+    <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
+</p>
+<p>
+    <span>主题名称：</span><span style="color: #ed3f14">{{$plug->title}}</span>
+</p>
 <div class="content">
    <div class="main">
-       <p>
-           <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
-       </p>
-       <p>
-           <span>主题名称：</span><span style="color: #ed3f14">{{$plug->title}}</span>
-       </p>
        <p>
            <a href="{{env('APP_URL')}}/admin/login" style="    font-family: Avenir, Helvetica, sans-serif;
     box-sizing: border-box;
@@ -65,10 +64,6 @@
     border-bottom: 10px solid #3097D1;
     border-left: 18px solid #3097D1;">登录审核
            </a>
-       </p>
-       <p>Form,</p>
-       <p>
-           陕西熊猫人网络科技有限公司
        </p>
    </div>
 </div>
