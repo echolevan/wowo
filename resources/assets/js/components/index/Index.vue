@@ -42,6 +42,10 @@
                     this.$router.push('/home')
                 }
             })
+            $('#xianliaome_window').css('display','none')
+             setTimeout(()=>{
+                 $('#xianliaome_window').css('display','none')
+             },1000)
         },
         methods: {
             enter(k) {
@@ -82,4 +86,7 @@
                     width 300px
                     &:hover
                         cursor pointer
+
+
+
 </style>

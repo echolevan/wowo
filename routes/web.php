@@ -12,9 +12,7 @@
 */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
-Route::get('/abc', function (){
-    return redirect('/#/home')->withErrors(['is_active_ok' => '1']);
-});
+Route::get('/abc', 'PlugController@del_plugs');
 
 
 
@@ -115,6 +113,9 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::get("user/check_withdraw",'UserController@check_withdraw'); //检查
     Route::post("withdraws",'WithdrawController@index'); //提现
     Route::get("find_wechat/{id}",'PayController@find_wechat'); //检查微信支付状态
+
+    Route::get("p_del/{id}",'PlugController@p_del'); //
+    Route::get("p_no_del/{id}",'PlugController@p_no_del'); //
 
 });
 

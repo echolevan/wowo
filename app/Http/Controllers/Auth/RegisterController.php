@@ -110,7 +110,7 @@ class RegisterController extends Controller
             'update_camp_at' => time(),
         ]);
 
-        $user->notify(new \App\Notifications\UserCreated($user));
+        dispatch(new \App\Jobs\SendUserCreatedEmail($user));
 
         return $user;
 

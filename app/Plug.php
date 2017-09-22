@@ -97,4 +97,9 @@ class Plug extends Model
     {
         return $this->created_at = date('Y-m-d',strtotime($created_at));
     }
+
+    public function is_del()
+    {
+        return $this->hasOne(PlugDel::class , 'plug_id' , 'plug_id');
+    }
 }

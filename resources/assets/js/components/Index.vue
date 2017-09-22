@@ -30,6 +30,21 @@
             </div>
         </div>
 
+
+        <div class="ad_form" v-show="$route.name !== 'index'">
+            <div class="ad_form_left">
+                <img src="/images/blcard.png" alt="">
+                <img src="/images/blcard.png" alt="">
+                <img src="/images/blcard.png" alt="">
+            </div>
+            <div class="ad_form_right">
+                <img src="/images/blcard.png" alt="">
+                <img src="/images/blcard.png" alt="">
+                <img src="/images/blcard.png" alt="">
+            </div>
+        </div>
+        
+        
         <Modal v-model="feedback_model">
             <p slot="header" class="model_title">
              意见反馈
@@ -106,11 +121,13 @@
                 axios.get('/getAgentInfo')
                 localStorage.setItem('getAgentInfo', "1")
             }
-
         },
         watch: {
             '$route'(to, from) {
                 this.choice_camp()
+                if(this.$router.name !== '/'){
+                    $('iframe#xianliaome_window').css('display','block')
+                }
             }
         },
         methods: {
@@ -180,4 +197,33 @@
             text-align center
             margin-bottom 2px
             padding 5px
+
+
+    .ad_form
+        .ad_form_left
+            position fixed
+            left 15px
+            top 0
+            height 100%
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            z-index 1400
+            img
+                width: 200px
+                margin 15px 0
+        .ad_form_right
+            position fixed
+            right 15px
+            top 0
+            height 100%
+            display flex
+            flex-direction column
+            justify-content center
+            z-index 1400
+            align-items center
+            img
+                width: 200px
+                margin 15px 0
 </style>
