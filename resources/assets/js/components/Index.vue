@@ -209,7 +209,7 @@
             flex-direction column
             justify-content center
             align-items center
-            z-index 99999
+            z-index 1400
             img
                 width: 200px
                 margin 15px 0
@@ -221,7 +221,7 @@
             display flex
             flex-direction column
             justify-content center
-            z-index 99999
+            z-index 1400
             align-items center
             img
                 width: 200px
