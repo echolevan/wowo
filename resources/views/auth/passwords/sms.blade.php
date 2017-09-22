@@ -53,7 +53,7 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control code"  name="code" placeholder="请输入验证码"
                                            style="width: 60%;float: left">
-                                    <button type="button" class="btn ivu-btn-ghost pull-right send_code">发送验证码</button>
+                                    <button type="button" class="btn ivu-btn-ghost pull-right send_code">获取验证码</button>
                                     <div style="clear: both"></div>
                                     @if ($errors->has('code'))
                                         <span class="help-block">
@@ -140,9 +140,9 @@
             timer = setInterval(function(){
                 second -= 1;
                 if(second > 0 ){
-                    $('.send_code').attr('disabled',true).text(second + '秒后重发');
+                    $('.send_code').attr('disabled',true).text(second + 's后可再次获取');
                 }else{
-                    $('.send_code').attr('disabled',false).text('发送验证码')
+                    $('.send_code').attr('disabled',false).text('获取验证码')
                     clearInterval(timer);
                 }
             },1000);
