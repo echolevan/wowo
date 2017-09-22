@@ -11,7 +11,7 @@
             padding: 15px;
         }
 
-        .header {
+        .header , .foot{
             width: 100%;
             line-height: 80px;
             background-color: #f5f8fa;
@@ -25,11 +25,17 @@
             text-decoration: none;
         }
 
+        .foot a{
+            color: #bbbfc3;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
         .content{
             display: flex;
-            margin-top: 30px;
             justify-content: center;
             width: 100%;
+            margin-bottom: 50px;
         }
         .content .main{
             max-width: 50%;
@@ -41,7 +47,8 @@
 <div class="header">
     <a href="{{env('APP_URL')}}">陕西熊猫人网络科技有限公司</a>
 </div>
-<p>
+<p style="            margin-top: 50px;
+">
     <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
 </p>
 <p>
@@ -67,6 +74,9 @@
        </p>
    </div>
 </div>
-{{--主题,等待审核。<a href="">登录后台</a>--}}
+
+<div class="foot">
+    <a href="{{env('APP_URL')}}">© 2017 陕西熊猫人网络科技有限公司. All rights reserved.</a>
+</div>
 </body>
 </html>
