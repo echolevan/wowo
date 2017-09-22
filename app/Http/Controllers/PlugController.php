@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Download;
 use App\Order;
 use App\Plug;
+use App\PlugDel;
 use App\Recharge;
 use App\Score;
 use App\Tag;
 use App\Thumb;
 use App\Tool;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Levan\Baidu\Stat\BaiduStatFacade;
 use function Sodium\increment;
 
@@ -541,6 +544,9 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '上传失败'];
         }
 
+        if($Plug->is_check === 0){
+            dispatch(new \App\Jobs\SendPlugCheckEmail($Plug));
+        }
         return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '分享成功' : '分享成功，请等待审核！'];
     }
 
@@ -589,16 +595,21 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '编辑失败'];
         }
 
+        if($Plug->is_check === 0){
+            dispatch(new \App\Jobs\SendPlugCheckEmail($Plug));
+        }
+
         return ['sta' => 1, 'msg' => $Plug->is_check === 1 ? '更新成功' : '更新成功，请等待审核！'];
     }
 
 
     public function check_plug_id ($id)
     {
-        $plug = Plug::where('plug_id', $id)->first();
-
+        $plug = Plug::with('tag_one')->with('tag_two')->where('plug_id',$id)->first();
+        $plug->is_free = $plug->is_free === 0 ? false : true;
+        $plug->type = [$plug->type, $plug->type_one, $plug->type_two];
         if ($plug && $plug->user_id === Auth::id())
-            return ['sta' => 1];
+            return ['sta' => 1 , 'plug'=>$plug];
         return ['sta' => 0];
     }
 
@@ -854,5 +865,73 @@ class PlugController extends Controller
         if($tag)
             return ['sta'=>1, 'msg'=>'更新成功'];
         return ['sta'=>0, 'msg'=>'更新失败'];
+    }
+
+
+    public function p_del($id)
+    {
+        Plug::where('plug_id',$id)->where('is_new',1)->update([
+            'status' => 0
+        ]);
+
+        PlugDel::create([
+            'plug_id' => $id,
+            'user_id' => Auth::id()
+        ]);
+
+        return ['sta'=>1];
+    }
+
+    public function p_no_del($id)
+    {
+        Plug::where('plug_id',$id)->where('is_new',1)->update([
+            'status' => 1
+        ]);
+
+        PlugDel::where('plug_id',$id)->delete();
+
+        return ['sta'=>1];
+    }
+
+    public function del_plugs()
+    {
+        $plug = PlugDel::oldest()->first();
+
+
+        if(time() - strtotime($plug->created_at) >= 24*60*60){
+            // DEL
+            $plugs = Plug::where('plug_id',$plug->plug_id)->get();
+
+            $id = $plugs->pluck('id');
+
+            $url = $plugs[0]->type === 3 ? $plugs->pluck('content') : [];
+
+            $thumbs = Thumb::whereIn('plug_id',$id)->get();
+
+            DB::beginTransaction();
+            try{
+
+                foreach ($thumbs as $k => $v){
+                    \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v->thumb));
+                }
+                //删除文件
+                if(count($url) > 0){
+                    foreach ($url as $k => $v){
+                        \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+                    }
+                }
+
+                Plug::where('plug_id',$plug->plug_id)->delete();
+                Thumb::whereIn('plug_id',$id)->delete();
+                PlugDel::where('id',$plug->id)->delete();
+                DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return ['sta'=>0 , 'msg'=>'失败'];
+            }
+            return $url;
+
+        }
+
     }
 }

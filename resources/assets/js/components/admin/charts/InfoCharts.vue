@@ -38,9 +38,10 @@
                     </div>
 
                 Cache化内存为 <span id="CachedMemory">{{ (info.sysinfo.memCached / 1024).toFixed(3) }} </span>G
+                , Buffers缓冲为  <span id="Buffers">{{ (info.sysinfo.memBuffers / 1024).toFixed(3) }} </span>G
                 , 使用率
                 <span id="memCachedPercent " class="use_class" style="color: #CC0000">{{info.sysinfo.memCachedPercent}}</span>
-                %	| Buffers缓冲为  <span id="Buffers">{{ (info.sysinfo.memBuffers / 1024).toFixed(3) }} </span>G
+                %
                     <div id="barmemCachedPercent" class="barli_blue" :style="`width:${info.sysinfo.memCachedPercent}%`">
                         &nbsp;
                     </div>

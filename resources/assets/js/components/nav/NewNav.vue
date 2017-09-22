@@ -177,7 +177,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
     @import "../../../common/new/style.css"
     .nav_link
-        margin 0 5px
+        margin-right 5px
 
     .nav_link.router-link-active
         background #266ec1

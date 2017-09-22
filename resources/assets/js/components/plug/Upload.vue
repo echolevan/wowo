@@ -2,16 +2,15 @@
     <div style="padding: 15px 0 100px 0">
         <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">
             <Form-item label="标题" prop="title">
-                <Input v-model="formItem.title" placeholder="标题"></Input>
+                <Input v-model="formItem.title" placeholder="标题" :disabled="$route.params.id ? true : false"></Input>
             </Form-item>
-
             <Form-item label="分类" prop="type">
                 <Cascader v-if="plug_tags && plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
-                          @on-change="on_sel"></Cascader>
+                          @on-change="on_sel" :disabled="$route.params.id ? true : false"></Cascader>
             </Form-item>
 
             <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
-                <Input v-model="formItem.name" placeholder="插件名称"></Input>
+                <Input v-model="formItem.name" placeholder="插件名称" :disabled="$route.params.id ? true : false"></Input>
             </Form-item>
 
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
@@ -109,10 +108,20 @@
             <Form-item label="更新日志" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
                        placeholder="请输入"></Input>
+                <p class="pull-right "
+                >共 <span class="normal_font"
+                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                         style="font-weight:bold"
+                >{{formItem.updated_info.length}}</span> 字符 </p>
             </Form-item>
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
+                <p class="pull-right "
+                >共 <span class="normal_font"
+                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                         style="font-weight:bold"
+                >{{formItem.info.length}}</span> 字符 </p>
             </Form-item>
 
             <div class="my_ok_button">
@@ -346,7 +355,11 @@
                     axios.get(`check_plug_id/${this.$route.params.id}`).then(res => {
                         if(res.data.sta === 0){
                             this.$router.go(-1)
+                            return false
                         }
+                        this.formItem.title = res.data.plug.title
+                        this.formItem.type = res.data.plug.type
+                        this.formItem.name = res.data.plug.name
                     }).catch(error=>{
                         history.go(-1)
                     })

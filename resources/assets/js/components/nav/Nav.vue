@@ -32,6 +32,8 @@
         </div>
         <div class="nav menu">
             <v-new-nav></v-new-nav>
+            <img src="http://www.admaimai.com/images/new20170802.png" style="width: 100%;" alt="">
+
         </div>
     </div>
 </template>

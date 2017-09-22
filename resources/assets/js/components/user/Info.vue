@@ -176,7 +176,7 @@
         .info_list
             li
                 width 100%
-                padding 10px 0
+                line-height 40px
                 .title
                     font-size 16px
                     width 8%
