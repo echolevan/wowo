@@ -12,7 +12,10 @@
 */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
-Route::get('/abc', 'PlugController@del_plugs');
+Route::get('/abc', function (){
+    $plug = \App\Plug::first();
+    return view('email.sendMsg',compact('plug'));
+});
 
 
 

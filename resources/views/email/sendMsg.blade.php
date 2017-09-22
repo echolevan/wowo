@@ -6,8 +6,72 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        body {
+            padding: 15px;
+        }
+
+        .header {
+            width: 100%;
+            line-height: 80px;
+            background-color: #f5f8fa;
+            text-align: center;
+        }
+
+        .header a {
+            color: #bbbfc3;
+            font-size: 19px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .content{
+            display: flex;
+            margin-top: 30px;
+            justify-content: center;
+            width: 100%;
+        }
+        .content .main{
+            max-width: 50%;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-        {{$plug->type === 1 ? 'WA':'TWM'}}主题{{$plug->title}},等待审核。<a href="{{env('APP_URL')}}/admin/login">登录后台</a>
+<div class="header">
+    <a href="{{env('APP_URL')}}">陕西熊猫人网络科技有限公司</a>
+</div>
+
+<div class="content">
+   <div class="main">
+       <p>
+           <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
+       </p>
+       <p>
+           <span>主题名称：</span><span style="color: #ed3f14">{{$plug->title}}</span>
+       </p>
+       <p>
+           <a href="{{env('APP_URL')}}/admin/login" style="    font-family: Avenir, Helvetica, sans-serif;
+    box-sizing: border-box;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-text-size-adjust: none;
+    background-color: #3097D1;
+    border-top: 10px solid #3097D1;
+    border-right: 18px solid #3097D1;
+    border-bottom: 10px solid #3097D1;
+    border-left: 18px solid #3097D1;">登录审核
+           </a>
+       </p>
+       <p>Form,</p>
+       <p>
+           陕西熊猫人网络科技有限公司
+       </p>
+   </div>
+</div>
+{{--主题,等待审核。<a href="">登录后台</a>--}}
 </body>
 </html>

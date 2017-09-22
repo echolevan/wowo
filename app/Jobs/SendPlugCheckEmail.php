@@ -8,6 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendPlugCheckEmail implements ShouldQueue
@@ -34,6 +35,7 @@ class SendPlugCheckEmail implements ShouldQueue
     public function handle()
     {
         //
+        Log::info(json_encode($this->plug));
         Mail::to(env('PLUG_CHECK_EMAIL'))->send(new \App\Mail\sendCheckPlug($this->plug));
     }
 }
