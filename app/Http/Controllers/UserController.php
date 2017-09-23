@@ -446,6 +446,22 @@ class UserController extends Controller
         return ['sta'=>1 , 'info'=>$lv ? $lv : collect([['name'=>'新手','money'=>0,'giving'=>0]])];
     }
 
+    public function get_user_lv_by_id($id)
+    {
+        $recharge = Recharge::where('user_id',$id)->where('status',9)->sum('recharge_amount');
+        $type = Lv::orderBy('money')->get();
+        if(count($type) === 0){
+            $type = collect([['name'=>'新手','money'=>0,'giving'=>0]]);
+        }
+        $lv = 1;
+        foreach ($type as $k => $v){
+            if( $recharge >= $v->money){
+                $lv = $k + 1;
+            }
+        }
+        return 'Lv'.($lv);
+    }
+
     public function check_withdraw()
     {
         $color = Auth::user()->camp === 1 ? '#266ec1' : '#d13030';
@@ -483,6 +499,10 @@ class UserController extends Controller
         $users = $where->with(['plugs'=>function($query){
             $query->select('plugs.user_id');
         }])->skip(($page-1)*$size)->take($size)->get();
+
+        foreach ($users as $k => $v){
+            $users[$k]->lv = $this->get_user_lv_by_id($v->id);
+        }
 
         return ['sta'=>1, 'count'=>$count, 'users'=>$users];
     }
