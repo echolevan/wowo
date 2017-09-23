@@ -119,6 +119,8 @@
                 ruleValidate: {
                     nickname: [
                         { required: true, message: '昵称不能为空', trigger: 'blur' },
+                        { type: 'string', min: 6, message: '昵称最少为6个字符', trigger: 'blur' },
+                        { type: 'string', max: 30, message: '昵称最长为30个字符', trigger: 'blur' },
                         {validator: validateName, trigger: 'blur'}
                     ],
                     info: [

@@ -8,7 +8,7 @@
                 <Input type="text" v-model="userInfo.alipay_name" disabled></Input>
             </FormItem>
             <FormItem label="新支付宝" prop="newAlipay">
-                <Input type="text" placeholder="新支付宝" :maxlength="maxlength" v-model="fromAlipay.newAlipay"></Input>
+                <Input type="text" placeholder="新支付宝"  v-model="fromAlipay.newAlipay"></Input>
                 <div style="clear:both"></div>
             </FormItem>
             <FormItem label="姓名" prop="alipayName">

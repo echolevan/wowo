@@ -605,7 +605,15 @@ class PlugController extends Controller
 
     public function check_plug_id ($id)
     {
-        $plug = Plug::with('tag_one')->with('tag_two')->where('plug_id',$id)->first();
+        $plug = Plug::with('thumbs')
+            ->with('tag_one')->with('tag_two')->with('user')->with(['like_plug' => function ($query) {
+                $query->where('users.id', Auth::id());
+            }])->with(['collect_plug' => function ($query) {
+                $query->where('users.id', Auth::id());
+            }])->with(['is_pay' => function ($query) {
+                $query->where('orders.user_id', Auth::id());
+            }])->where('plug_id',$id)->first();
+
         $plug->is_free = $plug->is_free === 0 ? false : true;
         $plug->type = [$plug->type, $plug->type_one, $plug->type_two];
         if ($plug && $plug->user_id === Auth::id())

@@ -2,17 +2,19 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 20%">资源名称</div>
+                <div style="width: 27%">资源名称</div>
                 <div class="tt_center" style="width: 10%">售价</div>
                 <div class="tt_center" style="width: 10%">状态</div>
                 <div class="tt_center" style="width: 13%">版本</div>
                 <div class="tt_center" style="width: 10%">游戏版本</div>
-                <div class="tt_center" style="width: 37%">操作</div>
+                <div class="tt_center" style="width: 30%">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
-                <div class="td_child title" style="width: 20%">
+                <div class="td_child title" style="width: 27%">
                     <Poptip :content="v.title" trigger="hover"  placement="bottom">
-                        {{v.title}}
+                        <router-link :to="{name:'plug.info' , params:{id: v.id}}">
+                            {{v.title}}
+                        </router-link>
                     </Poptip>
                 </div>
                 <div class="td_child tt_center" style="width: 10%" v-if="v.gold === 0">免费</div>
@@ -30,24 +32,18 @@
                     </Poptip>
                 </div>
                 <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
-                <div class="td_child tool" style="width: 37%">
-                    <router-link class="my_a_style" :to="{name:'plug.info' , params:{id: v.id}}">
-                        查看详情
-                    </router-link>
+                <div class="td_child tool" style="width: 30%">
+
                     <router-link class="my_a_style" :to="{name:'update.plug' , params:{id: v.id}}">
                         编辑
                     </router-link>
                     <router-link class="my_a_style" :to="{name:'upload.plug' , params:{id: v.plug_id}}">
                         升级版本
                     </router-link>
-                    <Poptip
-                            confirm
-                            title="您确认申请删除吗？"
-                            @on-ok="p_no_del(v.plug_id)" v-if="v.is_del">
-                        <a href="javascript:void(0)" class="my_a_style normal_font"
-                           :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+
+                    <a href="javascript:void(0)" class="my_a_style normal_font"
+                       :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" @click="p_no_del(v.plug_id)" v-if="v.is_del">
                         撤销删除</a>
-                    </Poptip>
 
                     <Poptip
                             confirm
