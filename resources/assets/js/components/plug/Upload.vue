@@ -24,7 +24,8 @@
             </Form-item>
 
             <Form-item label="是否收费" v-show="formItem.type[0] < 3">
-                <i-Switch v-model="formItem.is_free" size="large" @on-change="swi">
+                <i-Switch v-model="formItem.is_free" size="large" @on-change="swi"
+                          :disabled="$route.params.id ? true : false">
                     <span slot="open">是</span>
                     <span slot="close">否</span>
                 </i-Switch>
@@ -34,7 +35,7 @@
                 <Input-number
                         :min="1"
                         v-model="formItem.gold"
-                        @on-change="change_other"></Input-number>
+                        @on-change="change_other" :disabled="$route.params.id ? true : false"></Input-number>
                 <span v-if="formItem.gold === 1">(您将获得 <span
                         class="normal_font"
                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -48,12 +49,13 @@
                 >{{tools.fc}}</span>% 的金币 , 即 <span
                         class="normal_font"
                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                >{{ Math.floor( formItem.gold * tools.fc / 100 )}}</span> 金币)</span>
+                >{{ Math.floor(formItem.gold * tools.fc / 100)}}</span> 金币)</span>
 
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串(不能包含中文)"  v-on:input="keyUp"></Input>
+                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串(不能包含中文)"
+                       v-on:input="keyUp"></Input>
                 <p class="pull-right "
                 >共 <span class="normal_font"
                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -72,21 +74,29 @@
                         :before-upload="handlePlugUpload"
                         :on-remove="removePlug"
                 >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
+                    <Button type="ghost" icon="ios-cloud-upload-outline">
+                        {{formItem.plug_url === '' ? '上传文件' : '重新上传'}}
+                    </Button>
                 </Upload>
-                <span v-if="formItem.plug_url"  style="color: #d13030">已上传</span>
+                <span v-if="formItem.plug_url" style="color: #d13030">已上传</span>
             </Form-item>
 
             <Form-item label="上传截图" prop="uploadList">
                 <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList">
-                    <img :src="item.url">
-                    <div class="demo-upload-list-cover">
-                        <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
-                        <Icon type="ios-trash-outline" @click.native="handleRemove(k)"></Icon>
-                    </div>
+                    <template v-if="item.status === 'finished'">
+                        <img :src="item.url">
+                        <div class="demo-upload-list-cover">
+                            <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                    </template>
                 </div>
                 <Upload
                         ref="upload"
+                        :default-file-list="defaultList"
                         :show-upload-list="false"
                         :before-upload="handleBeforeUpload"
                         :on-success="handleSuccess"
@@ -94,7 +104,8 @@
                         type="drag"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         action="/upload_plug_screen_img"
-                        style="display: inline-block;width:150px;">
+                        style="display: inline-block;width:150px;"
+                >
                     <div style="width: 150px;height:150px;padding-top:25px">
                         <i class="ivu-icon ivu-icon-ios-cloud-upload" style="font-size: 52px">
                         </i>
@@ -125,7 +136,7 @@
             </Form-item>
 
             <div class="my_ok_button">
-                <Button type="primary" :loading="loading"  @click="toLoading('formItem')">
+                <Button type="primary" :loading="loading" @click="toLoading('formItem')">
                     <span v-if="!loading">确定</span>
                     <span v-else>Loading...</span>
                 </Button>
@@ -141,7 +152,7 @@
 
 <script>
     import {VueEditor} from 'vue2-editor'
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
 
     export default {
         data() {
@@ -220,7 +231,7 @@
             };
             return {
                 plug_tags: [],
-                game_versions:[],
+                game_versions: [],
                 formItem: {
                     title: '',
                     type: [],
@@ -235,11 +246,15 @@
                     plug_url: '',
                     name: ''
                 },
+                defaultList: [
+
+                ],
                 selectedDataName: '',
                 upload_type: '',
                 imgName: '',
                 visible: false,
                 loading: false,
+                upload_status: false,
                 csrfToken: window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
@@ -253,7 +268,7 @@
                         {validator: validateContent, required: true, trigger: 'blur'}
                     ],
                     plug_url: [
-                        {validator: validateContentUrl,required: true, trigger: 'change'}
+                        {validator: validateContentUrl, required: true, trigger: 'change'}
                     ],
                     info: [
                         {required: true, message: '简介不能为空'}
@@ -270,13 +285,13 @@
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
-                        {validator: validategold,required: true,  trigger: 'change'}
+                        {validator: validategold, required: true, trigger: 'change'}
                     ],
                     version: [
-                        {validator: validateversion,required: true,  trigger: 'blur'}
+                        {validator: validateversion, required: true, trigger: 'blur'}
                     ],
                     name: [
-                        {validator: validatename,required: true,  trigger: 'blur'},
+                        {validator: validatename, required: true, trigger: 'blur'},
                         {max: 30, message: '插件名称最长30字符', trigger: 'change'},
                         {max: 30, message: '插件名称最长30字符', trigger: 'blur'},
                     ],
@@ -284,39 +299,46 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap' , 'tools'
+            'userInfo', 'choice_cmap', 'tools'
         ]),
         mounted() {
             let userInfo = sessionStorage.getItem('loginUserInfoId')
-            if(!userInfo){
+            if (!userInfo) {
                 myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
                     , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 this.$router.push('/home')
-            }else{
-                if(userInfo[2] && userInfo[2] === '0'){
+            } else {
+                if (userInfo[2] && userInfo[2] === '0') {
                     myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${userInfo[0] && userInfo[0] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
                         , userInfo[0] && userInfo[0] === '2' ? 'bl_button_color' : '')
                 }
             }
+
             this._init()
+            this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
-            formItem(){
+            formItem() {
                 this.keyUp()
             },
             '$route'(to, from) {
                 this.$router.go(-1)
             },
             userInfo() {
-                if(!this.userInfo){
+                if (!this.userInfo) {
                     this.$router.push('/')
+                }
+            },
+            defaultList(v) {
+                for(let i =0 ;i <v.length;i++){
+                    this.formItem.uploadList.push(v[i])
                 }
             }
         },
         methods: {
             keyUp() {
-                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
+                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
 //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading(name) {
@@ -325,13 +347,13 @@
                     if (valid) {
                         axios.put(`upload_plug/${this.$route.params.id}`, {data: this.formItem}).then(res => {
                             if (res.data.sta === 0) {
-                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                                myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             } else {
-                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                                if(this.$route.name === 'admin.plug.create'){
+                                myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                                if (this.$route.name === 'admin.plug.create') {
                                     this.$router.go(-1)
 //                                    this.$router.push('/admin/plug/list')
-                                }else{
+                                } else {
                                     this.$router.go(-1)
 //                                    this.$router.push('/watmw/wa')
                                 }
@@ -351,16 +373,28 @@
                 this.formItem.is_free = false
             },
             _init() {
-                if(this.$route.params.id){
+                if (this.$route.params.id) {
                     axios.get(`check_plug_id/${this.$route.params.id}`).then(res => {
-                        if(res.data.sta === 0){
+                        if (res.data.sta === 0) {
                             this.$router.go(-1)
                             return false
                         }
                         this.formItem.title = res.data.plug.title
                         this.formItem.type = res.data.plug.type
                         this.formItem.name = res.data.plug.name
-                    }).catch(error=>{
+                        this.formItem.title = res.data.plug.title
+                        this.formItem.type = res.data.plug.type
+                        this.formItem.content = res.data.plug.content
+                        this.formItem.info = res.data.plug.info
+                        this.formItem.updated_info = res.data.plug.updated_info
+                        this.formItem.version = res.data.plug.version
+                        this.formItem.game_version = res.data.plug.game_version
+                        this.formItem.is_free = res.data.plug.is_free
+                        this.formItem.name = res.data.plug.name
+                        this.formItem.gold = res.data.plug.gold
+                        this.formItem.plug_url = res.data.plug.content
+                        this.defaultList = res.data.plug.thumbs
+                    }).catch(error => {
                         history.go(-1)
                     })
                 }
@@ -373,18 +407,18 @@
                 localStorage.removeItem('upload_type_name')
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
                     this.plug_tags = res.data.res
-                    if(tag_name !== null){
-                        this.formItem.type = [res.data.res[0].value , res.data.res[0].children[0].value]
+                    if (tag_name !== null) {
+                        this.formItem.type = [res.data.res[0].value, res.data.res[0].children[0].value]
                     }
                     this.game_versions = res.data.game_versions
                 })
 
                 let quick_content = localStorage.getItem('quick_share_content')
                 let quick_type = localStorage.getItem('quick_share_type')
-                if(quick_content && quick_type){
+                if (quick_content && quick_type) {
                     let dataStrArr = quick_type.split(",")
                     let dataIntArr = [];
-                    dataStrArr.forEach(function(data,index,arr){
+                    dataStrArr.forEach(function (data, index, arr) {
                         dataIntArr.push(+data);
                     });
                     this.formItem.content = quick_content
@@ -394,8 +428,8 @@
                 }
 
             },
-            handleFormatError(){
-                myDialog('请上传rar,zip,7z格式的插件',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            handleFormatError() {
+                myDialog('请上传rar,zip,7z格式的插件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             handleImageAdded: function (file, Editor, cursorLocation) {
                 let formData = new FormData();
@@ -408,7 +442,7 @@
                 })
                     .then((result) => {
                         if (result.data.sta === 0) {
-                            myDialog(result.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                            myDialog(result.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                         } else {
                             let url = result.data.url
                             Editor.insertEmbed(cursorLocation, 'image', url);
@@ -424,33 +458,33 @@
                 this.imgName = name;
                 this.visible = true;
             },
-            handleRemove(k) {
-                this.formItem.uploadList.splice(k, 1);
-                this.$refs.upload.fileList.splice(k, 1);
+            handleRemove(file) {
+                const fileList = this.$refs.upload.fileList;
+                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+                this.formItem.uploadList = this.$refs.upload.fileList
             },
-            handleBeforeUpload(){
-                const check = this.$refs.upload.fileList.length < 20;
+            handleBeforeUpload() {
+                const check = this.$refs.upload.fileList.length < 3;
                 if (!check) {
-                    myDialog('最多只能上传 20 张图片。',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog('最多只能上传 20 张图片。', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
                 return check;
             },
-            handleSuccess(res, file) {
+            handleSuccess(res, file, fileList) {
                 if (res.sta === 0) {
-                    myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog(res.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.$Loading.error()
                 } else {
-                    this.formItem.uploadList.push({
-                        url: res.url,
-                        width: res.width,
-                        height: res.height,
-                    });
+                    file.url = res.url
+                    file.width = res.width
+                    file.height = res.height
+                    this.formItem.uploadList = fileList;
                     this.$Loading.finish()
                 }
             },
-            handlePlugSuccess(res, file) {
+            handlePlugSuccess(res, file, fileList) {
                 if (res.sta === 0) {
-                    myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog(res.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
                     this.$refs.uploadPlug.clearFiles()
                     this.formItem.plug_url = res.url

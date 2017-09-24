@@ -75,6 +75,7 @@
                 <th style="width: 5%">头像</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
+                <th style="width: 5%">等级</th>
                 <th style="width: 5%">发布资源数</th>
                 <th style="width: 7%">手机号码</th>
                 <th style="width: 8%" v-show="show_email">安全邮箱</th>
@@ -96,6 +97,7 @@
                 </td>
                 <td :style="{'color': v.camp === 1 ? '#266ec1' : '#d13030'}">{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
+                <td>{{v.lv}}</td>
                 <td>{{v.plugs.length}}</td>
                 <td>{{v.tel === '0' ? '未绑定手机号码' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
@@ -232,6 +234,7 @@
             },
             search() {
                 axios.post(`/admin/user/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
+                    console.log(res)
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.users

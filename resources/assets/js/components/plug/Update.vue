@@ -82,11 +82,16 @@
 
             <Form-item label="上传截图" prop="uploadList">
                 <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList">
-                    <img :src="item.url">
-                    <div class="demo-upload-list-cover">
-                        <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
-                        <Icon type="ios-trash-outline" @click.native="handleRemove(k)"></Icon>
-                    </div>
+                    <template v-if="item.status === 'finished'">
+                        <img :src="item.url">
+                        <div class="demo-upload-list-cover">
+                            <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                    </template>
                 </div>
                 <Upload
                         ref="upload"
@@ -294,6 +299,7 @@
         ]),
         mounted() {
             this._init()
+            this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
             formItem() {
@@ -301,6 +307,11 @@
             },
             '$route'(to, from) {
                 this.$router.go(-1)
+            },
+            defaultList(v) {
+                for(let i =0 ;i <v.length;i++){
+                    this.formItem.uploadList.push(v[i])
+                }
             }
         },
         methods: {
@@ -309,7 +320,6 @@
             },
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
-//                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading(name) {
                 this.loading = true;
@@ -322,10 +332,8 @@
                                 myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                 if (this.$route.name === 'admin.plug.create') {
                                     this.$router.go(-1)
-//                                    this.$router.push('/admin/plug/list')
                                 } else {
                                     this.$router.go(-1)
-//                                    this.$router.push('/userInfo/upload')
                                 }
                             }
                         })
@@ -358,7 +366,6 @@
                     this.formItem.name = res.data.plug.name
                     this.formItem.gold = res.data.plug.gold
                     this.formItem.plug_url = res.data.plug.content
-                    this.formItem.uploadList = res.data.plug.thumbs
                     this.defaultList = res.data.plug.thumbs
                 }).catch(error => {
                     history.go(-1)
@@ -395,7 +402,7 @@
                     })
             },
             handleBeforeUpload() {
-                const check = this.$refs.upload.fileList.length < 20;
+                const check = this.$refs.upload.fileList.length < 5;
                 if (!check) {
                     myDialog('最多只能上传 20 张图片。',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
@@ -405,20 +412,20 @@
                 this.imgName = name;
                 this.visible = true;
             },
-            handleRemove(k) {
-                this.formItem.uploadList.splice(k, 1)
-                this.$refs.upload.fileList.splice(k, 1);
+            handleRemove(file) {
+                const fileList = this.$refs.upload.fileList;
+                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+                this.formItem.uploadList = this.$refs.upload.fileList
             },
-            handleSuccess(res, file) {
-                console.log(res)
+            handleSuccess(res, file, fileList) {
                 if (res.sta === 0) {
                     myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
-                    this.formItem.uploadList.push({
-                        url: res.url,
-                        width: res.width,
-                        height: res.height,
-                    });
+                    file.url = res.url
+                    file.width = res.width
+                    file.height = res.height
+                    this.formItem.uploadList = fileList;
+                    this.$Loading.finish()
                 }
             },
             handlePlugSuccess(res, file) {
