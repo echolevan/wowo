@@ -151,11 +151,11 @@
                     <info-charts :info="info.service_info"></info-charts>
                 </div>
             </iCol>
-            <iCol span="5">
+            <iCol span="6">
                 <p class="title_charts">设备类型</p>
                 <sys-charts></sys-charts>
             </iCol>
-            <iCol span="7">
+            <iCol span="6">
                 <p class="title_charts">浏览器类型</p>
                 <bro-charts></bro-charts>
             </iCol>
