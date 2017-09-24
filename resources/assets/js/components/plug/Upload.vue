@@ -310,7 +310,7 @@
                 this.$router.push('/home')
             } else {
                 if (userInfo[2] && userInfo[2] === '0') {
-                    myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${userInfo[0] && userInfo[0] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
+                    myDialog(`您还未验证邮箱，请 <a href='/#/userInfo/info' class='close_other_dialog ${userInfo[0] && userInfo[0] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
                         , userInfo[0] && userInfo[0] === '2' ? 'bl_button_color' : '')
                 }
             }

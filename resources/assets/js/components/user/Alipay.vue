@@ -1,14 +1,14 @@
 <template>
     <div>
         <Form ref="fromAlipay" :model="fromAlipay" :rules="AlipayCustom" :label-width="100" style="width: 500px">
-            <FormItem label="原始支付宝" prop="oldAlipay" v-show="userInfo.alipay">
+            <FormItem label="原支付宝" prop="oldAlipay" v-show="userInfo.alipay">
                 <Input type="text" v-model="userInfo.alipay" disabled></Input>
             </FormItem>
-            <FormItem label="原始姓名" prop="oldAlipay" v-show="userInfo.alipay_name">
+            <FormItem label="原姓名" prop="oldAlipay" v-show="userInfo.alipay_name">
                 <Input type="text" v-model="userInfo.alipay_name" disabled></Input>
             </FormItem>
             <FormItem label="新支付宝" prop="newAlipay">
-                <Input type="text" placeholder="新支付宝"  v-model="fromAlipay.newAlipay"></Input>
+                <Input type="text" placeholder="手机号码或邮箱"  v-model="fromAlipay.newAlipay"></Input>
                 <div style="clear:both"></div>
             </FormItem>
             <FormItem label="姓名" prop="alipayName">
