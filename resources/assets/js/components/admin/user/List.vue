@@ -72,10 +72,10 @@
             <tr>
                 <th style="width: 5%">嘿市ID</th>
                 <th style="width: 5%">用户名</th>
+                <th style="width: 5%">等级</th>
                 <th style="width: 5%">头像</th>
                 <th style="width: 5%">阵营</th>
                 <th style="width: 5%">金币</th>
-                <th style="width: 5%">等级</th>
                 <th style="width: 5%">发布资源数</th>
                 <th style="width: 7%">手机号码</th>
                 <th style="width: 8%" v-show="show_email">安全邮箱</th>
