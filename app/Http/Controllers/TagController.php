@@ -136,7 +136,7 @@ class TagController extends Controller
         if($info->pid === 0 ){
             $count = Tag::where('pid',$id)->count();
             if($count > 0){
-                return ['sta' => 0, 'msg' => '删除失败！请先删除他的子集'];
+                return ['sta' => 0, 'msg' => '删除失败！请先删除子项'];
             }
         }
 

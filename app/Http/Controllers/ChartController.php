@@ -319,7 +319,7 @@ class ChartController extends Controller
             'Edge' => 5,
             'Safari' => 6,
             'Chrome' => 7,
-            'MicroMessenger' => 8
+            'WeChat' => 8
         );
         $system = array(
             'Windows' => 1,

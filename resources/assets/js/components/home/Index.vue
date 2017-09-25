@@ -318,7 +318,7 @@
                 }
 
                 if (this.type.length === 0) {
-                    myDialog('请选择分类',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog('请选择职业分类',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
                 localStorage.setItem('quick_share_content', this.content)
