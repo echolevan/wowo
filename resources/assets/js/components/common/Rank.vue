@@ -14,7 +14,7 @@
                         >{{v.title.substring(0, 20)}}</span>
                     </router-link>
                     <span class="dig" v-html="v.info"></span>
-                    <span class="size">{{v.download_num}}</span>
+                    <span class="size">{{v.d_n}}</span>
                 </li>
             </ul>
         </div>

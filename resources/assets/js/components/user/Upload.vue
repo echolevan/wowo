@@ -2,15 +2,15 @@
     <div class="user_orders">
         <table class="table table-bordered" v-if="orders.length > 0">
             <div class="td_head_div">
-                <div style="width: 27%">资源名称</div>
+                <div style="width: 22%">资源标题</div>
                 <div class="tt_center" style="width: 10%">售价</div>
                 <div class="tt_center" style="width: 10%">状态</div>
                 <div class="tt_center" style="width: 13%">版本</div>
                 <div class="tt_center" style="width: 10%">游戏版本</div>
-                <div class="tt_center" style="width: 30%">操作</div>
+                <div class="tt_center" style="width: 35%">操作</div>
             </div>
             <div class="td_div" v-for="v in orders">
-                <div class="td_child title" style="width: 27%">
+                <div class="td_child title" style="width: 22%">
                     <Poptip :content="v.title" trigger="hover"  placement="bottom">
                         <router-link :to="{name:'plug.info' , params:{id: v.id}}">
                             {{v.title}}
@@ -32,7 +32,7 @@
                     </Poptip>
                 </div>
                 <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
-                <div class="td_child tool" style="width: 30%">
+                <div class="td_child tool" style="width: 35%">
 
                     <router-link class="my_a_style" :to="{name:'update.plug' , params:{id: v.id}}">
                         编辑
@@ -40,14 +40,13 @@
                     <router-link class="my_a_style" :to="{name:'upload.plug' , params:{id: v.plug_id}}">
                         升级版本
                     </router-link>
-
                     <a href="javascript:void(0)" class="my_a_style normal_font"
                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" @click="p_no_del(v.plug_id)" v-if="v.is_del">
-                        撤销删除</a>
-
+                        撤销删除 剩余<span>{{v.is_del.last_time}}</span>小时
+                        </a>
                     <Poptip
                             confirm
-                            title="您确认申请删除吗？"
+                            title="您确定删除吗？"
                             @on-ok="p_del(v.plug_id)" v-else>
                         <a href="javascript:void(0)" class="my_a_style">申请删除</a>
                     </Poptip>
@@ -128,7 +127,7 @@
             },
             p_del(id){
                 axios.get(`p_del/${id}`).then(res => {
-                    myDialog('24小时之后删除，24小时内可以撤回',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    myDialog('24小时内可撤销，过时将自动删除！',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     this.get_orders()
                 })
             },

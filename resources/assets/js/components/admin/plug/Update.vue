@@ -105,7 +105,7 @@
 
             <Form-item label="更新日志" prop="updated_info">
                 <Input v-model="formItem.updated_info" type="textarea" :autosize="{minRows: 2}"
-                       placeholder="请输入"></Input>
+                       placeholder="请输入更新日志"></Input>
                 <p class="pull-right "
                 >共 <span class="normal_font"
                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -116,11 +116,6 @@
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
-                <p class="pull-right "
-                >共 <span class="normal_font"
-                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                         style="font-weight:bold"
-                >{{formItem.info.length}}</span> 字符 </p>
             </Form-item>
 
 

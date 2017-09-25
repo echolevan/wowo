@@ -2,29 +2,27 @@
 
 namespace App\Jobs;
 
-use App\Plug;
+use App\Feedback;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class SendPlugCheckEmail implements ShouldQueue
+class SendFeedBackEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $plug;
-
+    public $feedBack;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Plug $plug)
+    public function __construct(Feedback $feedBack)
     {
+        $this->feedBack = $feedBack;
         //
-        $this->plug = $plug;
     }
 
     /**
@@ -35,6 +33,6 @@ class SendPlugCheckEmail implements ShouldQueue
     public function handle()
     {
         //
-        Mail::to(env('PLUG_CHECK_EMAIL'))->send(new \App\Mail\sendCheckPlug($this->plug));
+        Mail::to(env('PLUG_CHECK_EMAIL'))->send(new \App\Mail\SendFeedBack($this->feedBack));
     }
 }

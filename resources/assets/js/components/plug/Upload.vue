@@ -13,6 +13,10 @@
                 <Input v-model="formItem.name" placeholder="插件名称" :disabled="$route.params.id ? true : false"></Input>
             </Form-item>
 
+            <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' ">
+                <Input v-model="formItem.author" placeholder="作者信息"></Input>
+            </Form-item>
+
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
@@ -128,11 +132,6 @@
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
-                <p class="pull-right "
-                >共 <span class="normal_font"
-                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                         style="font-weight:bold"
-                >{{formItem.info.length}}</span> 字符 </p>
             </Form-item>
 
             <div class="my_ok_button">
@@ -242,6 +241,7 @@
                     game_version: '',
                     is_free: false,
                     gold: 1,
+                    author: '',
                     uploadList: [],
                     plug_url: '',
                     name: ''
@@ -302,16 +302,17 @@
             'userInfo', 'choice_cmap', 'tools'
         ]),
         mounted() {
-            let userInfo = sessionStorage.getItem('loginUserInfoId')
+            let userInfo = JSON.parse(sessionStorage.getItem('loginUserInfoId'))
+            console.log(userInfo)
             if (!userInfo) {
                 myDialog(`请先 <a href="/register" class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">注册</a>
                      <a href="/login"  class="${(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_font_color' : 'lm_font_color'}">登录</a>`
                     , (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 this.$router.push('/home')
             } else {
-                if (userInfo[2] && userInfo[2] === '0') {
-                    myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${userInfo[0] && userInfo[0] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
-                        , userInfo[0] && userInfo[0] === '2' ? 'bl_button_color' : '')
+                if (userInfo && userInfo[2] === '0') {
+                    myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${userInfo[1] && userInfo[1] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
+                        , userInfo[1] && userInfo[1] === '2' ? 'bl_button_color' : '')
                 }
             }
 
@@ -392,6 +393,7 @@
                         this.formItem.is_free = res.data.plug.is_free
                         this.formItem.name = res.data.plug.name
                         this.formItem.gold = res.data.plug.gold
+                        this.formItem.author = res.data.plug.author
                         this.formItem.plug_url = res.data.plug.content
                         this.defaultList = res.data.plug.thumbs
                     }).catch(error => {

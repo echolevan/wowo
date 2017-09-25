@@ -292,7 +292,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_mail")) {
-            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_mail")).'s后可再次获取' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_mail")];
         }
         Cache::forget(Auth::id()."_send_mail");
         Cache::add(Auth::id()."_send_mail", time(), 1);
@@ -308,7 +308,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_code_email")) {
-            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_code_email")];
+            return ['sta'=>0 , 'msg'=>'邮件发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg")).'s后可再次获取' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_code_email")];
         }
         $code = rand(100000,999999);
         Mail::to($email)->send(new \App\Mail\sendCodeToUser($code));
@@ -323,7 +323,7 @@ class UserController extends Controller
     {
         // put in session
         if (Cache::has(Auth::id()."_send_msg_".$type)) {
-            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg_".$type)).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg_".$type)];
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get(Auth::id()."_send_msg_".$type)).'s后可再次获取' , 'timeOut'=> 60 - time() + Cache::get(Auth::id()."_send_msg_".$type)];
         }
         $code = rand(100000,999999);
         $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));
@@ -644,7 +644,7 @@ class UserController extends Controller
         $tel = $request->tel;
         $type = 2;
         if (Cache::has($tel."_send_msg_".$type)) {
-            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get($tel."_send_msg_".$type)).'s后再次发送' , 'timeOut'=> 60 - time() + Cache::get($tel."_send_msg_".$type)];
+            return ['sta'=>0 , 'msg'=>'短信发送失败,请等待'.(60 - time() + Cache::get($tel."_send_msg_".$type)).'s后可再次获取' , 'timeOut'=> 60 - time() + Cache::get($tel."_send_msg_".$type)];
         }
         $code = rand(100000,999999);
         $is_true = send_msg($code,$tel,config('my.msg_template.'.$type));

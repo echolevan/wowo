@@ -21,8 +21,8 @@
                 </iCol>
                 <iCol span="8" class="pull-right">
                     <Button type="ghost" class="pull-right" :disabled="is_dis" @click="send_msg">
-                        <span v-if="!is_dis">发送短信验证码</span>
-                        <span v-else>{{rest_time}}s后可再次发送</span>
+                        <span v-if="!is_dis">获取验证码</span>
+                        <span v-else>{{rest_time}}s后可再次获取</span>
                     </Button>
                 </iCol>
                 <div style="clear:both"></div>

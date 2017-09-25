@@ -106,7 +106,7 @@ class PlugController extends Controller
         $plug = Plug::with('thumbs')
             ->with('tag_one')->with('tag_two')->with('user')
             ->with(['historys' => function ($query) {
-                $query->select('id','plug_id','version','game_version','created_at','title','name','type')->latest();
+                $query->where('is_new',0)->select('id','plug_id','version','game_version','created_at','title','name','type','is_new')->latest();
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->where('id',$id)->first();
@@ -272,6 +272,20 @@ class PlugController extends Controller
                 }
             }
             return ['sta' => 1, 'type' => 3, 'info' => $plug];
+        }
+    }
+
+    public function quick_download ($id)
+    {
+        $plug = Plug::select('type', 'is_free', 'title', 'content', 'gold', 'plug_id')->find($id);
+        Plug::where('plug_id',$plug->plug_id)->increment('download_num');
+        $this->download_num($plug->plug_id);
+        if ($plug->type == 1 || $plug->type == 2) {
+            // wa tmw  model
+            return ['sta' => 1, 'type' => 1, 'info' => $plug];
+        } else {
+            // download
+            return ['sta' => 1, 'type' => 2, 'info' => $plug];
         }
     }
 

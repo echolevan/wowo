@@ -66,7 +66,7 @@
             <div class="center_is_active">
                 <p>邮箱激活成功</p>
                 <br>
-                <button class="close_dialog  ivu-btn-primary {{$errors->first('is_active_ok') == 2 ? 'bl_button_color' : ''}}" onclick="$('.show_is_active').remove()">确定</button>
+                <button style="border-radius: 2px;" class="close_dialog  ivu-btn-primary {{$errors->first('is_active_ok') == 2 ? 'bl_button_color' : ''}}" onclick="$('.show_is_active').remove()">确定</button>
             </div>
         </div>
     @endif

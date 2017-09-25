@@ -30,13 +30,13 @@
                                 <span v-else>{{plug.gold}}</span>
                             </span>
                             金币</span>
-                            <span v-if="plug.is_pay">[已购买]</span>
+                            <span v-if="plug.is_pay" style="color: rgb(209, 48, 48);">[已购买]</span>
                         </p>
                     </div>
                 </iCol>
                 <iCol span="8" class="score_down">
                     <strong>下载次数： <span
-                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{plug.download_num}}</span></strong>
+                            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{plug.d_n}}</span></strong>
                     <div class="my_btn_wrapper" @click="download(plug.id)"
                          :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                         <svg height="45" width="150">
@@ -73,7 +73,7 @@
                                     </li>
                                 </ul>
                             </Tab-pane>
-                            <Tab-pane label="所有版本" name="3">
+                            <Tab-pane label="历史版本" name="3">
                                 <table class="table">
                                     <thead>
                                     <tr class="table_tr"
@@ -84,16 +84,21 @@
                                         <th>更新日期</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr v-for="v in plug.historys">
-                                        <td>
-                                            <router-link :to="{name:'plug.info' , params:{id: v.id}}">
-                                                <a href="" class="link_a">{{v.name ? v.name : v.title}}-{{ v.version }}</a>
-                                            </router-link>
+                                    <tbody  v-if="plug.historys.length > 0" >
+                                        <tr v-for="v in plug.historys" class="tr_no_b">
+                                            <td>
+                                                <a href="javascript:void(0)" @click="quick_d(v.id)" class="link_a">{{v.name ? v.name : v.title}}-{{ v.version }}</a>
+                                            </td>
+                                            <td>{{ v.version }}</td>
+                                            <td>{{ v.game_version }}</td>
+                                            <td>{{ v.created_at }}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody  v-show="plug.historys.length === 0">
+                                    <tr>
+                                        <td style="text-align: center;font-size: 16px" colspan="4">
+                                            暂无数据
                                         </td>
-                                        <td>{{ v.version }}</td>
-                                        <td>{{ v.game_version }}</td>
-                                        <td>{{ v.created_at }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -114,13 +119,13 @@
                         </div>
                         <div class="plug_sim_info">
                             <p>最后更新：<span>{{plug.created_at}}</span></p>
-                            <p>最新版本：<span v-if="plug.historys">{{plug.historys[0].version}}</span></p>
+                            <p>最新版本：<span>{{plug.version}}</span></p>
                             <div v-if="plug.author">
                                 <p>插件作者：<span>{{plug.author}}</span></p>
-                                <p>上传者：<span>{{plug.user.nickname}}</span></p>
+                                <p>上传者：<span>{{plug.user.name}}</span></p>
                             </div>
                             <div v-else>
-                                <p>插件作者：<span>{{plug.user.nickname}}</span></p>
+                                <p>插件作者：<span>{{plug.user.name}}</span></p>
                                 <p>联系作者：<span><a :href="'mailto:'+plug.user.email">{{plug.user.email}}</a></span></p>
                             </div>
                         </div>
@@ -244,7 +249,7 @@
             <div slot="footer" v-show="userInfo && userInfo.gold >= down_plug.gold">
                 <Poptip
                         confirm
-                        title="您确认购买吗？"
+                        title="您确定购买吗？"
                         @on-ok="toLoading(plug.id)">
                     <Button type="primary" :loading="loading"
                             :class="{'bl_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
@@ -311,7 +316,8 @@
                     },
                     tag_two:{
                         id: 0
-                    }
+                    },
+                    historys: []
                 },
 
                 updated_infos: [],
@@ -414,6 +420,22 @@
                             this.down_plug = res.data.info
                             this.download_pay_model = true
                             // 收费插件 跳转到支付页面
+                        }
+                    }
+                })
+            },
+            quick_d(id){
+                axios.get(`quick_download/plug/${id}`).then(res => {
+                    if (res.data.sta === 0) {
+                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    } else {
+                        if (res.data.type === 1) {
+                            // 弹出model
+                            this.down_plug = res.data.info
+                            this.download_model = true
+                        } else if (res.data.type === 2) {
+                            // 跳转 下载
+                            window.open(res.data.info.content);
                         }
                     }
                 })
@@ -630,4 +652,10 @@
                 border-bottom-right-radius 15px
                 border-bottom-left-radius 15px
                 background-color #fff
+
+
+    .tr_no_b
+        td
+            border none
+            padding 4px 8px
 </style>

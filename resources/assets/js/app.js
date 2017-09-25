@@ -85,7 +85,7 @@ axios.get('/user/info').then(res => {
     if (res.data.sta === '1') {
         store.commit('change_userInfo', res.data.info)
         store.commit('change_lv', res.data.lv)
-        sessionStorage.setItem('loginUserInfoId',[res.data.info.id , res.data.info.is_active])
+        sessionStorage.setItem('loginUserInfoId',JSON.stringify([res.data.info.id , res.data.info.camp , res.data.info.is_active]))
         if (res.data.info.is_active === 0) {
             if(res.data.info.camp === 1){
                 iView.Notice.info({

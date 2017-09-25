@@ -11,7 +11,7 @@ class Plug extends Model
 {
     //
     protected $guarded = [];
-    protected $appends = ['type_name'];
+    protected $appends = ['type_name' , 'd_n'];
     protected $events = [
         'created' => CreatePlug::class,
         'updated' => UpdatePlug::class,
@@ -98,8 +98,17 @@ class Plug extends Model
         return $this->created_at = date('Y-m-d',strtotime($created_at));
     }
 
+    public function getDNAttribute()
+    {
+        return $this->d_n = number_format($this->download_num);
+    }
+
+
+
+
     public function is_del()
     {
         return $this->hasOne(PlugDel::class , 'plug_id' , 'plug_id');
     }
+
 }

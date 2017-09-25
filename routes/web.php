@@ -12,10 +12,6 @@
 */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
-Route::get('/abc', function (){
-    $plug = \App\Plug::first();
-    return view('email.sendMsg',compact('plug'));
-});
 
 
 
@@ -66,6 +62,7 @@ Route::get("plug_all_info_nav",'PlugController@plug_all_info_nav'); //上传界�
 
 
 Route::get('download/plug/{id}' , 'PlugController@download')->name('plug.download'); // 下载插件
+Route::get('quick_download/plug/{id}' , 'PlugController@quick_download')->name('plug.quick_download'); // 下载插件
 //collect_this
 Route::group(['middleware' => ['user.login']], function () {
     Route::get("collect_this/{id}",'PlugController@collect_this'); //收藏插件

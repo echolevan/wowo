@@ -14,6 +14,10 @@
                 <Input v-model="formItem.name" placeholder="插件名称"></Input>
             </Form-item>
 
+            <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' ">
+                <Input v-model="formItem.author" placeholder="作者信息"></Input>
+            </Form-item>
+
             <Form-item label="插件版本" prop="version" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.version" placeholder="插件版本号"></Input>
             </Form-item>
@@ -126,11 +130,6 @@
 
             <Form-item label="功能简介" prop="info">
                 <vue-editor v-model="formItem.info" useCustomImageHandler @imageAdded="handleImageAdded"></vue-editor>
-                <p class="pull-right "
-                >共 <span class="normal_font"
-                         :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                         style="font-weight:bold"
-                >{{formItem.info.length}}</span> 字符 </p>
             </Form-item>
 
             <div class="my_ok_button">
@@ -239,6 +238,7 @@
                     updated_info: '',
                     version: '',
                     game_version: '',
+                    author: '',
                     is_free: false,
                     gold: 1,
                     uploadList: [],
@@ -361,6 +361,7 @@
                     this.formItem.info = res.data.plug.info
                     this.formItem.updated_info = res.data.plug.updated_info
                     this.formItem.version = res.data.plug.version
+                    this.formItem.author = res.data.plug.author
                     this.formItem.game_version = res.data.plug.game_version
                     this.formItem.is_free = res.data.plug.is_free
                     this.formItem.name = res.data.plug.name

@@ -2,27 +2,25 @@
 
 namespace App\Mail;
 
-use App\Plug;
+use App\Feedback;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
-class sendCheckPlug extends Mailable
+class SendFeedBack extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $plug;
+    public $feedBack;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Plug $plug)
+    public function __construct(Feedback $feedBack)
     {
         //
-        $this->plug = $plug;
+        $this->feedBack = $feedBack;
     }
 
     /**
@@ -32,6 +30,6 @@ class sendCheckPlug extends Mailable
      */
     public function build()
     {
-        return $this->subject('嘿市网待审核主题通知')->view('email.sendMsg');
+        return $this->subject('嘿市网用户意见反馈通知')->view('email.sendFeedBack');
     }
 }

@@ -71,7 +71,7 @@ class WithdrawController extends Controller
             'payee_account' => $draw->alipay,
             'amount' => '0.1',
             'remark' => '提现' . $draw->money . "元",
-            'payer_show_name' => '熊猫人',
+            'payer_show_name' => '陕西熊猫人网络科技有限公司',
             'payee_real_name' => $draw->alipay_name
         ];
 
