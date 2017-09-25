@@ -76,11 +76,16 @@
 
             <Form-item label="上传截图" prop="uploadList">
                 <div class="demo-upload-list" v-for="(item , k) in formItem.uploadList">
-                    <img :src="item.url">
-                    <div class="demo-upload-list-cover">
-                        <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
-                        <Icon type="ios-trash-outline" @click.native="handleRemove(k)"></Icon>
-                    </div>
+                    <template v-if="item.status === 'finished'">
+                        <img :src="item.url">
+                        <div class="demo-upload-list-cover">
+                            <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                    </template>
                 </div>
                 <Upload
                         ref="upload"
@@ -285,6 +290,7 @@
         },
         mounted(){
             this._init()
+            this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
             formItem(){
@@ -395,18 +401,20 @@
                 this.imgName = name;
                 this.visible = true;
             },
-            handleRemove (k) {
-                this.formItem.uploadList.splice(k, 1)
+            handleRemove (file) {
+                const fileList = this.$refs.upload.fileList;
+                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+                this.formItem.uploadList = this.$refs.upload.fileList
             },
-            handleSuccess (res, file) {
+            handleSuccess (res, file , fileList) {
                 if(res.sta === 0){
                     this.$Message.error(res.msg)
                 }else{
-                    this.formItem.uploadList.push({
-                        url: res.url,
-                        width: res.width,
-                        height: res.height,
-                    });
+                    file.url = res.url
+                    file.width = res.width
+                    file.height = res.height
+                    this.formItem.uploadList = fileList;
+                    this.$Loading.finish()
                 }
             },
             handlePlugSuccess(res, file) {

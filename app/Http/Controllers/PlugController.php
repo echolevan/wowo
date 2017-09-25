@@ -102,11 +102,16 @@ class PlugController extends Controller
 
     public function plugInfo ($id)
     {
-
+        //check is_new
+        $p_id = Plug::where('id',$id)->select('is_new','plug_id')->first();
+        if($p_id->is_new === 0){
+            // old
+            $id = Plug::where('plug_id',$p_id->plug_id)->where('is_new',1)->value('id');
+        }
         $plug = Plug::with('thumbs')
             ->with('tag_one')->with('tag_two')->with('user')
             ->with(['historys' => function ($query) {
-                $query->where('is_new',0)->select('id','plug_id','version','game_version','created_at','title','name','type','is_new')->latest();
+                $query->where('is_new',0)->select('id','plug_id','version','game_version','created_at','title','name','type','is_new')->latest()->skip(0)->take(10);
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->where('id',$id)->first();

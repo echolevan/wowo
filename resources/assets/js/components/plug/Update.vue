@@ -403,7 +403,7 @@
                     })
             },
             handleBeforeUpload() {
-                const check = this.$refs.upload.fileList.length < 5;
+                const check = this.$refs.upload.fileList.length < 20;
                 if (!check) {
                     myDialog('最多只能上传 20 张图片。',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 }
