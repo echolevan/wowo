@@ -30,6 +30,6 @@ class SendFeedBack extends Mailable
      */
     public function build()
     {
-        return $this->subject('嘿市网用户意见反馈通知')->view('email.sendFeedBack');
+        return $this->subject('嘿市网意见反馈通知')->view('email.sendFeedBack');
     }
 }
