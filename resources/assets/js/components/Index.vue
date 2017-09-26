@@ -54,9 +54,6 @@
                     <Form-item label="建议" prop="feedback">
                         <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入您的建议"></Input>
                     </Form-item>
-                    <Form-item label="昵称" prop="name">
-                        <Input type="text" v-model="formCustom.name"></Input>
-                    </Form-item>
                     <Form-item label="邮箱" prop="tel">
                         <Input type="text" v-model="formCustom.tel"></Input>
                     </Form-item>

@@ -52,10 +52,7 @@
     <span>反馈内容：</span><span>{{$feedBack->feedback}}</span>
 </p>
 <p>
-    <span>姓名：</span><span style="color: #c41f3b">{{$feedBack->name}}</span>
-</p>
-<p>
-    <span>电话：</span><span style="color: #c41f3b">{{$feedBack->tel}}</span>
+    <span>邮箱：</span><span style="color: #c41f3b">{{$feedBack->tel}}</span>
 </p>
 
 <div class="foot">

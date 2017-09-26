@@ -631,7 +631,7 @@ class PlugController extends Controller
                 $query->where('users.id', Auth::id());
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
-            }])->where('plug_id',$id)->first();
+            }])->where('is_new',1)->where('plug_id',$id)->first();
 
         $plug->is_free = $plug->is_free === 0 ? false : true;
         $plug->type = [$plug->type, $plug->type_one, $plug->type_two];
@@ -924,7 +924,8 @@ class PlugController extends Controller
     {
         $plug = PlugDel::oldest()->first();
 
-
+        Log::info(json_encode($plug));
+        Log::info(time() - strtotime($plug->created_at));
         if(time() - strtotime($plug->created_at) >= 24*60*60){
             // DEL
             $plugs = Plug::where('plug_id',$plug->plug_id)->get();

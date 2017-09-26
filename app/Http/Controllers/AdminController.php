@@ -17,7 +17,7 @@ class AdminController extends Controller
         if (isset(Auth::user()->is_admin) && Auth::user()->is_admin === 1) {
             return view('admin.index');
         }
-        return redirect('/#/home');
+        return redirect('/admin/login');
     }
 
     public function loign ()

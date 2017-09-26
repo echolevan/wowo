@@ -78,10 +78,10 @@
                                     <thead>
                                     <tr class="table_tr"
                                         :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                                        <th>历史版本</th>
-                                        <th>版本号</th>
-                                        <th>游戏版本</th>
-                                        <th>更新日期</th>
+                                        <th style="border: none">历史版本</th>
+                                        <th style="border: none">版本号</th>
+                                        <th style="border: none">游戏版本</th>
+                                        <th style="border: none">更新日期</th>
                                     </tr>
                                     </thead>
                                     <tbody  v-if="plug.historys.length > 0" >
