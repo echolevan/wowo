@@ -71,7 +71,7 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
-                        :format="['zip','7z','rar']"
+                        :format="['rar','zip','7z']"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -311,7 +311,7 @@
                 this.$router.push('/home')
             } else {
                 if (userInfo && userInfo[2] === '0') {
-                    myDialog(`您还未验证邮箱，请<a href='/#/userInfo/info' class='close_other_dialog ${userInfo[1] && userInfo[1] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
+                    myDialog(`您还未验证邮箱，请 <a href='/#/userInfo/info' class='close_other_dialog ${userInfo[1] && userInfo[1] === '2' ? 'bl_font_color' : 'lm_font_color'}'>点击验证</a>`
                         , userInfo[1] && userInfo[1] === '2' ? 'bl_button_color' : '')
                 }
             }
@@ -431,7 +431,7 @@
 
             },
             handleFormatError() {
-                myDialog('请上传rar,zip,7z格式的插件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                myDialog('请上传rar、zip、7z格式的文件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             handleImageAdded: function (file, Editor, cursorLocation) {
                 let formData = new FormData();

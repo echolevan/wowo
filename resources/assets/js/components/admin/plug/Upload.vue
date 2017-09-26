@@ -61,7 +61,7 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
-                        :format="['zip','7z','rar']"
+                        :format="['rar','zip','7z']"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -304,7 +304,7 @@
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
             },
             handleFormatError(){
-                this.$Message.error('请上传rar,zip,7z格式的插件')
+                this.$Message.error('请上传rar、zip、7z格式的文件')
             },
             toLoading(name) {
                 this.loading = true;

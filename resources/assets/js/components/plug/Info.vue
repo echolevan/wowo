@@ -122,7 +122,7 @@
                             <p>最新版本：<span>{{plug.version}}</span></p>
                             <div v-if="plug.author">
                                 <p>插件作者：<span>{{plug.author}}</span></p>
-                                <p>上传者：<span>{{plug.user.name}}</span></p>
+                                <p>插件上传：<span>{{plug.user.name}}</span></p>
                             </div>
                             <div v-else>
                                 <p>插件作者：<span>{{plug.user.name}}</span></p>
