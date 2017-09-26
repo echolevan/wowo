@@ -26,8 +26,8 @@
                         </router-link>
                     </li>
 
-                    <li class="has-dropdown links" data-content="plug">
-                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'plug'}}"
+                    <li class="has-dropdown links" data-content="addons">
+                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'addons'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             游戏插件
                         </router-link>
@@ -37,7 +37,7 @@
                            :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>易游</span></a>
                     </li>
                     <li v-if="tools.bm === '1'">
-                        <router-link class="nav_link" to="/bm"
+                        <router-link class="nav_link" to="/market"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             黑市
                         </router-link>
@@ -108,7 +108,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li id="plug" class="dropdown links">
+                        <li id="addons" class="dropdown links">
                             <div class="content">
                                 <ul v-for="v in nav_tags" v-if="v.label === '游戏插件'">
                                     <li v-for="vv in v.children">
@@ -118,7 +118,7 @@
                                             <router-link
                                                     class="normal_font_import my_a_style"
                                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                                    :to="{name:'watmw.index' , params:{'type':'plug' , 'active': vv.value , 'active_pid': 0}}">
+                                                    :to="{name:'watmw.index' , params:{'type':'addons' , 'active': vv.value , 'active_pid': 0}}">
                                                 {{vv.label}}
                                             </router-link>
                                         </h2>
@@ -126,7 +126,7 @@
                                             <li class="hover_hand" v-for="vvv in vv.children">
                                                 <router-link
                                                         class="my_a_style"
-                                                        :to="{name:'watmw.index' , params:{'type':'plug' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                        :to="{name:'watmw.index' , params:{'type':'addons' , 'active': vvv.value , 'active_pid': vv.value}}">
                                                     {{vvv.label}}
                                                 </router-link>
                                             </li>

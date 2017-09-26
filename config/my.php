@@ -5,7 +5,7 @@ return [
     'plug_type' => [
         'wa' => 1,
         'tmw' => 2,
-        'plug' => 3
+        'addons' => 3
     ],
 
     'plug_name' => [
@@ -17,7 +17,7 @@ return [
     'tag_type' => [
         'wa' => 1,
         'tmw' => 1,
-        'plug' => 2
+        'addons' => 2
     ],
 
     'img_type' => [

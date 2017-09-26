@@ -49,7 +49,7 @@
                 configUrl: {
                     'TMW': 'tmw',
                     'WA': 'wa',
-                    '游戏插件': 'plug'
+                    '游戏插件': 'addons'
                 }
             }
         },

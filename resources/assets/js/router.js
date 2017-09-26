@@ -35,8 +35,8 @@ import AdminWithdrawList from './components/admin/withdraw/List.vue'
 export default [
     { path: '/',name:'index' , component:Index},
     { path: '/home',name:'home.index' , component:Home},
-    { path: '/watmw/:type/:active?/:active_pid?', name:'watmw.index' , component:watmw},
-    { path: '/bm', name:'bm.index' , component:Bm},
+    { path: '/resources/:type/:active?/:active_pid?', name:'watmw.index' , component:watmw},
+    { path: '/market', name:'bm.index' , component:Bm},
     { path: '/info/:id', name:'plug.info' , component:Info},
     { path: '/upload/:id?', name:'upload.plug' , component:uploadPlug},
     { path: '/update/:id', name:'update.plug' , component:updatePlug},

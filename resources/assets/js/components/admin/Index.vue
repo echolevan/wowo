@@ -137,7 +137,6 @@
         },
         methods: {
             _init() {
-                console.log(1)
                 axios.get('/user/info').then(res => {
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo',res.data.info)
@@ -150,7 +149,6 @@
                         }
                     }else{
                         this.userInfo = '';
-                        window.location.href='/admin/login'
                     }
                 })
             },

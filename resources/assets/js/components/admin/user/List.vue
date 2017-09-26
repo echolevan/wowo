@@ -92,12 +92,12 @@
             <tr v-for="(v,k) in list">
                 <td class="hover_hand" title="点击复制ID">{{v.id}}</td>
                 <td>{{v.name}}</td>
+                <td>{{v.lv}}</td>
                 <td>
                     <img-view :img="v.avatar"></img-view>
                 </td>
                 <td :style="{'color': v.camp === 1 ? '#266ec1' : '#d13030'}">{{configCamp[v.camp]}}</td>
                 <td>{{v.gold}}</td>
-                <td>{{v.lv}}</td>
                 <td>{{v.plugs.length}}</td>
                 <td>{{v.tel === '0' ? '未绑定手机号码' : v.tel}}</td>
                 <td v-show="show_email">{{v.email}}</td>
