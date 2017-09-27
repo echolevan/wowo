@@ -413,7 +413,7 @@ class PlugController extends Controller
         }else if($type === 'tmw'){
             $tag = [ [1,2,'TMW']];
             $name = 'null';
-        }else if($type === 'plug'){
+        }else if($type === 'addons'){
             $tag = [ [2, 3, '游戏插件']];
         }else{
             $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '游戏插件']];
