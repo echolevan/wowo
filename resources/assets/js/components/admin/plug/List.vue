@@ -82,7 +82,7 @@
             <thead>
             <tr>
                 <th>插件名称</th>
-                <th>作者</th>
+                <th>上传发布</th>
                 <th>售价</th>
                 <th>资源分类</th>
                 <th>资源查看</th>
