@@ -12,8 +12,8 @@
             <p slot="header">
                 <span>提现</span>
             </p>
-            <p>支付宝:{{userInfo.alipay}}</p>
-            请输入提现金额：
+            <p>支付宝账户：{{userInfo.alipay}}</p>
+            请输入提现金额(元)：
             <InputNumber :max="Math.floor(userInfo.gold / 10)" :min="1" v-model="drawMoney"
                          @on-change="change_other"></InputNumber>
             <br>
