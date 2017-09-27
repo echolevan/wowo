@@ -82,7 +82,7 @@
                             >{{$route.params.type === 'plug' ? '下载 ' : '获取'}}</span>
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon>
-                            <span>{{plug.download_num}}</span>
+                            <span>{{plug.d_n}}</span>
                             <Icon type="ios-clock-outline"></Icon>
                             <span>{{plug.created_at}}</span>
                             <Icon type="ios-star-outline"></Icon>
