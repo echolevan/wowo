@@ -323,6 +323,7 @@
                         } else {
                             if(res.data.type === 'alipay') {
                                 myDialog('请在新窗口支付',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                                clearInterval(aaa)
                                 let aaa = setInterval(()=>{
                                     axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
                                         if(res.data.sta === 1){
