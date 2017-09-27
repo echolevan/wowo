@@ -27,7 +27,7 @@ class PayController extends Controller
     {
         $config_biz = [
             'out_trade_no' => $order->out_trade_no,
-            'total_fee' => '1', // **单位：分**
+            'total_fee' => $order->recharge_amount * 100, // **单位：分**
             'body' => '充值'.$order->recharge_gold.'金币',
             'spbill_create_ip' => request()->getClientIp(),
             'product_id' =>  $order->id,
@@ -113,7 +113,7 @@ class PayController extends Controller
         $subject = '充值'.$order->recharge_gold.'金币';
         //付款金额，必填
 //        $total_amount = $order->recharge_amount;
-        $total_amount = 0.01;
+        $total_amount = $order->recharge_amount;
         //商品描述，可空
         $body = '充值金币';
         $customData = json_encode(['recharge_gold' => $order->recharge_gold, 'user_id' => $order->user_id]);//自定义参数
