@@ -11,7 +11,7 @@
             <div class="foot">
                 <ul>
                     <li>
-                        <router-link to="/aboutMe">
+                        <router-link to="/about">
                             关于我们
                         </router-link>
                     </li>
@@ -88,6 +88,10 @@
                         {required: true, message: '建议不能为空', trigger: 'blur'},
                         {max: 300, message: '建议最长300字符', trigger: 'blur'},
                         {max: 300, message: '建议最长300字符', trigger: 'blur'},
+                    ],
+                    tel: [
+                        {required: true, message: '邮箱不能为空', trigger: 'blur'},
+                        { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
                     ]
                 }
             }

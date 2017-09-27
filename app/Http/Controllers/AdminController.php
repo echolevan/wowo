@@ -55,7 +55,7 @@ class AdminController extends Controller
             'captcha' => 'required|captcha'
         ], $message);
 
-        $user = User::where('id', $request->email)->orWhere('name', $request->name)->first();
+        $user = User::where('id', $request->email)->orWhere('name', $request->email)->first();
         if (!$user) {
             return back()->withErrors(['login' => '用户名不存在']);
         } else {

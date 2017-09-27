@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="my_btn_wrapper"
-                             @click="upload_plug($route.params.type)" v-if="$route.params.type !== 'plug'"
+                             @click="upload_plug($route.params.type)" v-if="$route.params.type !== 'addons'"
                              :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <svg height="45" width="150">
                                 <rect class="button_one" height="45" width="150"></rect>

@@ -34,21 +34,21 @@
                 <div class="td_child tt_center" style="width: 10%">{{v.game_version}}</div>
                 <div class="td_child tool" style="width: 35%">
 
-                    <router-link class="my_a_style" :to="{name:'update.plug' , params:{id: v.id}}">
+                    <router-link class="my_a_style" :to="{name:'update.plug' , params:{id: v.id}}" style="padding: 0 13px">
                         编辑
                     </router-link>
-                    <router-link class="my_a_style" :to="{name:'upload.plug' , params:{id: v.plug_id}}">
+                    <router-link class="my_a_style" :to="{name:'upload.plug' , params:{id: v.plug_id}}" style="padding: 0 13px">
                         升级版本
                     </router-link>
-                    <a href="javascript:void(0)" class="my_a_style normal_font"
+                    <a href="javascript:void(0)" class="my_a_style normal_font" style="padding: 0 13px"
                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" @click="p_no_del(v.plug_id)" v-if="v.is_del">
-                        撤销删除 剩余<span>{{v.is_del.last_time}}</span>小时
+                        撤销删除 剩余<span>{{v.is_del.last_time}}</span>
                         </a>
                     <Poptip
                             confirm
                             title="您确定删除吗？"
                             @on-ok="p_del(v.plug_id)" v-else>
-                        <a href="javascript:void(0)" class="my_a_style">申请删除</a>
+                        <a href="javascript:void(0)" class="my_a_style" style="padding: 0 13px">申请删除</a>
                     </Poptip>
                     <!--<a href="javascript:void(0)" class="my_a_style" @click="show_his(v.id)" v-if="v.historys.length > 0">查看历史版本</a>-->
                     <!--<a href="javascript:void(0)" class="my_a_style" v-else>暂无历史版本</a>-->
