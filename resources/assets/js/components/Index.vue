@@ -10,7 +10,11 @@
         <div class="footer" v-if="$route.name !== 'index'">
             <div class="foot">
                 <ul>
-                    <li>关于我们</li>
+                    <li>
+                        <router-link to="/aboutMe">
+                            关于我们
+                        </router-link>
+                    </li>
                     <li>|</li>
                     <li>加入我们</li>
                     <li>|</li>

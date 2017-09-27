@@ -31,9 +31,11 @@ import AdminGameVersionSetting from './components/admin/tool/GameVersion.vue'
 
 import AdminRechargeList from './components/admin/recharge/List.vue'
 import AdminWithdrawList from './components/admin/withdraw/List.vue'
+import aboutMe from './components/Index/aboutMe.vue'
 
 export default [
     { path: '/',name:'index' , component:Index},
+    { path: '/aboutMe',name:'aboutMe' , component:aboutMe},
     { path: '/home',name:'home.index' , component:Home},
     { path: '/resources/:type/:active?/:active_pid?', name:'watmw.index' , component:watmw},
     { path: '/market', name:'bm.index' , component:Bm},
