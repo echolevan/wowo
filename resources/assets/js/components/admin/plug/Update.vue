@@ -46,6 +46,16 @@
                         :min="1"
                         v-model="formItem.gold"
                         @on-change="change_other"></Input-number>
+                <span v-if="formItem.gold === 1">(您将获得 <span
+                        class="normal_font"
+                >{{tools.fc}}</span>% 的金币 , 即 <span
+                        class="normal_font"
+                >1</span> 金币)</span>
+                <span v-else>(您将获得 <span
+                        class="normal_font"
+                >{{tools.fc}}</span>% 的金币 , 即 <span
+                        class="normal_font"
+                >{{ Math.floor(formItem.gold * tools.fc / 100)}}</span> 金币)</span>
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
@@ -301,7 +311,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap'
+            'userInfo', 'choice_cmap' ,'tools'
         ]),
         methods: {
             keyUp() {

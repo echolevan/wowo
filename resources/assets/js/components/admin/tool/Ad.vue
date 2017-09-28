@@ -33,7 +33,9 @@
                     </td>
                     <td>{{v.width}}</td>
                     <td>{{v.height}}</td>
-                    <td><a :href="v.link" target="_blank" >点击访问</a></td>
+                    <td>
+                        <a :href="v.link" target="_blank" :title="v.link"><Tag type="border" color="red">点击访问</Tag></a>
+                    </td>
                     <td>
                         <Tag type="dot" :color="v.is_show === 1 ? 'blue' : 'red'"
                              @click.native="change_status(v.is_show === 1 ? 0 : 1 , v.id, k)">{{status_type[v.is_show]}}
@@ -112,7 +114,7 @@
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem  label="是否启用">
-                    <iSwitch  v-model="formItem.is_show">
+                    <iSwitch size="large" v-model="formItem.is_show">
                         <span slot="open">开启</span>
                         <span slot="close">关闭</span>
                     </iSwitch>
@@ -263,6 +265,7 @@
                                     this.$refs['formItem'].resetFields()
                                     this.$refs.upload.clearFiles()
                                     this.modal_add = false
+                                    this.$Message.success('更新失败');
                                     this._init()
                                 }else{
                                     this.$Message.error('更新失败');
@@ -275,6 +278,7 @@
                                     this.$refs.upload.clearFiles()
                                     this.modal_add = false
                                     this._init()
+                                    this.$Message.success('添加成功');
                                 }else{
                                     this.$Message.error('添加失败');
                                 }
