@@ -319,7 +319,7 @@ class ChartController extends Controller
             'Edge' => 5,
             'Safari' => 6,
             'Chrome' => 7,
-            'WeChat' => 8
+            'MicroMessenger' => 8
         );
         $system = array(
             'Windows' => 1,
@@ -334,7 +334,7 @@ class ChartController extends Controller
         $browser_type = '其他';//未知
         foreach($brower as $bro => $val){
             if(stripos($agent, $bro) !== false){
-                $browser_type = $bro;
+                $browser_type = $bro === 'MicroMessenger' ? 'Wechat' : $bro;
                 break;
             }
         }
