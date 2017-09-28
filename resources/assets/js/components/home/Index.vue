@@ -255,10 +255,6 @@
             <div style="clear: both"></div>
         </Row>
 
-        <a v-if="ads[3]"  :href="ads[3].link ? ads[3].link : 'javascript:void(0)'" target="_blank" >
-            <img :src="ads[3].url[0].url" :style="{'width': ads[3].width + 'px' , 'height': ads[3].height + 'px'}" alt="" style="margin-top: 15px">
-        </a>
-
         <div class="jz_div" v-show="modal_zj" @click="modal_zj = false">
             <img src="/images/pay/juanzeng.jpg"   class="jz_img" alt="">
         </div>
