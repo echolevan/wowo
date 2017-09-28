@@ -101,7 +101,6 @@
                         </div>
                     </Upload>
                 </Form-item>
-
                 <FormItem label="广告宽度" prop="width">
                     <Input v-model="formItem.width" placeholder="请输入"></Input>
                 </FormItem>
