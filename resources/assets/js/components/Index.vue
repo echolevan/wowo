@@ -40,16 +40,10 @@
                 <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
                     <img :src="ads[4].url[0].url" :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
                 </a>
-                <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
-                    <img  :src="ads[4].url[1].url" :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
-                </a>
             </div>
             <div class="ad_form_right">
                 <a v-if="ads[5]" :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank" >
                     <img   :src="ads[5].url[0].url" :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
-                </a>
-                <a v-if="ads[5]"  :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank" >
-                    <img :src="ads[5].url[1].url" :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
                 </a>
             </div>
         </div>
