@@ -37,6 +37,7 @@ Route::any('/return', 'PayController@return_url');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get("ads",'AdController@ads');
 
 Route::post('/user/password/email', 'UserController@password_email')->name('user.password.email');
 Route::post('/user/password/tel', 'UserController@password_tel')->name('user.password.tel');
@@ -189,4 +190,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get("charts/service_info",'ChartController@service_info');
     Route::get("charts/bro_charts",'ChartController@bro_charts');
     Route::get("charts/sys_charts",'ChartController@sys_charts');
+
+
+    Route::get("ad/create_info",'AdController@create_info');
+    Route::post("ad/create",'AdController@create');
+    Route::post("ad/update",'AdController@update');
+    Route::get("ad/index",'AdController@index');
+    Route::get("ad/change_status/{id}/{v}",'AdController@change_status');
+    Route::get("ad/update_info/{id}",'AdController@update_info');
+    Route::delete("ad/delete/{id}",'AdController@delete');
 });

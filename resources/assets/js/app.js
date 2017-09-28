@@ -56,7 +56,8 @@ const store = new Vuex.Store({
         },
         lv: {
             'name': '新手','money':0,'giving':0
-        }
+        },
+        ads: []
     },
     mutations: {
         change_userInfo (state , user) {
@@ -76,6 +77,9 @@ const store = new Vuex.Store({
         },
         change_lv (state, lv) {
             state.lv = lv
+        },
+        change_ads (state, ads) {
+            state.ads = ads
         }
     }
 })

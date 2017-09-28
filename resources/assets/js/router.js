@@ -26,6 +26,7 @@ import AdminToolSetting from './components/admin/tool/Setting.vue'
 import AdminNoticeSetting from './components/admin/tool/Notice.vue'
 import AdminFcSetting from './components/admin/tool/Fc.vue'
 import AdminLvSetting from './components/admin/tool/Lv.vue'
+import AdminAdSetting from './components/admin/tool/Ad.vue'
 import AdminNicknameSetting from './components/admin/tool/Nickname.vue'
 import AdminGameVersionSetting from './components/admin/tool/GameVersion.vue'
 
@@ -69,6 +70,7 @@ export default [
     { path: '/admin/notice/setting',name:'admin.notice.setting' , component:AdminNoticeSetting},
     { path: '/admin/fc/setting',name:'admin.fc.setting' , component:AdminFcSetting},
     { path: '/admin/lv/setting',name:'admin.lv.setting' , component:AdminLvSetting},
+    { path: '/admin/ad/setting',name:'admin.ad.setting' , component:AdminAdSetting},
     { path: '/admin/nickname/setting',name:'admin.nickname.setting' , component:AdminNicknameSetting},
     { path: '/admin/game_version/setting',name:'admin.game_version.setting' , component:AdminGameVersionSetting},
 

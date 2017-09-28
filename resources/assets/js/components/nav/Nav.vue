@@ -32,8 +32,9 @@
         </div>
         <div class="nav menu">
             <v-new-nav></v-new-nav>
-            <img src="http://www.admaimai.com/images/new20170802.png" style="width: 100%;" alt="">
-
+            <a v-if="$route.name === 'home.index' && ads[1]" :href="ads[1].link ? ads[1].link : 'javascript:void(0)'" target="_blank" >
+                <img  :src="ads[1].url[0].url" :style="{'width': ads[1].width + 'px' , 'height': ads[1].height + 'px'}" alt="">
+            </a>
         </div>
     </div>
 </template>
@@ -54,7 +55,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap', 'tools'
+            'userInfo', 'choice_cmap', 'tools', 'ads'
         ]),
         mounted() {
 

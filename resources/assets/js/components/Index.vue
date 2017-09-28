@@ -37,14 +37,20 @@
 
         <div class="ad_form" v-show="$route.name !== 'index'">
             <div class="ad_form_left">
-                <img src="/images/blcard.png" alt="">
-                <img src="/images/blcard.png" alt="">
-                <img src="/images/blcard.png" alt="">
+                <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
+                    <img :src="ads[4].url[0].url" :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
+                </a>
+                <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
+                    <img  :src="ads[4].url[1].url" :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
+                </a>
             </div>
             <div class="ad_form_right">
-                <img src="/images/blcard.png" alt="">
-                <img src="/images/blcard.png" alt="">
-                <img src="/images/blcard.png" alt="">
+                <a v-if="ads[5]" :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank" >
+                    <img   :src="ads[5].url[0].url" :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
+                </a>
+                <a v-if="ads[5]"  :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank" >
+                    <img :src="ads[5].url[1].url" :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
+                </a>
             </div>
         </div>
         
@@ -97,7 +103,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap'
+            'userInfo', 'choice_cmap' , 'ads'
         ]),
         mounted() {
             let redirect = localStorage.getItem('redirect');
@@ -126,6 +132,14 @@
                 axios.get('/getAgentInfo')
                 localStorage.setItem('getAgentInfo', "1")
             }
+
+            // GET ADS
+            axios.get('/ads').then(res => {
+                console.log(res)
+                if(res.data.sta === 1){
+                    this.$store.commit('change_ads', res.data.ads)
+                }
+            })
         },
         watch: {
             '$route'(to, from) {

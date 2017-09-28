@@ -114,6 +114,9 @@
                 <div class="div_block zf_div hover_hand" @click="modal_zj = true" style="margin-left: 0">
                     <img src="/images/pay/paypal.png" alt="">
                 </div>
+                <a v-if="ads[2]" :href="ads[2].link ? ads[2].link : 'javascript:void(0)'" target="_blank" >
+                    <img  :src="ads[2].url[0].url" :style="{'width': ads[2].width + 'px' , 'height': ads[2].height + 'px'}" alt="">
+                </a>
             </iCol>
             <div style="clear: both"></div>
             <!--WeakAuras-->
@@ -252,6 +255,10 @@
             <div style="clear: both"></div>
         </Row>
 
+        <a v-if="ads[3]"  :href="ads[3].link ? ads[3].link : 'javascript:void(0)'" target="_blank" >
+            <img :src="ads[3].url[0].url" :style="{'width': ads[3].width + 'px' , 'height': ads[3].height + 'px'}" alt="" style="margin-top: 15px">
+        </a>
+
         <div class="jz_div" v-show="modal_zj" @click="modal_zj = false">
             <img src="/images/pay/juanzeng.jpg"   class="jz_img" alt="">
         </div>
@@ -286,7 +293,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap' , 'tools'
+            'userInfo', 'choice_cmap' , 'tools', 'ads'
         ]),
         watch: {
             content(){

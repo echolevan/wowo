@@ -53,6 +53,9 @@
             </iCol>
             <iCol span="14">
                 <div class="plug_content">
+                    <a v-if="ads[7]"  :href="ads[7].link ? ads[7].link : 'javascript:void(0)'" target="_blank">
+                        <img :src="ads[7].url[0].url" :style="{'width': ads[7].width + 'px' , 'height': ads[7].height + 'px'}" alt=""  style="margin-bottom: 15px">
+                    </a>
                     <div class="sel">
                         排序：
                         <Select v-model="orderBy" size="small" style="width:100px" @on-change="change_order"
@@ -114,7 +117,9 @@
                               :total="plugs_count" size="small" @on-change="change_page" style="float:right" show-total
                               :key="plugs_count"></Page>
                     </div>
-
+                    <a v-if="ads[7]"  :href="ads[7].link ? ads[7].link : 'javascript:void(0)'" target="_blank">
+                        <img :src="ads[7].url[0].url" :style="{'width': ads[7].width + 'px' , 'height': ads[7].height + 'px'}" alt=""  style="margin-top: 15px">
+                    </a>
                 </div>
             </iCol>
             <iCol span="6">
@@ -340,7 +345,7 @@
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap', 'lv'
+            'userInfo', 'choice_cmap', 'lv' ,'ads'
         ]),
         watch: {
             '$route'(to, from) {

@@ -21,6 +21,9 @@
                 <router-link to="/admin/notice/setting">
                     <Menu-item name="admin.notice.setting">公告管理</Menu-item>
                 </router-link>
+                <router-link to="/admin/ad/setting">
+                    <Menu-item name="admin.ad.setting">广告管理</Menu-item>
+                </router-link>
                 <router-link to="/admin/fc/setting">
                     <Menu-item name="admin.fc.setting">分成管理</Menu-item>
                 </router-link>

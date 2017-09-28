@@ -414,6 +414,7 @@
                     }
                     this.game_versions = res.data.game_versions
                 })
+
                 let quick_content = localStorage.getItem('quick_share_content')
                 let quick_type = localStorage.getItem('quick_share_type')
                 if (quick_content && quick_type) {
