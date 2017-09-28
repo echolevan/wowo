@@ -9,7 +9,7 @@
         <Form :model="formS" inline>
 
             <Button type="primary" class="pull-right" style="margin-bottom: 15px" @click="add_ad">
-                <span>添加</span>
+                <span>添加广告</span>
             </Button>
         </Form>
 
@@ -18,9 +18,9 @@
             <tr>
                 <th style="width: 10%">广告位置</th>
                 <th style="width: 10%">广告图片</th>
-                <th style="width: 10%">广告宽度</th>
-                <th style="width: 10%">广告高度</th>
-                <th style="width: 10%">广告链接</th>
+                <th style="width: 10%">宽度</th>
+                <th style="width: 10%">高度</th>
+                <th style="width: 10%">链接</th>
                 <th style="width: 10%">状态</th>
                 <th style="width: 10%">操作</th>
             </tr>
@@ -71,7 +71,7 @@
                     </Select>
                 </FormItem>
 
-                <Form-item label="上传广告" prop="uploadList">
+                <Form-item label="广告图片" prop="uploadList">
                     <div class="small-upload-list" v-for="(item , k) in formItem.uploadList">
                         <template v-if="item.status === 'finished'">
                             <img :src="item.url">
@@ -102,19 +102,19 @@
                     </Upload>
                 </Form-item>
 
-                <FormItem label="广告宽度" prop="width">
+                <FormItem label="宽度" prop="width">
                     <Input v-model="formItem.width" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="广告高度" prop="height">
+                <FormItem label="高度" prop="height">
                     <Input v-model="formItem.height" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="广告链接" prop="link">
+                <FormItem label="链接" prop="link">
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem  label="是否启用">
                     <iSwitch  v-model="formItem.is_show">
-                        <span slot="open">是</span>
-                        <span slot="close">否</span>
+                        <span slot="open">开启</span>
+                        <span slot="close">关闭</span>
                     </iSwitch>
                 </FormItem>
 
@@ -127,7 +127,7 @@
             </div>
         </Modal>
 
-        <Modal title="查看截图" v-model="visible">
+        <Modal title="查看图片" v-model="visible">
             <img :src="imgName" v-if="visible" style="width: 100%">
         </Modal>
     </div>
@@ -147,10 +147,10 @@
             };
             return {
                 status_type: {
-                    '1': '是',
-                    '0': '否',
+                    '1': '开启',
+                    '0': '关闭',
                 },
-                modal_title: '新增广告',
+                modal_title: '添加广告',
                 formS: {},
                 list: [],
                 loading_edit: false,
@@ -174,13 +174,13 @@
                         {validator: validateUploadList, required: true, trigger: 'change'}
                     ],
                     width: [
-                        {required: true, message: '广告宽度不能为空', trigger: 'blur'},
+                        {required: true, message: '宽度不能为空', trigger: 'blur'},
                     ],
                     height: [
-                        {required: true, message: '广告高度不能为空', trigger: 'blur'},
+                        {required: true, message: '高度不能为空', trigger: 'blur'},
                     ],
                     link: [
-                        {required: true, message: '广告链接不能为空', trigger: 'blur'},
+                        {required: true, message: '链接不能为空', trigger: 'blur'},
                     ],
                 },
                 imgName: '',
@@ -215,7 +215,7 @@
             },
             add_ad() {
                 this.formItem.id = ''
-                this.modal_title = '新增广告'
+                this.modal_title = '添加广告'
                 this.$refs['formItem'].resetFields();
                 this.$refs.upload.clearFiles()
                 axios.get('/admin/ad/create_info').then(res => {
@@ -265,7 +265,7 @@
                                     this.modal_add = false
                                     this._init()
                                 }else{
-                                    this.$Message.error('更新失败!');
+                                    this.$Message.error('更新失败');
                                 }
                             })
                         }else{
@@ -276,7 +276,7 @@
                                     this.modal_add = false
                                     this._init()
                                 }else{
-                                    this.$Message.error('添加失败!');
+                                    this.$Message.error('添加失败');
                                 }
                             })
                         }
