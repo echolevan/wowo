@@ -68,7 +68,7 @@ class AdController extends Controller
         $ads = Ad::get();
         $ad_position = config('my.ad_position');
         foreach ($ads as $k => $v) {
-            $ads[$k]->position_name = isset($ad_position[$v->position]) ? : '';
+            $ads[$k]->position_name = isset($ad_position[$v->position]) ? $ad_position[$v->position] : '';
         }
 
         return ['ads' => $ads];
