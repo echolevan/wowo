@@ -134,9 +134,6 @@
                 </Row>
 
             </div>
-            <a v-if="ads[6]"  :href="ads[6].link ? ads[6].link : 'javascript:void(0)'" target="_blank">
-                <img :src="ads[6].url[0].url" :style="{'width': ads[6].width + 'px' , 'height': ads[6].height + 'px'}" alt=""  style="margin-top: 15px">
-            </a>
         </div>
 
         <Modal v-model="download_model" width="720">

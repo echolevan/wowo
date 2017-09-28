@@ -6,6 +6,9 @@
             <transition>
                 <router-view></router-view>
             </transition>
+            <a v-if="ads[3]"  :href="ads[3].link ? ads[3].link : 'javascript:void(0)'" target="_blank" >
+                <img :src="ads[3].url[0].url" :style="{'width': ads[3].width + 'px' , 'height': ads[3].height + 'px'}" alt="" style="margin-top: 15px">
+            </a>
         </div>
         <div class="footer" v-if="$route.name !== 'index'">
             <div class="foot">
