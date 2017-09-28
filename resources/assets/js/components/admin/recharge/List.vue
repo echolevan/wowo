@@ -32,7 +32,7 @@
             <tr>
                 <th style="width: 10%">嘿市ID</th>
                 <th style="width: 10%">用户名</th>
-                <th style="width: 10%">充值金额</th>
+                <th style="width: 10%">充值金额(元)</th>
                 <th style="width: 10%">赠送金币</th>
                 <th style="width: 10%">获得金币(充值+赠送)</th>
                 <th style="width: 10%">支付方式</th>
