@@ -113,8 +113,8 @@
                 </FormItem>
                 <FormItem  label="是否启用">
                     <iSwitch  v-model="formItem.is_show">
-                        <span slot="open">开启</span>
-                        <span slot="close">关闭</span>
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
                     </iSwitch>
                 </FormItem>
 
