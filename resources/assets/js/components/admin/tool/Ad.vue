@@ -18,10 +18,10 @@
             <tr>
                 <th style="width: 10%">广告位置</th>
                 <th style="width: 10%">广告图片</th>
-                <th style="width: 10%">宽度</th>
-                <th style="width: 10%">高度</th>
-                <th style="width: 10%">链接</th>
-                <th style="width: 10%">状态</th>
+                <th style="width: 10%">图片宽度(像素)</th>
+                <th style="width: 10%">图片高度(像素)</th>
+                <th style="width: 10%">广告链接</th>
+                <th style="width: 10%">广告状态</th>
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>
@@ -33,7 +33,7 @@
                     </td>
                     <td>{{v.width}}</td>
                     <td>{{v.height}}</td>
-                    <td><a :href="v.link" target="_blank" >点击跳转</a></td>
+                    <td><a :href="v.link" target="_blank" >点击访问</a></td>
                     <td>
                         <Tag type="dot" :color="v.is_show === 1 ? 'blue' : 'red'"
                              @click.native="change_status(v.is_show === 1 ? 0 : 1 , v.id, k)">{{status_type[v.is_show]}}
@@ -102,13 +102,13 @@
                     </Upload>
                 </Form-item>
 
-                <FormItem label="宽度" prop="width">
+                <FormItem label="广告宽度" prop="width">
                     <Input v-model="formItem.width" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="高度" prop="height">
+                <FormItem label="广告高度" prop="height">
                     <Input v-model="formItem.height" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="链接" prop="link">
+                <FormItem label="广告链接" prop="link">
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem  label="是否启用">
@@ -174,13 +174,13 @@
                         {validator: validateUploadList, required: true, trigger: 'change'}
                     ],
                     width: [
-                        {required: true, message: '宽度不能为空', trigger: 'blur'},
+                        {required: true, message: '图片宽度不能为空', trigger: 'blur'},
                     ],
                     height: [
-                        {required: true, message: '高度不能为空', trigger: 'blur'},
+                        {required: true, message: '图片高度不能为空', trigger: 'blur'},
                     ],
                     link: [
-                        {required: true, message: '链接不能为空', trigger: 'blur'},
+                        {required: true, message: '广告链接不能为空', trigger: 'blur'},
                     ],
                 },
                 imgName: '',
@@ -296,7 +296,7 @@
                 }
                 const check = this.$refs.upload.fileList.length < num;
                 if (!check) {
-                    this.$Message.error(`最多只能上传 ${num} 张图片。`);
+                    this.$Message.error(`最多只能上传 ${num} 张图片`);
                 }
                 return check;
             },
