@@ -156,7 +156,7 @@
                 <sys-charts></sys-charts>
             </iCol>
             <iCol span="6">
-                <p class="title_charts">浏览器类型</p>
+                <p class="title_charts" style="margin-left: 18px">浏览器类型</p>
                 <bro-charts></bro-charts>
             </iCol>
         </Row>
