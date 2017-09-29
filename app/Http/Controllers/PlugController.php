@@ -428,8 +428,8 @@ class PlugController extends Controller
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
                 ->when(isset($name) && $name !== 'null',function($query) use ($name) {
-                    $query->where('name','整合界面')->orWhere('name','原创插件')
-                        ->orderBy('name',$name === '整合界面' ? 'desc' : 'asc');
+                    $query->where('name','整合界面')->orWhere('name','原创插件')->orWhere('name','怀旧插件')
+                        ->orderBy("name",'desc');
                 })
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);
@@ -961,5 +961,20 @@ class PlugController extends Controller
 
         }
 
+    }
+
+    public function search(Request $request)
+    {
+        $limit = isset($request->page) ? ($request->page - 1) * $request->size : 0;
+
+        $plugs = Plug::where('title','like',"%{$request->keyword}%")->distinct()->join('users',function ($join) use ($request) {
+            $join->on('users.id','plugs.user_id');
+        })->orWhere('users.name','like',"%{$request->keyword}%")->select('plugs.*' , 'users.id as uid' ,'users.name')->with('tag_one')->with('tag_two')
+            ->skip($limit)->take($request->size)->orderBy('download_num','desc')->get();
+
+        $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->join('users',function ($join) use ($request) {
+            $join->on('users.id','plugs.user_id');
+        })->orWhere('users.name','like',"%{$request->keyword}%")->select('plugs.*' , 'users.id as uid' ,'users.name')->count();
+        return ['list'=>$plugs ,'count'=>$count];
     }
 }

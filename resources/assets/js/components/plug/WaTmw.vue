@@ -47,6 +47,15 @@
                                 </svg>
                                 <div class="button_one_text">原创插件分享</div>
                             </div>
+                            <div class="my_btn_wrapper"
+                                 @click="upload_plug($route.params.type ,'怀旧插件')"
+                                 style="margin-top:5px"
+                                 :class="{'bl_my_button_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                                <svg height="45" width="150">
+                                    <rect class="button_one" height="45" width="150"></rect>
+                                </svg>
+                                <div class="button_one_text">怀旧插件分享</div>
+                            </div>
                         </div>
                     </ul>
                 </div>
@@ -82,7 +91,7 @@
                             <span class="pull-right hover_hand" @click="download(plug.id,k)"
                                   style="padding: 5px 15px;background: #266ec1;color:#fff;border-radius:5px"
                                   :class="{'bl_nav_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                            >{{$route.params.type === 'plug' ? '下载 ' : '获取'}}</span>
+                            >{{$route.params.type === 'addons' ? '下载 ' : '获取'}}</span>
                             <br>
                             <Icon type="ios-cloud-download-outline"></Icon>
                             <span>{{plug.d_n}}</span>

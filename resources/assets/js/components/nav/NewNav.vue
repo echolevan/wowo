@@ -46,6 +46,10 @@
                         <a href="https://bbs.iwowcn.com" class="nav_link"
                            :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>
                     </li>
+                    <li class="pull-right" style="margin: 5px 30px 0 0">
+                        <Input v-model="keyword" @keyup.enter.native="to_search" placeholder="搜索资源" icon="search"
+                               @on-click="to_search"></Input>
+                    </li>
                 </ul>
             </nav>
 
@@ -160,13 +164,23 @@
                     'TMW': 'tmw',
                     'WA': 'wa',
                     '游戏插件': 'plug'
-                }
+                },
+                keyword: ''
             }
         },
         mounted() {
             axios.get('plug_all_info_nav').then(res => {
                 this.nav_tags = res.data.res
             })
+        },
+        methods: {
+            to_search(){
+                if(this.keyword === ''){
+                    myDialog('请先输入关键词',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    return false
+                }
+                this.$router.push({'name':'search',params:{'keyword':this.keyword}})
+            }
         },
         computed: mapState([
             'userInfo', 'choice_cmap', 'tools'

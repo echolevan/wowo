@@ -13,7 +13,7 @@
                 <Input v-model="formItem.name" placeholder="插件名称" :disabled="$route.params.id ? true : false"></Input>
             </Form-item>
 
-            <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' ">
+            <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' && selectedDataName != '怀旧插件' ">
                 <Input v-model="formItem.author" placeholder="作者信息"></Input>
             </Form-item>
 
@@ -410,7 +410,8 @@
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
                     this.plug_tags = res.data.res
                     if (tag_name !== null) {
-                        this.formItem.type = [res.data.res[0].value, res.data.res[0].children[0].value]
+                        let num = tag_name === '整合界面' ? 0 : tag_name === '怀旧插件' ? 1 : 2
+                        this.formItem.type = [res.data.res[0].value, res.data.res[0].children[num].value]
                     }
                     this.game_versions = res.data.game_versions
                 })

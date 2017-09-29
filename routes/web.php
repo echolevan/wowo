@@ -38,6 +38,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get("ads",'AdController@ads');
+Route::post("plug_search",'PlugController@search');
 
 Route::post('/user/password/email', 'UserController@password_email')->name('user.password.email');
 Route::post('/user/password/tel', 'UserController@password_tel')->name('user.password.tel');
