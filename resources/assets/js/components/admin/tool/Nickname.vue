@@ -3,7 +3,7 @@
         <Form :model="formS" inline>
             <div class="pull-right">
                 <Form-item>
-                    <Input v-model.trim="formS.name" placeholder="禁止使用的昵称" @keyup.13.native="create_nickname"></Input>
+                    <Input v-model.trim="formS.name" placeholder="关键字" @keyup.13.native="create_nickname"></Input>
                 </Form-item>
                 <Button type="primary" class="pull-right" @click="create_nickname">确定</Button>
             </div>
@@ -35,7 +35,7 @@
             },
             create_nickname() {
                 if(this.formS.name === ''){
-                    this.$Message.error('请输入禁止使用的昵称')
+                    this.$Message.error('请输要屏蔽的关键字')
                     return false
                 }
                 axios.get(`/admin/tool/nickname/create_nickname/${this.formS.name}`).then(res => {
