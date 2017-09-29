@@ -25,9 +25,9 @@ class Ad extends Model
     {
         if ($this->end_at > date('Y-m-d',time())){
             $s = Carbon::parse($this->end_at)->diffInDays(Carbon::now());
-            return $this->last_time = ($s + 1).'天';
+            return $this->last_time = ($s + 1);
         }else{
-            return $this->last_time = '0天';
+            return $this->last_time = 0;
         }
     }
 }

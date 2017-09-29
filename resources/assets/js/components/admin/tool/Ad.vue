@@ -44,7 +44,7 @@
                              @click.native="change_status(v.is_show === 1 ? 0 : 1 , v.id, k)">{{status_type[v.is_show]}}
                         </Tag>
                     </td>
-                    <td>{{v.end_at}} <span style="color: #d13030 ">(剩余{{v.last_time}})</span></td>
+                    <td>{{v.end_at}} (剩余<span style="color: #d13030;font-size:14px;font-weight:bold"> {{v.last_time}} </span>天)</td>
                     <td>
                         <Tooltip placement="bottom-start">
                             <span class="toolTip" v-html="v.info"></span>

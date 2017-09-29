@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ve-pie :data="chartData" :settings="chartSettings" :legend-visible="false" :height="'265px'"></ve-pie>
+        <ve-pie :data="chartData" :settings="chartSettings" :legend-visible="false" :height="'265px'" :left="'18px'" class="bro_pie"></ve-pie>
     </div>
 </template>
 
@@ -43,6 +43,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+    .bro_pie
+        left 18px
 
 </style>
