@@ -34,7 +34,7 @@
                         <router-link :to="{name:'watmw.index' , params:{'type':configUrl[v.type_name] , 'active': v.tag_two.id , 'active_pid': v.tag_one.id}}" v-if="v.tag_two">- {{v.tag_two ? v.tag_two.name : ''}}</router-link>
                     </span></p>
                 </li>
-                
+
             </ul>
             <Page :page-size="page_size"
                   :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
