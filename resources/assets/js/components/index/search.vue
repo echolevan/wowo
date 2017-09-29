@@ -21,7 +21,13 @@
                         {{v.title}}
                     </router-link>
                     </p>
-                    <p class="num">{{v.d_n}}次下载 - {{v.like_num}}次推荐</p>
+                    <p class="num">
+                        <Icon type="ios-cloud-download-outline"></Icon>
+                        <span>{{v.d_n}}</span>
+                        &nbsp;&nbsp;
+                        <i><img src="/images/p07.png" alt=""></i>
+                        {{v.like_num}}
+                        </p>
                     <div class="info" v-html="v.info">
                     </div>
                     <p class="tool"><span class="time">{{v.created_at}}</span> &nbsp;&nbsp;<span
