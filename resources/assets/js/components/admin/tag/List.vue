@@ -23,7 +23,7 @@
                 </Select>
             </Form-item>
             <Form-item>
-                <Select v-model="formS.is_for_user" clearable placeholder="用户可维护" style="width: 200px;">
+                <Select v-model="formS.is_for_user" clearable placeholder="用户维护" style="width: 200px;">
                     <Option v-for="(v , k) in config_is_for_user" :value="k" :key="k">{{v}}</Option>
                 </Select>
             </Form-item>
@@ -50,7 +50,7 @@
                 <th style="width: 10%">分类级别</th>
                 <th style="width: 10%">分类</th>
                 <th style="width: 10%">状态</th>
-                <th style="width: 10%">用户可维护</th>
+                <th style="width: 10%">用户维护</th>
                 <th style="width: 10%">排序</th>
                 <th style="width: 10%">操作</th>
             </tr>

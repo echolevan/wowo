@@ -37,10 +37,10 @@
             </Form-item>
 
 
-            <Form-item label="用户可维护">
+            <Form-item label="用户维护">
                 <i-Switch v-model="formItem.is_for_user" size="large">
-                    <span slot="open">可</span>
-                    <span slot="close">否</span>
+                    <span slot="open">允许</span>
+                    <span slot="close">禁止</span>
                 </i-Switch>
             </Form-item>
 
