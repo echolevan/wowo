@@ -22,7 +22,7 @@
                 <th style="width: 10%">图片高度(像素)</th>
                 <th style="width: 10%">广告链接</th>
                 <th style="width: 10%">广告状态</th>
-                <th style="width: 10%">结束时间</th>
+                <th style="width: 10%">到期时间</th>
                 <th style="width: 10%">商户信息</th>
                 <th style="width: 10%">商户邮箱</th>
                 <th style="width: 10%">操作</th>
@@ -126,7 +126,7 @@
                 <FormItem label="广告链接" prop="link">
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="结束时间" prop="end_at">
+                <FormItem label="到期时间" prop="end_at">
                     <DatePicker type="date" placeholder="选择日期" v-model="formItem.end_at" style="width: 200px"></DatePicker>
                 </FormItem>
                 <FormItem label="商户信息" prop="info">
@@ -172,7 +172,7 @@
             const validateEndAt = (rule, value, callback) => {
                 setTimeout(() => {
                     if (!value) {
-                        callback(new Error('结束时间不能为空'));
+                        callback(new Error('到期时间不能为空'));
                     } else {
                         callback();
                     }
