@@ -40,7 +40,7 @@
                     <Menu-item name="admin.lv.setting">等级管理</Menu-item>
                 </router-link>
                 <router-link to="/admin/nickname/setting/">
-                    <Menu-item name="admin.nickname.setting">昵称管理</Menu-item>
+                    <Menu-item name="admin.nickname.setting">关键字屏蔽</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="5">

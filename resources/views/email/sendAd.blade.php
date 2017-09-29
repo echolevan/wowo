@@ -57,20 +57,20 @@
             <span>广告位置：</span>{{config('my.ad_position')[$ad->position]}}<span></span>
         </p>
         <p>
-            <span>租赁有效期：</span><span style="color: #c41f3b">{{$ad->end_at}}</span>
+            <span>到期时间：</span><span style="color: #c41f3b">{{$ad->end_at}}</span>
         </p>
         <p>
-            <span>广告商信息: <span>{!! $ad->info !!}</span></span>
+            <span>商户信息：<span>{!! $ad->info !!}</span></span>
         </p>
         <p>
-            <span>联系方式: <span>{{$ad->email}}</span></span>
+            <span>商户邮箱：<span>{{$ad->email}}</span></span>
         </p>
     </div>
 </div>
 <div class="content">
    <div class="main">
        <p>
-           <a href="{{env('APP_URL')}}/admin/#/admin/plug/list" style="    font-family: Avenir, Helvetica, sans-serif;
+           <a href="{{env('APP_URL')}}/admin/#/admin/ad/setting" style="    font-family: Avenir, Helvetica, sans-serif;
     box-sizing: border-box;
     border-radius: 3px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
@@ -82,7 +82,7 @@
     border-top: 10px solid #3097D1;
     border-right: 18px solid #3097D1;
     border-bottom: 10px solid #3097D1;
-    border-left: 18px solid #3097D1;">登录审核
+    border-left: 18px solid #3097D1;">登录管理
            </a>
        </p>
    </div>
