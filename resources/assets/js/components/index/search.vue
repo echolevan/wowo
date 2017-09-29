@@ -1,7 +1,7 @@
 <template>
     <div class="search">
-        <Alert type="success">结果: 找到有关 <span style="color: rgb(209, 48, 48)">"{{$route.params.keyword}}"</span>
-            的结果 <span style="color: rgb(209, 48, 48)">{{plugs_count}}</span> 个
+        <Alert type="success">结果: 找到 <span style="color: rgb(209, 48, 48)">"{{$route.params.keyword}}"</span>
+            相关内容 <span style="color: rgb(209, 48, 48)">{{plugs_count}}</span> 个
         </Alert>
         <div class="content">
             <ul>
