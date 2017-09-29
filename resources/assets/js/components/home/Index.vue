@@ -51,8 +51,8 @@
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 60)}}</strong>
-                                    <span class="pull-right">{{v.user.nickname}} - {{v.download_num}}次下载 - <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                                 </router-link>
+                                <span class="pull-right">{{v.user.nickname}} - {{v.d_n}}次下载 - <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
                             </li>
                         </ul>
                     </div>

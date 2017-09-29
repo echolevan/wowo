@@ -234,7 +234,6 @@
             },
             search() {
                 axios.post(`/admin/user/list/${this.page}/${this.page_size}`, {search: this.formS}).then(res => {
-                    console.log(res)
                     if (res.data.sta === 1) {
                         this.total = res.data.count
                         this.list = res.data.users

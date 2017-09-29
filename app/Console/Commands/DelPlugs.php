@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\PlugController;
-use App\Plug;
 use Illuminate\Console\Command;
 
 class DelPlugs extends Command

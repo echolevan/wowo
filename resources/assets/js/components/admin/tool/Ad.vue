@@ -22,6 +22,9 @@
                 <th style="width: 10%">图片高度(像素)</th>
                 <th style="width: 10%">广告链接</th>
                 <th style="width: 10%">广告状态</th>
+                <th style="width: 10%">结束时间</th>
+                <th style="width: 10%">商户信息</th>
+                <th style="width: 10%">商户邮箱</th>
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>
@@ -41,6 +44,16 @@
                              @click.native="change_status(v.is_show === 1 ? 0 : 1 , v.id, k)">{{status_type[v.is_show]}}
                         </Tag>
                     </td>
+                    <td>{{v.end_at}} <span style="color: #d13030 ">(剩余{{v.last_time}})</span></td>
+                    <td>
+                        <Tooltip placement="bottom-start">
+                            <span class="toolTip" v-html="v.info"></span>
+                            <div slot="content">
+                                <p v-html="v.info"></p>
+                            </div>
+                        </Tooltip>
+                    </td>
+                    <td>{{v.email}}</td>
                     <td>
                         <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
                         <Poptip
@@ -54,7 +67,7 @@
             </tbody>
             <tbody v-else>
             <tr>
-                <td style="text-align: center;font-size: 16px" colspan="9">
+                <td style="text-align: center;font-size: 16px" colspan="11">
                     暂无数据
                 </td>
             </tr>
@@ -113,6 +126,15 @@
                 <FormItem label="广告链接" prop="link">
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
+                <FormItem label="结束时间" prop="end_at">
+                    <DatePicker type="date" placeholder="选择日期" v-model="formItem.end_at" style="width: 200px"></DatePicker>
+                </FormItem>
+                <FormItem label="商户信息" prop="info">
+                    <Input v-model="formItem.info" type="textarea" :rows="4" placeholder="请输入..."></Input>
+                </FormItem>
+                <FormItem label="商户邮箱" prop="email">
+                    <Input v-model="formItem.email" placeholder="请输入"></Input>
+                </FormItem>
                 <FormItem  label="是否启用">
                     <iSwitch size="large" v-model="formItem.is_show">
                         <span slot="open">开启</span>
@@ -147,6 +169,15 @@
                     }
                 }, 10);
             };
+            const validateEndAt = (rule, value, callback) => {
+                setTimeout(() => {
+                    if (!value) {
+                        callback(new Error('结束时间不能为空'));
+                    } else {
+                        callback();
+                    }
+                }, 10);
+            };
             return {
                 status_type: {
                     '1': '开启',
@@ -164,7 +195,10 @@
                     height: '',
                     uploadList: [],
                     is_show: true,
-                    link: ''
+                    link: '',
+                    end_at: '',
+                    info: '',
+                    email: '',
                 },
                 ad_position: [],
                 ad_default_wh: [],
@@ -183,6 +217,16 @@
                     ],
                     link: [
                         {required: true, message: '广告链接不能为空', trigger: 'blur'},
+                    ],
+                    end_at: [
+                        {validator: validateEndAt, required: true, trigger: 'change'},
+                    ],
+                    info: [
+                        {required: true, message: '商户信息不能为空', trigger: 'blur'},
+                    ],
+                    email: [
+                        {required: true, message: '邮箱不能为空', trigger: 'blur'},
+                        { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
                     ],
                 },
                 imgName: '',
@@ -206,6 +250,7 @@
         methods: {
             _init(){
                 axios.get('/admin/ad/index').then(res => {
+                    console.log(res)
                     this.list = res.data.ads
                 })
             },
@@ -243,6 +288,9 @@
                     this.formItem.height = v.height
                     this.formItem.id = v.id
                     this.formItem.link = v.link
+                    this.formItem.end_at = v.end_at
+                    this.formItem.info = v.info
+                    this.formItem.email = v.email
 
                     this.formItem.is_show = v.is_show === 1 ? true : false
                     this.modal_add = true
@@ -265,7 +313,7 @@
                                     this.$refs['formItem'].resetFields()
                                     this.$refs.upload.clearFiles()
                                     this.modal_add = false
-                                    this.$Message.success('更新失败');
+                                    this.$Message.success('更新成功');
                                     this._init()
                                 }else{
                                     this.$Message.error('更新失败');
@@ -288,6 +336,8 @@
                     } else {
                     }
                 })
+            },
+            _rest(){
             },
             handleView(name) {
                 this.imgName = name;

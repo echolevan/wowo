@@ -41,19 +41,26 @@
             max-width: 50%;
             margin: 0 auto;
         }
+        .cent_div{
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
 <div class="header">
     <a href="{{env('APP_URL')}}">陕西熊猫人网络科技有限公司</a>
 </div>
-<p style="            margin-top: 50px;
-">
-    <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
-</p>
-<p>
-    <span>主题名称：</span><span style="color: #c41f3b">{{$plug->title}}</span>
-</p>
+<div class="cent_div">
+    <div  style="margin: 50px 0;">
+        <p>
+            <span>主题分类：</span><span>{{$plug->type === 1 ? 'WA':'TWM'}}/{{\App\Tag::where('id',$plug->type_one)->value('name') ? : ''}}/{{\App\Tag::where('id',$plug->type_two)->value('name') ? : ''}}</span>
+        </p>
+        <p>
+            <span>主题名称：</span><span style="color: #c41f3b">{{$plug->title}}</span>
+        </p>
+    </div>
+</div>
 <div class="content">
    <div class="main">
        <p>

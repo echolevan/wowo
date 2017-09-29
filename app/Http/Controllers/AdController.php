@@ -37,6 +37,9 @@ class AdController extends Controller
             'height' => $request->data['height'],
             'is_show' => $request->data['is_show'],
             'link' => $request->data['link'],
+            'end_at' => date('Y-m-d',strtotime($request->data['end_at'])),
+            'info' => $request->data['info'],
+            'email' => $request->data['email'],
         ]);
 
         if ($ad)
@@ -56,6 +59,9 @@ class AdController extends Controller
             'height' => $request->data['height'],
             'is_show' => $request->data['is_show'],
             'link' => $request->data['link'],
+            'end_at' => date('Y-m-d',strtotime($request->data['end_at'])),
+            'info' => $request->data['info'],
+            'email' => $request->data['email'],
         ]);
 
         if ($ad)
