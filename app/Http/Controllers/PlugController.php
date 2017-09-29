@@ -967,12 +967,12 @@ class PlugController extends Controller
     {
         $limit = isset($request->page) ? ($request->page - 1) * $request->size : 0;
 
-        $plugs = Plug::where('title','like',"%{$request->keyword}%")->distinct()->join('users',function ($join) use ($request) {
+        $plugs = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->join('users',function ($join) use ($request) {
             $join->on('users.id','plugs.user_id');
         })->orWhere('users.name','like',"%{$request->keyword}%")->select('plugs.*' , 'users.id as uid' ,'users.name')->with('tag_one')->with('tag_two')
             ->skip($limit)->take($request->size)->orderBy('download_num','desc')->get();
 
-        $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->join('users',function ($join) use ($request) {
+        $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->join('users',function ($join) use ($request) {
             $join->on('users.id','plugs.user_id');
         })->orWhere('users.name','like',"%{$request->keyword}%")->select('plugs.*' , 'users.id as uid' ,'users.name')->count();
         return ['list'=>$plugs ,'count'=>$count];
