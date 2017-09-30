@@ -131,7 +131,6 @@
 
             // GET ADS
             axios.get('/ads').then(res => {
-                console.log(res)
                 if(res.data.sta === 1){
                     this.$store.commit('change_ads', res.data.ads)
                 }

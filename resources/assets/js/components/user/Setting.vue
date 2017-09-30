@@ -138,7 +138,6 @@
                 this.formItem.birthplace.city = data.value
             },
             onAreaBirthplace(data) {
-                console.log(data)
                 this.formItem.birthplace.area = data.value
             },
 

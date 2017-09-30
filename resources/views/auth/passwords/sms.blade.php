@@ -124,7 +124,6 @@
                 return;
             }
             if(!pattern.test(phone)){
-                console.log(phone)
                 $(".show_msg").text('请输入正确的手机号码').show();
                 isPhone = 0;
                 return;

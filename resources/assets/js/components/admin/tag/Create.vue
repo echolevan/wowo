@@ -121,9 +121,7 @@
                 this.formItem.thumb = ''
             },
             on_sel(v) {
-                console.log(v)
                 this.formItem.type = v
-                console.log(this.formItem.type)
             },
             add_to(name) {
                 this.loading = true;

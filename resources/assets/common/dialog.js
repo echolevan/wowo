@@ -1,5 +1,4 @@
 export function my_dialog(msg , button_class = '') {
-    console.log(button_class)
     let html = `  <div class="dialog">
                 <div class="dialog__overlay"></div>
                 <div class="dialog__content  animated fadeIn"  style="border-radius: 2px">

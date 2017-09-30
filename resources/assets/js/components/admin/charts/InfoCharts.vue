@@ -80,9 +80,6 @@
         },
         props: ['info'],
         mounted() {
-            setTimeout(() => {
-                console.log(this.info)
-            },3000)
         }
     }
 </script>

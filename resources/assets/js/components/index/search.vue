@@ -96,7 +96,6 @@
                     page: this.this_page,
                     size: this.page_size
                 }).then(res => {
-                    console.log(res)
                     this.list = res.data.list
                     this.plugs_count = res.data.count
                 })
