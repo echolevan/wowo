@@ -973,7 +973,9 @@ class PlugController extends Controller
             $query->where('users.name','like',"%{$request->keyword}%")->where('is_new',1);
         })
             ->select('plugs.*' , 'users.id as uid' ,'users.name')->with('tag_one')->with('tag_two')
-            ->skip($limit)->take($request->size)->orderBy('download_num','desc')->get();
+            ->skip($limit)->take($request->size)->with(['is_pay' => function ($query) {
+                $query->where('orders.user_id', Auth::id());
+            }])->orderBy('download_num','desc')->get();
 
         $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->join('users',function ($join) use ($request) {
             $join->on('users.id','plugs.user_id');

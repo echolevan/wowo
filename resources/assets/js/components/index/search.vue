@@ -8,16 +8,6 @@
                 <li v-for="v in list">
                     <p class="title">
                     <router-link :to="{'name': 'plug.info' , params:{'id': v.id}}">
-                        [<span>
-                              {{v.type_name}}
-                            </span>
-                        <span>-</span>
-                        <span class="hover_hand">
-                               {{v.tag_one ? v.tag_one.name : ''}}
-                            </span>
-                        <span class="hover_hand" v-if="v.tag_two">
-                             - {{v.tag_two ? v.tag_two.name : ''}}
-                            </span>]
                         {{v.title}}
                     </router-link>
                     </p>
@@ -25,9 +15,26 @@
                         <Icon type="ios-cloud-download-outline"></Icon>
                         <span>{{v.d_n}}</span>
                         &nbsp;&nbsp;
-                        <i><img src="/images/p07.png" alt=""></i>
-                        {{v.like_num}}
-                        </p>
+                        <Icon type="ios-star-outline"></Icon>
+                        <span>{{v.collect_num}}</span>
+                        &nbsp;&nbsp;
+                        <i><img src="/images/p07.png" alt=""></i>&nbsp;<span>{{v.like_num}}</span>
+                        &nbsp;&nbsp;
+                        <span
+                                class="normal_font"
+                                :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                v-if="v.is_free === 0">免费</span>
+                        <span style="padding-right:0" v-else>
+                                  <span class="gold_class normal_font"
+                                        :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                        style="font-size: 16px;padding-right:0"
+                                  >
+                                <span v-if="v.is_pay" class="my_gold"><s>{{v.gold}}</s></span>
+                                <span v-else class="my_gold">{{v.gold}}</span>
+                            </span>
+                            </span>
+                        <span v-if="v.is_pay" style="color: rgb(209, 48, 48);">[已购买]</span>
+                    </p>
                     <div class="info" v-html="v.info">
                     </div>
                     <p class="tool"><span class="time">{{v.created_at}}</span> &nbsp;&nbsp;<span

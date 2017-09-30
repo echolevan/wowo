@@ -46,7 +46,7 @@
                         <a href="https://bbs.iwowcn.com" class="nav_link"
                            :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>潘达利亚</span></a>
                     </li>
-                    <li class="pull-right" style="margin: 5px 15px 0 0">
+                    <li class="pull-right" style="margin: 5px 15px 0 0" v-show="$route.name === 'search' || $route.name === 'home.index'">
                         <Input v-model="keyword" @keyup.enter.native="to_search" style="width: 250px" placeholder="搜索资源" icon="search"
                                @on-click="to_search"></Input>
                     </li>
