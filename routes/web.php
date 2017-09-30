@@ -17,13 +17,23 @@ Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 //Route::get('/make_users', function () {
 //    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
+//     return 1;
 //});
 //
-//Route::get('/make_admin', function () {
-//    \App\User::where('name','Levan')->update([
-//        'is_admin' => 1
-//    ]);
-//});
+Route::get('/ban', function () {
+    $ban = file_get_contents('../public/upload/ban.json');
+    $ban = json_decode(trim($ban,chr(239).chr(187).chr(191)),true);
+    foreach ($ban as $v){
+        $count = \App\Tool::where('name','nickname')->where('value',$v)->count();
+        if($count === 0){
+            \App\Tool::create([
+                'name' => 'nickname',
+                'value' => $v,
+            ]);
+        }
+    }
+    return 1;
+});
 
 Route::get('/password/sms', function (){
     return view('auth.passwords.sms');
