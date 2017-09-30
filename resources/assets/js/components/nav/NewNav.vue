@@ -179,6 +179,24 @@
                     myDialog('请先输入关键词',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
+                let time_now = Date.parse(new Date())/1000
+                let last_time = localStorage.getItem('search_time')
+                if(!last_time){
+                    this.go_to_search()
+                    localStorage.setItem('search_time',time_now)
+                    return false
+                }
+
+                if(time_now - last_time >= 10){
+                    localStorage.setItem('search_time',time_now)
+                    this.go_to_search()
+                    return false
+                }else{
+                    myDialog('10S内只能搜索一次',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    return false
+                }
+            },
+            go_to_search(){
                 this.$router.push({'name':'search',params:{'keyword':this.keyword}})
             }
         },
