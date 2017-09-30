@@ -96,7 +96,7 @@
                             <Icon type="ios-cloud-download-outline"></Icon>
                             <span>{{plug.d_n}}</span>
                             <Icon type="ios-clock-outline"></Icon>
-                            <span>{{plug.created_at}}</span>
+                            <span>{{plug.updated_at}}</span>
                             <Icon type="ios-star-outline"></Icon>
                             <span>{{plug.collect_num}}</span>
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
