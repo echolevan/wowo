@@ -967,21 +967,22 @@ class PlugController extends Controller
     {
         $limit = isset($request->page) ? ($request->page - 1) * $request->size : 0;
 
-        $plugs = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->join('users',function ($join) use ($request) {
+        $plugs = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->where([['plugs.status', 1], ['plugs.is_check', 1]])->join('users',function ($join) use ($request) {
             $join->on('users.id','plugs.user_id');
         })->orWhere(function ($query) use ($request) {
-            $query->where('users.name','like',"%{$request->keyword}%")->where('is_new',1);
+            $query->where('users.name','like',"%{$request->keyword}%")->where('is_new',1)->where([['plugs.status', 1], ['plugs.is_check', 1]]);
         })
             ->select('plugs.*' , 'users.id as uid' ,'users.name')->with('tag_one')->with('tag_two')
             ->skip($limit)->take($request->size)->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->orderBy('download_num','desc')->get();
 
-        $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->join('users',function ($join) use ($request) {
+        $count  = Plug::where('title','like',"%{$request->keyword}%")->distinct()->where('is_new',1)->where([['plugs.status', 1], ['plugs.is_check', 1]])->join('users',function ($join) use ($request) {
             $join->on('users.id','plugs.user_id');
         })->orWhere(function ($query) use ($request) {
-            $query->where('users.name','like',"%{$request->keyword}%")->where('is_new',1);
+            $query->where('users.name','like',"%{$request->keyword}%")->where('is_new',1)->where([['plugs.status', 1], ['plugs.is_check', 1]]);
         })->select('plugs.*' , 'users.id as uid' ,'users.name')->count();
+
         return ['list'=>$plugs ,'count'=>$count];
     }
 }
