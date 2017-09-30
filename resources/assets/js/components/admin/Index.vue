@@ -27,6 +27,9 @@
                 <router-link to="/admin/fc/setting">
                     <Menu-item name="admin.fc.setting">分成管理</Menu-item>
                 </router-link>
+                <router-link to="/admin/nickname/setting/">
+                    <Menu-item name="admin.nickname.setting">关键字屏蔽</Menu-item>
+                </router-link>
             </Submenu>
             <Submenu name="1">
                 <template slot="title">
@@ -38,9 +41,6 @@
                 </router-link>
                 <router-link to="/admin/lv/setting">
                     <Menu-item name="admin.lv.setting">等级管理</Menu-item>
-                </router-link>
-                <router-link to="/admin/nickname/setting/">
-                    <Menu-item name="admin.nickname.setting">关键字屏蔽</Menu-item>
                 </router-link>
             </Submenu>
             <Submenu name="5">
