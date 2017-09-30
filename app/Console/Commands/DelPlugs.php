@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\PlugController;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class DelPlugs extends Command
 {
@@ -39,6 +40,7 @@ class DelPlugs extends Command
     public function handle()
     {
         //
+        Log::info('cron start');
         $plug = new PlugController();
         $plug->del_plugs();
     }

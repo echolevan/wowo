@@ -15,6 +15,9 @@
                         <Icon type="ios-cloud-download-outline"></Icon>
                         <span>{{v.d_n}}</span>
                         &nbsp;&nbsp;
+                        <Icon type="ios-clock-outline"></Icon>
+                        <span>{{v.updated_at}}</span>
+                        &nbsp;&nbsp;
                         <Icon type="ios-star-outline"></Icon>
                         <span>{{v.collect_num}}</span>
                         &nbsp;&nbsp;

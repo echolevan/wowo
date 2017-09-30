@@ -15,6 +15,9 @@ class PlugDel extends Model
 
     public function getLastTimeAttribute()
     {
+        if(strtotime(Carbon::parse($this->created_at)->addDay()) <= time()){
+            return $this->last_time = '0分钟';
+        }
         $s = Carbon::parse($this->created_at)->addDay()->diffInMinutes(Carbon::now());
         $h = floor($s/60);
         $m = $s - $h * 60;
