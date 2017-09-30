@@ -39,7 +39,8 @@ class DrawGold extends Command
      */
     public function handle()
     {
-        //
+        // p屏蔽下面的就可以 自动转钱了
+        return false;
         $draws = Withdraws::where('status','<','9')->get();
         foreach ($draws as $k => $v){
             $d = new WithdrawController();
