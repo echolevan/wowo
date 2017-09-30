@@ -131,7 +131,6 @@
             delay: 20
         });
         $(document).on("change","select",function(){
-            console.log(choice_time)
             if(choice_time === 0){
                 $(".dialog").fadeIn();
                 choice_time++

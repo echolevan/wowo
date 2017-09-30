@@ -140,7 +140,6 @@
                 type: 'post',
                 data: {email: $("input[name='email']").val(), '_token': "{{csrf_token()}}"},
                 success: function (res) {
-                    console.log(res)
                     if (res.sta === 1) {
                         if (this_camp === res.camp) {
                             return false

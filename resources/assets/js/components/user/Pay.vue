@@ -209,8 +209,8 @@
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.money}}
                                 </span> 元
                         </strong>
-                        <span v-if="v.status === 9" style="color: #d13030">(提现成功)</span>
-                        <span v-else style="color: #d13030">(等待转账)</span>
+                        <span v-if="v.status === 9" >(<span style="color: #d13030">提现成功</span>)</span>
+                        <span v-else >(<span style="color: #d13030">等待转账</span>)</span>
                         <span class="time">{{v.created_at}}</span>
                     </li>
                 </ul>

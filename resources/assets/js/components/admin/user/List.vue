@@ -60,11 +60,6 @@
                 <Icon type="android-done" slot="open"></Icon>
                 <Icon type="android-close" slot="close"></Icon>
             </i-switch>
-            显示个人简介
-            <i-switch v-model="show_info">
-                <Icon type="android-done" slot="open"></Icon>
-                <Icon type="android-close" slot="close"></Icon>
-            </i-switch>
         </div>
 
         <table class="table table-bordered my_admin_table">
@@ -84,7 +79,6 @@
                 <th style="width: 10%" v-show="show_l_at">最近登录</th>
                 <th style="width: 5%">能否登陆</th>
                 <th style="width: 8%">是否管理员</th>
-                <th style="width: 10%" v-show="show_info">个人简介</th>
                 <th style="width: 12%">操作</th>
             </tr>
             </thead>
@@ -115,14 +109,6 @@
                     <Tag type="dot" :color="v.is_admin === 1 ? 'blue' : 'red'"
                          @click.native="change_is_admin(v.is_admin === 1 ? 0 : 1 , v.id, k)">{{configYesOrNo[v.is_admin]}}
                     </Tag>
-                </td>
-                <td v-show="show_info" class="hover_hand">
-                    <Tooltip placement="bottom-start">
-                        <span class="toolTip" v-html="v.info"></span>
-                        <div slot="content">
-                            <p v-html="v.info"></p>
-                        </div>
-                    </Tooltip>
                 </td>
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>

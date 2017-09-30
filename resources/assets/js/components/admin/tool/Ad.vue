@@ -250,7 +250,6 @@
         methods: {
             _init(){
                 axios.get('/admin/ad/index').then(res => {
-                    console.log(res)
                     this.list = res.data.ads
                 })
             },

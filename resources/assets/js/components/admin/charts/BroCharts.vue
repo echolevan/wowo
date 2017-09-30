@@ -32,7 +32,6 @@
                         radius: 100,
                         offsetY: 130
                     }
-                    console.log(this.chartData)
                 })
 
 
