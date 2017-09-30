@@ -91,11 +91,11 @@
             }
         },
         mounted() {
-            let cz_jl_id = localStorage.getItem('cz_jl_id')
-            if(cz_jl_id){
-                this.formS.user_id = cz_jl_id
+            let tx_jl_id = localStorage.getItem('tx_jl_id')
+            if(tx_jl_id){
+                this.formS.user_id = tx_jl_id
             }
-            localStorage.removeItem('cz_jl_id')
+            localStorage.removeItem('tx_jl_id')
             this.search()
         },
         methods: {
