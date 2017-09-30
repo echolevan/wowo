@@ -37,7 +37,6 @@
             </div>
         </div>
 
-
         <div class="ad_form" v-show="$route.name !== 'index'">
             <div class="ad_form_left">
                 <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
