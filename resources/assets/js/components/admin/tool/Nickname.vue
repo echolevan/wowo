@@ -3,9 +3,9 @@
         <Form :model="formS" inline>
             <div class="pull-right">
                 <Form-item>
-                    <Input v-model.trim="formS.name" placeholder="关键字" @keyup.13.native="create_nickname"></Input>
+                    <Input v-model.trim="formS.name" placeholder="请输入关键字" @keyup.13.native="create_nickname"></Input>
                 </Form-item>
-                <Button type="primary" class="pull-right" @click="create_nickname">确定</Button>
+                <Button type="primary" class="pull-right" @click="create_nickname">添加</Button>
             </div>
         </Form>
         <div v-for="(v, k) in list" style="display: inline-block">
