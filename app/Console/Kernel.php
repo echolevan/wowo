@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\CheckAd;
 use App\Console\Commands\DelPlugs;
+use App\Console\Commands\DrawGold;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,7 +18,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         DelPlugs::class,
-        CheckAd::class
+        CheckAd::class,
+        DrawGold::class
     ];
 
     /**
@@ -30,6 +32,8 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('del:plug')
                   ->everyMinute();
+        $schedule->command('draw:gold')
+            ->everyMinute();
         $schedule->command('check:ad')
             ->dailyAt('10:00');
     }

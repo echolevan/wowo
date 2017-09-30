@@ -203,14 +203,14 @@
             <Tab-pane label="提现记录" name="3" class="pay_his" style="padding: 0 15px">
 
                 <ul class="list" v-if="count > 0">
-                    <li class="my_a_style" v-for="v in withdraws">
-                        <span v-if="v.status === 9" style="color: #d13030">(提现成功)</span>
-                        <span v-else style="color: #d13030">(等待转账)</span>
+                    <li  v-for="v in withdraws">
                         <strong>提现
                             <span class="normal_font"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">{{v.money}}
                                 </span> 元
                         </strong>
+                        <span v-if="v.status === 9" style="color: #d13030">(提现成功)</span>
+                        <span v-else style="color: #d13030">(等待转账)</span>
                         <span class="time">{{v.created_at}}</span>
                     </li>
                 </ul>

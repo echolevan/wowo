@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Log;
 use Payment\Common\PayException;
 use Payment\Client\Transfer;
 use Payment\Config;
@@ -65,11 +66,14 @@ class WithdrawController extends Controller
         $draw = Withdraws::where('status','!=',9)->find($id);
         date_default_timezone_set('Asia/Shanghai');
         $aliConfig = config('aliconfig');
+        Log::info('提现SRATR');
+        Log::info('提现ID：'.$draw->id);
+        Log::info(json_encode($draw));
         $data = [
             'trans_no' => $draw->out_trade_no,
             'payee_type' => 'ALIPAY_LOGONID',
             'payee_account' => $draw->alipay,
-            'amount' => '0.1',
+            'amount' => $draw->money,
             'remark' => '提现' . $draw->money . "元",
             'payer_show_name' => '陕西熊猫人网络科技有限公司',
             'payee_real_name' => $draw->alipay_name

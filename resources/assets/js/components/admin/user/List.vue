@@ -127,7 +127,7 @@
                 <td>
                     <Button type="ghost" size="small" @click="edit(v,k)">编辑</Button>
                     <Button type="ghost" size="small" @click="cz_jl(v.id)">充值记录</Button>
-                    <Button type="ghost" size="small">提现记录</Button>
+                    <Button type="ghost" size="small" @click="tx_jl(v.id)">提现记录</Button>
                     <Button type="ghost" size="small" @click="zy_jl(v.id)">资源记录</Button>
                 </td>
             </tr>
@@ -192,6 +192,10 @@
             cz_jl(id){
                 localStorage.setItem('cz_jl_id', id)
                 this.$router.push('/admin/recharge/list')
+            },
+            tx_jl(id){
+                localStorage.setItem('tx_jl_id', id)
+                this.$router.push('/admin/withdraw/list')
             },
             toS() {
                 this.page = 1
