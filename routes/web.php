@@ -15,10 +15,10 @@ Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 
 
-//Route::get('/make_users', function () {
-//    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
-//     return 1;
-//});
+Route::get('/rest_users_key', function () {
+    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
+     return 'ok';
+});
 //
 Route::get('/ban', function () {
     $ban = file_get_contents('../public/upload/ban.json');
@@ -32,7 +32,7 @@ Route::get('/ban', function () {
             ]);
         }
     }
-    return 1;
+    return 'ok';
 });
 
 Route::get('/password/sms', function (){
