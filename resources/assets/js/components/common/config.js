@@ -7,8 +7,8 @@ export const statusType = {
     1: '正常'
 }
 export const isForUser = {
-    0: '否',
-    1: '可'
+    0: '禁止',
+    1: '允许'
 }
 
 export const isActive = {
