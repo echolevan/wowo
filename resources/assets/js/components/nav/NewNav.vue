@@ -126,15 +126,15 @@
                                                 {{vv.label}}
                                             </router-link>
                                         </h2>
-                                        <ul class="links-list">
-                                            <li class="hover_hand" v-for="vvv in vv.children">
-                                                <router-link
-                                                        class="my_a_style"
-                                                        :to="{name:'watmw.index' , params:{'type':'addons' , 'active': vvv.value , 'active_pid': vv.value}}">
-                                                    {{vvv.label}}
-                                                </router-link>
-                                            </li>
-                                        </ul>
+                                        <!--<ul class="links-list">-->
+                                            <!--<li class="hover_hand" v-for="vvv in vv.children">-->
+                                                <!--<router-link-->
+                                                        <!--class="my_a_style"-->
+                                                        <!--:to="{name:'watmw.index' , params:{'type':'addons' , 'active': vvv.value , 'active_pid': vv.value}}">-->
+                                                    <!--{{vvv.label}}-->
+                                                <!--</router-link>-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
                                     </li>
                                 </ul>
                             </div>
@@ -179,20 +179,22 @@
                     myDialog('请先输入关键词',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
-                let time_now = Date.parse(new Date())/1000
-                let last_time = localStorage.getItem('search_time')
-                if(!last_time){
-                    this.go_to_search()
-                    localStorage.setItem('search_time',time_now)
-                    return false
-                }
+                let d = new Date()
+                let time_now = d.getMinutes()
+                let last_time = JSON.parse(localStorage.getItem('search_time'))
 
-                if(time_now - last_time >= 10){
-                    localStorage.setItem('search_time',time_now)
+                if(!last_time || parseInt(last_time[0]) !== parseInt(time_now)){
                     this.go_to_search()
+                    localStorage.setItem('search_time',JSON.stringify([time_now , 0]))
                     return false
                 }else{
-                    myDialog('10S内只能搜索一次',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    let num = parseInt(last_time[1])
+                    if(num >= 15){
+                        myDialog('站点设置每分钟系统最多响应搜索请求 15 次，请稍候再试',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        return false
+                    }
+                    localStorage.setItem('search_time',JSON.stringify([time_now , num++]))
+                    this.go_to_search()
                     return false
                 }
             },

@@ -414,6 +414,15 @@ class UserController extends Controller
         return ['sta' => 0, 'msg' => '原密码错误'];
     }
 
+    public function check_password_gs(Request $request)
+    {
+        $password = $request->password;
+        if(preg_match('/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])/',$password)){
+            return 1;
+        }
+        return ['sta' => 0, 'msg' => '密码应为大小写字母+数字，不少于8位'];
+    }
+
     /**
      * @param Request $request
      * password

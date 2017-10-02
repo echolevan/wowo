@@ -47,6 +47,17 @@
                     });
                 }
             };
+            const validateCkPassword = (rule, value, callback) => {
+                if (value !== '') {
+                    axios.post('user/check_password_gs', {password: value}).then((res) => {
+                        if (res.data.sta === 0) {
+                            callback(new Error(res.data.msg));
+                        } else {
+                            callback();
+                        }
+                    });
+                }
+            };
             return {
                 loading: false,
                 formPassword: {
@@ -61,7 +72,8 @@
                     ],
                     password: [
                         {required: true, message: '请输入新密码', trigger: 'blur'},
-                        {min: 8, max: 15, message: '密码长度8-15位', trigger: 'change'}
+                        {min: 8, message: '密码不少于8位', trigger: 'change'},
+                        {validator: validateCkPassword, trigger: 'blur'},
                     ],
                     passwordCheck: [
                         {required: true, message: '请输入确认密码', trigger: 'blur'},

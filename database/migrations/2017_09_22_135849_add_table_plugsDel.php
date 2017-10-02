@@ -28,6 +28,6 @@ class AddTablePlugsDel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plugDel');
+        Schema::dropIfExists('plug_del');
     }
 }

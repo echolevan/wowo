@@ -486,7 +486,7 @@
                         myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         if(res.data.type === 'alipay') {
-                            myDialog('请在新窗口支付',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                            myDialog('请在新窗口支付<p style=";margin-top: 5px;">(<span style="color: #ed3f14">注意新窗口可能被拦截</span>)</p>',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             clearInterval(aaa)
                             let aaa = setInterval(()=>{
                                 axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {

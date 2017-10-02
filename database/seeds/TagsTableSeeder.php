@@ -1,0 +1,117 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class TagsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+        $tags = array(
+            array('id' => '1','name' => '战士','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:01','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '2','name' => '武器','thumb' => '','pid' => '1','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '3','name' => '狂怒','thumb' => '','pid' => '1','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '4','name' => '防护','thumb' => '','pid' => '1','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '7','name' => '通用','thumb' => '','pid' => '1','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '8','name' => '猎人','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:02','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '9','name' => '野兽控制','thumb' => '','pid' => '8','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '10','name' => '射击','thumb' => '','pid' => '8','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '11','name' => '生存','thumb' => '','pid' => '8','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '12','name' => '通用','thumb' => '','pid' => '8','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '13','name' => '牧师','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:03','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '14','name' => '戒律','thumb' => '','pid' => '13','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '15','name' => '神圣','thumb' => '','pid' => '13','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '16','name' => '暗影','thumb' => '','pid' => '13','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '17','name' => '通用','thumb' => '','pid' => '13','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '18','name' => '萨满祭司','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:04','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '19','name' => '元素','thumb' => '','pid' => '18','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '20','name' => '增强','thumb' => '','pid' => '18','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '21','name' => '恢复','thumb' => '','pid' => '18','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '22','name' => '通用','thumb' => '','pid' => '18','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '23','name' => '术士','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:05','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '24','name' => '痛苦','thumb' => '','pid' => '23','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '25','name' => '恶魔学识','thumb' => '','pid' => '23','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '26','name' => '毁灭','thumb' => '','pid' => '23','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '27','name' => '通用','thumb' => '','pid' => '23','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '28','name' => '德鲁伊','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:06','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '29','name' => '平衡','thumb' => '','pid' => '28','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '30','name' => '野性','thumb' => '','pid' => '28','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '31','name' => '守护','thumb' => '','pid' => '28','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '32','name' => '恢复','thumb' => '','pid' => '28','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '33','name' => '通用','thumb' => '','pid' => '28','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '34','name' => '圣骑士','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:07','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '35','name' => '神圣','thumb' => '','pid' => '34','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '36','name' => '防护','thumb' => '','pid' => '34','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '37','name' => '惩戒','thumb' => '','pid' => '34','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '38','name' => '通用','thumb' => '','pid' => '34','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '39','name' => '潜行者','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:08','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '40','name' => '刺杀','thumb' => '','pid' => '39','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '41','name' => '狂徒','thumb' => '','pid' => '39','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '42','name' => '敏锐','thumb' => '','pid' => '39','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '43','name' => '通用','thumb' => '','pid' => '39','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '44','name' => '死亡骑士','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:09','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '45','name' => '鲜血','thumb' => '','pid' => '44','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '46','name' => '冰霜','thumb' => '','pid' => '44','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '47','name' => '邪恶','thumb' => '','pid' => '44','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '48','name' => '通用','thumb' => '','pid' => '44','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '49','name' => '法师','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:10','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '50','name' => '奥术','thumb' => '','pid' => '49','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '51','name' => '火焰','thumb' => '','pid' => '49','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '52','name' => '冰霜','thumb' => '','pid' => '49','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '53','name' => '通用','thumb' => '','pid' => '49','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '54','name' => '武僧','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:11','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '55','name' => '酒仙','thumb' => '','pid' => '54','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '56','name' => '踏风','thumb' => '','pid' => '54','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '57','name' => '织雾','thumb' => '','pid' => '54','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '58','name' => '通用','thumb' => '','pid' => '54','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '59','name' => '恶魔猎手','thumb' => '','pid' => '0','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:12','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '60','name' => '浩劫','thumb' => '','pid' => '59','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '61','name' => '复仇','thumb' => '','pid' => '59','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '62','name' => '通用','thumb' => '','pid' => '59','type' => '1','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '66','name' => '界面美化','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:01','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '67','name' => '宠物坐骑','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:02','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '68','name' => '背包银行','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:03','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '69','name' => '单位框体','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:04','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '70','name' => '增益减益','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:05','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '71','name' => '副本团队','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:06','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '72','name' => '鼠标提示','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:07','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '73','name' => '物品拾取','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:08','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '74','name' => '动作条','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:09','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '75','name' => '成就','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:10','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '76','name' => '社交','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:11','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '77','name' => '地图','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:12','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '78','name' => '职业','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:13','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '79','name' => '战士','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '80','name' => '猎人','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '81','name' => '牧师','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '82','name' => '萨满祭司','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '83','name' => '术士','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '84','name' => '德鲁伊','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '85','name' => '圣骑士','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '86','name' => '潜行者','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '87','name' => '死亡骑士','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '88','name' => '法师','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '89','name' => '武僧','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '90','name' => '恶魔猎手','thumb' => '','pid' => '78','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:00','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '91','name' => '任务','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:14','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '92','name' => '商业','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:15','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '93','name' => '战斗','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:16','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '94','name' => 'PVP','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:17','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '95','name' => '专业','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:18','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '96','name' => '神器','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:19','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '97','name' => '幻化','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:20','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '98','name' => '其他','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '0','created_at' => '2017-10-01 00:00:21','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '99','name' => '整合界面','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:22','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '100','name' => '原创插件','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:23','updated_at' => '2017-10-01 00:00:00','rank' => '0'),
+            array('id' => '101','name' => '怀旧插件','thumb' => '','pid' => '0','type' => '2','status' => '1','is_check' => '1','is_for_user' => '1','created_at' => '2017-10-01 00:00:24','updated_at' => '2017-10-01 00:00:00','rank' => '0')
+        );
+        foreach ($tags as $v){
+            \Illuminate\Support\Facades\DB::table('tags')->insert($v);
+        }
+    }
+}

@@ -14,11 +14,6 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 
-
-Route::get('/rest_users_key', function () {
-    \Illuminate\Support\Facades\DB::update('ALTER TABLE users AUTO_INCREMENT = 100001');
-     return 'ok';
-});
 //
 Route::get('/ban', function () {
     $ban = file_get_contents('../public/upload/ban.json');
@@ -105,6 +100,7 @@ Route::group(['middleware' => ['user.login']], function () {
     Route::post("user/update_email",'UserController@update_email'); //更新手机号
     Route::post("user/update_Alipay",'UserController@update_Alipay'); //更新update_Alipay
     Route::post("user/check_password",'UserController@check_password'); // 修改密码时检查密码
+    Route::post("user/check_password_gs",'UserController@check_password_gs'); // 修改密码时检查密码
     Route::post("user/update_password",'UserController@update_password'); // 更改密码
     Route::get("user/lv",'UserController@get_user_lv'); // 更改密码
     Route::get('update_plugInfo/{id}' , 'PlugController@update_plugInfo')->name('plug.update_plugInfo'); // 编辑插件详情

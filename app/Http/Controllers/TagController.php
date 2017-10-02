@@ -11,7 +11,7 @@ class TagController extends Controller
     public function index ($type)
     {
         $type = config('my.tag_type')[$type];
-        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank', 'asc')->latest()->get();
+        $tags = Tag::where('type', $type)->where('pid', 0)->where([['status', 1], ['is_check', 1]])->with('tags')->orderBy('rank', 'asc')->oldest()->get();
         return $tags;
     }
 
@@ -85,7 +85,7 @@ class TagController extends Controller
                 return $query->where('status', $request->search['status']);
             });
         $count = $where->count();
-        $list = $where->with('parent')->skip(($page - 1) * $size)->take($size)->get();
+        $list = $where->with('parent')->skip(($page - 1) * $size)->take($size)->oldest()->get();
         return ['sta' => 1, 'count' => $count, 'list' => $list];
     }
 
