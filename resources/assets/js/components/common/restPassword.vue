@@ -61,7 +61,7 @@
                     ],
                     password: [
                         {required: true, message: '请输入新密码', trigger: 'blur'},
-                        {min: 8, max: 15, message: '密码长度8-15位', trigger: 'change'}
+                        {min: 8, max: 30, message: '密码长度8-30位', trigger: 'change'}
                     ],
                     passwordCheck: [
                         {required: true, message: '请输入确认密码', trigger: 'blur'},

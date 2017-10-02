@@ -425,9 +425,9 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
         if ($user) {
-            return ['sta' => 1, 'msg' => '密码重置成功'];
+            return ['sta' => 1, 'msg' => '密码修改成功'];
         }
-        return ['sta' => 0, 'msg' => '密码重置失败'];
+        return ['sta' => 0, 'msg' => '密码修改失败'];
     }
 
     public function get_user_lv ()
