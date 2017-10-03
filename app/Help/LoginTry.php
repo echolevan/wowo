@@ -33,7 +33,7 @@ trait LoginTry
         $num = 1;
         if(Cache::has($cache_name)){
             $num = Cache::get($cache_name);
-            if($num > 3){
+            if($num > 5){
                 return back()->withErrors(['login_error' => '失败次数太多，请1分钟之后再试']);
             }
         }
