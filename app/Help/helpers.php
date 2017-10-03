@@ -49,18 +49,18 @@ function upload_avatar_img($file, $path, $size, $ext)
 function ftp_file($path , $type ,$name = 0){
     $ftp = \Anchu\Ftp\Facades\Ftp::connection('xmr');
 
-    $addons = $ftp->getDirListing('down.iwowcn.com/'.$type);
+    $addons = $ftp->getDirListing('/'.$type);
 
     $new_dir = date('Y-m-d');
 
     if(!in_array($new_dir,$addons)){
-        $ftp->makeDir('down.iwowcn.com/'.$type.'/'.$new_dir);
+        $ftp->makeDir('/'.$type.'/'.$new_dir);
     }
 
     $ext = explode(".",$path);
     $name = $name === 0 ? \Illuminate\Support\Facades\Auth::id().str_random(20).substr(time(),6).'.'.end($ext) : date('YmdHi').'_'.$name;
 
-    $is_ftp = $ftp->uploadFile($path,'down.iwowcn.com/'.$type.'/'.$new_dir.'/'.$name,FTP_BINARY);
+    $is_ftp = $ftp->uploadFile($path,'/'.$type.'/'.$new_dir.'/'.$name,FTP_BINARY);
 
     if($is_ftp){
         unlink($path);

@@ -99,7 +99,7 @@ class AdController extends Controller
         }
         Ad::destroy($id);
         foreach ($thumb as $k => $v) {
-            \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/' . str_replace(config('my.down_url'), '', $v));
+            \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/' . str_replace(config('my.down_url'), '', $v));
         }
         return 1;
     }
