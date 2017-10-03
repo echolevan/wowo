@@ -494,7 +494,7 @@ class PlugController extends Controller
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
-                ->orderBy('rank','asc')->latest()->get();
+                ->orderBy('rank','asc')->oldest()->get();
         }
 
         $game_version = Tool::where('name','game_version')->get();
@@ -799,12 +799,12 @@ class PlugController extends Controller
          try{
              //删除图片
              foreach ($thumbs as $k => $v){
-                 \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+                 \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
              }
              //删除文件
              if(count($content) > 0){
                  foreach ($content as $k => $v){
-                     \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+                     \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
                  }
              }
              // 删除thumb数据库
@@ -940,12 +940,12 @@ class PlugController extends Controller
             try{
 
                 foreach ($thumbs as $k => $v){
-                    \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v->thumb));
+                    \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v->thumb));
                 }
                 //删除文件
                 if(count($url) > 0){
                     foreach ($url as $k => $v){
-                        \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/down.iwowcn.com/'.str_replace(config('my.down_url'),'',$v));
+                        \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
                     }
                 }
 
