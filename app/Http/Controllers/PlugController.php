@@ -395,7 +395,7 @@ class PlugController extends Controller
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);
                 })
-                ->orderBy('rank','asc')->latest()
+                ->orderBy('rank','asc')->oldest()
                 ->get();
         }
 
@@ -434,7 +434,7 @@ class PlugController extends Controller
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);
                 })
-                ->orderBy('rank','asc')->latest()
+                ->orderBy('rank','asc')->oldest()
                 ->get();
         }
 
@@ -455,7 +455,7 @@ class PlugController extends Controller
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
-                ->orderBy('rank','asc')->latest()->get();
+                ->orderBy('rank','asc')->oldest()->get();
         }
 
         $game_version = Tool::where('name','game_version')->get();
@@ -475,7 +475,7 @@ class PlugController extends Controller
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])
-                ->orderBy('rank','asc')->latest()->get();
+                ->orderBy('rank','asc')->oldest()->get();
         }
 
         $game_version = Tool::where('name','game_version')->get();

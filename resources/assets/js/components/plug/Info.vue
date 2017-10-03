@@ -329,8 +329,8 @@
                     title: '',
                     content: ''
                 },
-                pay_type: '',
-                pay_amount: 10,
+                pay_type: 2,
+                pay_amount: 30,
                 pay_amount_other: 1,
                 lv: {},
                 configUrl: {
