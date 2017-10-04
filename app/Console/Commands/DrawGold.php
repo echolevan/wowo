@@ -40,7 +40,7 @@ class DrawGold extends Command
     public function handle()
     {
         // 屏蔽下面的就可以自动转账
-        return false;
+        //return false;
         $draws = Withdraws::where('status','<','9')->get();
         foreach ($draws as $k => $v){
             $d = new WithdrawController();
