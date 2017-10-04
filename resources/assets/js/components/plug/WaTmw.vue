@@ -114,7 +114,7 @@
                             </span>
                             </span>
                             <span v-if="plug.is_pay" style="color: rgb(209, 48, 48);">[已购买]</span>
-                            <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.info"></div>
+                            <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.n_h_c"></div>
                         </div>
                     </div>
                     <div class="content tt_center" v-show="plugs_count === 0"><strong

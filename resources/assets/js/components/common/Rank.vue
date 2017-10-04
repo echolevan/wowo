@@ -13,7 +13,7 @@
                               :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                         >{{v.title.substring(0, 20)}}</span>
                     </router-link>
-                    <span class="dig" v-html="v.info"></span>
+                    <span class="dig" v-html="v.n_h_c"></span>
                     <span class="size">{{v.d_n}}</span>
                 </li>
             </ul>
@@ -32,7 +32,7 @@
                               :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                         >{{v.title.substring(0, 20)}}</span>
                     </router-link>
-                    <span class="dig" v-html="v.info"></span>
+                    <span class="dig" v-html="v.n_h_c"></span>
                     <span class="score" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.like_num}}</span>
                 </li>
             </ul>

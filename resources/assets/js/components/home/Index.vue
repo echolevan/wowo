@@ -24,11 +24,11 @@
                             <div style="clear: both"></div>
                             <Button type="ghost"
                                     style="position:absolute;left: 0;bottom: 0;font-size: 15px;"
-                                    @click="quick_share_plug('plug' , '整合界面')"
+                                    @click="quick_share_plug('addons' , '整合界面')"
                             >整合界面分享</Button>
                             <Button type="ghost"
                                     style="position:absolute;right: 0;bottom: 0;font-size: 15px;"
-                                    @click="quick_share_plug('plug' , '原创插件')"
+                                    @click="quick_share_plug('addons' , '原创插件')"
                             >原创插件分享</Button>
                         </div>
 

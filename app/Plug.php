@@ -11,7 +11,7 @@ class Plug extends Model
 {
     //
     protected $guarded = [];
-    protected $appends = ['type_name' , 'd_n'];
+    protected $appends = ['type_name' , 'd_n' , 'n_h_c'];
     protected $events = [
         'created' => CreatePlug::class,
         'updated' => UpdatePlug::class,
@@ -108,7 +108,10 @@ class Plug extends Model
         return $this->d_n = number_format($this->download_num);
     }
 
-
+    public function getNHCAttribute()
+    {
+        return $this->n_h_c = strip_tags($this->info);
+    }
 
 
     public function is_del()

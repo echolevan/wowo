@@ -71,10 +71,12 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
                         :format="['rar','zip','7z']"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
+                        :on-exceeded-size="handleMaxSize"
                         :before-upload="handlePlugUpload"
                         :on-remove="removePlug"
                 >
@@ -337,9 +339,11 @@
             }
         },
         methods: {
+            handleMaxSize (file) {
+                myDialog('文件 ' + file.name + ' 太大，不能超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M。', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            },
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
-//                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
             toLoading(name) {
                 this.loading = true;
