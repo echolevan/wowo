@@ -71,6 +71,8 @@
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :format="['zip','7z','rar']"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
+                        :on-exceeded-size="handleMaxSize"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -103,6 +105,8 @@
                         :before-upload="handleBeforeUpload"
                         :default-file-list="defaultList"
                         :on-success="handleSuccess"
+                        :format="['jpg','jpeg','png','gif']"
+                        :on-format-error="hFE"
                         multiple
                         type="drag"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -251,6 +255,7 @@
                 selectedDataName: '',
                 del_plug_sta: 1,
                 loading: false,
+                upload_status: false,
                 csrfToken: window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
@@ -315,6 +320,13 @@
             }
         },
         methods: {
+            hFE() {
+                myDialog('请上传jpg、jepg、png、gif格式的文件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            },
+            handleMaxSize (file) {
+                this.upload_status = false
+                myDialog('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            },
             handleFormatError(){
                 myDialog('请上传rar、zip、7z格式的文件',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
@@ -430,6 +442,7 @@
                 }
             },
             handlePlugSuccess(res, file) {
+                this.upload_status = false
                 if (res.sta === 0) {
                     myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
@@ -438,10 +451,12 @@
                 }
             },
             handlePlugUpload() {
-//                if(this.formItem.plug_url !== ''){
-//                    myDialog('您已上传过文件，请先删除')
-//                    return false;
-//                }
+                if(!this.upload_status){
+                    this.upload_status = true
+                }else{
+                    myDialog('请等待上传完成', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    return false
+                }
             },
             removePlug() {
                 this.formItem.plug_url = ''

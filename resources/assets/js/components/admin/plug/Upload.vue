@@ -72,6 +72,8 @@
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :format="['rar','zip','7z']"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
+                        :on-exceeded-size="handleMaxSize"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
                         :on-success="handlePlugSuccess"
@@ -102,6 +104,8 @@
                         :show-upload-list="false"
                         :before-upload="handleBeforeUpload"
                         :on-success="handleSuccess"
+                        :format="['jpg','jpeg','png','gif']"
+                        :on-format-error="hFE"
                         multiple
                         type="drag"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -251,6 +255,7 @@
                 imgName: '',
                 visible: false,
                 loading: false,
+                upload_status: false,
                 csrfToken: window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
@@ -310,8 +315,15 @@
             }
         },
         methods: {
+            hFE() {
+                this.$Message.error('请上传jpg、jepg、png、gif格式的文件')
+            },
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
+            },
+            handleMaxSize (file) {
+                this.upload_status = false
+                this.$Message.error('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制')
             },
             handleFormatError(){
                 this.$Message.error('请上传rar、zip、7z格式的文件')
@@ -423,6 +435,7 @@
                 }
             },
             handlePlugSuccess(res, file) {
+                this.upload_status = false
                 if (res.sta === 0) {
                     this.$Message.error(res.msg)
                 } else {
@@ -431,6 +444,12 @@
                 }
             },
             handlePlugUpload() {
+                if(!this.upload_status){
+                    this.upload_status = true
+                }else{
+                    this.$Message.error('请等待上传完成')
+                    return false
+                }
             },
             removePlug() {
                 this.formItem.plug_url = ''
