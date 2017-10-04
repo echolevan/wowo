@@ -160,7 +160,10 @@ class BmController extends Controller
         DB::beginTransaction();
         try{
             //删除文件
-            \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$content));
+            try{
+                unlink(substr($content,1));
+            }catch(\Exception $e){
+            }
             // 删除plug
             Bm::where('id',$id)->delete();
             DB::commit();

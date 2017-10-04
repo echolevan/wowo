@@ -25,7 +25,7 @@ class UploadController extends Controller
         }
 
 //        $ext = $request->file('image')->getClientOriginalExtension();
-        $path = "image/";
+        $path = "image/".date('Y-m-d');
         $url = upload_img($request->file('image'), $path);
         return ['sta' => 1, 'url' => $url];
     }
@@ -46,7 +46,7 @@ class UploadController extends Controller
             return ['sta' => 0, 'msg' => '请上传小于2M的图片'];
         }
 //        $ext = $request->file('file')->getClientOriginalExtension();
-        $path = "image/";
+        $path = "image/".date('Y-m-d');
         $url = upload_img($request->file('file'), $path);
         return ['sta' => 1, 'url' => $url, 'width' => $size[0], 'height' => $size[1]];
     }
@@ -56,7 +56,7 @@ class UploadController extends Controller
         if (!in_array(strtolower($request->file('file')->getClientOriginalExtension()), config('my.upload_plug_type'))) {
             return ['sta' => 0, 'msg' => '请上传zip、rar、7z格式的文件'];
         }
-        
+
 //        if(isset($request->tag_one) && $request->tag_one === '整合界面'){
 //            if ($request->file('file')->getSize() > 1024 * 1024*150) {
 //                return ['sta' => 0, 'msg' => '请上传小于150M的文件'];
@@ -67,7 +67,7 @@ class UploadController extends Controller
 //            }
 //        }
 
-        $path = "addons/";
+        $path = "addons/".date('Y-m-d');
         $url = upload_plug($request->file('file'), $path, $request->file('file')->getClientOriginalName());
         return ['sta' => 1, 'url' => $url];
     }
@@ -88,7 +88,7 @@ class UploadController extends Controller
             }
         }
 
-        $path = "market/";
+        $path = "market/".date('Y-m-d');
         $url = upload_bm($request->file('file'), $path);
         return ['sta' => 1, 'url' => $url];
     }

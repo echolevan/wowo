@@ -300,11 +300,9 @@
             sub_ok(name){
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        if(parseInt(this.formItem.position) !== 4 && parseInt(this.formItem.position) !== 5){
-                            if(this.formItem.uploadList.length > 1){
-                                this.$Message.error('请先删除一张图片');
-                                return false
-                            }
+                        if(this.formItem.uploadList.length > 1){
+                            this.$Message.error('请先删除一张图片');
+                            return false
                         }
                         if(this.formItem.id){
                             axios.post('/admin/ad/update' , {data: this.formItem}).then(res => {
@@ -343,13 +341,9 @@
                 this.visible = true;
             },
             handleBeforeUpload() {
-                let num = 1
-                if(parseInt(this.formItem.position) === 4 || parseInt(this.formItem.position) === 5){
-                    num = 2
-                }
-                const check = this.$refs.upload.fileList.length < num;
+                const check = this.$refs.upload.fileList.length < 1;
                 if (!check) {
-                    this.$Message.error(`最多只能上传 ${num} 张图片`);
+                    this.$Message.error(`最多只能上传 1 张图片`);
                 }
                 return check;
             },

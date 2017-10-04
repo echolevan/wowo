@@ -792,21 +792,12 @@ class PlugController extends Controller
 
     public function delete($id)
     {
+        $type = Plug::where('plug_id',$id)->value('type');
         $ids = Plug::where('plug_id',$id)->pluck('id');
         $content = Plug::where('plug_id',$id)->pluck('content');
         $thumbs = Thumb::whereIn('plug_id',$ids)->pluck('thumb');
          DB::beginTransaction();
          try{
-             //删除图片
-             foreach ($thumbs as $k => $v){
-                 \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
-             }
-             //删除文件
-             if(count($content) > 0){
-                 foreach ($content as $k => $v){
-                     \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
-                 }
-             }
              // 删除thumb数据库
              Thumb::whereIn('plug_id',$ids)->delete();
              // 删除plug
@@ -816,6 +807,20 @@ class PlugController extends Controller
              DB::rollBack();
              return ['sta'=>0 , 'msg'=>'删除失败'];
          }
+
+        try{
+            //删除图片
+            foreach ($thumbs as $k => $v){
+                unlink(substr($v,1));
+            }
+            //删除文件
+            if(count($content) > 0 && $type == 3){
+                foreach ($content as $k => $v){
+                    unlink(substr($v,1));
+                }
+            }
+        }catch(\Exception $e){
+        }
 
         return ['sta'=>1 , 'msg'=>'删除成功'];
     }
@@ -938,17 +943,6 @@ class PlugController extends Controller
 
             DB::beginTransaction();
             try{
-
-                foreach ($thumbs as $k => $v){
-                    \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v->thumb));
-                }
-                //删除文件
-                if(count($url) > 0){
-                    foreach ($url as $k => $v){
-                        \Anchu\Ftp\Facades\Ftp::connection('xmr')->delete('/'.str_replace(config('my.down_url'),'',$v));
-                    }
-                }
-
                 Plug::where('plug_id',$plug->plug_id)->delete();
                 Thumb::whereIn('plug_id',$id)->delete();
                 PlugDel::where('id',$plug->id)->delete();
@@ -957,6 +951,20 @@ class PlugController extends Controller
                 DB::rollBack();
                 return ['sta'=>0 , 'msg'=>'失败'];
             }
+
+            try{
+                foreach ($thumbs as $k => $v){
+                    unlink(substr($v,1));
+                }
+                //删除文件
+                if(count($url) > 0){
+                    foreach ($url as $k => $v){
+                        unlink(substr($v,1));
+                    }
+                }
+            }catch(\Exception $e){
+            }
+
             return $url;
 
         }

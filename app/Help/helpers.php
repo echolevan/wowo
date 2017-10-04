@@ -3,31 +3,31 @@ function upload_img($file , $path){
 
     $url = \Illuminate\Support\Facades\Storage::put($path, $file);
 
-    $url = ftp_file($url,'image');
+//    $url = ftp_file($url,'image');
 
     if($url)
-        return $url;
+        return '/'.$url;
     return false;
 }
 
 function upload_plug($file , $path , $name){
 
-    $url = \Illuminate\Support\Facades\Storage::putFileAs($path, $file, $name);
+    $url = \Illuminate\Support\Facades\Storage::putFileAs($path, $file, date('YmdHi')."_".$name);
 
-    $url = ftp_file($url,'addons' , $name);
+//    $url = ftp_file($url,'addons' , $name);
 
     if($url)
-        return $url;
+        return '/'.$url;
     return false;
 }
 
 function upload_bm($file , $path){
     $url = \Illuminate\Support\Facades\Storage::put($path, $file);
 
-    $url = ftp_file($url,'market');
+//    $url = ftp_file($url,'market');
 
     if($url)
-        return $url;
+        return '/'.$url;
     return false;
 }
 
@@ -39,10 +39,10 @@ function upload_avatar_img($file, $path, $size, $ext)
     $new_path = $path."/".\Illuminate\Support\Facades\Auth::id().str_random(10).time().str_random(5).".".$ext;
     $img->save($new_path);
 
-    $url = ftp_file($new_path,'image');
+//    $url = ftp_file($new_path,'image');
 
-    if($url)
-        return $url;
+    if($new_path)
+        return '/'.$new_path;
     return false;
 }
 

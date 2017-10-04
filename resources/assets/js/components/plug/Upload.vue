@@ -489,6 +489,7 @@
                 }
             },
             handlePlugSuccess(res, file, fileList) {
+                this.upload_status = false
                 if (res.sta === 0) {
                     myDialog(res.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
@@ -497,6 +498,13 @@
                 }
             },
             handlePlugUpload() {
+                if(!this.upload_status){
+                    this.upload_status = true
+                }else{
+                    myDialog('请等待上传完成', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                    return false
+                }
+
 //                if (this.formItem.plug_url !== '') {
 //                    myDialog('您已上传过文件，请先删除')
 //                    return false;
