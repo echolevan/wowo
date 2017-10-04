@@ -869,9 +869,9 @@ class PlugController extends Controller
 
     public function change_rank($id, $rank)
     {
-        $plug = Plug::where('id',$id)->update([
-           'rank' => $rank
-        ]);
+        $plug = Plug::find($id);
+        $plug->rank = $rank;
+        $plug = $plug->save();
         if($plug)
             return ['sta'=>1,'msg'=>'更新成功'];
         return ['sta'=>0,'msg'=>'更新失败'];
@@ -880,9 +880,9 @@ class PlugController extends Controller
 
     public function change_status($id, $v)
     {
-        $tag = Plug::where('id',$id)->update([
-            'status' =>$v
-        ]);
+        $plug = Plug::find($id);
+        $plug->status = $v;
+        $tag = $plug->save();
         if($tag)
             return ['sta'=>1, 'msg'=>'更新成功'];
         return ['sta'=>0, 'msg'=>'更新失败'];
@@ -891,9 +891,8 @@ class PlugController extends Controller
     public function change_is_check($id, $v)
     {
         $plug = Plug::find($id);
-        $tag = $plug->update([
-            'is_check' =>$v
-        ]);
+        $plug->is_check = $v;
+        $tag = $plug->save();
         if($tag)
             return ['sta'=>1, 'msg'=>'更新成功'];
         return ['sta'=>0, 'msg'=>'更新失败'];

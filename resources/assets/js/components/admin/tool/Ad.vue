@@ -127,7 +127,7 @@
                     <Input v-model="formItem.link" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem label="到期时间" prop="end_at">
-                    <DatePicker type="date" placeholder="选择日期" v-model="formItem.end_at" style="width: 200px"></DatePicker>
+                    <DatePicker type="date" placeholder="选择日期"  :options="options3" v-model="formItem.end_at" style="width: 200px"></DatePicker>
                 </FormItem>
                 <FormItem label="商户信息" prop="info">
                     <Input v-model="formItem.info" type="textarea" :rows="4" placeholder="请输入..."></Input>
@@ -235,6 +235,11 @@
 
                 ],
                 csrfToken: window.Laravel.csrfToken,
+                options3: {
+                    disabledDate (date) {
+                        return date && date.valueOf() < Date.now() - 86400000;
+                    }
+                },
             }
         },
         mounted() {
