@@ -104,6 +104,8 @@
                         ref="upload"
                         :default-file-list="defaultList"
                         :show-upload-list="false"
+                        :format="['jpg','jpeg','png','gif']"
+                        :on-format-error="hFE"
                         :before-upload="handleBeforeUpload"
                         :on-success="handleSuccess"
                         multiple
@@ -340,6 +342,7 @@
         },
         methods: {
             handleMaxSize (file) {
+                this.upload_status = false
                 myDialog('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             keyUp() {
@@ -434,6 +437,9 @@
                 }
 
             },
+            hFE() {
+                myDialog('请上传jpg、jepg、png、gif格式的文件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            },
             handleFormatError() {
                 myDialog('请上传rar、zip、7z格式的文件', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
@@ -504,11 +510,6 @@
                     myDialog('请等待上传完成', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }
-
-//                if (this.formItem.plug_url !== '') {
-//                    myDialog('您已上传过文件，请先删除')
-//                    return false;
-//                }
             },
             removePlug() {
                 this.formItem.plug_url = ''
