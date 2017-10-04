@@ -41,8 +41,6 @@ return [
         '5' => '7z',
     ],
 
-    'down_url' => 'https://down.iwowcn.com/',
-
     'msg_template' => [
         '1' => 'SMS_91010005',  // 手机绑定
         '2' => 'SMS_91030011',  // 重置密码
