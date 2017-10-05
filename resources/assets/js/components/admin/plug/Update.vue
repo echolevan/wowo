@@ -446,7 +446,7 @@
             },
             handleMaxSize (file) {
                 this.upload_status = false
-                this.$Message.error('文件 ' + file.name + ' 已超过' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M限制')
+                this.$Message.error('文件 ' + file.name + ' 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制')
             },
             handlePlugUpload(){
                 if(!this.upload_status){

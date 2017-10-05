@@ -1,6 +1,7 @@
 <template>
     <div>
         <Modal
+                :mask-closable="false"
                 v-model="modal_edit"
                 :title="model_title">
             <Form :model="formItem" :label-width="100" ref="formItem" :rules="ruleValidate">

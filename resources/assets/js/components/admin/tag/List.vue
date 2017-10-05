@@ -107,6 +107,7 @@
         </div>
 
         <Modal
+                :mask-closable="false"
                 v-model="modal_edit"
                 title="编辑分类"
                 @on-ok="ok('formItem')">

@@ -64,6 +64,7 @@
         </div>
 
         <Modal
+                :mask-closable="false"
                 v-model="modal_edit"
                 :title="model_title"
                 @on-ok="ok('formItem')">

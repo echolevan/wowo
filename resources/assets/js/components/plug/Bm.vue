@@ -111,7 +111,7 @@
                 list: [],
                 plugs_count: 0,
                 this_page: 1,
-                page_size: 20,
+                page_size: 50,
                 configBmDownloadType: configBmDownloadType,
                 configBmType: configBmType,
                 formS: {

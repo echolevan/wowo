@@ -1,6 +1,7 @@
 <template>
     <div>
         <Modal
+                :mask-closable="false"
                 v-model="model_edit"
                 title="编辑用户">
             <Form :model="formItem" :label-width="80" class="div_center from_main" ref="formItem" :rules="ruleValidate">
