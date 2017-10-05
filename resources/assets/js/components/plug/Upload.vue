@@ -342,8 +342,8 @@
         },
         methods: {
             handleMaxSize (file) {
+                myDialog('文件 ' + file.name + ' 已超过' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 this.upload_status = false
-                myDialog('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             keyUp() {
                 this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
