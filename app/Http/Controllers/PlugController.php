@@ -234,7 +234,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '推荐失败'];
         }
 
-
+        del_cache();
         if ($collect) {
             return ['sta' => 1, 'msg' => '推荐成功'];
         }
@@ -251,6 +251,7 @@ class PlugController extends Controller
         $plug = Plug::select('type', 'is_free', 'title', 'content', 'gold', 'plug_id')->find($id);
         // 是否是免费的
         if ($plug->is_free == 0) {
+            del_cache();
             Plug::where('plug_id',$plug->plug_id)->increment('download_num');
             // 是否是免费的
             $this->download_num($plug->plug_id);
@@ -266,6 +267,7 @@ class PlugController extends Controller
             // 查看 orders 表是否存在 该订单 存在则不再收费 用唯一ID 去查询
             if (Order::where([['plug_only_id', $plug->plug_id], ['user_id', Auth::id()]])->count() > 0) {
                 // 曾经购买过
+                del_cache();
                 Plug::where('plug_id',$plug->plug_id)->increment('download_num');
                 $this->download_num($plug->plug_id);
                 if ($plug->type == 1 || $plug->type == 2) {

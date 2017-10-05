@@ -141,6 +141,11 @@ class TagController extends Controller
         }
 
         $is = Tag::where('id', $id)->delete();
+        //删除文件
+        try{
+            unlink(substr($info->thumb,1));
+        }catch(\Exception $e){
+        }
         if ($is)
             return ['sta' => 1, 'msg' => '删除成功'];
         return ['sta' => 0, 'msg' => '删除失败'];

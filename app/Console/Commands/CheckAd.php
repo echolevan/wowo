@@ -45,7 +45,7 @@ class CheckAd extends Command
         $ads = Ad::get();
 
         foreach ($ads as $k => $v){
-            if ($v->end_at > date('Y-m-d',time())){
+            if ($v->end_at >= date('Y-m-d',time())){
                 $s = Carbon::parse($v->end_at)->diffInDays(Carbon::now()) + 1;
                 Log::info('check ad :::::'.$s.":::::info:::::".json_encode($v));
                 if($s <= 3){
@@ -54,7 +54,7 @@ class CheckAd extends Command
                 }
             }else{
                 //send email
-                dispatch(new \App\Jobs\SenfAdEmail($v));
+//                dispatch(new \App\Jobs\SenfAdEmail($v));
             }
         }
 

@@ -72,7 +72,7 @@
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :format="['rar','zip','7z']"
-                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 1024"
                         :on-exceeded-size="handleMaxSize"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -422,6 +422,7 @@
             },
             handleSuccess (res, file , fileList) {
                 if(res.sta === 0){
+                    this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
                     this.$Message.error(res.msg)
                 }else{
                     file.url = res.url
@@ -445,7 +446,7 @@
             },
             handleMaxSize (file) {
                 this.upload_status = false
-                this.$Message.error('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制')
+                this.$Message.error('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M限制')
             },
             handlePlugUpload(){
                 if(!this.upload_status){

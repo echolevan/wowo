@@ -15,11 +15,13 @@
                                 </router-link>
                             </span>
                             <span class="hover_hand">
-                                <router-link :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_one.id , 'active_pid': 0}}">{{plug.tag_one ? plug.tag_one.name : ''}}</router-link>
+                                <router-link
+                                        :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_one.id , 'active_pid': 0}}">{{plug.tag_one ? plug.tag_one.name : ''}}</router-link>
                             </span>
                             <span v-if="plug.tag_two"> > </span>
-                            <span  class="hover_hand" v-if="plug.tag_two">
-                                <router-link :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
+                            <span class="hover_hand" v-if="plug.tag_two">
+                                <router-link
+                                        :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
                             </span>
                             <span>版本号： {{plug.version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
@@ -53,7 +55,7 @@
                     截图预览
                 </div>
                 <div style="clear:both"></div>
-                <img class="preview-img"  v-for="(item, index) in list" :src="item.src"   width="100" height="100"
+                <img class="preview-img" v-for="(item, index) in list" :src="item.src" width="100" height="100"
                      @click="$preview.open(index, list)">
             </div>
 
@@ -84,17 +86,18 @@
                                         <th style="border: none">更新日期</th>
                                     </tr>
                                     </thead>
-                                    <tbody  v-if="plug.historys.length > 0" >
-                                        <tr v-for="v in plug.historys" class="tr_no_b">
-                                            <td>
-                                                <a href="javascript:void(0)" @click="quick_d(v.id)" class="link_a">{{v.name ? v.name : v.title}}-{{ v.version }}</a>
-                                            </td>
-                                            <td>{{ v.version }}</td>
-                                            <td>{{ v.game_version }}</td>
-                                            <td>{{ v.created_at }}</td>
-                                        </tr>
+                                    <tbody v-if="plug.historys.length > 0">
+                                    <tr v-for="v in plug.historys" class="tr_no_b">
+                                        <td>
+                                            <a href="javascript:void(0)" @click="quick_d(v.id)"
+                                               class="link_a">{{v.name ? v.name : v.title}}-{{ v.version }}</a>
+                                        </td>
+                                        <td>{{ v.version }}</td>
+                                        <td>{{ v.game_version }}</td>
+                                        <td>{{ v.created_at }}</td>
+                                    </tr>
                                     </tbody>
-                                    <tbody  v-show="plug.historys.length === 0">
+                                    <tbody v-show="plug.historys.length === 0">
                                     <tr>
                                         <td style="text-align: center;font-size: 16px" colspan="4">
                                             暂无数据
@@ -198,8 +201,10 @@
                 <div v-show="userInfo && userInfo.gold < down_plug.gold" style="margin-top: 15px">
                     <Radio-group v-model="pay_type" type="button"
                                  :class="{'bl_radio_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                        <Radio label="2" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/001.jpg" alt=""></Radio>
-                        <Radio label="1" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/002.jpg" alt=""></Radio>
+                        <Radio label="2" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/001.jpg" alt="">
+                        </Radio>
+                        <Radio label="1" style="height:56px;padding-top: 1.5px;"><img src="/images/pay/002.jpg" alt="">
+                        </Radio>
                     </Radio-group>
 
                     <p></p>
@@ -289,7 +294,8 @@
                     </div>
                 </div>
                 <div class="wechat_logo">
-                    <p><a href="https://www.iwowcn.com" target="_blank" style="font-size: 24px;font-weight: bold">嘿市</a></p>
+                    <p><a href="https://www.iwowcn.com" target="_blank" style="font-size: 24px;font-weight: bold">嘿市</a>
+                    </p>
                     <p style="font-size: 14px;color:#ABABAB;font-weight: bold">陕西熊猫人网络科技有限公司</p>
                 </div>
             </div>
@@ -314,7 +320,7 @@
                     tag_one: {
                         id: 0
                     },
-                    tag_two:{
+                    tag_two: {
                         id: 0
                     },
                     historys: []
@@ -343,9 +349,9 @@
                 is_wechat_pay: false
             }
         },
-        
+
         computed: mapState([
-            'userInfo', 'choice_cmap','ads'
+            'userInfo', 'choice_cmap', 'ads'
         ]),
         watch: {
             '$route'(to, from) {
@@ -377,7 +383,7 @@
             collect_this(id) {
                 axios.get(`collect_this/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.plug.collect_plug = 1
                         this.plug.collect_num++
@@ -387,7 +393,7 @@
             no_collect_this(id) {
                 axios.get(`no_collect_this/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.plug.collect_plug = 0
                         this.plug.collect_num--
@@ -397,7 +403,7 @@
             like_this(id) {
                 axios.get(`like_this/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.plug.like_plug = 1
                         this.plug.like_num++
@@ -407,15 +413,19 @@
             download(id) {
                 axios.get(`download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         if (res.data.type === 1) {
                             // 弹出model
                             this.down_plug = res.data.info
                             this.download_model = true
+                            this.plug.d_n = this.number_format(this.plug.download_num + 1, ".", ",")
+                            this.plug.download_num ++
                         } else if (res.data.type === 2) {
                             // 跳转 下载
                             window.open(res.data.info.content);
+                            this.plug.d_n = this.number_format(this.plug.download_num　+ 1, ".", ",")
+                            this.plug.download_num ++
                         } else {
                             this.down_plug = res.data.info
                             this.download_pay_model = true
@@ -424,10 +434,34 @@
                     }
                 })
             },
-            quick_d(id){
+            number_format(number, decimals, dec_point, thousands_sep,roundtag) {
+                number = (number + '').replace(/[^0-9+-Ee.]/g, '');
+                roundtag = roundtag || "ceil"; //"ceil","floor","round"
+                var n = !isFinite(+number) ? 0 : +number,
+                    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                    s = '',
+                    toFixedFix = function (n, prec) {
+                        var k = Math.pow(10, prec);
+                        return '' + parseFloat(Math[roundtag](parseFloat((n * k).toFixed(prec*2))).toFixed(prec*2)) / k;
+                    };
+                s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+                var re = /(-?\d+)(\d{3})/;
+                while (re.test(s[0])) {
+                    s[0] = s[0].replace(re, "$1" + sep + "$2");
+                }
+
+                if ((s[1] || '').length < prec) {
+                    s[1] = s[1] || '';
+                    s[1] += new Array(prec - s[1].length + 1).join('0');
+                }
+                return s.join(dec);
+            },
+            quick_d(id) {
                 axios.get(`quick_download/plug/${id}`).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         if (res.data.type === 1) {
                             // 弹出model
@@ -439,22 +473,25 @@
                         }
                     }
                 })
-            },
+            }
+            ,
             clipboard() {
                 const clipboard = new Clipboard('.clipboard')
                 clipboard.on('success', function (e) {
                 })
-                myDialog('复制成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-            },
+                myDialog('复制成功', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+            }
+            ,
             login() {
                 localStorage.setItem('redirect', this.$route.path)
                 window.location.href = "/login"
-            },
+            }
+            ,
             toLoading(id) {
                 this.loading = true
                 axios.post('to_pay_plug', {id: id}).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
                         this.download_pay_model = false
                         this.plug.is_pay = 1
@@ -462,7 +499,8 @@
                     }
                 })
                 this.loading = false
-            },
+            }
+            ,
             // pay
             toPay() {
                 this.pay_loding = true
@@ -472,35 +510,35 @@
                     recharge_amount_other: this.pay_amount_other
                 }).then(res => {
                     if (res.data.sta === 0) {
-                        myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     } else {
-                        if(res.data.type === 'alipay') {
-                            myDialog('请在新窗口支付<p style=";margin-top: 5px;">(<span style="color: #ed3f14">注意新窗口可能被拦截</span>)</p>',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        if (res.data.type === 'alipay') {
+                            myDialog('请在新窗口支付<p style=";margin-top: 5px;">(<span style="color: #ed3f14">注意新窗口可能被拦截</span>)</p>', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             clearInterval(aaa)
-                            let aaa = setInterval(()=>{
+                            let aaa = setInterval(() => {
                                 axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
-                                    if(res.data.sta === 1){
+                                    if (res.data.sta === 1) {
                                         clodeMyDialog()
-                                        myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                                        myDialog('支付成功', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
                                         clearInterval(aaa)
                                     }
                                 })
-                            },1000)
+                            }, 1000)
                             window.open(res.data.url);
-                        }else {
+                        } else {
                             clearInterval(bbb)
-                            let bbb = setInterval(()=>{
+                            let bbb = setInterval(() => {
                                 axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
-                                    if(res.data.sta === 1){
+                                    if (res.data.sta === 1) {
                                         clodeMyDialog()
-                                        myDialog('支付成功',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                                        myDialog('支付成功', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
                                         clearInterval(bbb)
                                         this.is_wechat_pay = false
                                     }
                                 })
-                            },1000)
+                            }, 1000)
                             this.is_wechat_pay = true
                             this.wechat_scan_qr = res.data.url
                         }
@@ -508,7 +546,8 @@
                     this.pay_loding = false
                 })
 
-            },
+            }
+            ,
             change_other() {
                 if (!(/^\d+$/.test(this.pay_amount_other))) {
                     this.pay_amount_other = Math.round(this.pay_amount_other)
@@ -653,7 +692,6 @@
                 border-bottom-right-radius 15px
                 border-bottom-left-radius 15px
                 background-color #fff
-
 
     .tr_no_b
         td

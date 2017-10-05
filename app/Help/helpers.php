@@ -159,3 +159,11 @@ function do_get($app_key, $app_secret, $request_host, $request_uri, $request_met
     curl_close($ch);
     return $ret;
 }
+
+function del_cache(){
+    \Illuminate\Support\Facades\Cache::forget('plug_index_wa');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_tmw');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_plug');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_recent_plugs');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_census');
+}

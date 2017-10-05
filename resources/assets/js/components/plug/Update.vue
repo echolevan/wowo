@@ -71,7 +71,7 @@
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :format="['zip','7z','rar']"
-                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 1024"
                         :on-exceeded-size="handleMaxSize"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -325,7 +325,7 @@
             },
             handleMaxSize (file) {
                 this.upload_status = false
-                myDialog('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 100) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                myDialog('文件 ' + file.name + ' 已超过 ' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             handleFormatError(){
                 myDialog('请上传rar、zip、7z格式的文件',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
@@ -432,6 +432,7 @@
             },
             handleSuccess(res, file, fileList) {
                 if (res.sta === 0) {
+                    this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
                     myDialog(res.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 } else {
                     file.url = res.url

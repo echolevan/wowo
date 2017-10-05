@@ -79,8 +79,8 @@ class UploadController extends Controller
         }
 
         if ($request->file('file')->getClientOriginalExtension() === 'torrent') {
-            if ($request->file('file')->getSize() > 1024 * 1024 * 2) {
-                return ['sta' => 0, 'msg' => '请上传小于2M的BT文件'];
+            if ($request->file('file')->getSize() > 1024 * 1024 * 1) {
+                return ['sta' => 0, 'msg' => '请上传小于1M的BT文件'];
             }
         } else {
             if ($request->file('file')->getSize() > 1024 * 1024) {
