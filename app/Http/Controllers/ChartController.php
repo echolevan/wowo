@@ -317,8 +317,8 @@ class ChartController extends Controller
             'Opera' => 3,
             'MSIE' => 4,
             'Edge' => 5,
-            'Safari' => 6,
-            'Chrome' => 7,
+            'Chrome' => 6,
+            'Safari' => 7,
             'MicroMessenger' => 8
         );
         $system = array(
