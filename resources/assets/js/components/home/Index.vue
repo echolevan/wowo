@@ -249,7 +249,7 @@
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
 
-                                <span class="pull-right">{{v.d_n}}次下载</span>
+                                <span class="pull-right">{{v.num}}次下载</span>
                             </li>
                         </ul>
                     </div>

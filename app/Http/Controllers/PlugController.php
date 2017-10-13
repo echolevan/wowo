@@ -756,9 +756,14 @@ class PlugController extends Controller
                 ->where([['status', 1], ['is_check', 1]])
                 ->skip(0)->take(20)->select('plugs.id','plugs.title','plugs.created_at' , 'downloads.num')->
             leftJoin('downloads', 'plugs.plug_id' ,'=' ,'downloads.plug_id')
+                ->where('mouth',date('Y-m',time()))
                 ->orderBy('downloads.num','desc')
                 ->orderBy('plugs.created_at','desc')
                 ->get();
+
+            foreach ($download_plugs_this_mouth as $k => $v){
+                $download_plugs_this_mouth[$k]->num = number_format($v->num);
+            }
             Cache::put('plug_index_download_plugs_this_mouth',$download_plugs_this_mouth,60);
         }
 
