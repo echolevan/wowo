@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\CheckAd;
 use App\Console\Commands\DelPlugs;
 use App\Console\Commands\DrawGold;
+use App\Console\Commands\GetBaidu;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -19,7 +20,8 @@ class Kernel extends ConsoleKernel
         //
         DelPlugs::class,
         CheckAd::class,
-        DrawGold::class
+        DrawGold::class,
+        GetBaidu::class,
     ];
 
     /**
@@ -36,6 +38,8 @@ class Kernel extends ConsoleKernel
             ->everyMinute();
         $schedule->command('check:ad')
             ->dailyAt('10:00');
+        $schedule->command('get:baidu')
+            ->everyTenMinutes();
     }
 
     /**

@@ -16,7 +16,7 @@ class AddToolsTable extends Migration
         Schema::create('tools', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->comment('名称 关键字');
-            $table->string('value')->comment('对应的值');
+            $table->string('value',500)->comment('对应的值');
             $table->timestamps();
         });
     }

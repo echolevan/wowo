@@ -166,4 +166,7 @@ function del_cache(){
     \Illuminate\Support\Facades\Cache::forget('plug_index_plug');
     \Illuminate\Support\Facades\Cache::forget('plug_index_recent_plugs');
     \Illuminate\Support\Facades\Cache::forget('plug_index_census');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs_this_mouth');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_total_person');
 }
