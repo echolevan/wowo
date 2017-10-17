@@ -58,7 +58,7 @@
             </Form-item>
 
             <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
-                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串(不能包含中文)"
+                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
                        v-on:input="keyUp"></Input>
                 <p class="pull-right "
                 >共 <span class="normal_font"
@@ -346,7 +346,7 @@
                 this.upload_status = false
             },
             keyUp() {
-                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
+//                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g, "")
             },
             toLoading(name) {
                 this.loading = true;
