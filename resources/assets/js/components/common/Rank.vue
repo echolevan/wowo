@@ -33,7 +33,7 @@
                         >{{v.title.substring(0, 20)}}</span>
                     </router-link>
                     <span class="dig" v-html="v.n_h_c"></span>
-                    <span class="size" :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" >{{v.like_num}}</span>
+                    <span class="size">{{v.like_num}}</span>
                 </li>
             </ul>
         </div>
