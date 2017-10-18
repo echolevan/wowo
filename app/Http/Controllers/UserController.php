@@ -165,7 +165,7 @@ class UserController extends Controller
             return ['sta' => 0, 'msg' => '请上传小于3M的图片'];
         }
 
-        $path = "image/".date('Y-m-d');
+        $path = "avatar/";
         $url = upload_avatar_img($request->file('file'), $path, [300, 300], end($info));
 
         if ($url) {
