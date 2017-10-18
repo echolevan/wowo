@@ -185,7 +185,7 @@
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title.substring(0, 15)}}</strong>
                                 </router-link>
-                                <span class="pull-right">{{v.d_n}}</span>
+                                <span class="pull-right"  style="color: #000000">{{v.d_n}}</span>
                                 <!--<span class="pull-right">{{v.created_at}}</span>-->
                             </li>
                         </ul>
@@ -249,7 +249,7 @@
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
 
-                                <span class="pull-right">{{v.num}}</span>
+                                <span class="pull-right" style="color: #000000">{{v.num}}</span>
                             </li>
                         </ul>
                     </div>
