@@ -132,7 +132,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
             .size
-                color: #808080;
+                color: #000000;
                 position: absolute;
                 top: 10px;
                 right: 10px;
