@@ -6,8 +6,10 @@
             <transition>
                 <router-view></router-view>
             </transition>
-            <a v-if="$route.name === 'home.index' && ads[3]"  :href="ads[3].link ? ads[3].link : 'javascript:void(0)'" target="_blank" >
-                <img :src="ads[3].url[0].url" :style="{'width': ads[3].width + 'px' , 'height': ads[3].height + 'px'}" alt="" style="margin-top: 15px">
+            <a v-if="$route.name === 'home.index' && ads[3]" :href="ads[3].link ? ads[3].link : 'javascript:void(0)'"
+               target="_blank">
+                <img :src="ads[3].url[0].url" :style="{'width': ads[3].width + 'px' , 'height': ads[3].height + 'px'}"
+                     alt="" style="margin-top: 15px">
             </a>
         </div>
         <div class="footer" v-if="$route.name !== 'index'">
@@ -39,26 +41,29 @@
 
         <div class="ad_form" v-show="$route.name !== 'index'">
             <div class="ad_form_left">
-                <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank" >
-                    <img :src="ads[4].url[0].url" :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
+                <a v-if="ads[4]" :href="ads[4].link ? ads[4].link : 'javascript:void(0)'" target="_blank">
+                    <img :src="ads[4].url[0].url"
+                         :style="{'width': ads[4].width + 'px' , 'height': ads[4].height + 'px'}" alt="">
                 </a>
             </div>
             <div class="ad_form_right">
-                <a v-if="ads[5]" :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank" >
-                    <img   :src="ads[5].url[0].url" :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
+                <a v-if="ads[5]" :href="ads[5].link ? ads[5].link : 'javascript:void(0)'" target="_blank">
+                    <img :src="ads[5].url[0].url"
+                         :style="{'width': ads[5].width + 'px' , 'height': ads[5].height + 'px'}" alt="">
                 </a>
             </div>
         </div>
-        
-        
+
+
         <Modal v-model="feedback_model">
             <p slot="header" class="model_title">
-             意见反馈
+                意见反馈
             </p>
             <div>
                 <Form ref="formCustom" :model="formCustom" :rules="ruleCustom" :label-width="80">
                     <Form-item label="建议" prop="feedback">
-                        <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入您的建议"></Input>
+                        <Input v-model="formCustom.feedback" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                               placeholder="请输入您的建议"></Input>
                     </Form-item>
                     <Form-item label="邮箱" prop="tel">
                         <Input type="text" v-model="formCustom.tel"></Input>
@@ -93,13 +98,13 @@
                     ],
                     tel: [
                         {required: true, message: '邮箱不能为空', trigger: 'blur'},
-                        { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+                        {type: 'email', message: '邮箱格式不正确', trigger: 'blur'}
                     ]
                 }
             }
         },
         computed: mapState([
-            'userInfo', 'choice_cmap' , 'ads'
+            'userInfo', 'choice_cmap', 'ads'
         ]),
         mounted() {
             let redirect = localStorage.getItem('redirect');
@@ -109,29 +114,29 @@
             }
             this.choice_camp()
 
-            $('.goTop').css('opacity',0);
-            $(window).on('scroll', function() {
-                if ($('body').scrollTop() > 100) { /* 返回顶部按钮将在用户向下滚动100像素后出现 */
-                    $('.goTop').css('opacity',1);
+            $('.goTop').css('opacity', 0);
+            $(window).on('scroll', function () {
+                if ($(document).scrollTop() > 100) { /* 返回顶部按钮将在用户向下滚动100像素后出现 */
+                    $('.goTop').css('opacity', 1);
                 } else {
-                    $('.goTop').css('opacity',0);
+                    $('.goTop').css('opacity', 0);
                 }
             });
 
-            $('.goTop').click(function() {
+            $('.goTop').click(function () {
                 $("html, body").animate({scrollTop: 0}, 500);
             })
 
 
             let is_getAgentInfo = localStorage.getItem('getAgentInfo');
-            if(!is_getAgentInfo){
+            if (!is_getAgentInfo) {
                 axios.get('/getAgentInfo')
                 localStorage.setItem('getAgentInfo', "1")
             }
 
             // GET ADS
             axios.get('/ads').then(res => {
-                if(res.data.sta === 1){
+                if (res.data.sta === 1) {
                     this.$store.commit('change_ads', res.data.ads)
                 }
             })
@@ -139,8 +144,8 @@
         watch: {
             '$route'(to, from) {
                 this.choice_camp()
-                if(this.$router.name !== '/'){
-                    $('iframe#xianliaome_window').css('display','block')
+                if (this.$router.name !== '/') {
+                    $('iframe#xianliaome_window').css('display', 'block')
                 }
             }
         },
@@ -148,18 +153,18 @@
             go_feedback(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.put('/feedback',{data: this.formCustom}).then(res => {
-                            if(res.data.sta === 1){
-                                myDialog(res.data.msg,(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                            }else{
-                                myDialog('感谢您的建议',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                        axios.put('/feedback', {data: this.formCustom}).then(res => {
+                            if (res.data.sta === 1) {
+                                myDialog(res.data.msg, (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                            } else {
+                                myDialog('感谢您的建议', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             }
                             this.feedback_model = false
                             this.formCustom.feedback = ''
                             this.formCustom.name = ''
                             this.formCustom.tel = ''
                         }).catch(err => {
-                            myDialog('感谢您的建议',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                            myDialog('感谢您的建议', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                             this.feedback_model = false
                             this.formCustom.feedback = ''
                             this.formCustom.name = ''
@@ -185,6 +190,7 @@
         width 1240px
         padding: 15px
         margin 0 auto
+
     .footer
         border-top 1px solid #f5f5f5
         width 1240px
@@ -207,12 +213,11 @@
         z-index 999999
         right 0
         div
-            background rgba(0,0,0,0.5)
+            background rgba(0, 0, 0, 0.5)
             color #fff
             text-align center
             margin-bottom 2px
             padding 5px
-
 
     .ad_form
         .ad_form_left
