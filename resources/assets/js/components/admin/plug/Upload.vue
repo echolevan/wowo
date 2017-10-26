@@ -323,7 +323,7 @@
             },
             handleMaxSize (file) {
                 this.upload_status = false
-                this.$Message.error('文件 ' + file.name + ' 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制')
+                this.$Message.error('文件 (' + file.name + ') 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制')
             },
             handleFormatError(){
                 this.$Message.error('请上传rar、zip、7z格式的文件')
