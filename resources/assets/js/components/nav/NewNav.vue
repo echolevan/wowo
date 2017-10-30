@@ -26,6 +26,13 @@
                         </router-link>
                     </li>
 
+                    <li class="has-dropdown links" data-content="elvui">
+                        <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'elvui'}}"
+                                     :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            ElvUi
+                        </router-link>
+                    </li>
+
                     <li class="has-dropdown links" data-content="addons">
                         <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'addons'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
@@ -104,6 +111,32 @@
                                                 <router-link
                                                         class="my_a_style"
                                                         :to="{name:'watmw.index' , params:{'type':'tmw' , 'active': vvv.value , 'active_pid': vv.value}}">
+                                                    {{vvv.label}}
+                                                </router-link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li id="elvui" class="dropdown links">
+                            <div class="content">
+                                <ul v-for="v in nav_tags" v-if="v.label === 'ElvUI'">
+                                    <li v-for="vv in v.children">
+                                        <h2
+                                        >
+                                            <router-link
+                                                    class="normal_font_import my_a_style"
+                                                    :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                                    :to="{name:'watmw.index' , params:{'type':'elvui' , 'active': vv.value , 'active_pid': 0}}">
+                                                {{vv.label}}
+                                            </router-link>
+                                        </h2>
+                                        <ul class="links-list">
+                                            <li class="hover_hand" v-for="vvv in vv.children">
+                                                <router-link
+                                                        class="my_a_style"
+                                                        :to="{name:'watmw.index' , params:{'type':'elvui' , 'active': vvv.value , 'active_pid': vv.value}}">
                                                     {{vvv.label}}
                                                 </router-link>
                                             </li>

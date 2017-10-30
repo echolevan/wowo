@@ -27,7 +27,7 @@
                 </Select>
             </Form-item>
 
-            <Form-item label="是否收费" v-show="formItem.type[0] < 3">
+            <Form-item label="是否收费" v-show="formItem.type[0] !== 3">
                 <i-Switch v-model="formItem.is_free" size="large" @on-change="swi"
                           :disabled="$route.params.id ? true : false">
                     <span slot="open">是</span>
@@ -57,7 +57,7 @@
 
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4" prop="content">
                 <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
                        v-on:input="keyUp"></Input>
                 <p class="pull-right "
@@ -282,9 +282,9 @@
                         {max: 300, message: '更新日志最长300字符', trigger: 'change'},
                         {max: 300, message: '更新日志最长300字符', trigger: 'blur'},
                     ],
-                    uploadList: [
-                        {validator: validateUploadList, required: true, trigger: 'change'},
-                    ],
+//                    uploadList: [
+//                        {validator: validateUploadList, required: true, trigger: 'change'},
+//                    ],
                     game_version: [
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
@@ -387,8 +387,6 @@
 
                 if (this.$route.params.id) {
                     axios.get(`check_plug_id/${this.$route.params.id}`).then(res => {
-                        console.log(res)
-
                         if (res.data.sta === 0) {
                             this.$router.go(-1)
                             return false

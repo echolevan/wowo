@@ -88,8 +88,10 @@ class Plug extends Model
             $name = config('my.plug_name')[1];
         else if ($type == 2)
             $name = config('my.plug_name')[2];
-        else
+        else if ($type == 3)
             $name = config('my.plug_name')[3];
+        else
+            $name = config('my.plug_name')[4];
         return $name;
     }
 

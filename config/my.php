@@ -5,19 +5,22 @@ return [
     'plug_type' => [
         'wa' => 1,
         'tmw' => 2,
-        'addons' => 3
+        'addons' => 3,
+        'elvui' => 4,
     ],
 
     'plug_name' => [
         '1' => 'WA',
         '2' => 'TMW',
-        '3' => '游戏插件'
+        '3' => '游戏插件',
+        '4' => 'ElvUI',
     ],
 
     'tag_type' => [
         'wa' => 1,
         'tmw' => 1,
-        'addons' => 2
+        'addons' => 2,
+        'elvui' => 3,
     ],
 
     'img_type' => [

@@ -30,7 +30,7 @@ class TagController extends Controller
             'name' => $request->data['name'],
             'thumb' => is_null($request->data['thumb']) ? '' : $request->data['thumb'],
             'pid' => $pid,
-            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : 2,
+            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : $request->data['type'][0] == 2 ? 2 : 3,
             'status' => 1,
             'is_check' => 1,
             'is_for_user' => $request->data['is_for_user'],
@@ -52,7 +52,7 @@ class TagController extends Controller
             'name' => $request->data['name'],
             'thumb' => is_null($request->data['thumb']) ? '' : $request->data['thumb'],
             'pid' => $pid,
-            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : 2
+            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : $request->data['type'][0] == 2 ? 2 : 3,
         ]);
 
         $tag = Tag::with('parent')->find($id);
@@ -65,11 +65,11 @@ class TagController extends Controller
             return $query->where('name', 'like', '%' . $request->search['name'] . '%');
         })
             ->when(isset($request->search['type'][0]) && $request->search['type'][0] != null, function ($query) use ($request) {
-                $type = $request->search['type'][0] == 3 ? 2 : $request->search['type'][0];
+                $type = $request->search['type'][0] == 4 ? 3 : ($request->search['type'][0] == 3 ? 2 : 1);
                 return $query->where('type', $type);
             })
             ->when(isset($request->search['type'][1]) && $request->search['type'][1] != null, function ($query) use ($request) {
-                if($request->search['type'][0] == 3){
+                if($request->search['type'][0] == 3 || $request->search['type'][0] == 4){
                     return $query->where('id', $request->search['type'][1]);
                 }else{
                     return $query->where('pid', $request->search['type'][1]);

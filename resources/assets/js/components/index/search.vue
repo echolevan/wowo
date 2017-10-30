@@ -74,7 +74,8 @@
                 configUrl: {
                     'TMW': 'tmw',
                     'WA': 'wa',
-                    '游戏插件': 'addons'
+                    '游戏插件': 'addons',
+                    'ElvUI': 'elvui'
                 },
             }
         },

@@ -255,7 +255,7 @@ class PlugController extends Controller
             Plug::where('plug_id',$plug->plug_id)->increment('download_num');
             // 是否是免费的
             $this->download_num($plug->plug_id);
-            if ($plug->type == 1 || $plug->type == 2) {
+            if ($plug->type == 1 || $plug->type == 2  || $plug->type == 4) {
                 // wa tmw  model
                 return ['sta' => 1, 'type' => 1, 'info' => $plug];
             } else {
@@ -270,7 +270,7 @@ class PlugController extends Controller
                 del_cache();
                 Plug::where('plug_id',$plug->plug_id)->increment('download_num');
                 $this->download_num($plug->plug_id);
-                if ($plug->type == 1 || $plug->type == 2) {
+                if ($plug->type == 1 || $plug->type == 2 || $plug->type == 4) {
                     // wa tmw  model
                     return ['sta' => 1, 'type' => 1, 'info' => $plug];
                 } else {
@@ -287,7 +287,7 @@ class PlugController extends Controller
         $plug = Plug::select('type', 'is_free', 'title', 'content', 'gold', 'plug_id')->find($id);
         Plug::where('plug_id',$plug->plug_id)->increment('download_num');
         $this->download_num($plug->plug_id);
-        if ($plug->type == 1 || $plug->type == 2) {
+        if ($plug->type == 1 || $plug->type == 2 || $plug->type == 4) {
             // wa tmw  model
             return ['sta' => 1, 'type' => 1, 'info' => $plug];
         } else {
@@ -385,11 +385,11 @@ class PlugController extends Controller
      */
     public function plug_all_info ()
     {
-        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '游戏插件']];
+        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
-            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件
+            $res[$k]['value'] = $v[1]; // type 1 WA 2 TMW 3 插件 4ElvUI
             $res[$k]['label'] = $v[2];
             $res[$k]['children'] = Tag::with(['children' => function ($query) {
                 $query->select(DB::raw('tags.id as value , tags.name as label ,  tags.pid , tags.id'));
@@ -417,8 +417,10 @@ class PlugController extends Controller
             $name = 'null';
         }else if($type === 'addons'){
             $tag = [ [2, 3, '游戏插件']];
-        }else{
-            $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '游戏插件']];
+        }else if($type === 'elvui'){
+            $tag = [ [3, 4, 'ElvUI']];
+        } else {
+            $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
             $name = 'null';
         }
 
@@ -448,7 +450,7 @@ class PlugController extends Controller
 
     public function plug_all_info_for_admin()
     {
-        $tag = [[1, 1, 'WA/TMW'], [2, 3, '游戏插件']];
+        $tag = [[1, 1, 'WA/TMW'], [2, 3, '游戏插件'] , [3, 4, 'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -468,7 +470,7 @@ class PlugController extends Controller
 
     public function plug_all_info_no_login()
     {
-        $tag = [[1, 1, 'WA'] , [1,2,'TMW']];
+        $tag = [[1, 1, 'WA'] , [1,2,'TMW'] , [3,4,'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -487,7 +489,7 @@ class PlugController extends Controller
 
     public function plug_all_info_nav()
     {
-        $tag = [[1, 1, 'WA'] , [1,2,'TMW'], [2, 3, '游戏插件']];
+        $tag = [[1, 1, 'WA'] , [1,2,'TMW'], [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -534,7 +536,7 @@ class PlugController extends Controller
         $Plug->is_check = !$req['is_free'] ? 1 : 0;
         $Plug->version = $type['type'][0] === 3 ? $req['version'] : date('YmdHi');
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
-        $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
+        $Plug->content = ($type['type'][0] === 1 || $type['type'][0] === 2 || $type['type'][0] === 4 ) ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
         DB::beginTransaction();
         try {
             if ($plug_id !== 0 && $plug_id !== 'undefined') {
@@ -589,13 +591,13 @@ class PlugController extends Controller
         }
         $Plug->user_id = Auth::id();
         $plug->author = isset($req['author']) ? $req['author'] : '';
-        $Plug->gold = is_null($req['gold']) ? 0 : $req['gold'];
+        $Plug->gold = !$req['is_free'] ? 0 : $req['gold'];
         $Plug->type = $type['type'][0];
         $Plug->type_one = $type['type'][1];
         $Plug->is_check = !$req['is_free'] ? 1 : 0;
         $Plug->type_two = isset($type['type'][2]) ? $type['type'][2] : 0;
         $Plug->version = $type['type'][0] === 3 ? $req['version'] : $Plug->version;
-        $Plug->content = $type['type'][0] === 1 || $type['type'][0] === 2 ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
+        $Plug->content = ($type['type'][0] === 1 || $type['type'][0] === 2 || $type['type'][0] === 4) ? $req['content'] : $req['plug_url'];  // 分字符串 跟下载链接
         DB::beginTransaction();
         try {
             $Plug->save();
