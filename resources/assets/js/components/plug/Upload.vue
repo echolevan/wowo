@@ -27,7 +27,7 @@
                 </Select>
             </Form-item>
 
-            <Form-item label="是否收费" v-show="formItem.type[0] < 3">
+            <Form-item label="是否收费" v-show="formItem.type[0] !== 3">
                 <i-Switch v-model="formItem.is_free" size="large" @on-change="swi"
                           :disabled="$route.params.id ? true : false">
                     <span slot="open">是</span>
@@ -57,7 +57,7 @@
 
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4" prop="content">
                 <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
                        v-on:input="keyUp"></Input>
                 <p class="pull-right "
@@ -282,9 +282,9 @@
                         {max: 300, message: '更新日志最长300字符', trigger: 'change'},
                         {max: 300, message: '更新日志最长300字符', trigger: 'blur'},
                     ],
-                    uploadList: [
-                        {validator: validateUploadList, required: true, trigger: 'change'},
-                    ],
+//                    uploadList: [
+//                        {validator: validateUploadList, required: true, trigger: 'change'},
+//                    ],
                     game_version: [
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
@@ -342,7 +342,7 @@
         },
         methods: {
             handleMaxSize (file) {
-                myDialog('文件 ' + file.name + ' 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                myDialog('文件 (' + file.name + ') 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 this.upload_status = false
             },
             keyUp() {
@@ -380,12 +380,18 @@
                 this.formItem.is_free = false
             },
             _init() {
+                let type = localStorage.getItem('upload_type')
+                let tag_name = localStorage.getItem('upload_type_name')
+                localStorage.removeItem('upload_type')
+                localStorage.removeItem('upload_type_name')
+
                 if (this.$route.params.id) {
                     axios.get(`check_plug_id/${this.$route.params.id}`).then(res => {
                         if (res.data.sta === 0) {
                             this.$router.go(-1)
                             return false
                         }
+                        this.selectedDataName = res.data.plug.tag_one ? res.data.plug.tag_one.name : ''
                         this.formItem.title = res.data.plug.title
                         this.formItem.type = res.data.plug.type
                         this.formItem.name = res.data.plug.name
@@ -405,14 +411,9 @@
                     }).catch(error => {
                         history.go(-1)
                     })
+                }else{
+                    this.selectedDataName = tag_name
                 }
-
-
-                let type = localStorage.getItem('upload_type')
-                let tag_name = localStorage.getItem('upload_type_name')
-                this.selectedDataName = tag_name
-                localStorage.removeItem('upload_type')
-                localStorage.removeItem('upload_type_name')
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
                     this.plug_tags = res.data.res
                     if (tag_name !== null) {

@@ -28,7 +28,7 @@
                 </Select>
             </Form-item>
 
-            <Form-item label="是否收费" v-show="formItem.type[0] < 3">
+            <Form-item label="是否收费" v-show="formItem.type[0] !== 3">
                 <i-Switch v-model="formItem.is_free" size="large" @on-change="swi">
                     <span slot="open">是</span>
                     <span slot="close">否</span>
@@ -56,7 +56,7 @@
                 >{{ Math.floor( formItem.gold * tools.fc / 100 )}}</span> 金币)</span>
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2" prop="content">
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4" prop="content">
                 <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
                        v-on:input="keyUp"></Input>
                 <p class="pull-right "
@@ -279,9 +279,9 @@
                         {max: 300, message: '更新日志最长300字符', trigger: 'change'},
                         {max: 300, message: '更新日志最长300字符', trigger: 'blur'},
                     ],
-                    uploadList: [
-                        {validator: validateUploadList, required: true, trigger: 'change'},
-                    ],
+//                    uploadList: [
+//                        {validator: validateUploadList, required: true, trigger: 'change'},
+//                    ],
                     game_version: [
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
@@ -325,7 +325,7 @@
             },
             handleMaxSize (file) {
                 this.upload_status = false
-                myDialog('文件 ' + file.name + ' 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
+                myDialog('文件 (' + file.name + ') 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
             },
             handleFormatError(){
                 myDialog('请上传rar、zip、7z格式的文件',(this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
