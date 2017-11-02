@@ -30,7 +30,7 @@ class TagController extends Controller
             'name' => $request->data['name'],
             'thumb' => is_null($request->data['thumb']) ? '' : $request->data['thumb'],
             'pid' => $pid,
-            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : $request->data['type'][0] == 2 ? 2 : 3,
+            'type' => ($request->data['type'][0] == 1 || $request->data['type'][0] == 2 )? 1 : ($request->data['type'][0] == 3 ? 2 : 3),
             'status' => 1,
             'is_check' => 1,
             'is_for_user' => $request->data['is_for_user'],
@@ -52,7 +52,7 @@ class TagController extends Controller
             'name' => $request->data['name'],
             'thumb' => is_null($request->data['thumb']) ? '' : $request->data['thumb'],
             'pid' => $pid,
-            'type' => $request->data['type'][0] == 1 || $request->data['type'][0] == 2 ? 1 : $request->data['type'][0] == 2 ? 2 : 3,
+            'type' => ($request->data['type'][0] == 1 || $request->data['type'][0] == 2 )? 1 : ($request->data['type'][0] == 3 ? 2 : 3),
         ]);
 
         $tag = Tag::with('parent')->find($id);
