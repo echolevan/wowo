@@ -155,9 +155,14 @@
 
         var initCanvasSlideshow = new CanvasSlideshow({
             sprites: spriteImagesSrc,
-            displacementImage: '/water/crystalize.jpg',
-            autoPlay: false,
-            displaceScale: [300, 300],
+            displacementImage: '/water/clouds.jpg',
+            autoPlay: true,
+            autoPlaySpeed: [4, 3],
+            displaceScale: [5000, 10000],
+            interactive: true,
+            interactionEvent: 'click', // 'click', 'hover', 'both'
+            displaceAutoFit: false,
+            dispatchPointerOver: true, // restarts pointerover event after click
             fullScreen: true,
             texts: texts,
             textColor: "#224d94",
