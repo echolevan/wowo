@@ -48,7 +48,7 @@
         }
 
         .right_div{
-            box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+            box-shadow: 0 20px 20px 5px rgba(6, 17, 47, 0.7);
         }
     </style>
 </head>
