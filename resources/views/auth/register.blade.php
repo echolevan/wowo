@@ -21,11 +21,19 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('water/normalize.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('water/demo.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('water/component.css')}}"/>
     <link rel="stylesheet" href="{{ asset('/css/login_index.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/dialog.css') }}">
+    <script>document.documentElement.className = 'js';</script>
     <style>
+        canvas {
+            transform: translate(-50%, -50%) scale(1) !important;
+        }
+
         .lm_button{
             background: #266ec1;
         }
@@ -38,17 +46,33 @@
         button, input, select, textarea{
             font-family: Small Head !important;
         }
+
+        .right_div{
+            box-shadow: 0 20px 20px 5px rgba(6, 17, 47, 0.7);
+        }
     </style>
 </head>
 <body>
 <div id="app">
     <div class="left"  id="slider">
-        <img src="{{asset('images/01.jpg')}}" alt="" />
-        <img src="{{asset('images/bac2.jpg')}}" alt="" />
-        <img src="{{asset('images/bac3.jpg')}}" alt="" />
-    </div>
-    <div class="filter">
-
+        <main class="site-wrapper">
+            <div class="content">
+                <div class="slide-wrapper">
+                    <div class="slide-item">
+                        <img src="images/01.jpg" class="slide-item__image">
+                    </div>
+                    <div class="slide-item">
+                        <img src="images/bac2.jpg" class="slide-item__image">
+                    </div>
+                    <div class="slide-item">
+                        <img src="images/bac3.jpg" class="slide-item__image">
+                    </div>
+                </div>
+                <button class="scene-nav btn_click_back" data-nav="back"></button>
+                <button class="scene-nav btn_click_lm" data-nav="lm"></button>
+                <button class="scene-nav btn_click_bl" data-nav="bl"></button>
+            </div>
+        </main>
     </div>
     <div class="right">
         <div class="right_div">
@@ -116,20 +140,67 @@
 
 </div>
 <script src="{{ asset('/js/jq.js') }}"></script>
-<script src="{{ asset('js/login2.js') }}"></script>
+<script src="{{asset('water/demo.js')}}"></script>
+<script src="{{asset('water/pixi.min.js')}}"></script>
+<script src="{{asset('water/TweenMax.min.js')}}"></script>
+<script src="{{asset('water/main3.js')}}"></script>
+<script src="{{asset('water/imagesloaded.pkgd.min.js')}}"></script>
 <script src="{{ asset('js/jquery.transitions.js') }}"></script>
 <script src="{{ asset('js/vue.js') }}"></script>
 <script src="{{ asset('js/login_index.js') }}"></script>
 <script>
     $(function(){
+        imagesLoaded(document.body, () => document.body.classList.remove('loading'));
+
+        var spriteImages = document.querySelectorAll('.slide-item__image');
+        var spriteImagesSrc = [];
+        var texts = [];
+
+        for (var i = 0; i < spriteImages.length; i++) {
+
+            var img = spriteImages[i];
+            // Set the texts you want to display to each slide
+            // in a sibling element of your image and edit accordingly
+            if (img.nextElementSibling) {
+                texts.push(img.nextElementSibling.innerHTML);
+            } else {
+                texts.push('');
+            }
+            spriteImagesSrc.push(img.getAttribute('src'));
+
+        }
+
+        var initCanvasSlideshow = new CanvasSlideshow({
+            sprites: spriteImagesSrc,
+            displacementImage: '/water/clouds.jpg',
+            autoPlay: true,
+            autoPlaySpeed: [4, 3],
+            displaceScale: [5000, 10000],
+            interactive: true,
+            interactionEvent: 'click', // 'click', 'hover', 'both'
+            displaceAutoFit: false,
+            dispatchPointerOver: true, // restarts pointerover event after click
+            fullScreen: true,
+            texts: texts,
+            textColor: "#224d94",
+            centerSprites: true,
+            wacky: true
+        });
+
         var this_camp = ''
         var choice_time = 0
-        window.myFlux = new flux.slider('#slider', {
-            autoplay: false,
-            pagination: false,
-            transitions: ['zip'],
-            delay: 20
-        });
+
+        function get_button(val) {
+            if (val === '1') {
+                return '.btn_click_lm';
+            } else if (val === '2') {
+                return '.btn_click_bl';
+            } else {
+                return '.btn_click_back';
+            }
+        }
+
+
         $(document).on("change","select",function(){
             if(choice_time === 0){
                 $(".dialog").fadeIn();
@@ -149,13 +220,19 @@
             }else{
                 $(".my-button").removeClass('lm_button bl_button');
             }
-            window.myFlux.showImage(camp);
+
+            var who_click = get_button(camp);
+            setTimeout(function () {
+                $(who_click).click();
+            }, 20)
         });
+
         $('select').niceSelect();
 
         let camp = $("select[name='camp']").val();
         if(camp){
-            window.myFlux.showImage(camp);
+            var who_click = get_button(camp);
+            $(who_click).click();
             $(".my-button").addClass(camp === '1' ? 'lm_button' : 'bl_button');
         }
 

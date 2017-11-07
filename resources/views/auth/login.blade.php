@@ -21,9 +21,17 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/login2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('water/normalize.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('water/demo.css')}}"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('water/component.css')}}"/>
+    <script>document.documentElement.className = 'js';</script>
     <style>
+        canvas {
+            transform: translate(-50%, -50%) scale(1) !important;
+        }
+
         .lm_button {
             background: #266ec1;
         }
@@ -32,6 +40,9 @@
             background: #d13030;
         }
 
+        .cont_form_login input {
+            width: 280px;
+        }
         body {
             font-family: Small Head !important;
         }
@@ -39,18 +50,37 @@
         button, input, select, textarea {
             font-family: Small Head !important;
         }
+
+        .right_div{
+            box-shadow: 0 20px 20px 5px rgba(6, 17, 47, 0.7);
+        }
     </style>
 </head>
 <body>
 <div>
     <div class="left" id="slider">
-        <img src="{{asset('images/01.jpg')}}" alt=""/>
-        <img src="{{asset('images/bac2.jpg')}}" alt=""/>
-        <img src="{{asset('images/bac3.jpg')}}" alt=""/>
-        <img src="{{asset('images/02.jpg')}}" alt=""/>
-    </div>
-    <div class="filter">
-
+        <main class="site-wrapper">
+            <div class="content">
+                <div class="slide-wrapper">
+                    <div class="slide-item">
+                        <img src="images/01.jpg" class="slide-item__image">
+                    </div>
+                    <div class="slide-item">
+                        <img src="images/bac2.jpg" class="slide-item__image">
+                    </div>
+                    <div class="slide-item">
+                        <img src="images/bac3.jpg" class="slide-item__image">
+                    </div>
+                    <div class="slide-item">
+                        <img src="images/02.jpg" class="slide-item__image">
+                    </div>
+                </div>
+                <button class="scene-nav btn_click_back" data-nav="back"></button>
+                <button class="scene-nav btn_click_lm" data-nav="lm"></button>
+                <button class="scene-nav btn_click_bl" data-nav="bl"></button>
+                <button class="scene-nav btn_click_default" data-nav="default"></button>
+            </div>
+        </main>
     </div>
     <div class="right">
         <div class="right_div">
@@ -69,7 +99,7 @@
                     @endif
                     <br>
                     <input type="text" name="captcha" placeholder="请输入验证码" style="width: 50%;float: left">
-                    <div style="margin: 15px 0 15px 20px; float: left;" class="captcha">{!! captcha_img() !!}</div>
+                    <div style="margin: 15px 0 15px 0; float: right;" class="captcha">{!! captcha_img() !!}</div>
                     <div style="clear: both"></div>
                     @if ($errors->has('captcha'))
                         <p>{{ $errors->first('captcha') }}</p>
@@ -79,6 +109,8 @@
                     @else
                         <button class="btn_login my-button" onclick="cambiar_login()">登录</button>
                     @endif
+
+                    <div style="clear: both"></div>
                 </form>
                 <span>
                                     <a href="/password/reset" style="color: #fff">忘记密码</a>
@@ -93,21 +125,69 @@
     </div>
 </div>
 <script src="{{ asset('/js/jq.js') }}"></script>
-<script src="{{ asset('js/login2.js') }}"></script>
+<script src="{{asset('water/demo.js')}}"></script>
+<script src="{{asset('water/pixi.min.js')}}"></script>
+<script src="{{asset('water/TweenMax.min.js')}}"></script>
+<script src="{{asset('water/main3.js')}}"></script>
+<script src="{{asset('water/imagesloaded.pkgd.min.js')}}"></script>
 <script>
     $(function () {
-        var this_camp = 0;
-        let camp = $("select[name='camp']").val();
-        if (camp) {
-            window.myFlux.showImage(camp);
+
+        imagesLoaded(document.body, () => document.body.classList.remove('loading'));
+
+        var spriteImages = document.querySelectorAll('.slide-item__image');
+        var spriteImagesSrc = [];
+        var texts = [];
+
+        for (var i = 0; i < spriteImages.length; i++) {
+
+            var img = spriteImages[i];
+            // Set the texts you want to display to each slide
+            // in a sibling element of your image and edit accordingly
+            if (img.nextElementSibling) {
+                texts.push(img.nextElementSibling.innerHTML);
+            } else {
+                texts.push('');
+            }
+            spriteImagesSrc.push(img.getAttribute('src'));
+
         }
 
-        window.myFlux = new flux.slider('#slider', {
-            autoplay: false,
-            pagination: false,
-            transitions: ['zip'],
-            delay: 20
+        var initCanvasSlideshow = new CanvasSlideshow({
+            sprites: spriteImagesSrc,
+            displacementImage: '/water/clouds.jpg',
+            autoPlay: true,
+            autoPlaySpeed: [4, 3],
+            displaceScale: [5000, 10000],
+            interactive: true,
+            interactionEvent: 'click', // 'click', 'hover', 'both'
+            displaceAutoFit: false,
+            dispatchPointerOver: true, // restarts pointerover event after click
+            fullScreen: true,
+            texts: texts,
+            textColor: "#224d94",
+            centerSprites: true,
+            wacky: true
         });
+
+        var this_camp = 0;
+
+
+        function get_button(val) {
+            if (val === 1) {
+                return '.btn_click_lm';
+            } else if (val === 2) {
+                return '.btn_click_bl';
+            } else {
+                return '.btn_click_back';
+            }
+        }
+
+        let camp = $("select[name='camp']").val();
+        if (camp) {
+            var who_click = get_button(camp);
+            $(who_click).click();
+        }
 
         $(".captcha").click(function () {
             let url = '{{captcha_src()}}' + Math.random();
@@ -120,7 +200,7 @@
             } else {
                 $(".my-button").removeClass('lm_button bl_button');
                 this_camp = 0
-                window.myFlux.showImage(0);
+                $('.btn_click_back').click();
             }
         })
 
@@ -130,7 +210,7 @@
             } else {
                 $(".my-button").removeClass('lm_button bl_button');
                 this_camp = 3
-                window.myFlux.showImage(3);
+                $('.btn_click_default').click();
             }
         })
 
@@ -140,6 +220,7 @@
                 type: 'post',
                 data: {email: $("input[name='email']").val(), '_token': "{{csrf_token()}}"},
                 success: function (res) {
+
                     if (res.sta === 1) {
                         if (this_camp === res.camp) {
                             return false
@@ -148,13 +229,14 @@
                         }
                         $(".my-button").removeClass('lm_button bl_button');
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
-                        window.myFlux.showImage(res.camp);
+                        var who_click = get_button(res.camp);
+                        $(who_click).click();
                     } else {
                         if (this_camp === 0 || this_camp === 3) {
 
                         } else {
                             this_camp = 0
-                            window.myFlux.showImage(0);
+                            $('.btn_click_back').click();
                         }
 
                     }
