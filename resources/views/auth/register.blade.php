@@ -46,6 +46,10 @@
         button, input, select, textarea{
             font-family: Small Head !important;
         }
+
+        .right_div{
+            box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+        }
     </style>
 </head>
 <body>
