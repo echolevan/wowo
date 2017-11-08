@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Levan\Baidu\Stat\BaiduStatFacade;
 
 class GetBaidu extends Command
@@ -44,6 +45,9 @@ class GetBaidu extends Command
         try{
             $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
             $total_person = isset($total_person['info']['body']['data'][0]['result']['sum']['0'][1]) ? $total_person['info']['body']['data'][0]['result']['sum']['0'][1]: 0;
+            Log::info('baiduTG---begin');
+            Log::info($total_person);
+            Log::info('baiduTG---ebd');
         }catch(\Exception $e){
             $total_person = 0;
         }
