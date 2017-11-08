@@ -41,27 +41,32 @@ class PlugController extends Controller
         $tag_active_pid = isset($request->tag_active_pid) ? $request->tag_active_pid : 0;
         $limit = isset($request->page) ? ($request->page - 1) * 10 : 0;
         $keyWord = isset($request->keyword) ? $request->keyword : '';
+        $serBy = isset($request->serBy) ? $request->serBy : '';
 
         if ($tag_active_pid == 0) {
             // 查询type_one
             $where = "type_one = " . $tag_active;
         } else {
-            $where = "type_two = " . $tag_active;
+            $where = "type_two = " . $tag_active . " or (type = {$type} and type_one = {$tag_active_pid} and type_two = 0)";
         }
 
         $plugs = Plug::where('type', $type)
             ->with('thumbs')
-            ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
-                return $query->whereRaw($where);
-            })
+
             ->when($keyWord != '', function ($query) use ($keyWord) {
                 return $query->where('title', 'like', "%$keyWord%");
+            })
+            ->when($serBy != '', function ($query) use ($serBy) {
+                return $query->where('game_version', $serBy);
             })
             ->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])
             ->where('is_new',1)
             ->where([['status', 1], ['is_check', 1]])
+            ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
+                return $query->whereRaw($where);
+            })
             ->skip($limit)->take(10)
 
             ->orderBy($orderBy, 'desc')
@@ -78,7 +83,9 @@ class PlugController extends Controller
             ->where([['status', 1], ['is_check', 1]])
             ->count();
 
-        return ['plugs' => $plugs, 'count' => $count];
+        // get game_version
+        $game_version = Tool::where('name','game_version')->pluck('value');
+        return ['plugs' => $plugs, 'count' => $count, 'game_version'=>$game_version];
     }
 
 
@@ -385,7 +392,7 @@ class PlugController extends Controller
      */
     public function plug_all_info ()
     {
-        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
+        $tag = [[1, 1, 'WA'], [1,2,'TMW'] , [2, 3, '魔兽插件'], [3, 4, 'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -416,11 +423,11 @@ class PlugController extends Controller
             $tag = [ [1,2,'TMW']];
             $name = 'null';
         }else if($type === 'addons'){
-            $tag = [ [2, 3, '游戏插件']];
+            $tag = [ [2, 3, '魔兽插件']];
         }else if($type === 'elvui'){
             $tag = [ [3, 4, 'ElvUI']];
         } else {
-            $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
+            $tag = [[1, 1, 'WA'], [1,2,'TMW'], [2, 3, '魔兽插件'], [3, 4, 'ElvUI']];
             $name = 'null';
         }
 
@@ -450,7 +457,7 @@ class PlugController extends Controller
 
     public function plug_all_info_for_admin()
     {
-        $tag = [[1, 1, 'WA/TMW'], [2, 3, '游戏插件'] , [3, 4, 'ElvUI']];
+        $tag = [[1, 1, 'WA/TMW'], [3, 4, 'ElvUI'] , [2, 3, '魔兽插件']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -489,7 +496,7 @@ class PlugController extends Controller
 
     public function plug_all_info_nav()
     {
-        $tag = [[1, 1, 'WA'] , [1,2,'TMW'], [2, 3, '游戏插件'], [3, 4, 'ElvUI']];
+        $tag = [[1, 1, 'WA'] , [1,2,'TMW'], [2, 3, '魔兽插件'], [3, 4, 'ElvUI']];
 
         $res = [];
         foreach ($tag as $k => $v) {
@@ -720,6 +727,13 @@ class PlugController extends Controller
             Cache::put('plug_index_plug',$plug,60);
         }
 
+        if(Cache::has('plug_index_elvuis')){
+            $elvuis = Cache::get('plug_index_elvuis');
+        }else{
+            $elvuis = Plug::where('is_new',1)->where('type',4)->skip(0)->take(20)->select('id','title','created_at','download_num')->where([['status', 1], ['is_check', 1]])->latest()->get();
+            Cache::put('plug_index_elvuis',$elvuis,60);
+        }
+
         if(Cache::has('plug_index_new_user')){
             $user = Cache::get('plug_index_new_user');
         }else{
@@ -775,6 +789,7 @@ class PlugController extends Controller
             $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->count();
             $census['was_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',1)->count();
             $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',2)->count();
+            $census['elvui_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',4)->count();
             $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',3)->count();
             $census['today_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
             $census['last_time'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->orderBy('created_at','desc')->value('created_at');
@@ -790,7 +805,7 @@ class PlugController extends Controller
         }
 
         $today_time = Date('Y-m-d');
-        return ['was'=>$wa,'tmws'=>$tmw,'plugs'=>$plug,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
+        return ['was'=>$wa,'tmws'=>$tmw,'plugs'=>$plug, 'elvuis'=>$elvuis ,'today_time'=>$today_time,'recent_plugs'=>$recent_plugs,'download_plugs'=>$download_plugs,'new_user'=>$user,'download_plugs_this_mouth'=>$download_plugs_this_mouth,'census'=>$census ,'total_person'=>$total_person];
     }
 
     public function delete($id)
@@ -924,6 +939,7 @@ class PlugController extends Controller
 
         PlugDel::where('plug_id',$id)->delete();
 
+        del_cache();
         return ['sta'=>1];
     }
 

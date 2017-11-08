@@ -195,24 +195,18 @@
         })
 
         $(".input_e").focus(function () {
-            if (this_camp === 1 || this_camp === 2 || this_camp === 0) {
+            setTimeout(function () {
+                if (this_camp === 1 || this_camp === 2 || this_camp === 0) {
 
-            } else {
-                $(".my-button").removeClass('lm_button bl_button');
-                this_camp = 0
-                $('.btn_click_back').click();
-            }
+                } else {
+                    $(".my-button").removeClass('lm_button bl_button');
+                    this_camp = 0
+                    $('.btn_click_back').click();
+                }
+            },300)
         })
 
-        $(".input_p").focus(function () {
-            if (this_camp === 1 || this_camp === 2 || this_camp === 3) {
 
-            } else {
-                $(".my-button").removeClass('lm_button bl_button');
-                this_camp = 3
-                $('.btn_click_default').click();
-            }
-        })
 
         $(".input_e").blur(function () {
             $.ajax({
@@ -220,7 +214,6 @@
                 type: 'post',
                 data: {email: $("input[name='email']").val(), '_token': "{{csrf_token()}}"},
                 success: function (res) {
-
                     if (res.sta === 1) {
                         if (this_camp === res.camp) {
                             return false
@@ -230,6 +223,7 @@
                         $(".my-button").removeClass('lm_button bl_button');
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
                         var who_click = get_button(res.camp);
+                        console.log(who_click)
                         $(who_click).click();
                     } else {
                         if (this_camp === 0 || this_camp === 3) {
@@ -242,6 +236,19 @@
                     }
                 }
             })
+        })
+
+
+        $(".input_p").focus(function () {
+            setTimeout(function () {
+                if (this_camp === 1 || this_camp === 2 || this_camp === 3) {
+
+                } else {
+                    $(".my-button").removeClass('lm_button bl_button');
+                    this_camp = 3
+                    $('.btn_click_default').click();
+                }
+            },300)
         })
     })
 </script>

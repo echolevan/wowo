@@ -42,9 +42,13 @@ class UploadController extends Controller
         if (!in_array($request->file('file')->getClientMimeType(), config('my.img_type'))) {
             return ['sta' => 0, 'msg' => '请上传PNG、GIF、JPG格式的图片'];
         }
-        if ($request->file('file')->getSize() > 1024 * 1024 * 2) {
+
+        if(strtolower($request->file('file')->getClientOriginalExtension()) === 'gif' && $request->file('file')->getSize() > 1024 * 1024 * 50){
+            return ['sta' => 0, 'msg' => '请上传小于50M的GIF'];
+        }else if (strtolower($request->file('file')->getClientOriginalExtension()) !== 'gif' && $request->file('file')->getSize() > 1024 * 1024 * 2) {
             return ['sta' => 0, 'msg' => '请上传小于2M的图片'];
         }
+
 //        $ext = $request->file('file')->getClientOriginalExtension();
         $path = "image/".date('Y-m-d');
         $url = upload_img($request->file('file'), $path);

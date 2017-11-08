@@ -6,14 +6,15 @@
             </Form-item>
             <Form-item label="分类" prop="type">
                 <Cascader v-if="plug_tags && plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
-                          @on-change="on_sel" :disabled="$route.params.id ? true : false"></Cascader>
+                          @on-change="on_sel" :disabled="$route.params.id ? true : false" change-on-select></Cascader>
             </Form-item>
 
             <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
                 <Input v-model="formItem.name" placeholder="插件名称" :disabled="$route.params.id ? true : false"></Input>
             </Form-item>
 
-            <Form-item label="插件作者" prop="author" v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' && selectedDataName != '怀旧插件' ">
+            <Form-item label="插件作者" prop="author"
+                       v-show="formItem.type[0] === 3 && selectedDataName != '原创插件' && selectedDataName != '整合界面' && selectedDataName != '怀旧插件' ">
                 <Input v-model="formItem.author" placeholder="作者信息"></Input>
             </Form-item>
 
@@ -57,7 +58,8 @@
 
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4" prop="content">
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4"
+                       prop="content">
                 <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
                        v-on:input="keyUp"></Input>
                 <p class="pull-right "
@@ -71,7 +73,7 @@
                 <Upload action="/upload_plug_info_plug"
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
-                        :max-size="selectedDataName === '整合界面' ? 307200 : 1024"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
                         :format="['rar','zip','7z']"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -171,6 +173,8 @@
             const validateType = (rule, value, callback) => {
                 if (value.length === 0) {
                     callback(new Error('分类不能为空'));
+                } else if (value.length < 2) {
+                    callback(new Error('不能选择一级分类'));
                 } else {
                     callback();
                 }
@@ -250,9 +254,7 @@
                     plug_url: '',
                     name: ''
                 },
-                defaultList: [
-
-                ],
+                defaultList: [],
                 selectedDataName: '',
                 upload_type: '',
                 imgName: '',
@@ -335,13 +337,13 @@
                 }
             },
             defaultList(v) {
-                for(let i =0 ;i <v.length;i++){
+                for (let i = 0; i < v.length; i++) {
                     this.formItem.uploadList.push(v[i])
                 }
             }
         },
         methods: {
-            handleMaxSize (file) {
+            handleMaxSize(file) {
                 myDialog('文件 (' + file.name + ') 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                 this.upload_status = false
             },
@@ -411,7 +413,7 @@
                     }).catch(error => {
                         history.go(-1)
                     })
-                }else{
+                } else {
                     this.selectedDataName = tag_name
                 }
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
@@ -506,9 +508,9 @@
                 }
             },
             handlePlugUpload() {
-                if(!this.upload_status){
+                if (!this.upload_status) {
                     this.upload_status = true
-                }else{
+                } else {
                     myDialog('请等待上传完成', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                     return false
                 }

@@ -29,15 +29,19 @@
                     <li class="has-dropdown links" data-content="elvui">
                         <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'elvui'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            ElvUi
+                            ElvUI
                         </router-link>
                     </li>
 
                     <li class="has-dropdown links" data-content="addons">
                         <router-link class="nav_link" :to="{name:'watmw.index' , params:{'type':'addons'}}"
                                      :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            游戏插件
+                            魔兽插件
                         </router-link>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav_link"
+                           :class="{'bl_active_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"><span>魔兽DB</span></a>
                     </li>
                     <li>
                         <a href="javascript:void(0)" class="nav_link"
@@ -147,7 +151,7 @@
                         </li>
                         <li id="addons" class="dropdown links">
                             <div class="content">
-                                <ul v-for="v in nav_tags" v-if="v.label === '游戏插件'">
+                                <ul v-for="v in nav_tags" v-if="v.label === '魔兽插件'">
                                     <li v-for="vv in v.children">
                                         <h2 class="hover_hand normal_font"
                                             :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -196,7 +200,7 @@
                 configUrl: {
                     'TMW': 'tmw',
                     'WA': 'wa',
-                    '游戏插件': 'plug'
+                    '魔兽插件': 'plug'
                 },
                 keyword: ''
             }

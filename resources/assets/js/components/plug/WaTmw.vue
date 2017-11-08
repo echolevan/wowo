@@ -72,6 +72,13 @@
                             <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}
                             </Option>
                         </Select>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        游戏版本：
+                        <Select v-model="serBy" size="small" style="width:100px" clearable placeholder="所有版本" @on-change="change_order"
+                                :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <Option v-for="item in game_version" :value="item" :key="item">{{ item }}
+                            </Option>
+                        </Select>
                         <Page v-if="plugs.length > 0" ref="pageThis"
                               :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                               :total="plugs_count" size="small" @on-change="change_page" style="float:right" show-total
@@ -99,7 +106,10 @@
                             <span>{{plug.updated_at}}</span>
                             <Icon type="ios-star-outline"></Icon>
                             <span>{{plug.collect_num}}</span>
+
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
+                            <Icon type="ios-game-controller-b-outline"></Icon>
+                            <span>{{plug.game_version}}</span>
                             <span
                                     class="normal_font"
                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -111,8 +121,10 @@
                                   >
                                 <span v-if="plug.is_pay" class="my_gold"><s>{{plug.gold}}</s></span>
                                 <span v-else class="my_gold">{{plug.gold}}</span>
+
                             </span>
                             </span>
+
                             <span v-if="plug.is_pay" style="color: rgb(209, 48, 48);">[已购买]</span>
                             <div style="width:600px;max-height: 100px;" class="over_div" v-html="plug.n_h_c"></div>
                         </div>
@@ -326,9 +338,11 @@
                 tags: [],
                 orderBy: '1',
                 keyword: '',
+                serBy: '',
                 tag_active: 0,
                 tag_active_pid: 0,
                 plugs: [],
+                game_version: [],
                 plugs_count: -1,
                 this_page: 1,
                 download_model: false,
@@ -408,10 +422,12 @@
                     tag_active: this.tag_active,
                     tag_active_pid: this.tag_active_pid,
                     page: this.this_page,
-                    keyword: this.keyword
+                    keyword: this.keyword,
+                    serBy: this.serBy
                 }).then(res => {
                     this.plugs = res.data.plugs
                     this.plugs_count = res.data.count
+                    this.game_version = res.data.game_version
                     this.this_page = 1
                 })
             },

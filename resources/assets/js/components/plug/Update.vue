@@ -7,7 +7,7 @@
 
             <Form-item label="分类" prop="type">
                 <Cascader v-if="plug_tags && plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
-                          @on-change="on_sel"></Cascader>
+                          @on-change="on_sel"  change-on-select></Cascader>
             </Form-item>
 
             <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
@@ -71,7 +71,7 @@
                         :data="{'tag_one': selectedDataName}"
                         ref="uploadPlug"
                         :format="['zip','7z','rar']"
-                        :max-size="selectedDataName === '整合界面' ? 307200 : 1024"
+                        :max-size="selectedDataName === '整合界面' ? 307200 : 10240"
                         :on-exceeded-size="handleMaxSize"
                         :on-format-error="handleFormatError"
                         :headers='{ "X-CSRF-TOKEN" : csrfToken}'
@@ -170,6 +170,8 @@
             const validateType = (rule, value, callback) => {
                 if (value.length === 0) {
                     callback(new Error('分类不能为空'));
+                } else if (value.length < 2) {
+                    callback(new Error('不能选择一级分类'));
                 } else {
                     callback();
                 }

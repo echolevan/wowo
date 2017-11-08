@@ -86,7 +86,7 @@
                             <br/>
 
                             <div class="col-xs-4">
-                                <small class="stat-label">游戏插件</small>
+                                <small class="stat-label">魔兽插件</small>
                                 <h4>{{info.plug_plug}}</h4>
                             </div>
                             <div class="col-xs-4">
