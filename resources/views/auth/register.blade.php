@@ -224,7 +224,7 @@
             var who_click = get_button(camp);
             setTimeout(function () {
                 $(who_click).click();
-            }, 20)
+            }, 200)
         });
 
         $('select').niceSelect();
