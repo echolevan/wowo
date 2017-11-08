@@ -71,15 +71,16 @@
                                 v-on:mouseenter="is_title_hover = 2"
                         >网站统计</strong>
                     </div>
-                    <div class="tool_user_child child" style="height: 100px">
+                    <div class="tool_user_child child" style="height: 120px">
                         <span v-if="is_title_hover === 1">{{tools.notice}}</span>
                         <ul v-else>
                             <div class="col-md-6">
                                 <li>资源总数：{{census.plugs_count}}</li>
                                 <li>WA资源：{{census.was_count}}</li>
+                                <li>ElvUI资源：{{census.elvui_count}}</li>
                             </div>
                             <div class="col-md-6">
-                                <li>游戏插件：{{census.youxi_count}}</li>
+                                <li>魔兽插件：{{census.youxi_count}}</li>
                                 <li>TMW资源：{{census.tmws_count}}</li>
                             </div>
                             <div class="col-md-12">
@@ -193,11 +194,35 @@
                 </div>
             </iCol>
             <div style="clear: both"></div>
-            <!--游戏插件-->
             <iCol span="9">
-                <div class="div_block my_card_hover" style="margin-left: 0">
+            <div class="div_block my_card_hover" style="margin-left: 0">
+                <div class="tool_user title">
+                    <strong>ElvUI</strong>
+                    <router-link to="/resources/elvui" class="pull-right my_a_style"
+                                 style="padding-right: 10px;font-size: 12px;width:40px">更多
+                    </router-link>
+                </div>
+                <div class="tool_user_child child">
+                    <ul>
+                        <li v-for="v in elvuis">
+                            <router-link :title="v.title"
+                                         :to="{name:'plug.info' , params:{id: v.id}}">
+                                <Icon type="arrow-right-b"></Icon>
+                                <strong class="my_a_style normal_font_hover"
+                                        :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                        style="padding-left: 10px;">{{v.title.substring(0, 20)}}</strong>
+                            </router-link>
+                            <span class="pull-right">{{v.d_n}}次下载 -  <span :style="todd_time === v.created_at ? 'color:#d13030' : ''">{{v.created_at}}</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </iCol>
+            <!--魔兽插件-->
+            <iCol span="10" style="padding-right: 15px">
+                <div class="div_block my_card_hover">
                     <div class="tool_user title">
-                        <strong>游戏插件</strong>
+                        <strong>魔兽插件</strong>
                         <router-link to="/resources/addons" class="pull-right my_a_style"
                                      style="padding-right: 10px;font-size: 12px;width:40px">更多
                         </router-link>
@@ -217,19 +242,6 @@
                         </ul>
                     </div>
                 </div>
-            </iCol>
-            <iCol span="10" style="padding-right: 15px">
-            <div class="div_block my_card_hover">
-                <div class="tool_user title">
-                    <strong>易游</strong>
-                    <!--<router-link to="javascript:void(0)" class="pull-right my_a_style"-->
-                                 <!--style="padding-right: 10px;font-size: 12px;width: 40px">更多-->
-                    <!--</router-link>-->
-                </div>
-                <div class="tool_user_child child">
-
-                </div>
-            </div>
             </iCol>
             <!--月下载量排行-->
             <iCol span="5">
@@ -277,6 +289,7 @@
                 },
                 tmws: [],
                 plugs: [],
+                elvuis: [],
                 total_person: '',
                 new_user: '',
                 recent_plugs: [],
@@ -368,6 +381,7 @@
                     this.plugs = res.data.plugs
                     this.was = res.data.was
                     this.tmws = res.data.tmws
+                    this.elvuis = res.data.elvuis
                     this.recent_plugs = res.data.recent_plugs
                     this.download_plugs = res.data.download_plugs
                     this.download_plugs_this_mouth = res.data.download_plugs_this_mouth

@@ -15,7 +15,7 @@ class AddTypeToOrders extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             //
-            $table->tinyInteger('type')->default(1)->comment('1是wa 2是tmw 3是游戏插件 4是黑市');
+            $table->tinyInteger('type')->default(1)->comment('1是wa 2是tmw 3是魔兽插件 4是黑市');
         });
     }
 

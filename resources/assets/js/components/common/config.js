@@ -1,6 +1,6 @@
 export const tagType = {
     1 : 'WA/TMW',
-    2: '游戏插件',
+    2: '魔兽插件',
     3: 'ElvUI'
 }
 export const statusType = {
@@ -36,7 +36,7 @@ export const isLogin = {
 export const plugType = {
     1: 'WA',
     2: 'TMW',
-    3: '游戏插件',
+    3: '魔兽插件',
     4: 'ElvUI'
 }
 

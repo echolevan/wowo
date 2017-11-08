@@ -24,6 +24,7 @@
                                         :to="{name:'watmw.index' , params:{'type':configUrl[plug.type_name] , 'active': plug.tag_two.id , 'active_pid': plug.tag_one.id}}">{{plug.tag_two ? plug.tag_two.name : ''}}</router-link>
                             </span>
                             <span>版本号： {{plug.version}}</span>
+                            <span>游戏版本： {{plug.game_version}}</span>
                             <span v-if="plug.is_free === 0">免费</span><span v-else>需消耗
                             <span class="gold_class"
                                   :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -342,7 +343,7 @@
                 configUrl: {
                     'TMW': 'tmw',
                     'WA': 'wa',
-                    '游戏插件': 'addons',
+                    '魔兽插件': 'addons',
                     'ElvUI': 'elvui',
                 },
                 wechat_scan: false,
