@@ -71,20 +71,17 @@
                                 v-on:mouseenter="is_title_hover = 2"
                         >网站统计</strong>
                     </div>
-                    <div class="tool_user_child child" style="height: 120px">
+                    <div class="tool_user_child child" style="height: 100px">
                         <span v-if="is_title_hover === 1">{{tools.notice}}</span>
                         <ul v-else>
                             <div class="col-md-6">
-                                <li>资源总数：{{census.plugs_count}}</li>
                                 <li>WA资源：{{census.was_count}}</li>
                                 <li>ElvUI资源：{{census.elvui_count}}</li>
+                                <li>资源总数：{{census.plugs_count}}</li>
                             </div>
                             <div class="col-md-6">
-                                <li>魔兽插件：{{census.youxi_count}}</li>
                                 <li>TMW资源：{{census.tmws_count}}</li>
-                            </div>
-                            <div class="col-md-12">
-                                <li>最近更新：{{census.last_time}}</li>
+                                <li>魔兽插件：{{census.youxi_count}}</li>
                             </div>
                             <div style="clear: both"></div>
                         </ul>
