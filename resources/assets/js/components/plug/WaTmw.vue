@@ -72,7 +72,8 @@
                             <Option v-for="item in orderByList" :value="item.value" :key="item.value">{{ item.label }}
                             </Option>
                         </Select>
-                        筛选：
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        游戏版本：
                         <Select v-model="serBy" size="small" style="width:100px" clearable  @on-change="change_order"
                                 :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <Option v-for="item in game_version" :value="item" :key="item">{{ item }}
