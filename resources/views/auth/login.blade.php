@@ -66,10 +66,10 @@
                         <img src="images/01.jpg" class="slide-item__image">
                     </div>
                     <div class="slide-item">
-                        <img src="images/bac2.jpg" class="slide-item__image">
+                        <img src="images/bac1.jpg" class="slide-item__image">
                     </div>
                     <div class="slide-item">
-                        <img src="images/bac3.jpg" class="slide-item__image">
+                        <img src="images/bac2.jpg" class="slide-item__image">
                     </div>
                     <div class="slide-item">
                         <img src="images/02.jpg" class="slide-item__image">

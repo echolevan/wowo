@@ -43,9 +43,9 @@
 <body>
 <div id="app">
     <div class="left"  id="slider">
-        <img src="{{asset('images/01.jpg')}}" alt="" />
+        <img src="{{asset('images/default.jpg')}}" alt="" />
+        <img src="{{asset('images/bac1.jpg')}}" alt="" />
         <img src="{{asset('images/bac2.jpg')}}" alt="" />
-        <img src="{{asset('images/bac3.jpg')}}" alt="" />
     </div>
     <div class="filter">
 
