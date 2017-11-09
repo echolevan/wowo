@@ -59,7 +59,7 @@
             <div class="content">
                 <div class="slide-wrapper">
                     <div class="slide-item">
-                        <img src="images/01.jpg" class="slide-item__image">
+                        <img src="images/default.jpg" class="slide-item__image">
                     </div>
                     <div class="slide-item">
                         <img src="images/bac2.jpg" class="slide-item__image">
