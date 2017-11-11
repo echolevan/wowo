@@ -419,7 +419,7 @@
                 axios.get(`plug_all_info_type/${type}/${tag_name}`).then(res => {
                     this.plug_tags = res.data.res
                     if (tag_name !== null) {
-                        let num = tag_name === '整合界面' ? 0 : tag_name === '怀旧插件' ? 1 : 2
+                        let num = tag_name === '整合界面' ? 0 : tag_name === '怀旧插件' ? 2 : 1
                         this.formItem.type = [res.data.res[0].value, res.data.res[0].children[num].value]
                     }
                     this.game_versions = res.data.game_versions

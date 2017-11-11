@@ -84,7 +84,7 @@ class PlugController extends Controller
             ->count();
 
         // get game_version
-        $game_version = Tool::where('name','game_version')->pluck('value');
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->pluck('value');
         return ['plugs' => $plugs, 'count' => $count, 'game_version'=>$game_version];
     }
 
@@ -440,7 +440,7 @@ class PlugController extends Controller
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1]])
                 ->when(isset($name) && $name !== 'null',function($query) use ($name) {
                     $query->where('name','整合界面')->orWhere('name','原创插件')->orWhere('name','怀旧插件')
-                        ->orderBy("name",'desc');
+                        ->orderBy("rank",'desc');
                 })
                 ->when(Auth::user()->is_admin === 0 , function ($query){
                     $query->where('is_for_user', 1);

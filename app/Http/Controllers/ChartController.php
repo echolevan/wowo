@@ -25,11 +25,14 @@ class ChartController extends Controller
         $res['user_lm'] = isset($user[1]) ? count($user[1]) : 0;
         $res['user_bl'] = isset($user[2]) ? count($user[2]) : 0;
 
-        $plug = Plug::select('id','type')->get();
+        $plug = Plug::select('id','type')
+            ->where([['status', 1], ['is_check', 1]])
+            ->get();
         $res['plug_count'] = count($plug);
         $plug = $plug->groupBy('type');
         $res['plug_wa'] = isset($plug[1]) ? count($plug[1]) : 0;
         $res['plug_tmw'] = isset($plug[2]) ? count($plug[2]) : 0;
+        $res['plug_elvui'] = isset($plug[4]) ? count($plug[4]) : 0;
         $res['plug_plug'] = isset($plug[3]) ? count($plug[3]) : 0;
 
         $r = Recharge::where('status',9)->sum('recharge_amount');

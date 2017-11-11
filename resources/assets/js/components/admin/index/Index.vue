@@ -85,17 +85,21 @@
                             <div class="mb15"></div>
                             <br/>
 
-                            <div class="col-xs-4">
+                            <div class="col-xs-3">
                                 <small class="stat-label">魔兽插件</small>
                                 <h4>{{info.plug_plug}}</h4>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-3">
                                 <small class="stat-label">WA</small>
                                 <h4>{{info.plug_wa}}</h4>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-3">
                                 <small class="stat-label">TMW</small>
                                 <h4>{{info.plug_tmw}}</h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <small class="stat-label">ElvUI</small>
+                                <h4>{{info.plug_elvui}}</h4>
                             </div>
                             <div style="clear: both"></div>
                         </div><!-- stat -->

@@ -204,11 +204,12 @@
                     $('.btn_click_back').click();
                 }
             },300)
-        })
+        });
 
-
+        var time_ip = 300;
 
         $(".input_e").blur(function () {
+            time_ip = 500;
             $.ajax({
                 url: "/check_login_email",
                 type: 'post',
@@ -223,7 +224,6 @@
                         $(".my-button").removeClass('lm_button bl_button');
                         $(".my-button").addClass(res.camp === 1 ? 'lm_button' : 'bl_button');
                         var who_click = get_button(res.camp);
-                        console.log(who_click)
                         $(who_click).click();
                     } else {
                         if (this_camp === 0 || this_camp === 3) {
@@ -236,10 +236,11 @@
                     }
                 }
             })
-        })
+        });
 
 
         $(".input_p").focus(function () {
+            time_ip = 300;
             setTimeout(function () {
                 if (this_camp === 1 || this_camp === 2 || this_camp === 3) {
 
@@ -248,7 +249,7 @@
                     this_camp = 3
                     $('.btn_click_default').click();
                 }
-            },300)
+            },time_ip)
         })
     })
 </script>
