@@ -77,7 +77,7 @@
                             <div class="col-md-6">
                                 <li>WA资源：{{census.was_count}}</li>
                                 <li>ElvUI资源：{{census.elvui_count}}</li>
-                                <li>资源总数：{{census.plugs_count}}</li>
+                                <li>资源总数：<span style="color: rgb(209, 48, 48);font-weight: bold">{{census.plugs_count}}</span></li>
                             </div>
                             <div class="col-md-6">
                                 <li>TMW资源：{{census.tmws_count}}</li>
@@ -181,7 +181,7 @@
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                            style="padding-left: 10px;">{{v.title.substring(0, 15)}}</strong>
+                                            style="padding-left: 10px;">{{v.title.substring(-1, 16)}}</strong>
                                 </router-link>
                                 <span class="pull-right"  style="color: #000000">{{v.d_n}}</span>
                                 <!--<span class="pull-right">{{v.created_at}}</span>-->
@@ -254,7 +254,7 @@
                                     <Icon type="arrow-right-b"></Icon>
                                     <strong class="my_a_style normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                                            style="padding-left: 10px;">{{v.title.substring(0, 15)}}</strong>
+                                            style="padding-left: 10px;">{{v.title.substring(-1, 16)}}</strong>
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
                                 </router-link>
 

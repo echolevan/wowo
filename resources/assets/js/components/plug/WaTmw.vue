@@ -103,7 +103,7 @@
                             <Icon type="ios-cloud-download-outline"></Icon>
                             <span>{{plug.d_n}}</span>
                             <Icon type="ios-clock-outline"></Icon>
-                            <span>{{plug.updated_at}}</span>
+                            <span><span :style="today_time === plug.created_at ? 'color:#d13030' : ''">{{plug.created_at}}</span></span>
                             <Icon type="ios-star-outline"></Icon>
                             <span>{{plug.collect_num}}</span>
 
@@ -361,7 +361,8 @@
                 wechat_scan: false,
                 wechat_scan_qr: '',
                 hc: 0,
-                is_wechat_pay: false
+                is_wechat_pay: false,
+                today_time: ''
             }
         },
         computed: mapState([
@@ -429,6 +430,7 @@
                     this.plugs_count = res.data.count
                     this.game_version = res.data.game_version
                     this.this_page = 1
+                    this.today_time = res.data.today_time
                 })
             },
 

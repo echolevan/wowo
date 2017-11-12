@@ -85,7 +85,7 @@ class PlugController extends Controller
 
         // get game_version
         $game_version = Tool::where('name','game_version')->orderBy('value','desc')->pluck('value');
-        return ['plugs' => $plugs, 'count' => $count, 'game_version'=>$game_version];
+        return ['plugs' => $plugs, 'count' => $count, 'game_version'=>$game_version, 'today_time'=>Date('Y-m-d')];
     }
 
 
@@ -449,7 +449,7 @@ class PlugController extends Controller
                 ->get();
         }
 
-        $game_version = Tool::where('name','game_version')->get();
+        $game_version = Tool::where('name','game_version')->orderBy('value','rank')->get();
 
 
         return ['res'=>$res , 'game_versions' =>$game_version];

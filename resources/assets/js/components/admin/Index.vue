@@ -6,13 +6,13 @@
             </div>
             <router-link to="/admin" class="ivu-menu-submenu" >
                 <Menu-item name="admin.index" style="padding-left: 24px">
-                    <Icon type="ios-paper"></Icon>
+                    <Icon type="home"></Icon>
                     主页
                 </Menu-item>
             </router-link>
             <Submenu name="4">
                 <template slot="title">
-                    <Icon type="ios-people"></Icon>
+                    <Icon type="earth"></Icon>
                     网站管理
                 </template>
                 <router-link to="/admin/tool/setting">
@@ -33,7 +33,7 @@
             </Submenu>
             <Submenu name="1">
                 <template slot="title">
-                    <Icon type="ios-paper"></Icon>
+                    <Icon type="ios-people"></Icon>
                     用户管理
                 </template>
                 <router-link to="/admin/user/list">
@@ -45,7 +45,7 @@
             </Submenu>
             <Submenu name="5">
                 <template slot="title">
-                    <Icon type="ios-paper"></Icon>
+                    <Icon type="cash"></Icon>
                     充值管理
                 </template>
                 <router-link to="/admin/recharge/list">
@@ -57,7 +57,7 @@
             </Submenu>
             <Submenu name="2">
                 <template slot="title">
-                    <Icon type="ios-people"></Icon>
+                    <Icon type="document-text"></Icon>
                     资源管理
                 </template>
                 <router-link to="/admin/plug/list">
@@ -75,7 +75,7 @@
             </Submenu>
             <Submenu name="3">
                 <template slot="title">
-                    <Icon type="ios-people"></Icon>
+                    <Icon type="cube"></Icon>
                     分类管理
                 </template>
                 <router-link to="/admin/tag/list">

@@ -151,7 +151,7 @@ class ToolController extends Controller
 
     public function game_version()
     {
-        $nickname = Tool::where('name','game_version')->get();
+        $nickname = Tool::where('name','game_version')->orderBy('value','rank')->get();
         return $nickname;
     }
 
