@@ -118,7 +118,7 @@ class PlugController extends Controller
         $plug = Plug::with('thumbs')
             ->with('tag_one')->with('tag_two')->with('user')
             ->with(['historys' => function ($query) {
-                $query->where('is_new',0)->select('id','plug_id','version','game_version','created_at','title','name','type','is_new')->latest()->orderBy('version','desc')->skip(0)->take(10);
+                $query->where('is_new',0)->select('id','plug_id','version','game_version','created_at','title','name','type','is_new')->orderBy('version','desc')->latest()->skip(0)->take(10);
             }])->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])->where('id',$id)->first();
