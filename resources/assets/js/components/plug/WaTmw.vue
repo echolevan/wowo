@@ -87,7 +87,7 @@
 
                     <div class="content" v-if="plugs.length > 0" v-for="(plug,k) in plugs">
                         <div class="img_view">
-                            <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : ''" alt="">
+                            <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : '/images/preview.jpg'" alt="">
                         </div>
                         <div class="content_main">
                             <router-link

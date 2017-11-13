@@ -4,7 +4,7 @@
             <Row style="border-bottom: 1px solid #ddd">
                 <iCol span="16" class="title">
                     <div class="img">
-                        <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : ''" alt="">
+                        <img :src="plug.thumbs.length > 0 ? plug.thumbs[0].thumb : '/images/preview.jpg'" alt="">
                     </div>
                     <div class="info">
                         <strong>{{plug.title}}</strong>
