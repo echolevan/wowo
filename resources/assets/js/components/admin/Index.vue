@@ -57,7 +57,7 @@
             </Submenu>
             <Submenu name="2">
                 <template slot="title">
-                    <Icon type="document-text"></Icon>
+                    <Icon type="filing"></Icon>
                     资源管理
                 </template>
                 <router-link to="/admin/plug/list">

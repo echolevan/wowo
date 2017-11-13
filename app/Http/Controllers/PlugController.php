@@ -408,8 +408,7 @@ class PlugController extends Controller
                 ->get();
         }
 
-        $game_version = Tool::where('name','game_version')->get();
-
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
@@ -449,7 +448,7 @@ class PlugController extends Controller
                 ->get();
         }
 
-        $game_version = Tool::where('name','game_version')->orderBy('value','rank')->get();
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
 
 
         return ['res'=>$res , 'game_versions' =>$game_version];
@@ -469,7 +468,7 @@ class PlugController extends Controller
                 ->orderBy('rank','asc')->oldest()->get();
         }
 
-        $game_version = Tool::where('name','game_version')->get();
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
 
@@ -489,7 +488,7 @@ class PlugController extends Controller
                 ->orderBy('rank','asc')->oldest()->get();
         }
 
-        $game_version = Tool::where('name','game_version')->get();
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
@@ -508,7 +507,7 @@ class PlugController extends Controller
                 ->orderBy('rank','asc')->oldest()->get();
         }
 
-        $game_version = Tool::where('name','game_version')->get();
+        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
