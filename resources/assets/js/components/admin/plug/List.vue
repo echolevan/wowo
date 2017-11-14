@@ -86,6 +86,7 @@
                 <th>售价</th>
                 <th>资源分类</th>
                 <th>资源查看</th>
+                <th>版本号</th>
                 <th>是否最新</th>
                 <th>下载次数</th>
                 <th>推荐次数</th>
@@ -122,6 +123,7 @@
                     <Tag type="border" color="blue" v-if="v.type < 3" class="clipboard" :data-clipboard-text="v.content" @click.native="clipboard">复制</Tag>
                     <a :href="v.content" target="_blank"  v-else><Tag type="border" color="red">下载</Tag></a>
                 </td>
+                <td>{{v.version}}</td>
                 <td>
                     <Tag type="border" color="blue">{{configYesOrNo[v.is_new]}}</Tag>
                 </td>
