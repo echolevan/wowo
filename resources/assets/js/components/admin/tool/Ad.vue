@@ -243,7 +243,7 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         watch: {
             defaultList(v) {
@@ -253,7 +253,7 @@
             }
         },
         methods: {
-            _init(){
+            ___init(){
                 axios.get('/admin/ad/index').then(res => {
                     this.list = res.data.ads
                 })
@@ -316,7 +316,7 @@
                                     this.$refs.upload.clearFiles()
                                     this.modal_add = false
                                     this.$Message.success('更新成功');
-                                    this._init()
+                                    this.___init()
                                 }else{
                                     this.$Message.error('更新失败');
                                 }
@@ -327,7 +327,7 @@
                                     this.$refs['formItem'].resetFields()
                                     this.$refs.upload.clearFiles()
                                     this.modal_add = false
-                                    this._init()
+                                    this.___init()
                                     this.$Message.success('添加成功');
                                 }else{
                                     this.$Message.error('添加失败');
@@ -382,7 +382,7 @@
             del_this(v){
                 axios.delete(`/admin/ad/delete/${v}`).then(res => {
                     this.$Message.success('删除成功')
-                    this._init()
+                    this.___init()
                 })
             }
         }

@@ -305,7 +305,7 @@
             }
         },
         mounted(){
-            this._init()
+            this.___init()
             this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
@@ -359,7 +359,7 @@
                 }
                 return check;
             },
-            _init(){
+            ___init(){
                 axios.get(`/update_plugInfo/${this.$route.params.id}`).then(res=>{
                     if(res.data.sta === 0){
                         this.$router.go(-1)

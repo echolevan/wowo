@@ -1,7 +1,7 @@
 <template>
     <div>
         <DatePicker type="daterange" placeholder="选择日期" v-model="time"></DatePicker>
-        <Button type="primary" @click="_init">确定</Button>
+        <Button type="primary" @click="___init">确定</Button>
         <ve-line :data="chartData"  :settings="chartSettings"></ve-line>
     </div>
 </template>
@@ -18,10 +18,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.post('/admin/charts/recharge', {time: this.time}).then(res => {
                     this.chartData = {
                         columns: res.data.columns,

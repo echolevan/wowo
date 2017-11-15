@@ -25,10 +25,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/tool/nickname/list').then(res => {
                     this.list = res.data
                 })
@@ -40,7 +40,7 @@
                 }
                 axios.get(`/admin/tool/nickname/create_nickname/${this.formS.name}`).then(res => {
                     if(res.data.sta === 1){
-                        this._init()
+                        this.___init()
                         this.formS.name = ''
                         this.$Message.success(res.data.msg)
                     }else{
@@ -51,7 +51,7 @@
             handleClose(id) {
                 axios.delete(`/admin/tool/nickname/del_nickname/${id}`).then(res => {
                     if(res.data.sta === 1){
-                        this._init()
+                        this.___init()
                         this.$Message.success(res.data.msg)
                     }else{
                         this.$Message.error(res.data.msg)

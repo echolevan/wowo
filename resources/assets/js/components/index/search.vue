@@ -83,15 +83,15 @@
             'userInfo', 'choice_cmap', 'tools'
         ]),
         mounted() {
-            this._init()
+            this.___init()
         },
         watch: {
             '$route'(to, from) {
-                this._init()
+                this.___init()
             }
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.post('plug_search', {
                     keyword: this.$route.params.keyword,
                     page: this.this_page,
@@ -103,7 +103,7 @@
             },
             change_page(p) {
                 this.this_page = p
-                this._init()
+                this.___init()
             },
         }
     }

@@ -305,7 +305,7 @@
             'userInfo', 'choice_cmap' , 'tools'
         ]),
         mounted() {
-            this._init()
+            this.___init()
             this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
@@ -364,7 +364,7 @@
                 this.formItem.content = ''
                 this.formItem.is_free = false
             },
-            _init() {
+            ___init() {
                 axios.get(`update_plugInfo/${this.$route.params.id}`).then(res => {
                     if (res.data.sta === 0) {
                         this.$router.go(-1)

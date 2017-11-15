@@ -56,14 +56,14 @@
         watch: {
             '$route' (to, from) {
                 const toDepth = to.path.split('/').length
-                this._init()
+                this.___init()
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get(`plugRank/${this.$route.params.type}`).then(res=>{
                     this.rank_download = res.data.rank_download
                     this.rank_score = res.data.rank_score

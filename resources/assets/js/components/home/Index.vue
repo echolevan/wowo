@@ -309,13 +309,13 @@
                 this.keyUp()
             },
             '$route'(to, from) {
-                this._init()
+                this.___init()
                 this.tag_active = 0
                 this.tag_active_pid = 0
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
             keyUp() {
@@ -357,7 +357,7 @@
             on_sel(v) {
                 this.type = v
             },
-            _init() {
+            ___init() {
                 axios.get('plug_all_info_no_login').then(res => {
                     this.plug_tags = res.data.res
                 })

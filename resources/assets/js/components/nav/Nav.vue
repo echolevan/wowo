@@ -57,9 +57,6 @@
         computed: mapState([
             'userInfo', 'choice_cmap', 'tools', 'ads'
         ]),
-        mounted() {
-
-        },
         methods: {
             logout() {
                 axios.get('user/logout').then(res => {

@@ -43,10 +43,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/tool/index').then(res => {
                     this.formItem.xlm = res.data.tools['xlm'].value ? res.data.tools['xlm'].value === '0' ? false : true : false
                     this.formItem.bm = res.data.tools['bm'].value ? res.data.tools['bm'].value  === '0' ? false : true : false

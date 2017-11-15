@@ -40,7 +40,7 @@ export default [
     { path: '/about',name:'aboutMe' , component:aboutMe},
     { path: '/search/:keyword',name:'search' , component:search},
     { path: '/home',name:'home.index' , component:Home},
-    { path: '/resources/:type/:active?/:active_pid?', name:'watmw.index' , component:watmw},
+    { path: '/resources/:type?/:active?/:active_pid?', name:'watmw.index' , component:watmw},
     { path: '/market', name:'bm.index' , component:Bm},
     { path: '/info/:id', name:'plug.info' , component:Info},
     { path: '/upload/:id?', name:'upload.plug' , component:uploadPlug},

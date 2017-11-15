@@ -121,10 +121,10 @@
             'userInfo'
         ]),
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/user/info').then(res => {
                     if (res.data.sta === '1') {
                         this.$store.commit('change_userInfo',res.data.info)

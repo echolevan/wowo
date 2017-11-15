@@ -321,7 +321,7 @@
                 }
             }
 
-            this._init()
+            this.___init()
             this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
@@ -381,7 +381,7 @@
                 this.formItem.content = ''
                 this.formItem.is_free = false
             },
-            _init() {
+            ___init() {
                 let type = localStorage.getItem('upload_type')
                 let tag_name = localStorage.getItem('upload_type_name')
                 localStorage.removeItem('upload_type')

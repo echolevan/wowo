@@ -14,10 +14,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/charts/sys_charts').then(res => {
                     this.chartData = {
                         columns: res.data.columns,

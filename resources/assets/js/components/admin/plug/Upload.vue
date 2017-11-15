@@ -305,7 +305,7 @@
             'userInfo', 'choice_cmap' ,'tools'
         ]),
         mounted() {
-            this._init()
+            this.___init()
             this.formItem.uploadList = this.$refs.upload.fileList;
         },
         watch: {
@@ -355,7 +355,7 @@
                 this.formItem.content = ''
                 this.formItem.is_free = false
             },
-            _init() {
+            ___init() {
                 if(this.$route.params.id){
                     axios.get(`/check_plug_id/${this.$route.params.id}`).then(res => {
                         if(res.data.sta === 0){

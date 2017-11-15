@@ -33,10 +33,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/tool/index').then(res => {
                     this.formItem.fc = res.data.tools['fc'] ? parseInt(res.data.tools['fc'].value) : 0
                 })

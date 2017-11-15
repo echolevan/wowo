@@ -25,10 +25,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/tool/game_version/list').then(res => {
                     this.list = res.data
                 })
@@ -40,7 +40,7 @@
                 }
                 axios.get(`/admin/tool/game_version/create_game_version/${this.formS.name}`).then(res => {
                     if(res.data.sta === 1){
-                        this._init()
+                        this.___init()
                         this.formS.name = ''
                         this.$Message.success(res.data.msg)
                     }else{
@@ -51,7 +51,7 @@
             handleClose(id) {
                 axios.delete(`/admin/tool/game_version/del_game_version/${id}`).then(res => {
                     if(res.data.sta === 1){
-                        this._init()
+                        this.___init()
                         this.$Message.success(res.data.msg)
                     }else{
                         this.$Message.error(res.data.msg)

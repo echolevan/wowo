@@ -370,17 +370,17 @@
         ]),
         watch: {
             '$route'(to, from) {
-                this._init()
+                this.___init()
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
             to_search() {
                 this.get_plugs();
             },
-            _init() {
+            ___init() {
                 axios.get(`tag/${this.$route.params.type}`).then(res => {
                     this.tags = res.data
                 })

@@ -53,10 +53,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/tool/index').then(res => {
                     this.formItem.notice = res.data.tools['notice'] ? res.data.tools['notice'].value : ''
                     this.formItemOne.bm_notice = res.data.tools['bm_notice'] ? res.data.tools['bm_notice'].value : ''

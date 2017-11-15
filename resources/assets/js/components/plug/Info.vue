@@ -357,21 +357,24 @@
         ]),
         watch: {
             '$route'(to, from) {
-                this._init()
+                this.___init()
                 setTimeout(() => {
                     $(".plug_info_div img").attr("style", "max-width:100%")
                 }, 1000)
             }
         },
         mounted() {
-            this._init();
+            this.___init();
             setTimeout(() => {
                 $(".plug_info_div img").attr("style", "max-width:100%")
             }, 1000)
 
         },
+        beforeDestroy: function () {
+          $('.pswp__button').click();
+        },
         methods: {
-            _init() {
+            ___init() {
                 this.download_model = false
                 axios.get(`plugInfo/${this.$route.params.id}`).then(res => {
                     this.plug = res.data.plug

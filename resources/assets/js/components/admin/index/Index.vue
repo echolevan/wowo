@@ -224,10 +224,10 @@
             }
         },
         mounted() {
-            this._init()
+            this.___init()
         },
         methods: {
-            _init() {
+            ___init() {
                 axios.get('/admin/charts/index').then(res => {
                     this.info = res.data.res
                     this.lv = res.data.lv
