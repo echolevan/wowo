@@ -17158,8 +17158,8 @@ samp {
 
 @font-face {
   font-family: Ionicons;
-  src: url(/fonts/vendor/_iview@2.6.0@iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550);
-  src: url(/fonts/vendor/_iview@2.6.0@iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550) format("embedded-opentype"), url(/fonts/vendor/_iview@2.6.0@iview/dist/styles/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2) format("truetype"), url(/fonts/vendor/_iview@2.6.0@iview/dist/styles/ionicons.woff?05acfdb568b3df49ad31355b19495d4a) format("woff"), url(/fonts/vendor/_iview@2.6.0@iview/dist/styles/ionicons.svg?621bd386841f74e0053cb8e67f8a0604) format("svg");
+  src: url(/fonts/vendor/_iview@2.7.3@iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550);
+  src: url(/fonts/vendor/_iview@2.7.3@iview/dist/styles/ionicons.eot?2c2ae068be3b089e0a5b59abb1831550) format("embedded-opentype"), url(/fonts/vendor/_iview@2.7.3@iview/dist/styles/ionicons.ttf?24712f6c47821394fba7942fbb52c3b2) format("truetype"), url(/fonts/vendor/_iview@2.7.3@iview/dist/styles/ionicons.woff?05acfdb568b3df49ad31355b19495d4a) format("woff"), url(/fonts/vendor/_iview@2.7.3@iview/dist/styles/ionicons.svg?621bd386841f74e0053cb8e67f8a0604) format("svg");
   font-weight: 400;
   font-style: normal;
 }
@@ -30195,6 +30195,7 @@ textarea.ivu-input {
   width: 100%;
   position: relative;
   vertical-align: middle;
+  line-height: normal;
 }
 
 .ivu-input-icon {
@@ -30506,10 +30507,6 @@ textarea.ivu-form-item-error .ivu-transfer .ivu-input {
 
 .ivu-form-item-validating .ivu-input-icon + .ivu-input {
   padding-right: 32px;
-}
-
-.ivu-form-item .ivu-input-wrapper-small .ivu-input-icon {
-  line-height: 32px;
 }
 
 .ivu-slider {
@@ -31643,6 +31640,10 @@ tr.ivu-table-row-highlight.ivu-table-row-hover td {
 
 .ivu-table-tip table td {
   text-align: center;
+}
+
+.ivu-table-expanded-hidden {
+  visibility: hidden;
 }
 
 .ivu-dropdown {
@@ -33307,6 +33308,7 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  vertical-align: middle;
   width: 32px;
   height: 32px;
   line-height: 32px;
@@ -33396,7 +33398,7 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
 }
 
 .ivu-color-picker-color-empty i {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .ivu-color-picker-large .ivu-color-picker-color {
@@ -33405,10 +33407,18 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
   top: 1px;
 }
 
+.ivu-color-picker-large .ivu-color-picker-color-empty i {
+  font-size: 20px;
+}
+
 .ivu-color-picker-small .ivu-color-picker-color {
   width: 14px;
   height: 14px;
   top: 3px;
+}
+
+.ivu-color-picker-small .ivu-color-picker-color-empty i {
+  font-size: 14px;
 }
 
 .ivu-color-picker-picker-wrapper {

@@ -164,6 +164,7 @@ function del_cache(){
     \Illuminate\Support\Facades\Cache::forget('plug_index_wa');
     \Illuminate\Support\Facades\Cache::forget('plug_index_tmw');
     \Illuminate\Support\Facades\Cache::forget('plug_index_plug');
+    \Illuminate\Support\Facades\Cache::forget('plug_index_elvuis');
     \Illuminate\Support\Facades\Cache::forget('plug_index_recent_plugs');
     \Illuminate\Support\Facades\Cache::forget('plug_index_census');
     \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs_this_mouth');

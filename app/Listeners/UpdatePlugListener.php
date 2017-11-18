@@ -32,6 +32,7 @@ class UpdatePlugListener
         Cache::forget('plug_index_tmw');
         Cache::forget('plug_index_plug');
         Cache::forget('plug_index_recent_plugs');
+        Cache::forget('plug_index_elvuis');
         Cache::forget('plug_index_census');
         \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs_this_mouth');
         \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs');
