@@ -14,6 +14,33 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 
+Route::get('/aoao', function (){
+
+    $thumbs = \App\Thumb::all();
+    foreach ($thumbs as $k => $v){
+        $old_t = parse_url($v->thumb);
+        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
+        \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
+    }
+
+    $plugs = \App\Plug::where('type',3)->all();
+    foreach ($plugs as $k => $v){
+        $new_t = env("UPLOAD_URL").$v->content;
+        \App\Plug::update(['content'=>$new_t])->where('id',$v->id);
+    }
+
+    $tags = \App\Tag::all();
+    foreach ($tags as $k => $v){
+        $old_t = parse_url($v->thumb);
+        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
+        \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
+    }
+
+    echo "ok";
+
+});
+
+
 //
 Route::get('/ban', function () {
     $ban = file_get_contents('../public/upload/ban.json');

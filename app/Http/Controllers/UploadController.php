@@ -25,7 +25,7 @@ class UploadController extends Controller
         }
 
 //        $ext = $request->file('image')->getClientOriginalExtension();
-        $path = "image/".date('Y-m-d');
+        $path = "images/".date('Y-m-d');
         $url = upload_img($request->file('image'), $path);
         return ['sta' => 1, 'url' => $url];
     }
@@ -50,7 +50,7 @@ class UploadController extends Controller
         }
 
 //        $ext = $request->file('file')->getClientOriginalExtension();
-        $path = "image/".date('Y-m-d');
+        $path = "images/".date('Y-m-d');
         $url = upload_img($request->file('file'), $path);
         return ['sta' => 1, 'url' => $url, 'width' => $size[0], 'height' => $size[1]];
     }
