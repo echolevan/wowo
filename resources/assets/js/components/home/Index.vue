@@ -46,9 +46,10 @@
                         <ul class="strong_big">
                             <li v-for="v in recent_plugs">
                                 <router-link :title="v.title"
+                                             class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class=" normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                 </router-link>
@@ -131,9 +132,10 @@
                         <ul class="strong_mid">
                             <li v-for="v in was">
                                 <router-link :title="v.title"
+                                             class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class="normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                 </router-link>
@@ -157,9 +159,10 @@
                         <ul class="strong_mid">
                             <li v-for="v in tmws">
                                 <router-link :title="v.title"
+                                             class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class=" normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                 </router-link>
@@ -180,9 +183,10 @@
                         <ul class="strong_small">
                             <li v-for="v in download_plugs">
                                 <router-link :title="v.title"
+                                             class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class=" normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                 </router-link>
@@ -207,9 +211,10 @@
                     <ul class="strong_mid">
                         <li v-for="v in elvuis">
                             <router-link :title="v.title"
+                                         class="my_a_style"
                                          :to="{name:'plug.info' , params:{id: v.id}}">
                                 <Icon type="arrow-right-b"></Icon>
-                                <strong class="my_a_style normal_font_hover"
+                                <strong class=" normal_font_hover"
                                         :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                         style="padding-left: 10px;">{{v.title}}</strong>
                             </router-link>
@@ -234,9 +239,10 @@
                         <ul class="strong_mid">
                             <li v-for="v in plugs">
                                 <router-link :title="v.title"
+                                             class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class=" normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                 </router-link>
@@ -256,10 +262,10 @@
                     <div class="tool_user_child child">
                         <ul class="strong_small">
                             <li v-for="v in download_plugs_this_mouth">
-                                <router-link :title="v.title"
+                                <router-link :title="v.title" class="my_a_style"
                                              :to="{name:'plug.info' , params:{id: v.id}}">
                                     <Icon type="arrow-right-b"></Icon>
-                                    <strong class="my_a_style normal_font_hover"
+                                    <strong class="normal_font_hover"
                                             :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                                             style="padding-left: 10px;">{{v.title}}</strong>
                                     <!--<span class="pull-right">{{v.created_at}}</span>-->
@@ -457,36 +463,45 @@
 
     .strong_mid
         li
-            i
-                float left
-            strong
-                float left
-                overflow: hidden;
-                text-overflow: ellipsis
-                white-space: nowrap
-                width 300px
-                display block
+            .my_a_style
+                &::before
+                    margin-left 5px
+                i
+                    float left
+                strong
+                    float left
+                    overflow: hidden;
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    max-width 300px
+                    display block
     .strong_small
         li
-            i
-                float left
-            strong
-                float left
-                overflow: hidden;
-                text-overflow: ellipsis
-                white-space: nowrap
-                width 188px
-                display block
+            .my_a_style
+                &::before
+                    margin-left 5px
+                i
+                    float left
+                strong
+                    float left
+                    overflow: hidden;
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    max-width 188px
+                    display block
 
     .strong_big
         li
-            i
-                float left
-            strong
-                float left
-                overflow: hidden;
-                text-overflow: ellipsis
-                white-space: nowrap
-                width 650px
-                display block
+            .my_a_style
+                &::before
+                    margin-left 5px
+                i
+                    float left
+                strong
+                    float left
+                    overflow: hidden;
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    max-width 650px
+                    display block
 </style>

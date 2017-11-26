@@ -50,37 +50,40 @@ class PlugController extends Controller
             $where = "type_two = " . $tag_active . " or (type = {$type} and type_one = {$tag_active_pid} and type_two = 0)";
         }
 
-        $plugs = Plug::where('type', $type)
+        $plugs = Plug::where('plugs.type', $type)
             ->with('thumbs')
-
             ->when($keyWord != '', function ($query) use ($keyWord) {
-                return $query->where('title', 'like', "%$keyWord%");
+                return $query->join('users','users.id','plugs.user_id')->where(function ($query) use ($keyWord) {
+                    $query->where('plugs.title', 'like', "%$keyWord%")->orWhere('users.name', 'like', "%$keyWord%");
+                })->addSelect('users.id, users.name, ');
             })
             ->when($serBy != '', function ($query) use ($serBy) {
-                return $query->where('game_version', $serBy);
+                return $query->where('plugs.game_version', $serBy);
             })
             ->with(['is_pay' => function ($query) {
                 $query->where('orders.user_id', Auth::id());
             }])
-            ->where('is_new',1)
-            ->where([['status', 1], ['is_check', 1]])
+            ->where('plugs.is_new',1)
+            ->where([['plugs.status', 1], ['plugs.is_check', 1]])
             ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
                 return $query->whereRaw($where);
             })
             ->skip($limit)->take(10)
-
+            ->select('plugs.*')
             ->orderBy($orderBy, 'desc')
             ->get();
 
-        $count = Plug::where('type', $type)
+        $count = Plug::where('plugs.type', $type)
             ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
                 return $query->whereRaw($where);
             })
             ->when($keyWord != '', function ($query) use ($keyWord) {
-                return $query->where('title', 'like', "%$keyWord%");
+                return $query->join('users','users.id','plugs.user_id')->where(function ($query) use ($keyWord) {
+                    $query->where('plugs.title', 'like', "%$keyWord%")->orWhere('users.name', 'like', "%$keyWord%");
+                });
             })
-            ->where('is_new',1)
-            ->where([['status', 1], ['is_check', 1]])
+            ->where('plugs.is_new',1)
+            ->where([['plugs.status', 1], ['plugs.is_check', 1]])
             ->count();
 
         // get game_version

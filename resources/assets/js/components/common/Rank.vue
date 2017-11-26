@@ -5,13 +5,13 @@
                 <strong>下载排行榜</strong>
                 <!--<span>More</span>-->
             </div>
-            <ul>
+            <ul class="strong_small_rank">
                 <li v-for="(v , k) in rank_download">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
-                        <span style="background-color: #fff !important;"  class="tit my_a_style normal_font_hover" :title="v.title"
+                        <strong style="background-color: #fff !important;"  class="tit  normal_font_hover" :title="v.title"
                               :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                        >{{v.title.substring(0, 20)}}</span>
+                        >{{v.title}}</strong>
                     </router-link>
                     <span class="dig" v-html="v.n_h_c"></span>
                     <span class="size">{{v.d_n}}</span>
@@ -24,13 +24,13 @@
                 <strong>推荐排行榜</strong>
                 <!--<span>More</span>-->
             </div>
-            <ul>
+            <ul class="strong_small_rank">
                 <li v-for="(v , k) in rank_score">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
                     <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
-                        <span style="background-color: #fff !important;"  class="tit my_a_style normal_font_hover" :title="v.title"
+                        <strong style="background-color: #fff !important;"  class="tit  normal_font_hover" :title="v.title"
                               :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
-                        >{{v.title.substring(0, 20)}}</span>
+                        >{{v.title}}</strong>
                     </router-link>
                     <span class="dig" v-html="v.n_h_c"></span>
                     <span class="size">{{v.like_num}}</span>
@@ -145,4 +145,16 @@
                 height: 100%;
                 display: block;
                 line-height: 56px;
+
+
+    .strong_small_rank
+        li
+            strong
+                float left
+                overflow: hidden;
+                text-overflow: ellipsis
+                white-space: nowrap
+                max-width 188px
+                display block
+
 </style>

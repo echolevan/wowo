@@ -73,12 +73,12 @@
                             </Option>
                         </Select>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        游戏版本：
-                        <Select v-model="serBy" size="small" style="width:100px" clearable placeholder="所有版本" @on-change="change_order"
-                                :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
-                            <Option v-for="item in game_version" :value="item" :key="item">{{ item }}
-                            </Option>
-                        </Select>
+                        <!--游戏版本：-->
+                        <!--<Select v-model="serBy" size="small" style="width:100px" clearable placeholder="所有版本" @on-change="change_order"-->
+                                <!--:class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">-->
+                            <!--<Option v-for="item in game_version" :value="item" :key="item">{{ item }}-->
+                            <!--</Option>-->
+                        <!--</Select>-->
                         <Page v-if="plugs.length > 0" ref="pageThis"
                               :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                               :total="plugs_count" size="small" @on-change="change_page" style="float:right" show-total
@@ -108,8 +108,8 @@
                             <span>{{plug.collect_num}}</span>
 
                             <i><img src="/images/p07.png" alt=""></i><span>{{plug.like_num}}</span>
-                            <Icon type="ios-game-controller-b-outline"></Icon>
-                            <span>{{plug.game_version}}</span>
+                            <!--<Icon type="ios-game-controller-b-outline"></Icon>-->
+                            <!--<span>{{plug.game_version}}</span>-->
                             <span
                                     class="normal_font"
                                     :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -143,7 +143,7 @@
             <iCol span="6">
                 <div class="tool_right">
                     <div class="search">
-                        <Input v-model="keyword" @keyup.enter.native="to_search" placeholder="搜索标题" icon="search"
+                        <Input v-model="keyword" @keyup.enter.native="to_search" placeholder="搜索标题、作者" icon="search"
                                @on-click="to_search"></Input>
                     </div>
                     <v-rank></v-rank>

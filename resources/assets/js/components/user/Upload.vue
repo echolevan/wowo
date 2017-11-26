@@ -86,7 +86,7 @@
         <p class="normal_font"
            :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
            v-else>暂无记录</p>
-        <Page  v-show="count > 0" :total="count" size="small"  @on-change="change_page" show-total  :key="count" style="float: right;margin-top: 30px" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
+        <Page  v-show="count > 0" :total="count" size="small" page-size="15"  @on-change="change_page" show-total  :key="count" style="float: right;margin-top: 30px" :class="{'bl_page_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"></Page>
     </div>
 </template>
 
@@ -98,7 +98,7 @@
             return {
                 is_show_his: 0,
                 page: 1,
-                size: 10,
+                size: 15,
                 count: 0,
                 orders: []
             }

@@ -6,7 +6,7 @@ function upload_img($file , $path){
 //    $url = ftp_file($url,'image');
 
     if($url)
-        return '/'.$url;
+        return env('UPLOAD_URL').'/'.$url;
     return false;
 }
 
@@ -17,7 +17,7 @@ function upload_plug($file , $path , $name){
 //    $url = ftp_file($url,'addons' , $name);
 
     if($url)
-        return '/'.$url;
+        return env('UPLOAD_URL').'/'.$url;
     return false;
 }
 
@@ -27,7 +27,7 @@ function upload_bm($file , $path){
 //    $url = ftp_file($url,'market');
 
     if($url)
-        return '/'.$url;
+        return env('UPLOAD_URL').'/'.$url;
     return false;
 }
 
@@ -36,13 +36,12 @@ function upload_avatar_img($file, $path, $size, $ext)
 
     $img = \Intervention\Image\Facades\Image::make($file)->resize($size[0], $size[1]);
 
-    $new_path = $path."/".\Illuminate\Support\Facades\Auth::id().str_random(10).time().str_random(5).".".$ext;
-    $img->save($new_path);
+    $new_path = $path.\Illuminate\Support\Facades\Auth::id().str_random(10).time().str_random(5).".".$ext;
+    $img->save(env('UPLOAD_PWD')."/".$new_path);
 
-//    $url = ftp_file($new_path,'image');
-
-    if($new_path)
-        return '/'.$new_path;
+    if($new_path){
+        return env('UPLOAD_URL').'/'.$new_path;
+    }
     return false;
 }
 
