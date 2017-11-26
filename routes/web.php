@@ -23,6 +23,12 @@ Route::get('/aoao', function (){
         \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
     }
 
+    echo "ok";
+
+});
+
+Route::get('/aoao2', function (){
+
     $plugs = \App\Plug::where('type',3)->all();
     foreach ($plugs as $k => $v){
         $new_t = env("UPLOAD_URL").$v->content;
@@ -36,10 +42,15 @@ Route::get('/aoao', function (){
         \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
     }
 
+    $bms = \App\Bm::all();
+    foreach ($bms as $k => $v){
+        $new_t = env("UPLOAD_URL").$v->url;
+        \App\Thumb::update(['url'=>$new_t])->where('id',$v->id);
+    }
+
     echo "ok";
 
 });
-
 
 //
 Route::get('/ban', function () {
