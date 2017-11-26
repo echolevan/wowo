@@ -13,18 +13,6 @@
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
-
-Route::get('/aoao2', function (){
-
-    $tags = \App\Tag::where('thumb','https://down.iwowcn.com//images//')->get();
-    foreach ($tags as $k => $v){
-        \App\Tag::where('id',$v->id)->update(['thumb'=>""]);
-    }
-
-    echo "ok";
-
-});
-
 //
 Route::get('/ban', function () {
     $ban = file_get_contents('../public/upload/ban.json');
