@@ -29,7 +29,7 @@ Route::get('/aoao', function (){
 
 Route::get('/aoao2', function (){
 
-    $thumbs = \App\Thumb::select('id','type','content')->get();
+    $thumbs = \App\Thumb::all();
     foreach ($thumbs as $k => $v){
         $old_t = parse_url($v->thumb);
         $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
