@@ -16,7 +16,7 @@ Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 Route::get('/aoao', function (){
 
-    $thumbs = \App\Thumb::all();
+    $thumbs = \App\Thumb::select('id','type','content')->get();
     foreach ($thumbs as $k => $v){
         $old_t = parse_url($v->thumb);
         $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
