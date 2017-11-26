@@ -16,11 +16,11 @@ Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 Route::get('/aoao', function (){
 
-    $thumbs = \App\Thumb::select('id','type','content')->get();
-    foreach ($thumbs as $k => $v){
-        $old_t = parse_url($v->thumb);
-        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
-        \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
+
+    $plugs = \App\Plug::where('type',3)->select('id','type','content')->get();
+    foreach ($plugs as $k => $v){
+        $new_t = env("UPLOAD_URL").$v->content;
+        \App\Plug::where('id',$v->id)->update(['content'=>$new_t]);
     }
 
     echo "ok";
@@ -29,23 +29,24 @@ Route::get('/aoao', function (){
 
 Route::get('/aoao2', function (){
 
-    $plugs = \App\Plug::where('type',3)->all();
-    foreach ($plugs as $k => $v){
-        $new_t = env("UPLOAD_URL").$v->content;
-        \App\Plug::update(['content'=>$new_t])->where('id',$v->id);
+    $thumbs = \App\Thumb::select('id','type','content')->get();
+    foreach ($thumbs as $k => $v){
+        $old_t = parse_url($v->thumb);
+        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
+        \App\Thumb::where('id',$v->id)->update(['thumb'=>$new_t]);
     }
 
     $tags = \App\Tag::all();
     foreach ($tags as $k => $v){
         $old_t = parse_url($v->thumb);
         $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
-        \App\Thumb::update(['thumb'=>$new_t])->where('id',$v->id);
+        \App\Thumb::where('id',$v->id)->update(['thumb'=>$new_t]);
     }
 
     $bms = \App\Bm::all();
     foreach ($bms as $k => $v){
         $new_t = env("UPLOAD_URL").$v->url;
-        \App\Thumb::update(['url'=>$new_t])->where('id',$v->id);
+        \App\Thumb::where('id',$v->id)->update(['url'=>$new_t]);
     }
 
     echo "ok";
