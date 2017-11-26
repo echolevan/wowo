@@ -14,39 +14,26 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 
-Route::get('/aoao', function (){
-
-
-    $plugs = \App\Plug::where('type',3)->select('id','type','content')->get();
-    foreach ($plugs as $k => $v){
-        $new_t = env("UPLOAD_URL").$v->content;
-        \App\Plug::where('id',$v->id)->update(['content'=>$new_t]);
-    }
-
-    echo "ok";
-
-});
-
 Route::get('/aoao2', function (){
 
     $thumbs = \App\Thumb::all();
     foreach ($thumbs as $k => $v){
-        $old_t = parse_url($v->thumb);
-        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
+        $old_t = explode("/",$v->thumb);
+        $new_t = env("UPLOAD_URL")."/images/".collect($old_t)->take(-2)->first()."/".collect($old_t)->take(-1)->first();
         \App\Thumb::where('id',$v->id)->update(['thumb'=>$new_t]);
     }
 
-    $tags = \App\Tag::all();
+    $tags = \App\Tag::whereNotNull('thumb')->get();
     foreach ($tags as $k => $v){
-        $old_t = parse_url($v->thumb);
-        $new_t = env("UPLOAD_URL")."/images".$old_t['path'];
-        \App\Thumb::where('id',$v->id)->update(['thumb'=>$new_t]);
+        $old_t = explode("/",$v->thumb);
+        $new_t = env("UPLOAD_URL")."/images/".collect($old_t)->take(-2)->first()."/".collect($old_t)->take(-1)->first();
+        \App\Tag::where('id',$v->id)->update(['thumb'=>$new_t]);
     }
 
     $bms = \App\Bm::all();
     foreach ($bms as $k => $v){
         $new_t = env("UPLOAD_URL").$v->url;
-        \App\Thumb::where('id',$v->id)->update(['url'=>$new_t]);
+        \App\Bm::where('id',$v->id)->update(['url'=>$new_t]);
     }
 
     echo "ok";
