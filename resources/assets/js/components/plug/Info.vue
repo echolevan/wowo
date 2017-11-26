@@ -348,7 +348,9 @@
                 },
                 wechat_scan: false,
                 wechat_scan_qr: '',
-                is_wechat_pay: false
+                is_wechat_pay: false,
+                alipay_inteval:'',
+                wechat_inteval:''
             }
         },
 
@@ -371,7 +373,9 @@
 
         },
         beforeDestroy: function () {
-          $('.pswp__button').click();
+            $('.pswp__button').click();
+            clearInterval(this.alipay_inteval)
+            clearInterval(this.wechat_inteval)
         },
         methods: {
             ___init() {
@@ -519,27 +523,27 @@
                     } else {
                         if (res.data.type === 'alipay') {
                             myDialog('请在新窗口支付<p style=";margin-top: 5px;">(<span style="color: #ed3f14">注意新窗口可能被拦截</span>)</p>', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
-                            clearInterval(aaa)
-                            let aaa = setInterval(() => {
+                            clearInterval(this.alipay_inteval)
+                            this.alipay_inteval = setInterval(() => {
                                 axios.get(`user/is_pay_ok/${res.data.out_trade_no}`).then(res => {
                                     if (res.data.sta === 1) {
                                         clodeMyDialog()
                                         myDialog('支付成功', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
-                                        clearInterval(aaa)
+                                        clearInterval(this.alipay_inteval)
                                     }
                                 })
                             }, 1000)
                             window.open(res.data.url);
                         } else {
-                            clearInterval(bbb)
-                            let bbb = setInterval(() => {
+                            clearInterval(this.wechat_inteval)
+                            this.wechat_inteval = setInterval(() => {
                                 axios.get(`find_wechat/${res.data.out_trade_no}`).then(res => {
                                     if (res.data.sta === 1) {
                                         clodeMyDialog()
                                         myDialog('支付成功', (this.userInfo && this.userInfo.camp && this.userInfo.camp === 2 ) || (!this.userInfo && this.choice_cmap === '2') ? 'bl_button_color' : '')
                                         this.$store.commit('change_userInfo', res.data.info)
-                                        clearInterval(bbb)
+                                        clearInterval(this.wechat_inteval)
                                         this.is_wechat_pay = false
                                     }
                                 })

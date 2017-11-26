@@ -128,9 +128,9 @@ class UserController extends Controller
             // todo
             $payC = new PayController();
             $pay_url = $payC->wechat_pay($rec);
-            $path = 'qrcodes/' . Auth::id() . time() . str_random(5) . '.png';
-            QrCode::format('png')->size(300)->margin(0)->merge('/public/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, '../public/' . $path);
-            return ['sta' => 1, 'url' => $path, 'out_trade_no' => $rec->out_trade_no, 'type' => 'wechat'];
+            $path = '/qrcodes/'. date('Y-m-d').'_' . Auth::id() . time() . str_random(5) . '.png';
+            QrCode::format('png')->size(300)->margin(0)->merge('/public/images/pay/1.jpg', .2)->errorCorrection('L')->generate($pay_url, env('UPLOAD_PWD') . $path);
+            return ['sta' => 1, 'url' => env('UPLOAD_URL').'/'.$path, 'out_trade_no' => $rec->out_trade_no, 'type' => 'wechat'];
         }
 
     }
