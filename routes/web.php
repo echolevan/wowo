@@ -16,24 +16,9 @@ Route::get('/getAgentInfo', 'ChartController@getAgentInfo');
 
 Route::get('/aoao2', function (){
 
-    $thumbs = \App\Thumb::all();
-    foreach ($thumbs as $k => $v){
-        $old_t = explode("/",$v->thumb);
-        $new_t = env("UPLOAD_URL")."/images/".collect($old_t)->take(-2)->first()."/".collect($old_t)->take(-1)->first();
-        \App\Thumb::where('id',$v->id)->update(['thumb'=>$new_t]);
-    }
-
-    $tags = \App\Tag::whereNotNull('thumb')->get();
+    $tags = \App\Tag::where('thumb','https://down.iwowcn.com//images//')->get();
     foreach ($tags as $k => $v){
-        $old_t = explode("/",$v->thumb);
-        $new_t = env("UPLOAD_URL")."/images/".collect($old_t)->take(-2)->first()."/".collect($old_t)->take(-1)->first();
-        \App\Tag::where('id',$v->id)->update(['thumb'=>$new_t]);
-    }
-
-    $bms = \App\Bm::all();
-    foreach ($bms as $k => $v){
-        $new_t = env("UPLOAD_URL").$v->url;
-        \App\Bm::where('id',$v->id)->update(['url'=>$new_t]);
+        \App\Tag::where('id',$v->id)->update(['thumb'=>""]);
     }
 
     echo "ok";
