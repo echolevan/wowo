@@ -76,6 +76,7 @@
                         <!--游戏版本：-->
                         <Select v-model="serBy" size="small" style="width:100px" clearable placeholder="所有版本" @on-change="change_order"
                                 :class="{'bl_sel_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
+                            <Option value="">所有版本</Option>
                             <Option v-for="item in game_version" :value="item" :key="item">{{ item }}
                             </Option>
                         </Select>

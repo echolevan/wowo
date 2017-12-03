@@ -26,7 +26,8 @@ class UploadController extends Controller
 
 //        $ext = $request->file('image')->getClientOriginalExtension();
         $path = "images/".date('Y-m-d');
-        $url = upload_img($request->file('image'), $path);
+        $info = explode("/", $request->file('image')->getClientMimeType());
+        $url = upload_img($request->file('image'), $path, end($info));
         return ['sta' => 1, 'url' => $url];
     }
 
@@ -51,7 +52,8 @@ class UploadController extends Controller
 
 //        $ext = $request->file('file')->getClientOriginalExtension();
         $path = "images/".date('Y-m-d');
-        $url = upload_img($request->file('file'), $path);
+        $info = explode("/", $request->file('file')->getClientMimeType());
+        $url = upload_img($request->file('file'), $path, end($info));
         return ['sta' => 1, 'url' => $url, 'width' => $size[0], 'height' => $size[1]];
     }
 
@@ -70,7 +72,8 @@ class UploadController extends Controller
 
 //        $ext = $request->file('file')->getClientOriginalExtension();
         $path = "ads/".date('Y-m-d');
-        $url = upload_img($request->file('file'), $path);
+        $info = explode("/", $request->file('file')->getClientMimeType());
+        $url = upload_img($request->file('file'), $path, end($info));
         return ['sta' => 1, 'url' => $url, 'width' => $size[0], 'height' => $size[1]];
     }
 
@@ -112,6 +115,8 @@ class UploadController extends Controller
         }
 
         $path = "market/".date('Y-m-d');
+
+
         $url = upload_bm($request->file('file'), $path);
         return ['sta' => 1, 'url' => $url];
     }

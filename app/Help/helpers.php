@@ -1,7 +1,7 @@
 <?php
-function upload_img($file , $path){
+function upload_img($file , $path, $ext){
 
-    $url = \Illuminate\Support\Facades\Storage::put($path, $file);
+    $url = \Illuminate\Support\Facades\Storage::putFileAs($path, $file, \Illuminate\Support\Facades\Auth::id().str_random(14).".".$ext);
 
 //    $url = ftp_file($url,'image');
 
@@ -36,7 +36,7 @@ function upload_avatar_img($file, $path, $size, $ext)
 
     $img = \Intervention\Image\Facades\Image::make($file)->resize($size[0], $size[1]);
 
-    $new_path = $path.\Illuminate\Support\Facades\Auth::id().str_random(10).time().str_random(5).".".$ext;
+    $new_path = $path.\Illuminate\Support\Facades\Auth::id().str_random(14).".".$ext;
     $img->save(env('UPLOAD_PWD')."/".$new_path);
 
     if($new_path){
