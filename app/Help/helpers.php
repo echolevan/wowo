@@ -170,3 +170,31 @@ function del_cache(){
     \Illuminate\Support\Facades\Cache::forget('plug_index_download_plugs');
     \Illuminate\Support\Facades\Cache::forget('plug_index_total_person');
 }
+
+
+function test_value($num){
+    $new_value = '';
+    $test_arr  = array('100000000'=>'亿','10000'=>'万');//从大到小排列你想要的组合
+    $statu = true;
+    foreach ($test_arr as $key => $value) {
+        if($num>=$key){
+            $new_value=intval($num/$key).$value;
+            $statu = false;
+            break;
+        }
+    }
+    if($statu){
+        $new_value=$num;
+    }
+    return $new_value;
+}
+
+
+/**
+ * @param $data 是需要删除的数组
+ */
+
+function del_file($data){
+    dispatch(new \App\Jobs\DelFile($data));
+    return true;
+}

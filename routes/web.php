@@ -140,6 +140,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put("tag/create",'TagController@create')->name('admin.tag.create');
     Route::post("upload_tag_img",'UploadController@upload_plug_screen_img')->name('admin.tag.upload_plug_screen_img'); //上传插件详情图片
     Route::get("tag/change_rank/{id}/{rank}",'TagController@change_rank')->name('admin.tag.change_rank'); // 更换分类排序
+    Route::post("upload_ad_img",'UploadController@upload_ad_img'); //上传插件截图插件
 
     Route::post("user/list/{page}/{size}",'UserController@user_list')->name('admin.user.list'); // 获取用户列表
     Route::get("user/change_status/{id}/{v}",'UserController@change_status')->name('admin.user.change.status'); // 禁止或者允许用户登录

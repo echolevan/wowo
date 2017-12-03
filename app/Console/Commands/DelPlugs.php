@@ -40,7 +40,6 @@ class DelPlugs extends Command
     public function handle()
     {
         //
-        Log::info('cron start');
         $plug = new PlugController();
         $plug->del_plugs();
     }

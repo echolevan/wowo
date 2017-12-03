@@ -8,11 +8,13 @@
             <ul class="strong_small_rank">
                 <li v-for="(v , k) in rank_download">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
-                    <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
+                    <span style="display:block;width:250px;height:18px">
+                        <router-link class="my_a_style float_pos" :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
                         <strong style="background-color: #fff !important;"  class="tit  normal_font_hover" :title="v.title"
-                              :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                         >{{v.title}}</strong>
                     </router-link>
+                    </span>
                     <span class="dig" v-html="v.n_h_c"></span>
                     <span class="size">{{v.d_n}}</span>
                 </li>
@@ -27,11 +29,13 @@
             <ul class="strong_small_rank">
                 <li v-for="(v , k) in rank_score">
                     <span :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" class="num">{{  k+1 }}</span>
-                    <router-link :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
+                    <span style="display:block;width:250px;height:18px">
+                        <router-link class="my_a_style float_pos" :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}" :to="{name:'plug.info' , params:{id: v.id}}">
                         <strong style="background-color: #fff !important;"  class="tit  normal_font_hover" :title="v.title"
-                              :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
+                                :class="{'bl_hover_line_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
                         >{{v.title}}</strong>
-                    </router-link>
+                        </router-link>
+                    </span>
                     <span class="dig" v-html="v.n_h_c"></span>
                     <span class="size">{{v.like_num}}</span>
                 </li>
@@ -117,7 +121,7 @@
                 position: relative;
                 left 30px
                 top: 10px;
-                width: 250px;
+                max-width: 230px;
                 white-space: nowrap;
                 text-overflow: ellipsis;
             .dig
@@ -156,5 +160,10 @@
                 white-space: nowrap
                 max-width 188px
                 display block
+
+    .float_pos
+        position: relative;
+        left: 30px;
+        top: 10px;
 
 </style>

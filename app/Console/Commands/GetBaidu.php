@@ -41,6 +41,7 @@ class GetBaidu extends Command
     public function handle()
     {
         //
+        Log::info('baiduTG---111');
         Cache::forget('plug_index_total_person');
         try{
             $total_person = BaiduStatFacade::getData(date('Ymd'),date('Ymd'));
@@ -50,6 +51,7 @@ class GetBaidu extends Command
             Log::info('baiduTG---ebd');
         }catch(\Exception $e){
             $total_person = 0;
+            Log::info('baiduTG---fail');
         }
         Cache::put('plug_index_total_person',$total_person,60);
     }

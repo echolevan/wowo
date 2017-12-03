@@ -108,7 +108,7 @@
                             multiple
                             type="drag"
                             :headers='{ "X-CSRF-TOKEN" : csrfToken}'
-                            action="/upload_plug_screen_img"
+                            action="/admin/upload_ad_img"
                             style="display: inline-block;width:58px;"
                     >
                         <div style="width: 58px;height:58px;line-height: 58px;">

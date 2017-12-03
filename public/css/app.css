@@ -37061,6 +37061,11 @@ pre {
   border-color: #d13030 !important;
 }
 
+.my_a_style .ivu-icon-arrow-right-b {
+  position: relative;
+  top: 3px;
+}
+
 .over_div {
   overflow: hidden;
   text-overflow: ellipsis;

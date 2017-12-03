@@ -337,9 +337,11 @@
                 }
             },
             defaultList(v) {
-                for (let i = 0; i < v.length; i++) {
-                    this.formItem.uploadList.push(v[i])
-                }
+                setTimeout(() => {
+                    for(let i =0 ;i <v.length;i++){
+                        this.formItem.uploadList.push(v[i])
+                    }
+                },300)
             }
         },
         methods: {

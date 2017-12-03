@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Feedback;
+use App\GameVersion;
 use App\Lv;
 use App\Tool;
 use Illuminate\Http\Request;
@@ -151,19 +152,18 @@ class ToolController extends Controller
 
     public function game_version()
     {
-        $nickname = Tool::where('name','game_version')->orderBy('value','rank')->get();
+        $nickname = GameVersion::orderBy('value','rank')->get();
         return $nickname;
     }
 
     public function create_game_version($name)
     {
-        $count = Tool::where('name','game_version')->where('value',$name)->count();
+        $count = GameVersion::where('value',$name)->count();
         if($count > 0){
             return ['sta'=>1 , 'msg'=>'游戏版本号已存在'];
         }
-        $nick = Tool::create([
-            'name'=> 'game_version',
-            'value' => $name
+        $nick = GameVersion::create([
+            'value'=> $name
         ]);
 
         if($nick)
@@ -173,7 +173,7 @@ class ToolController extends Controller
 
     public function del_game_version($id)
     {
-        $lv = Tool::where('id',$id)->delete();
+        $lv = GameVersion::where('id',$id)->delete();
         if($lv)
             return ['sta'=>1 , 'msg'=>'删除成功'];
         return ['sta'=>0 , 'msg'=>'删除失败'];

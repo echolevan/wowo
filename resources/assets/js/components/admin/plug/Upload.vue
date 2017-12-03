@@ -103,6 +103,7 @@
                         ref="upload"
                         :show-upload-list="false"
                         :before-upload="handleBeforeUpload"
+                        :default-file-list="defaultList"
                         :on-success="handleSuccess"
                         :format="['jpg','jpeg','png','gif']"
                         :on-format-error="hFE"
@@ -253,6 +254,7 @@
                     plug_url: '',
                     name: ''
                 },
+                defaultList: [],
                 selectedDataName: '',
                 imgName: '',
                 visible: false,
@@ -314,6 +316,13 @@
             },
             '$route'(to, from) {
                 this.$router.go(-1)
+            },
+            defaultList(v) {
+                setTimeout(() => {
+                    for (let i = 0; i < v.length; i++) {
+                        this.formItem.uploadList.push(v[i])
+                    }
+                }, 300)
             }
         },
         methods: {

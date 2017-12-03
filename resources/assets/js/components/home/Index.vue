@@ -76,14 +76,16 @@
                     <div class="tool_user_child child" style="height: 100px">
                         <span v-if="is_title_hover === 1">{{tools.notice}}</span>
                         <ul v-else>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding: 0">
                                 <li>WA资源：{{census.was_count}}</li>
                                 <li>ElvUI资源：{{census.elvui_count}}</li>
-                                <li>资源总数：<span style="color: rgb(209, 48, 48);font-weight: bold">{{census.plugs_count}}</span></li>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="padding: 0">
                                 <li>TMW资源：{{census.tmws_count}}</li>
                                 <li>魔兽插件：{{census.youxi_count}}</li>
+                            </div>
+                            <div class="col-md-12" style="padding: 0">
+                                <li>资源总数：<span style="color: rgb(209, 48, 48);font-weight: bold">{{census.plugs_count}}</span></li>
                             </div>
                             <div style="clear: both"></div>
                         </ul>

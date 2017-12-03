@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Download;
+use App\GameVersion;
 use App\Order;
 use App\Plug;
 use App\PlugDel;
@@ -77,6 +78,12 @@ class PlugController extends Controller
             ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
                 return $query->whereRaw($where);
             })
+            ->when($serBy != '', function ($query) use ($serBy) {
+                return $query->where('plugs.game_version', $serBy);
+            })
+            ->when($tag_active != 0 || $tag_active_pid != 0, function ($query) use ($where, $tag_active, $tag_active_pid) {
+                return $query->whereRaw($where);
+            })
             ->when($keyWord != '', function ($query) use ($keyWord) {
                 return $query->join('users','users.id','plugs.user_id')->where(function ($query) use ($keyWord) {
                     $query->where('plugs.title', 'like', "%$keyWord%")->orWhere('users.name', 'like', "%$keyWord%");
@@ -87,7 +94,7 @@ class PlugController extends Controller
             ->count();
 
         // get game_version
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->pluck('value');
+        $game_version = GameVersion::orderBy('value','desc')->pluck('value');
         return ['plugs' => $plugs, 'count' => $count, 'game_version'=>$game_version, 'today_time'=>Date('Y-m-d')];
     }
 
@@ -411,7 +418,7 @@ class PlugController extends Controller
                 ->get();
         }
 
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
+        $game_version = GameVersion::orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
@@ -451,7 +458,7 @@ class PlugController extends Controller
                 ->get();
         }
 
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
+        $game_version = GameVersion::orderBy('value','desc')->get();
 
 
         return ['res'=>$res , 'game_versions' =>$game_version];
@@ -471,7 +478,7 @@ class PlugController extends Controller
                 ->orderBy('rank','asc')->oldest()->get();
         }
 
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
+        $game_version = GameVersion::orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
 
@@ -490,8 +497,7 @@ class PlugController extends Controller
             }])->select(DB::raw('tags.id as value , tags.name as label , tags.pid , tags.id'))->where('type', $v[0])->where('pid', 0)->where([['status', 1], ['is_check', 1], ['is_for_user', 1]])
                 ->orderBy('rank','asc')->oldest()->get();
         }
-
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
+        $game_version = GameVersion::orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
@@ -510,7 +516,7 @@ class PlugController extends Controller
                 ->orderBy('rank','asc')->oldest()->get();
         }
 
-        $game_version = Tool::where('name','game_version')->orderBy('value','desc')->get();
+        $game_version = GameVersion::orderBy('value','desc')->get();
 
         return ['res'=>$res , 'game_versions' =>$game_version];
     }
@@ -611,6 +617,20 @@ class PlugController extends Controller
         try {
             $Plug->save();
             //删除之前的图片
+            //先删除文件
+            $add_thumbs= [];
+            foreach ($uploadList['uploadList'] as $v) {
+                $add_thumbs[] = $v['url'];
+                Thumb::create([
+                    'thumb' => $v['url'],
+                    'plug_id' => $id,
+                    'width' => $v['width'],
+                    'height' => $v['height'],
+                ]);
+            }
+            $del_thums = Thumb::where('plug_id', $id)->whereNotIn('thumb',$add_thumbs)->pluck('thumb');
+            del_file($del_thums);
+
             Thumb::where('plug_id', $id)->delete();
             foreach ($uploadList['uploadList'] as $v) {
                 Thumb::create([
@@ -620,6 +640,7 @@ class PlugController extends Controller
                     'height' => $v['height'],
                 ]);
             }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -788,11 +809,13 @@ class PlugController extends Controller
         if(Cache::has('plug_index_census')){
             $census = Cache::get('plug_index_census');
         }else{
-            $census['plugs_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->count();
-            $census['was_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',1)->count();
-            $census['tmws_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',2)->count();
-            $census['elvui_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',4)->count();
-            $census['youxi_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',3)->count();
+            $census['plugs_count'] = number_format(Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->count());
+            $census['was_count'] = test_value(Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',1)->count());
+            $census['tmws_count'] = test_value(Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',2)->count());
+            $census['elvui_count'] = test_value(Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',4)->count());
+            $census['youxi_count'] = test_value(Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->where('type',3)->count());
+
+
             $census['today_count'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->whereRaw('TO_DAYS( NOW( ) ) - TO_DAYS( created_at ) <= 1')->count();
             $census['last_time'] = Plug::where([['status', 1], ['is_check', 1],['is_new',1]])->orderBy('created_at','desc')->value('created_at');
             if($census['last_time']){
@@ -812,35 +835,25 @@ class PlugController extends Controller
 
     public function delete($id)
     {
-        $type = Plug::where('plug_id',$id)->value('type');
         $ids = Plug::where('plug_id',$id)->pluck('id');
-        $content = Plug::where('plug_id',$id)->pluck('content');
-        $thumbs = Thumb::whereIn('plug_id',$ids)->pluck('thumb');
          DB::beginTransaction();
          try{
              // 删除thumb数据库
+
+             $del_thums = Thumb::whereIn('plug_id', $ids)->pluck('thumb');
+             del_file($del_thums);
              Thumb::whereIn('plug_id',$ids)->delete();
+
              // 删除plug
+             $del_plugs = Plug::where('plug_id', $id)->where('type','3')->pluck('content');
+             del_file($del_plugs);
              Plug::where('plug_id',$id)->delete();
+
              DB::commit();
          }catch(\Exception $e){
              DB::rollBack();
              return ['sta'=>0 , 'msg'=>'删除失败'];
          }
-
-        try{
-            //删除图片
-            foreach ($thumbs as $k => $v){
-                unlink(substr($v,1));
-            }
-            //删除文件
-            if(count($content) > 0 && $type == 3){
-                foreach ($content as $k => $v){
-                    unlink(substr($v,1));
-                }
-            }
-        }catch(\Exception $e){
-        }
 
         return ['sta'=>1 , 'msg'=>'删除成功'];
     }
@@ -947,8 +960,13 @@ class PlugController extends Controller
 
     public function del_plugs()
     {
+        Log::info('cron start');
         $plug = PlugDel::oldest()->first();
 
+        if(!$plug){
+            Log::info('cron end');
+            return false;
+        }
         Log::info(json_encode($plug));
         Log::info(time() - strtotime($plug->created_at));
         if(time() - strtotime($plug->created_at) >= 24*60*60){
@@ -959,30 +977,27 @@ class PlugController extends Controller
 
             $url = $plugs[0]->type === 3 ? $plugs->pluck('content') : [];
 
-            $thumbs = Thumb::whereIn('plug_id',$id)->get();
-
             DB::beginTransaction();
             try{
+
+                $del_plugs = Plug::where('plug_id', $plug->plug_id)->where('type','3')->pluck('content');
+                Log::info('del-files===='.$del_plugs);
+                del_file($del_plugs);
                 Plug::where('plug_id',$plug->plug_id)->delete();
+
+
+                $del_thumbs = Thumb::whereIn('plug_id',$id)->pluck('thumb');
+                Log::info('del-thumbs===='.$del_thumbs);
+                del_file($del_thumbs);
                 Thumb::whereIn('plug_id',$id)->delete();
+
                 PlugDel::where('id',$plug->id)->delete();
+                Log::info('del-ok===='.$plug->plug_id);
                 DB::commit();
             }catch(\Exception $e){
+                Log::info('del-faid===='.$plug->plug_id);
                 DB::rollBack();
                 return ['sta'=>0 , 'msg'=>'失败'];
-            }
-
-            try{
-                foreach ($thumbs as $k => $v){
-                    unlink(substr($v,1));
-                }
-                //删除文件
-                if(count($url) > 0){
-                    foreach ($url as $k => $v){
-                        unlink(substr($v,1));
-                    }
-                }
-            }catch(\Exception $e){
             }
 
             return $url;

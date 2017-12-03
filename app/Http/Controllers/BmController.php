@@ -160,10 +160,8 @@ class BmController extends Controller
         DB::beginTransaction();
         try{
             //删除文件
-            try{
-                unlink(substr($content,1));
-            }catch(\Exception $e){
-            }
+            del_file(collect($content));
+
             // 删除plug
             Bm::where('id',$id)->delete();
             DB::commit();

@@ -13,7 +13,7 @@
 
             <Form-item label="分类" prop="type">
                 <Cascader v-if="plug_tags.length > 0" :data="plug_tags" v-model="formItem.type"
-                          @on-change="on_sel"  change-on-select></Cascader>
+                          @on-change="on_sel" change-on-select></Cascader>
             </Form-item>
 
             <Form-item label="插件名称" prop="name" v-show="formItem.type[0] === 3">
@@ -58,8 +58,10 @@
                 >{{ Math.floor(formItem.gold * tools.fc / 100)}}</span> 金币)</span>
             </Form-item>
 
-            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4" prop="content">
-                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"  v-on:input="keyUp"></Input>
+            <Form-item label="字符串" v-show="formItem.type[0] === 1 || formItem.type[0] === 2 || formItem.type[0] === 4"
+                       prop="content">
+                <Input v-model="formItem.content" type="textarea" :rows="8" placeholder="请输入字符串"
+                       v-on:input="keyUp"></Input>
                 <p class="pull-right "
                 >共 <span class="normal_font"
                          :class="{'bl_font_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}"
@@ -80,9 +82,11 @@
                         :before-upload="handlePlugUpload"
                         :on-remove="removePlug"
                 >
-                    <Button type="ghost" icon="ios-cloud-upload-outline">{{formItem.plug_url === '' ? '上传文件' : '重新上传'}}</Button>
+                    <Button type="ghost" icon="ios-cloud-upload-outline">
+                        {{formItem.plug_url === '' ? '上传文件' : '重新上传'}}
+                    </Button>
                 </Upload>
-                <span v-if="formItem.plug_url"  style="color: #d13030">已上传</span>
+                <span v-if="formItem.plug_url" style="color: #d13030">已上传</span>
             </Form-item>
 
 
@@ -138,9 +142,8 @@
             </Form-item>
 
 
-
             <div class="my_ok_button">
-                <Button type="primary" :loading="loading"  @click="toLoading('formItem')">
+                <Button type="primary" :loading="loading" @click="toLoading('formItem')">
                     <span v-if="!loading">确定</span>
                     <span v-else>Loading...</span>
                 </Button>
@@ -158,12 +161,12 @@
 
 <script>
     import {VueEditor} from 'vue2-editor'
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
 
     export default {
         data() {
             const validateUploadList = (rule, value, callback) => {
-                setTimeout(() =>  {
+                setTimeout(() => {
                     if (value.length === 0) {
                         callback(new Error('请上传截图'));
                     } else {
@@ -182,9 +185,9 @@
             };
             const validategold = (rule, value, callback) => {
                 if (value.length === 0) {
-                    if(this.formItem.is_free === true){
+                    if (this.formItem.is_free === true) {
                         callback(new Error('金币不能为空'));
-                    }else{
+                    } else {
                         callback();
                     }
                 } else {
@@ -193,9 +196,9 @@
             };
             const validateContent = (rule, value, callback) => {
                 if (value === '') {
-                    if(this.formItem.type[0] === 1 || this.formItem.type[0] === 2){
+                    if (this.formItem.type[0] === 1 || this.formItem.type[0] === 2) {
                         callback(new Error('字符串不能为空'));
-                    }else{
+                    } else {
                         callback();
                     }
                 } else {
@@ -203,11 +206,11 @@
                 }
             };
             const validateContentUrl = (rule, value, callback) => {
-                setTimeout(() =>  {
+                setTimeout(() => {
                     if (this.formItem.plug_url === '') {
-                        if(this.formItem.type[0] === 3){
+                        if (this.formItem.type[0] === 3) {
                             callback(new Error('请上传插件'));
-                        }else{
+                        } else {
                             callback();
                         }
                     } else {
@@ -238,9 +241,9 @@
                 }
             };
             return {
-                game_versions:[],
-                plug_tags:[],
-                formItem:{
+                game_versions: [],
+                plug_tags: [],
+                formItem: {
                     title: '',
                     type: [],
                     content: '',
@@ -261,7 +264,7 @@
                 visible: false,
                 del_plug_sta: 1,
                 loading: false,
-                csrfToken : window.Laravel.csrfToken,
+                csrfToken: window.Laravel.csrfToken,
                 ruleValidate: {
                     title: [
                         {required: true, message: '标题不能为空', trigger: 'blur'},
@@ -271,10 +274,10 @@
                         {validator: validateType, required: true, trigger: 'change'}
                     ],
                     content: [
-                        {validator: validateContent,required: true, trigger: 'blur'}
+                        {validator: validateContent, required: true, trigger: 'blur'}
                     ],
                     plug_url: [
-                        {validator: validateContentUrl,required: true, trigger: 'change'}
+                        {validator: validateContentUrl, required: true, trigger: 'change'}
                     ],
                     info: [
                         {required: true, message: '简介不能为空'}
@@ -291,47 +294,57 @@
                         {required: true, message: '游戏版本号不能为空', trigger: 'blur'}
                     ],
                     gold: [
-                        {validator: validategold,required: true, trigger: 'change'}
+                        {validator: validategold, required: true, trigger: 'change'}
                     ],
                     version: [
-                        {validator: validateversion,required: true, trigger: 'blur'}
+                        {validator: validateversion, required: true, trigger: 'blur'}
                     ],
                     name: [
-                        {validator: validatename,required: true,  trigger: 'blur'},
+                        {validator: validatename, required: true, trigger: 'blur'},
                         {max: 30, message: '插件名称最长30字符', trigger: 'change'},
                         {max: 30, message: '插件名称最长30字符', trigger: 'blur'},
                     ],
                 }
             }
         },
-        mounted(){
+        mounted() {
             this.___init()
-            this.formItem.uploadList = this.$refs.upload.fileList;
+            setTimeout(() => {
+                this.formItem.uploadList = this.$refs.upload.fileList;
+            },300)
         },
+        computed: mapState([
+            'userInfo', 'choice_cmap', 'tools'
+        ]),
         watch: {
-            formItem(){
+            formItem() {
                 this.keyUp()
             },
             '$route'(to, from) {
                 this.$router.go(-1)
+            },
+            defaultList(v) {
+                console.log(v);
+                setTimeout(() => {
+                    for(let i =0 ;i <v.length;i++){
+                        this.formItem.uploadList.push(v[i])
+                    }
+                },300)
             }
         },
-        computed: mapState([
-            'userInfo', 'choice_cmap' ,'tools'
-        ]),
         methods: {
             keyUp() {
 //                this.formItem.content = this.formItem.content.replace(/[\u4E00-\u9FA5]/g,"")
 //                this.formItem.content = this.formItem.content.replace(/[^\w\.\/]/ig,'')
             },
-            toLoading (name) {
+            toLoading(name) {
                 this.loading = true;
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        axios.put(`/update_plug/${this.$route.params.id}` , {data:this.formItem}).then(res=>{
-                            if(res.data.sta === 0){
+                        axios.put(`/update_plug/${this.$route.params.id}`, {data: this.formItem}).then(res => {
+                            if (res.data.sta === 0) {
                                 this.$Message.error(res.data.msg)
-                            }else{
+                            } else {
                                 this.$Message.success(res.data.msg)
                                 this.$router.push('/admin/plug/list')
                             }
@@ -343,7 +356,7 @@
             swi() {
                 this.formItem.gold = 1
             },
-            handleFormatError(){
+            handleFormatError() {
                 this.$Message.error('请上传rar、zip、7z格式的文件')
             },
             on_sel(v, selectedData) {
@@ -352,16 +365,16 @@
                 this.formItem.content = ''
                 this.formItem.is_free = false
             },
-            handleBeforeUpload(){
+            handleBeforeUpload() {
                 const check = this.$refs.upload.fileList.length < 20;
                 if (!check) {
                     this.$Message.error('最多只能上传 20 张图片。')
                 }
                 return check;
             },
-            ___init(){
-                axios.get(`/update_plugInfo/${this.$route.params.id}`).then(res=>{
-                    if(res.data.sta === 0){
+            ___init() {
+                axios.get(`/update_plugInfo/${this.$route.params.id}`).then(res => {
+                    if (res.data.sta === 0) {
                         this.$router.go(-1)
                     }
                     this.formItem.title = res.data.plug.title
@@ -376,21 +389,20 @@
                     this.formItem.gold = res.data.plug.gold
                     this.formItem.name = res.data.plug.name
                     this.formItem.plug_url = res.data.plug.content
-                    this.formItem.uploadList = res.data.plug.thumbs
                     this.defaultList = res.data.plug.thumbs
-                }).catch(error=>{
+                }).catch(error => {
                     history.go(-1)
                 })
-                axios.get('/plug_all_info').then(res=>{
+                axios.get('/plug_all_info').then(res => {
                     this.plug_tags = res.data.res
                     this.game_versions = res.data.game_versions
                 })
             },
-            del_plug(){
+            del_plug() {
                 this.formItem.plug_url = ''
                 this.del_plug_sta = 0
             },
-            handleImageAdded: function(file, Editor, cursorLocation) {
+            handleImageAdded: function (file, Editor, cursorLocation) {
                 let formData = new FormData();
                 formData.append('image', file)
 
@@ -400,9 +412,9 @@
                     data: formData
                 })
                     .then((result) => {
-                        if(result.data.sta === 0){
+                        if (result.data.sta === 0) {
                             this.$Message.error(result.data.msg)
-                        }else{
+                        } else {
                             let url = result.data.url
                             Editor.insertEmbed(cursorLocation, 'image', url);
                         }
@@ -413,20 +425,20 @@
                     })
             },
 
-            handleView (name) {
+            handleView(name) {
                 this.imgName = name;
                 this.visible = true;
             },
-            handleRemove (file) {
+            handleRemove(file) {
                 const fileList = this.$refs.upload.fileList;
                 this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
                 this.formItem.uploadList = this.$refs.upload.fileList
             },
-            handleSuccess (res, file , fileList) {
-                if(res.sta === 0){
+            handleSuccess(res, file, fileList) {
+                if (res.sta === 0) {
                     this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
                     this.$Message.error(res.msg)
-                }else{
+                } else {
                     file.url = res.url
                     file.width = res.width
                     file.height = res.height
@@ -436,9 +448,9 @@
             },
             handlePlugSuccess(res, file) {
                 this.upload_status = false
-                if(res.sta === 0){
+                if (res.sta === 0) {
                     this.$Message.error(res.msg)
-                }else{
+                } else {
                     this.$refs.uploadPlug.clearFiles()
                     this.formItem.plug_url = res.url
                 }
@@ -446,19 +458,19 @@
             hFE() {
                 this.$Message.error('请上传jpg、jepg、png、gif格式的文件')
             },
-            handleMaxSize (file) {
+            handleMaxSize(file) {
                 this.upload_status = false
                 this.$Message.error('文件 (' + file.name + ') 已超过<span style="color: #d13030">' + (this.selectedDataName === '整合界面' ? 300 : 10) + 'M</span>限制')
             },
-            handlePlugUpload(){
-                if(!this.upload_status){
+            handlePlugUpload() {
+                if (!this.upload_status) {
                     this.upload_status = true
-                }else{
+                } else {
                     this.$Message.error('请等待上传完成')
                     return false
                 }
             },
-            removePlug(){
+            removePlug() {
                 this.formItem.plug_url = ''
             },
             change_other() {
@@ -474,7 +486,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-    .demo-upload-list{
+    .demo-upload-list {
         display: inline-block;
         width: 150px;
         height: 150px;
@@ -485,26 +497,30 @@
         overflow: hidden;
         background: #fff;
         position: relative;
-        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
         margin-right: 4px;
     }
-    .demo-upload-list img{
+
+    .demo-upload-list img {
         width: 100%;
         height: 100%;
     }
-    .demo-upload-list-cover{
+
+    .demo-upload-list-cover {
         display: none;
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(0,0,0,.6);
+        background: rgba(0, 0, 0, .6);
     }
-    .demo-upload-list:hover .demo-upload-list-cover{
+
+    .demo-upload-list:hover .demo-upload-list-cover {
         display: block;
     }
-    .demo-upload-list-cover i{
+
+    .demo-upload-list-cover i {
         color: #fff;
         font-size: 20px;
         cursor: pointer;

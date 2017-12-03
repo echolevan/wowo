@@ -98,12 +98,8 @@ class AdController extends Controller
             $thumb[] = $v['url'];
         }
         Ad::destroy($id);
-        foreach ($thumb as $k => $v) {
-             try{
-                 unlink(substr($v,1));
-             }catch(\Exception $e){
-             }
-        }
+
+        del_file(collect($thumb));
         return 1;
     }
 
