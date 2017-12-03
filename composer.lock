@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf9a97b654b50c0ac715449355ea797c",
+    "content-hash": "5f7b5d921adc6fa9ed2e71a9cf7f5929",
     "packages": [
         {
             "name": "anchu/ftp",
@@ -1411,6 +1411,39 @@
                 "storage"
             ],
             "time": "2017-08-06T17:41:04+00:00"
+        },
+        {
+            "name": "levan/baidu-stat",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/echolevan/baiduStat.git",
+                "reference": "83e58c993e717d1bb4777384b2b8778abee16850"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/echolevan/baiduStat/83e58c993e717d1bb4777384b2b8778abee16850.zip",
+                "reference": "83e58c993e717d1bb4777384b2b8778abee16850",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Levan\\Baidu\\Stat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "echolevan",
+                    "email": "echolevan@gmail.com"
+                }
+            ],
+            "description": "baidu stat api for laravel 5",
+            "time": "2017-08-22T08:30:10+00:00"
         },
         {
             "name": "mews/captcha",
@@ -3521,39 +3554,6 @@
                 "test"
             ],
             "time": "2015-05-11T14:41:42+00:00"
-        },
-        {
-            "name": "levan/baidu-stat",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/echolevan/baiduStat.git",
-                "reference": "83e58c993e717d1bb4777384b2b8778abee16850"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://files.phpcomposer.com/files/echolevan/baiduStat/83e58c993e717d1bb4777384b2b8778abee16850.zip",
-                "reference": "83e58c993e717d1bb4777384b2b8778abee16850",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Levan\\Baidu\\Stat\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "echolevan",
-                    "email": "echolevan@gmail.com"
-                }
-            ],
-            "description": "baidu stat api for laravel 5",
-            "time": "2017-08-22T08:30:10+00:00"
         },
         {
             "name": "mockery/mockery",
