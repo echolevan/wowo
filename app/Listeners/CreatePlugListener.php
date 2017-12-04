@@ -6,6 +6,7 @@ use App\Events\CreatePlug;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class CreatePlugListener
 {
@@ -28,6 +29,7 @@ class CreatePlugListener
     public function handle(CreatePlug $event)
     {
         //
+        Log::info(12);
         Cache::forget('plug_index_wa');
         Cache::forget('plug_index_tmw');
         Cache::forget('plug_index_plug');

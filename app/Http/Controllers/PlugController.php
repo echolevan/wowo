@@ -582,6 +582,7 @@ class PlugController extends Controller
             return ['sta' => 0, 'msg' => '上传失败'];
         }
 
+        del_cache();
         if($Plug->is_check === 0){
             dispatch(new \App\Jobs\SendPlugCheckEmail($Plug));
         }
@@ -647,7 +648,7 @@ class PlugController extends Controller
             Log::error($e->getMessage());
             return ['sta' => 0, 'msg' => '编辑失败'];
         }
-
+        del_cache();
         if($Plug->is_check === 0){
             dispatch(new \App\Jobs\SendPlugCheckEmail($Plug));
         }
