@@ -38,11 +38,13 @@ class DelFile implements ShouldQueue
 
             try
             {
-                if(file_exists(env('UPLOAD_PWD')."/".$del_path)){
-                    @unlink(env('UPLOAD_PWD')."/".$del_path);
-                    Log::info('del-ok===='.$del_path);
+                if($del_path !== 'images/preview.jpg'){
+                    if(file_exists(env('UPLOAD_PWD')."/".$del_path)){
+                        @unlink(env('UPLOAD_PWD')."/".$del_path);
+                        Log::info('del-ok===='.$del_path);
+                    }
+                    Log::info('del-no-file===='.$del_path);
                 }
-                Log::info('del-no-file===='.$del_path);
             }
             catch(Exception $e)
             {
