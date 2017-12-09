@@ -598,7 +598,7 @@ class PlugController extends Controller
         // 开始写入值
         $Plug = Plug::find($id);
 
-        if ($Plug->user_id !== Auth::id()) {
+        if ($Plug->user_id !== Auth::id() && Auth::user()->is_admin === 0) {
             return ['sta' => 0];
         }
 
