@@ -32,7 +32,7 @@ class BmController extends Controller
         $count = $where->count();
         $list = $where->with(['user'])->with(['order'=>function($query){
             $query->where('orders.type',4)->where('user_id',Auth::id());
-        }])->skip(($page - 1) * $size)->take($size)->get();
+        }])->skip(($page - 1) * $size)->take($size)->orderBy('updated_at','desc')->get();
 
         $today = date('Y-m-d');
         return ['sta' => 1, 'count' => $count, 'list' => $list ,'today'=>$today];
