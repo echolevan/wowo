@@ -68,13 +68,12 @@
                               :class="{'bl_tab_color': (userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2')}">
                             <Tab-pane label="功能简介" name="1" class="plug_info_div" v-html="plug.info"></Tab-pane>
                             <Tab-pane label="更新日志" name="2" style="padding: 15px">
-                                <ul>
-                                    <li v-for="v in updated_infos">
-                                        <p class="time" style="font-size:14px;color:#333">
-                                            <strong>{{v.created_at}}</strong></p>
-                                        <p v-html="v.updated_info"></p>
-                                    </li>
-                                </ul>
+                                <Timeline>
+                                    <TimelineItem :color="(userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2') ? '#d13030': '#266ec1'" v-for="(v, k) in updated_infos" :key="k">
+                                        <p class="time">{{v.created_at}}</p>
+                                        <p class="content" v-html="v.updated_info"></p>
+                                    </TimelineItem>
+                                </Timeline>
                             </Tab-pane>
                             <Tab-pane label="历史版本" name="3">
                                 <table class="table">
