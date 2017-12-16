@@ -70,7 +70,7 @@
                             <Tab-pane label="更新日志" name="2" style="padding: 15px">
                                 <Timeline>
                                     <TimelineItem :color="(userInfo && userInfo.camp && userInfo.camp === 2 ) || (!userInfo &&choice_cmap === '2') ? '#d13030': '#266ec1'" v-for="(v, k) in updated_infos" :key="k">
-                                        <p class="time">{{v.created_at}}</p>
+                                        <p class="time"><strong>{{v.created_at}}</strong></p>
                                         <p class="content" v-html="v.updated_info"></p>
                                     </TimelineItem>
                                 </Timeline>
