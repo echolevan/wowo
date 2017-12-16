@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bm;
 use App\Order;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,7 @@ class BmController extends Controller
         $count = $where->count();
         $list = $where->with(['user'])->with(['order'=>function($query){
             $query->where('orders.type',4)->where('user_id',Auth::id());
-        }])->skip(($page - 1) * $size)->take($size)->orderBy('updated_at','desc')->get();
+        }])->skip(($page - 1) * $size)->take($size)->orderBy('created_at','desc')->get();
 
         $today = date('Y-m-d');
         return ['sta' => 1, 'count' => $count, 'list' => $list ,'today'=>$today];
@@ -65,6 +66,7 @@ class BmController extends Controller
             'url' => $request->data['url'],
             'type' => $request->data['type'],
             'zy_type' => $request->data['zy_type'],
+            'created_at' => Carbon::now(),
             'gold' => !$request->data['is_free'] ? 0 : $request->data['gold'],
         ]);
         if ($bm)

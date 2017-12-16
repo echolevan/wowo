@@ -24,9 +24,4 @@ class Bm extends Model
     {
         return $this->created_at = date('Y-m-d',strtotime($created_at));
     }
-
-    public function getUpdatedAtAttribute($updated_at)
-    {
-        return $this->updated_at = date('Y-m-d',strtotime($updated_at));
-    }
 }
