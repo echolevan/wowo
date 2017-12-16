@@ -56,6 +56,10 @@ class BmController extends Controller
 
     public function update (Request $request, $id)
     {
+        $old_bum = Bm::find($id);
+        if($request->data['url'] !== $old_bum->url){
+            del_file(collect($old_bum->url));
+        }
         $bm = Bm::where('id', $id)->update([
             'title' => $request->data['title'],
             'url' => $request->data['url'],
@@ -93,13 +97,11 @@ class BmController extends Controller
         $bm = Bm::find($id);
 
         if ($bm->gold === 0) {
-            $bm->increment('download_num');
             return ['sta' => 1];
         } else {
             // check has order
             $order = Order::where([['plug_id', $bm->id], ['user_id', Auth::id()], ['type', 4]])->count();
             if ($order > 0) {
-                $bm->increment('download_num');
                 return ['sta' => 1];
             }
             if ($bm->gold > Auth::user()->gold) {
